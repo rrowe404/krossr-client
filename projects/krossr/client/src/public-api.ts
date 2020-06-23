@@ -3,3 +3,4 @@
  */
 
 export * from './lib/KrossrModule';
+export * from './lib/Shell/ShellComponent';

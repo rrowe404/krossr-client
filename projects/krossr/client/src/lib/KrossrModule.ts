@@ -1,10 +1,10 @@
-import '!!style-loader!css-loader!../less/reset.css';
-import '!!style-loader!css-loader!less-loader!../less/modules.less';
+// TODO
+// import '!!style-loader!css-loader!../less/reset.css';
+// import '!!style-loader!css-loader!less-loader!../less/modules.less';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameOverComponent } from './GameOver/GameOverComponent';
@@ -39,11 +39,12 @@ import { uiRouterConfigFn } from './Config/RouterConfig';
 import { UIRouterModule } from '@uirouter/angular';
 import { LevelSelectFilterComponent } from './LevelSelectFilter/LevelSelectFilterComponent';
 import { KrossrButtonComponent } from './KrossrButton/KrossrButtonComponent';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
         BrowserAnimationsModule,
-        BrowserModule,
+        CommonModule,
         HttpClientModule,
         MatDialogModule,
         ReactiveFormsModule,
@@ -111,11 +112,14 @@ import { KrossrButtonComponent } from './KrossrButton/KrossrButtonComponent';
     bootstrap: [
         ShellComponent
     ],
+    exports: [
+        ShellComponent
+    ],
     providers: [
         { provide: 'window', useValue: window }
     ]
 })
-export class AppModule {
+export class KrossrModule {
     constructor(
         private gameResizeService: GameResizeService
     ) {
