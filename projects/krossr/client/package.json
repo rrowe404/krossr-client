@@ -6,6 +6,8 @@
     "@angular/core": "^9.1.11"
   },
   "dependencies": {
+    "@angular/material": "^9.2.4",
+    "@uirouter/core": "^6.0.5",
     "tslib": "^1.10.0"
   }
 }
