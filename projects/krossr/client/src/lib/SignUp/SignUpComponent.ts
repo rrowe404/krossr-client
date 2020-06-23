@@ -9,7 +9,7 @@ import { MinPasswordLength } from '../Password/MinPasswordLength';
     templateUrl: './SignUpView.html'
 })
 export class SignUpComponent implements OnInit {
-    private error: string;
+    public error: string;
     private timeout = 1000;
 
     constructor(

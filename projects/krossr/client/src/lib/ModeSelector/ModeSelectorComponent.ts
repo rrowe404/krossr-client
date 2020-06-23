@@ -16,8 +16,8 @@ export class ModeSelectorComponent implements OnInit {
 
     }
 
-    private modes: IMode[];
-    private selectedMode: string;
+    public modes: IMode[];
+    public selectedMode: string;
 
     ngOnInit() {
         this.modes = [

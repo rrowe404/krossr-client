@@ -19,15 +19,14 @@ export class NumberGridComponent implements OnInit, OnDestroy {
     }
 
     /** The top row is considered vertical because the numbers go from top to bottom */
-    private isVertical: boolean;
+    public isVertical: boolean;
+    public tileSize: string;
 
     // At this level and below we're working with the individual rotated pieces, not the full thing
     @Input() gameMatrix: BooleanMatrix;
     @Input() goalMatrix: BooleanMatrix;
 
     @Input() orientation: string;
-
-    private tileSize: string;
 
     public repeater: number[];
 

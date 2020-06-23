@@ -12,8 +12,8 @@ export class ResetPasswordComponent implements OnInit {
 
     @Input() token: string;
 
-    private success;
-    private error;
+    public success: string;
+    public error: string;
 
     public formGroup: FormGroup;
     public newPasswordFormControl: FormControl;
@@ -52,11 +52,11 @@ export class ResetPasswordComponent implements OnInit {
         this.updateVerifyPassword('');
     }
 
-    private updateNewPassword(newPassword: string) {
+    public updateNewPassword(newPassword: string) {
         this.newPasswordFormControl.setValue(newPassword);
     }
 
-    private updateVerifyPassword(verifyPassword: string) {
+    public updateVerifyPassword(verifyPassword: string) {
         this.verifyPasswordFormControl.setValue(verifyPassword);
     }
 }

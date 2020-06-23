@@ -15,18 +15,19 @@ export class LevelSelectComponent implements OnInit {
     static $name = 'levelSelect';
 
     constructor(
-        private Authentication: AuthenticationService,
+        public Authentication: AuthenticationService,
         private levelService: LevelService,
         private matDialogRef: MatDialogRef<LevelSelectComponent>,
         private utils: Utils
     ) {
     }
 
-    private currentPage = 0;
-    private showFilter: boolean;
+    public totalPages: number;
+    public currentPage = 0;
+    public levels;
+    public showFilter: boolean;
+
     private filter: LevelSelectFilterOptions;
-    private totalPages: number;
-    private levels;
 
     public formGroup: FormGroup;
 
@@ -71,6 +72,11 @@ export class LevelSelectComponent implements OnInit {
     refilter(options: LevelSelectFilterOptions) {
         this.filter = options;
         this.find(0);
+    }
+
+    setSearchText(text: string) {
+        this.filter.searchText = text;
+        this.refilter(this.filter);
     }
 
     toggleShowFilter() {

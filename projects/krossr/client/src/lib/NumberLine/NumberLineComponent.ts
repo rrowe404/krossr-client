@@ -21,9 +21,9 @@ export class NumberLineComponent implements OnInit {
 
     @Input() public gameMatrix: BooleanMatrix;
     @Input() public goalMatrix: BooleanMatrix;
+    public lineContent: LineContent[] = [];
 
     private sideLength: number;
-    private lineContent: LineContent[] = [];
     private currentGroup: TileGroup = new TileGroup();
     private hasGroup = false;
 

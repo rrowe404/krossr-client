@@ -13,7 +13,7 @@ export class StarRatingComponent implements OnInit {
     @Input() public rating: number;
     @Input() public readOnly;
 
-    private stars: any[];
+    public stars: any[];
 
     private updateStars() {
         this.stars = [];

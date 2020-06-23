@@ -9,7 +9,7 @@ import { ConfirmationOptions } from './ConfirmationOptions';
 export class ConfirmationComponent {
     constructor(
         private matDialogRef: MatDialogRef<ConfirmationComponent>,
-        @Inject(MAT_DIALOG_DATA) private data: ConfirmationOptions
+        @Inject(MAT_DIALOG_DATA) public data: ConfirmationOptions
     ) {
     }
 

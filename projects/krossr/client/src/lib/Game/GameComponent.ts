@@ -37,11 +37,10 @@ export class GameComponent implements OnInit, OnDestroy {
     @Input() public goalMatrix: GameMatrix;
     @Input() public level: ILevel;
     @Input() public tiles;
+    public gameSettings;
+    public margin: string;
 
     private $element: HTMLElement;
-    private gameSettings;
-    private margin: string;
-    private $id: number;
 
     private listeners: Array<() => void> = [];
     private subscriptions: Subscription[];

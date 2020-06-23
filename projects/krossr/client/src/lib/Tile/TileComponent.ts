@@ -30,16 +30,14 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() public tiles;
     @Input() public editable: boolean;
 
+    public marked: boolean;
+    public pending: boolean;
+    public selected: boolean;
+    public height: string;
+    public width: string;
+
     private isEditMode: boolean;
-
-    private marked: boolean;
-    private pending: boolean;
-    private selected: boolean;
-
     private goalMatrix;
-
-    private height: string;
-    private width: string;
 
     private $element: HTMLElement;
 

@@ -14,8 +14,8 @@ export class SignInComponent implements OnInit {
     public formGroup: FormGroup;
     public username: FormControl;
     public password: FormControl;
+    public error: string;
 
-    private error: string;
     private timeout = 1000;
 
     constructor(

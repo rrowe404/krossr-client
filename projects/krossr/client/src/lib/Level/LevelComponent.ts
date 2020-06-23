@@ -22,16 +22,10 @@ import { Subscription } from 'rxjs';
 })
 export class LevelComponent implements OnInit, OnDestroy {
     static $name = 'level';
-    bindToController = true;
-    controller = 'LevelController';
-    controllerAs = 'levelCtrl';
-    templateUrl = 'modules/levels/level/LevelView.html';
-
-    private finalLayout: any = {};
 
     constructor(
         private $state: StateService,
-        private Authentication: AuthenticationService,
+        public Authentication: AuthenticationService,
         private gameSizeService: GameSizeService,
         private levelService: LevelService,
         private matDialog: MatDialog,
@@ -42,17 +36,18 @@ export class LevelComponent implements OnInit, OnDestroy {
     ) {
     }
 
+    public finalLayout: any = {};
     @Input() public mode: string; // string for edit, new, etc.
-    private level: ILevel;
-    private margin: string;
-    private selectedLevelId;
+    public margin: string;
+    public level: ILevel;
     @Input() public levelId;
-    private error;
+
+    public gameMatrix: GameMatrix;
+    public goalMatrix: GameMatrix;
+    public error: string;
+
+    private selectedLevelId;
     private timeout = 1000;
-
-    private gameMatrix: GameMatrix;
-    private goalMatrix: GameMatrix;
-
     private subscriptions: Subscription[];
 
     ngOnDestroy() {
@@ -198,13 +193,13 @@ export class LevelComponent implements OnInit, OnDestroy {
         return gameMatrix.flatten();
     }
 
-    keydown($event: JQueryEventObject) {
+    keydown($event: KeyboardEvent) {
         if ($event.shiftKey) {
             this.shiftService.shiftOn = true;
         }
     }
 
-    keyup($event: JQueryEventObject) {
+    keyup($event: KeyboardEvent) {
         if (!$event.shiftKey) {
             this.shiftService.shiftOn = false;
         }

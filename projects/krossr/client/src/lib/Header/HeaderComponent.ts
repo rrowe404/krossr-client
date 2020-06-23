@@ -16,7 +16,7 @@ export class HeaderComponent {
     static $name = 'krossrHeader';
 
     constructor(
-        private Authentication: AuthenticationService,
+        public Authentication: AuthenticationService,
         private matDialog: MatDialog
     ) {
 

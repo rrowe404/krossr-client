@@ -8,9 +8,9 @@ import { Input, Output, EventEmitter, Component } from '@angular/core';
 export class PaginationComponent {
     static $name = 'pagination';
 
-    @Input() private currentPage: number;
-    @Input() private totalPages: number;
-    @Output() private onPagination: EventEmitter<number> = new EventEmitter();
+    @Input() public currentPage: number;
+    @Input() public totalPages: number;
+    @Output() public onPagination: EventEmitter<number> = new EventEmitter();
 
     pageDown() {
         if (this.currentPage > 0) {
