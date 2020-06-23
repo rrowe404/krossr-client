@@ -4,7 +4,7 @@ import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 
 @Component({
     selector: 'game-over',
-    template: require('./GameOverView.html')
+    templateUrl: './GameOverView.html'
 })
 export class GameOverComponent {
     constructor(

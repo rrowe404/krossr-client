@@ -6,7 +6,7 @@ import { MinPasswordLength } from '../Password/MinPasswordLength';
 
 @Component({
     selector: 'sign-up',
-    template: require('./SignUpView.html')
+    templateUrl: './SignUpView.html'
 })
 export class SignUpComponent implements OnInit {
     private error: string;

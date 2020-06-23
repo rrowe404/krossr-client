@@ -10,7 +10,7 @@ import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 
 @Component({
     selector: 'level-editor-form',
-    template: require('./LevelEditorFormView.html')
+    templateUrl: './LevelEditorFormView.html'
 })
 export class LevelEditorFormComponent implements OnInit {
     @Input() public level: ILevel;

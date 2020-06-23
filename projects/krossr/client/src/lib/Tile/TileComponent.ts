@@ -17,8 +17,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'tile',
-    styles: [require('./TileStyles.less')],
-    template: require('./TileView.html')
+    styleUrls: ['./TileStyles.less'],
+    templateUrl: './TileView.html'
 })
 export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     static $name = 'tile';

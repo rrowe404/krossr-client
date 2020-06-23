@@ -5,7 +5,7 @@ import { MinPasswordLength } from '../Password/MinPasswordLength';
 
 @Component({
     selector: 'reset-password',
-    template: require('./ResetPasswordView.html')
+    templateUrl: './ResetPasswordView.html'
 })
 export class ResetPasswordComponent implements OnInit {
     static $name = 'resetPassword';

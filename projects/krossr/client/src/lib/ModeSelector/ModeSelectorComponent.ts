@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'mode-selector',
-    styles: [require('./ModeSelectorStyles.less')],
-    template: require('./ModeSelectorView.html')
+    styleUrls: ['./ModeSelectorStyles.less'],
+    templateUrl: './ModeSelectorView.html'
 
 })
 export class ModeSelectorComponent implements OnInit {

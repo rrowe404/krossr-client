@@ -13,8 +13,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'game',
-    styles: [require('./GameStyles.less')],
-    template: require('./GameView.html')
+    styleUrls: ['./GameStyles.less'],
+    templateUrl: './GameView.html'
 })
 export class GameComponent implements OnInit, OnDestroy {
     static $name = 'game';

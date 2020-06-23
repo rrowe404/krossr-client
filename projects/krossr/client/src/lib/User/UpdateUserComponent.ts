@@ -4,7 +4,7 @@ import { UserService } from './UserService';
 
 @Component({
     selector: 'update-user',
-    template: require('./UpdateUserView.html')
+    templateUrl: './UpdateUserView.html'
 })
 export class UpdateUserComponent implements OnInit{
     public success: boolean;

@@ -7,7 +7,7 @@ import { ForgotPasswordService } from './ForgotPasswordService';
 
 @Component({
     selector: 'forgot-password',
-    template: require('./ForgotPasswordView.html')
+    templateUrl: './ForgotPasswordView.html'
 })
 export class ForgotPasswordComponent implements OnInit {
     public static $name = 'forgotPassword';

@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'number-grid',
-    styles: [require('./NumberGridStyles.less')],
-    template: require('./NumberGridView.html')
+    styleUrls: ['./NumberGridStyles.less'],
+    templateUrl: './NumberGridView.html'
 })
 export class NumberGridComponent implements OnInit, OnDestroy {
     static $name = 'numberGrid';

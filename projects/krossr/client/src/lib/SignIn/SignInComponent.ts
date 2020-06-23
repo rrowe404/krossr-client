@@ -8,7 +8,7 @@ import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordCompone
 /** Sign-in popup */
 @Component({
     selector: 'sign-in',
-    template: require('./SignInView.html')
+    templateUrl: './SignInView.html'
 })
 export class SignInComponent implements OnInit {
     public formGroup: FormGroup;

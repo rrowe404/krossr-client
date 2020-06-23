@@ -9,8 +9,8 @@ import { SignUpComponent } from '../SignUp/SignUpComponent';
 
 @Component({
     selector: 'krossr-header',
-    styles: [require('./HeaderStyles.less')],
-    template: require('./HeaderView.html')
+    styleUrls: ['./HeaderStyles.less'],
+    templateUrl: './HeaderView.html'
 })
 export class HeaderComponent {
     static $name = 'krossrHeader';

@@ -4,7 +4,7 @@ import { LevelSelectFilterOptions } from './LevelSelectFilterOptions';
 
 @Component({
     selector: 'level-select-filter',
-    template: require('./LevelSelectFilterView.html')
+    templateUrl: './LevelSelectFilterView.html'
 })
 export class LevelSelectFilterComponent implements OnInit {
     @Output() public refilter: EventEmitter<LevelSelectFilterOptions> = new EventEmitter();

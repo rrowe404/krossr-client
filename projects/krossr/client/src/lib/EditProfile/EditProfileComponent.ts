@@ -5,7 +5,7 @@ import { SignOutService } from '../SignOut/SignOutService';
 
 @Component({
     selector: 'edit-profile',
-    template: require('./EditProfileView.html')
+    templateUrl: './EditProfileView.html'
 })
 export class EditProfileComponent {
     constructor(

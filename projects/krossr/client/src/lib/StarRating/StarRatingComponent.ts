@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 @Component({
     selector: 'star-rating',
-    styles: [require('./StarRatingStyles.less')],
-    template: require('./StarRatingView.html')
+    styleUrls: ['./StarRatingStyles.less'],
+    templateUrl: './StarRatingView.html'
 })
 export class StarRatingComponent implements OnInit {
     static $name = 'starRating';

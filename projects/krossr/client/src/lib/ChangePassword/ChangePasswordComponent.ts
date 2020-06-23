@@ -5,7 +5,7 @@ import { MinPasswordLength } from '../Password/MinPasswordLength';
 
 @Component({
     selector: 'change-password',
-    template: require('./ChangePasswordView.html')
+    templateUrl: './ChangePasswordView.html'
 })
 export class ChangePasswordComponent implements OnInit {
     public minPasswordLength = MinPasswordLength.value;

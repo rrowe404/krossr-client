@@ -4,7 +4,7 @@ import { ConfirmationOptions } from './ConfirmationOptions';
 
 @Component({
     selector: 'confirmation',
-    template: require('./ConfirmationView.html')
+    templateUrl: './ConfirmationView.html'
 })
 export class ConfirmationComponent {
     constructor(

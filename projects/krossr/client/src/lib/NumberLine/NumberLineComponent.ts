@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'number-line',
-    styles: [require('./NumberLineStyles.less')],
-    template: require('./NumberLineView.html')
+    styleUrls: ['./NumberLineStyles.less'],
+    templateUrl: './NumberLineView.html'
 })
 export class NumberLineComponent implements OnInit {
 

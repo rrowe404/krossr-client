@@ -17,8 +17,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'level',
-    styles: [require('./LevelStyles.less')],
-    template: require('./LevelView.html')
+    styleUrls: ['./LevelStyles.less'],
+    templateUrl: './LevelView.html'
 })
 export class LevelComponent implements OnInit, OnDestroy {
     static $name = 'level';

@@ -2,8 +2,8 @@ import { Input, Output, EventEmitter, Component } from '@angular/core';
 
 @Component({
     selector: 'pagination',
-    styles: [require('./PaginationStyles.less')],
-    template: require('./PaginationView.html')
+    styleUrls: ['./PaginationStyles.less'],
+    templateUrl: './PaginationView.html'
 })
 export class PaginationComponent {
     static $name = 'pagination';

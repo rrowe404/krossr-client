@@ -8,8 +8,8 @@ import { LevelSelectFilterOptions } from '../LevelSelectFilter/LevelSelectFilter
 
 @Component({
     selector: 'level-select',
-    styles: [require('./LevelSelectStyles.less')],
-    template: require('./LevelSelectView.html')
+    styleUrls: ['./LevelSelectStyles.less'],
+    templateUrl: './LevelSelectView.html'
 })
 export class LevelSelectComponent implements OnInit {
     static $name = 'levelSelect';
