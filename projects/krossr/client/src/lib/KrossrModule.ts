@@ -1,7 +1,3 @@
-// TODO
-// import '!!style-loader!css-loader!../less/reset.css';
-// import '!!style-loader!css-loader!less-loader!../less/modules.less';
-
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,6 +36,7 @@ import { UIRouterModule } from '@uirouter/angular';
 import { LevelSelectFilterComponent } from './LevelSelectFilter/LevelSelectFilterComponent';
 import { KrossrButtonComponent } from './KrossrButton/KrossrButtonComponent';
 import { CommonModule } from '@angular/common';
+import { UserService } from './User/UserService';
 
 @NgModule({
     imports: [
@@ -121,8 +118,10 @@ import { CommonModule } from '@angular/common';
 })
 export class KrossrModule {
     constructor(
-        private gameResizeService: GameResizeService
+        private gameResizeService: GameResizeService,
+        private userService: UserService
     ) {
         this.gameResizeService.initialize();
+        this.userService.getLoggedInUser();
     }
 }

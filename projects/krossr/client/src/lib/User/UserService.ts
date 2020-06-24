@@ -12,6 +12,12 @@ export class UserService {
     ) {
     }
 
+    getLoggedInUser() {
+        return this.httpClient.get('users/me').toPromise().then(response => {
+            this.authenticationService.signIn(response);
+        });
+    }
+
     updateUser(email: string) {
         return this.httpClient.put('users', { email }).toPromise().then(response => {
             return this.authenticationService.signIn(response);
