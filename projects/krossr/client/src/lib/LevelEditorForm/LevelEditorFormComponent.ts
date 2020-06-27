@@ -72,6 +72,7 @@ export class LevelEditorFormComponent implements OnInit {
         if (level) {
             this.levelService.removeLevel(level.id).then(() => {
                 this.matDialog.open(LevelSelectComponent);
+                // TODO redirect away from edit screen
             });
         }
     }

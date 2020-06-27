@@ -1,3 +1,5 @@
+// TODO form should not be red after successful change
+
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ResetPasswordService } from './ResetPasswordService';
