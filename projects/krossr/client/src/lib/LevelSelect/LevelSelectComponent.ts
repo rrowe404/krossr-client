@@ -1,5 +1,3 @@
-// TODO this breaks when not logged in
-
 import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { Utils } from '../Utils/Utils';
 import { LevelService } from '../Level/LevelService';
