@@ -33,6 +33,14 @@ export class LevelSelectComponent implements OnInit {
 
     public formGroup: FormGroup;
 
+    canEdit(level) {
+        if (!this.Authentication.user) {
+            return false;
+        }
+
+        return level === this.Authentication.user.id;
+    }
+
     close() {
         this.matDialogRef.close();
     }

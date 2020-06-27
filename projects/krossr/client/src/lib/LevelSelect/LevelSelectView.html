@@ -31,8 +31,7 @@
                 </div>
 
                 <a class="editButton" uiSref="update-level" [uiParams]="{ levelId: level.id }"
-                    [uiOptions]="{ reload: true }" (click)="close()"
-                    *ngIf="level && Authentication.user.id === level.userId">
+                    [uiOptions]="{ reload: true }" (click)="close()" *ngIf="canEdit(level)">
                     <i class="fa fa-edit"></i>
                 </a>
 
