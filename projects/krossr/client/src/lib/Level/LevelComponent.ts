@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { Subscription } from 'rxjs';
+import { LevelRoutes } from '../Routing/RouteNames';
 
 @Component({
     selector: 'level',
@@ -229,7 +230,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         } as LevelParams;
 
         let levelSaveSuccess = (response) => {
-            this.$state.go('update-level', { levelId: response.id }, { reload: true });
+            this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
         };
 
         let levelSaveFailure = (err) => {
@@ -247,7 +248,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         level.size = level.layout.length;
 
         this.levelService.updateLevel(level).then(() => {
-            this.$state.go('update-level', { levelId: level.id }, { reload: true });
+            this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
         }).catch(response => {
             this.error = response.error.message;
 

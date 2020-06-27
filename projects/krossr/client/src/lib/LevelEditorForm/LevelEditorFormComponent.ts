@@ -7,6 +7,8 @@ import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelService } from '../Level/LevelService';
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
+import { StateService } from '@uirouter/core';
+import { LevelRoutes, HomeRoutes } from '../Routing/RouteNames';
 
 @Component({
     selector: 'level-editor-form',
@@ -34,6 +36,7 @@ export class LevelEditorFormComponent implements OnInit {
     constructor(
         private levelService: LevelService,
         private matDialog: MatDialog,
+        private stateService: StateService,
         private utils: Utils
     ) {
     }
@@ -72,7 +75,7 @@ export class LevelEditorFormComponent implements OnInit {
         if (level) {
             this.levelService.removeLevel(level.id).then(() => {
                 this.matDialog.open(LevelSelectComponent);
-                // TODO redirect away from edit screen
+                this.stateService.go(HomeRoutes.home, {}, { reload: true });
             });
         }
     }

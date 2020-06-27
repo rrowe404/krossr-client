@@ -36,7 +36,7 @@ export class LevelSelectComponent implements OnInit {
             return false;
         }
 
-        return level === this.Authentication.user.id;
+        return level.userId === this.Authentication.user.id;
     }
 
     close() {

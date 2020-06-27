@@ -3,18 +3,19 @@ import { HomeComponent } from '../Home/HomeComponent';
 import { LevelComponent } from '../Level/LevelComponent';
 import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordComponent';
 import { ResetPasswordComponent } from '../ResetPassword/ResetPasswordComponent';
+import { HomeRoutes, LevelRoutes, UserRoutes } from './RouteNames';
 
 export class Routes {
     static getNg2Routes(): Ng2StateDeclaration[] {
         return [
             {
-                name: 'home',
+                name: HomeRoutes.home,
                 url: '/',
                 component: HomeComponent
             },
             /** Level */
             {
-                name: 'create-level',
+                name: LevelRoutes.create,
                 url: '/level/new',
                 component: LevelComponent,
                 resolve: [
@@ -22,7 +23,7 @@ export class Routes {
                 ]
             },
             {
-                name: 'level',
+                name: LevelRoutes.read,
                 url: '/level/:levelId',
                 component: LevelComponent,
                 resolve: [
@@ -37,7 +38,7 @@ export class Routes {
                 ]
             },
             {
-                name: 'update-level',
+                name: LevelRoutes.update,
                 url: '/level/:levelId/edit',
                 component: LevelComponent,
                 resolve: [
@@ -53,7 +54,7 @@ export class Routes {
             },
             /** Password */
             {
-                name: 'reset-invalid',
+                name: UserRoutes.resetInvalid,
                 url: '/password/reset/invalid',
                 component: ForgotPasswordComponent,
                 resolve: [
@@ -61,7 +62,7 @@ export class Routes {
                 ]
             },
             {
-                name: 'reset',
+                name: UserRoutes.reset,
                 url: '/password/reset/:token',
                 component: ResetPasswordComponent,
                 resolve: [
