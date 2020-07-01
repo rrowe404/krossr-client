@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class ShiftService {
-    static $name = 'shiftService';
     private _shiftLock = false;
     private _shiftOn = false;
 

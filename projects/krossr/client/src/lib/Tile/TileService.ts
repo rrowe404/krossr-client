@@ -12,8 +12,6 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class TileService {
-    static $name = 'tileService';
-
     private tileIndex: any[] = [];
 
     constructor(

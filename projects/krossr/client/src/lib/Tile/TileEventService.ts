@@ -4,6 +4,5 @@ import { Injectable, EventEmitter } from '@angular/core';
     providedIn: 'root'
 })
 export class TileEventService {
-    public static $name = 'tileEventService';
     public tileDragEnd: EventEmitter<void> = new EventEmitter();
 }

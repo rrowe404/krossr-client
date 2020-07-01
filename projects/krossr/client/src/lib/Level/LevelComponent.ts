@@ -22,8 +22,6 @@ import { LevelRoutes } from '../Routing/RouteNames';
     templateUrl: './LevelView.html'
 })
 export class LevelComponent implements OnInit, OnDestroy {
-    static $name = 'level';
-
     constructor(
         private $state: StateService,
         public Authentication: AuthenticationService,

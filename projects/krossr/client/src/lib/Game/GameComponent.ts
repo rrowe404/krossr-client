@@ -17,8 +17,6 @@ import { Subscription } from 'rxjs';
     templateUrl: './GameView.html'
 })
 export class GameComponent implements OnInit, OnDestroy {
-    static $name = 'game';
-
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,

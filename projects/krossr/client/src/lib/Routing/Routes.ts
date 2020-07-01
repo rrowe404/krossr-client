@@ -4,10 +4,11 @@ import { LevelComponent } from '../Level/LevelComponent';
 import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordComponent';
 import { ResetPasswordComponent } from '../ResetPassword/ResetPasswordComponent';
 import { HomeRoutes, LevelRoutes, UserRoutes } from './RouteNames';
+import { NotFoundComponent } from '../NotFound/NotFoundComponent';
 
 export class Routes {
     static getNg2Routes(): Ng2StateDeclaration[] {
-        return [
+        let appRoutes = [
             {
                 name: HomeRoutes.home,
                 url: '/',
@@ -74,5 +75,14 @@ export class Routes {
                 ]
             },
         ];
+
+        // always comes last
+        appRoutes.push({
+            name: HomeRoutes.notFound,
+            url: '/notfound',
+            component: NotFoundComponent
+        });
+
+        return appRoutes;
     }
 }

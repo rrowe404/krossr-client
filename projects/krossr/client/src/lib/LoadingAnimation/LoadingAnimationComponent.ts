@@ -6,7 +6,5 @@ import { Component, Input } from '@angular/core';
     templateUrl: './LoadingAnimationView.html'
 })
 export class LoadingAnimationComponent {
-    static $name = 'loadingAnimation';
-
     @Input() public condition: boolean;
 }

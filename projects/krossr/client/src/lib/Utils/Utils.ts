@@ -8,8 +8,6 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class Utils {
-    static $name = 'Utils';
-
     constructor(
         private gameSizeService: GameSizeService,
         private sideLengthService: SideLengthService,

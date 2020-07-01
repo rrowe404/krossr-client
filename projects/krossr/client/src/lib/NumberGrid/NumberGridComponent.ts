@@ -10,8 +10,6 @@ import { Subscription } from 'rxjs';
     templateUrl: './NumberGridView.html'
 })
 export class NumberGridComponent implements OnInit, OnDestroy {
-    static $name = 'numberGrid';
-
     constructor(
         private tileSizeEventService: TileSizeEventService,
         private tileSizeService: TileSizeService

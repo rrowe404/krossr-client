@@ -21,8 +21,6 @@ import { Subscription } from 'rxjs';
     templateUrl: './TileView.html'
 })
 export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
-    static $name = 'tile';
-
     /* At this level, work with the horizontal version only */
     @Input() public gameMatrix: BooleanMatrix;
     @Input() public index;

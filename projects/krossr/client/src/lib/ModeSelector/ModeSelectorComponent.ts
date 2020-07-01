@@ -8,8 +8,6 @@ import { Component, OnInit } from '@angular/core';
 
 })
 export class ModeSelectorComponent implements OnInit {
-    static $name = 'modeSelector';
-
     constructor(
         private shiftService: ShiftService
     ) {

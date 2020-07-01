@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class DragBoxService {
-    static $name = 'dragBoxService';
-
     private _initState = true;
 
     get initState(): boolean {

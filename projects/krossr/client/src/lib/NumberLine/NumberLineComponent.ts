@@ -17,7 +17,6 @@ export class NumberLineComponent implements OnInit {
         private tileSizeService: TileSizeService,
     ) {
     }
-    static $name = 'numberLine';
 
     @Input() public gameMatrix: BooleanMatrix;
     @Input() public goalMatrix: BooleanMatrix;

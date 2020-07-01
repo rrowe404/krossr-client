@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class SideLengthService {
-    static $name = 'sideLengthService';
-
     private _sideLength: number;
 
     get sideLength(): number {

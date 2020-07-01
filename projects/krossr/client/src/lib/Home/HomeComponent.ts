@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: './HomeView.html'
 })
 export class HomeComponent {
-    public static $name = 'home';
 }

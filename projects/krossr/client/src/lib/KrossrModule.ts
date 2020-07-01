@@ -37,6 +37,7 @@ import { LevelSelectFilterComponent } from './LevelSelectFilter/LevelSelectFilte
 import { KrossrButtonComponent } from './KrossrButton/KrossrButtonComponent';
 import { CommonModule } from '@angular/common';
 import { UserService } from './User/UserService';
+import { NotFoundComponent } from './NotFound/NotFoundComponent';
 
 @NgModule({
     imports: [
@@ -66,6 +67,7 @@ import { UserService } from './User/UserService';
         ModeSelectorComponent,
         NumberGridComponent,
         NumberLineComponent,
+        NotFoundComponent,
         PaginationComponent,
         PopupContentComponent,
         ResetPasswordComponent,
@@ -96,6 +98,7 @@ import { UserService } from './User/UserService';
         ModeSelectorComponent,
         NumberGridComponent,
         NumberLineComponent,
+        NotFoundComponent,
         PaginationComponent,
         PopupContentComponent,
         ResetPasswordComponent,

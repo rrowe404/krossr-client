@@ -12,8 +12,6 @@ import { LevelSelectFilterOptions } from '../LevelSelectFilter/LevelSelectFilter
     templateUrl: './LevelSelectView.html'
 })
 export class LevelSelectComponent implements OnInit {
-    static $name = 'levelSelect';
-
     constructor(
         public Authentication: AuthenticationService,
         private levelService: LevelService,

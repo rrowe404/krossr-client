@@ -9,8 +9,6 @@ import { GameOverComponent } from './GameOverComponent';
     providedIn: 'root'
 })
 export class GameOverService {
-    static $name = 'gameOverService';
-
     constructor(
         private matDialog: MatDialog
     ) {

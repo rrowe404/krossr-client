@@ -1,5 +1,6 @@
 export const enum HomeRoutes {
     home = 'home',
+    notFound = 'notFound'
 }
 
 export const enum LevelRoutes {

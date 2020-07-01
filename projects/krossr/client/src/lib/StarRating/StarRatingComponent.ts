@@ -6,8 +6,6 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
     templateUrl: './StarRatingView.html'
 })
 export class StarRatingComponent implements OnInit {
-    static $name = 'starRating';
-
     @Input() public max = 5;
     @Output() public onRatingSelected: EventEmitter<number> = new EventEmitter();
     @Input() public rating: number;

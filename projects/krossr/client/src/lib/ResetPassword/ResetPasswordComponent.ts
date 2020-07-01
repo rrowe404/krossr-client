@@ -10,8 +10,6 @@ import { MinPasswordLength } from '../Password/MinPasswordLength';
     templateUrl: './ResetPasswordView.html'
 })
 export class ResetPasswordComponent implements OnInit {
-    static $name = 'resetPassword';
-
     @Input() token: string;
 
     public success: string;

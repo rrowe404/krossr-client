@@ -5,8 +5,6 @@ import { TileSizeEventService } from './TileSizeEventService';
     providedIn: 'root'
 })
 export class TileSizeService {
-    static $name = 'tileSizeService';
-
     private tileSize = 25;
 
     constructor(

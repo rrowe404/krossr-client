@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: './ShellView.html'
 })
 export class ShellComponent {
-    static $name = 'krossrShell';
 }

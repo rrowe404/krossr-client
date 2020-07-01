@@ -7,8 +7,6 @@ import { Inject, Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class AuthenticationService {
-    static $name = 'Authentication';
-
     constructor(
         @Inject('window') private $window: any
     ) {

@@ -10,8 +10,6 @@ import { ForgotPasswordService } from './ForgotPasswordService';
     templateUrl: './ForgotPasswordView.html'
 })
 export class ForgotPasswordComponent implements OnInit {
-    public static $name = 'forgotPassword';
-
     @Input() public invalid = false;
 
     public username: string;

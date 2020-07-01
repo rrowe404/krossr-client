@@ -5,8 +5,6 @@ import { HttpClient } from '@angular/common/http';
     providedIn: 'root'
 })
 export class RatingService {
-    public static $name = 'ratingService';
-
     constructor(
         private httpClient: HttpClient
     ) {

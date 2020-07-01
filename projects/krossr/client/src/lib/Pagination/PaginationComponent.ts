@@ -6,8 +6,6 @@ import { Input, Output, EventEmitter, Component } from '@angular/core';
     templateUrl: './PaginationView.html'
 })
 export class PaginationComponent {
-    static $name = 'pagination';
-
     @Input() public currentPage: number;
     @Input() public totalPages: number;
     @Output() public onPagination: EventEmitter<number> = new EventEmitter();

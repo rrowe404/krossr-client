@@ -6,8 +6,6 @@ import { LevelParams } from './LevelParams';
     providedIn: 'root'
 })
 export class LevelService {
-    static $name = 'levelService';
-
     constructor(
         private httpClient: HttpClient
     ) {

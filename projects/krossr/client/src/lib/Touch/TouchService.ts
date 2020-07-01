@@ -4,8 +4,6 @@ import { EventEmitter, Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class TouchService {
-    static $name = 'touchService';
-
     public tileTouched: EventEmitter<HTMLElement> = new EventEmitter();
     public tileTouchEnd: EventEmitter<HTMLElement> = new EventEmitter();
     public lastTouchedTile: HTMLElement;

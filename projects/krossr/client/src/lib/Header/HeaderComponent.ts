@@ -13,8 +13,6 @@ import { SignUpComponent } from '../SignUp/SignUpComponent';
     templateUrl: './HeaderView.html'
 })
 export class HeaderComponent {
-    static $name = 'krossrHeader';
-
     constructor(
         public Authentication: AuthenticationService,
         private matDialog: MatDialog

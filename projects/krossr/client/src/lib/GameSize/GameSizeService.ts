@@ -7,8 +7,6 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class GameSizeService {
-    static $name = 'gameSizeService';
-
     private gameHeight: string;
     private gameWidth: string;
     private playableAreaSize: number;
