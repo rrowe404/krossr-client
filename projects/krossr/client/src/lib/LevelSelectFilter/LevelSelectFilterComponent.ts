@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { LevelSelectFilterOptions } from './LevelSelectFilterOptions';
+import { debounce } from '../Debounce/Debounce';
 
 @Component({
     selector: 'level-select-filter',
@@ -43,6 +44,8 @@ export class LevelSelectFilterComponent implements OnInit {
 
     private options: LevelSelectFilterOptions = {};
 
+    private debouncedChange = debounce(() => this.onChange());
+
     public ngOnInit() {
         this.formGroup = new FormGroup({});
         this.sizeFormControl = new FormControl(this.sizeOptions[0]);
@@ -66,11 +69,10 @@ export class LevelSelectFilterComponent implements OnInit {
         this.onChange();
     }
 
-    // todo debounce
     public updateSearchText(text: string) {
         this.searchTextFormControl.setValue(text);
         this.options.searchText = text;
-        this.onChange();
+        this.debouncedChange.next();
     }
 
     public updateSortBy(sortBy: string) {
