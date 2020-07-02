@@ -4,6 +4,7 @@ import { SideLengthService } from '../SideLength/SideLengthService';
 import { TileGroup } from '../TileGroup/TileGroup';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { Component, Input, OnInit } from '@angular/core';
+import { TileGroupEntry } from '../TileGroup/TileGroupEntry';
 
 @Component({
     selector: 'number-line',
@@ -80,7 +81,7 @@ export class NumberLineComponent implements OnInit {
                         },
                         currentValue: this.gameMatrix.getValueAt(index, i),
                         goalValue: this.goalMatrix.getValueAt(index, i)
-                    }
+                    } as TileGroupEntry
                 );
 
                 resetInd = true;
@@ -99,9 +100,11 @@ export class NumberLineComponent implements OnInit {
     /* To compute the number lines for the current row or column, we need to find the length of each grouping */
     private getGroupings(currentGroup: TileGroup): LineContent[] {
         return Object.keys(currentGroup).map((value, index) => {
+            let key = parseInt(value, 10);
+
             return {
                 finished: false,
-                text: currentGroup[value].length
+                text: currentGroup[key].length
             };
         });
     }
