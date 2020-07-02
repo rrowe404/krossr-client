@@ -7,7 +7,7 @@ import { ResizeEventService } from './ResizeEventService';
 })
 export class ResizeDirective implements OnInit {
     constructor(
-        @Inject('window') private window: any,
+        @Inject('window') private window: Window,
         private resizeEventService: ResizeEventService
     ) {
     }
