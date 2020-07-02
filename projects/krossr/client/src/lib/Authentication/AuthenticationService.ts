@@ -8,12 +8,6 @@ import { UserViewModel } from '@krossr/types';
     providedIn: 'root'
 })
 export class AuthenticationService {
-    constructor(
-        @Inject('window') private $window: any
-    ) {
-        this.signIn(this.$window.user);
-    }
-
     private _user: UserViewModel;
 
     /** Accessed directly from the templates for user info */
