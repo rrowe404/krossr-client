@@ -1,3 +1,4 @@
+@import (reference) '../../less/mixins.less';
 @import (reference) '../../less/variables.less';
 
 :host {
@@ -21,8 +22,7 @@
     }
     
     .selected {
-        background-color: @selectedColor;
-        transition: background-color .5s;
+        .selectionTransition;
     }
     
     .square {
