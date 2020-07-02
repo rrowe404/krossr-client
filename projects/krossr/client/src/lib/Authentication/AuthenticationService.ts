@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
+import { UserViewModel } from '@krossr/types';
 
 /**
  * This should handle all interaction with the user information available to the client
@@ -13,7 +14,7 @@ export class AuthenticationService {
         this.signIn(this.$window.user);
     }
 
-    private _user;
+    private _user: UserViewModel;
 
     /** Accessed directly from the templates for user info */
     get user() {
@@ -21,7 +22,7 @@ export class AuthenticationService {
     }
 
     /** Set the user object */
-    public signIn(user) {
+    public signIn(user: UserViewModel) {
         this._user = user;
     }
 
