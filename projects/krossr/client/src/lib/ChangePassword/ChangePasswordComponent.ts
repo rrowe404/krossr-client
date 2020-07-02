@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ChangePasswordService } from './ChangePasswordService';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
+import { KrossrError } from '@krossr/types';
 
 @Component({
     selector: 'change-password',
@@ -49,7 +50,7 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
             setTimeout(() => {
                 this.success = false;
             }, this.timeout);
-        }).catch(response => {
+        }).catch((response: KrossrError) => {
             this.error = response.error.message;
 
             setTimeout(() => {

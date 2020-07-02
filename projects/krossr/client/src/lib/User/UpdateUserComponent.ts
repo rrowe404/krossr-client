@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from './UserService';
+import { KrossrError } from '@krossr/types';
 
 @Component({
     selector: 'update-user',
@@ -35,7 +36,7 @@ export class UpdateUserComponent implements OnInit{
             setTimeout(() => {
                 this.success = false;
             }, this.timeout);
-        }).catch(response => {
+        }).catch((response: KrossrError) => {
             this.error = response.error.message;
 
             setTimeout(() => {

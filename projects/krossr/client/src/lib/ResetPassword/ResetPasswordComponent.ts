@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ResetPasswordService } from './ResetPasswordService';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
+import { KrossrError } from '@krossr/types';
 
 @Component({
     selector: 'reset-password',
@@ -42,7 +43,7 @@ export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
         }).then(() => {
             this.clearForm();
             this.success = `Password updated!`;
-        }).catch((response) => {
+        }).catch((response: KrossrError) => {
             this.error = response.error.message;
         });
     }

@@ -3,6 +3,7 @@ import { SignUpService } from './SignUpService';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
+import { KrossrError } from '@krossr/types';
 
 @Component({
     selector: 'sign-up',
@@ -35,7 +36,7 @@ export class SignUpComponent implements OnInit {
     signUp() {
         this.signUpService.signUp(this.username.value, this.email.value, this.password.value).then(() => {
             this.matDialogRef.close();
-        }).catch((response) => {
+        }).catch((response: KrossrError) => {
             this.error = response.error.message;
 
             setTimeout(() => {

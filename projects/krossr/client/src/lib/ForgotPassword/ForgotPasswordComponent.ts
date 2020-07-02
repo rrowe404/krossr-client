@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ForgotPasswordService } from './ForgotPasswordService';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
+import { KrossrError } from '@krossr/types';
 
 @Component({
     selector: 'forgot-password',
@@ -56,7 +57,7 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
             setTimeout(() => {
                 this.close();
             }, this.timeout);
-        }).catch((response: any) => {
+        }).catch((response: KrossrError) => {
             // Show user error message and clear form
             this.clearForm();
             this.error = response.error.message;

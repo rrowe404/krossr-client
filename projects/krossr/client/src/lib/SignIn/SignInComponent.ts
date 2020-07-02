@@ -4,6 +4,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SignInService } from './SignInService';
 import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordComponent';
+import { KrossrError } from '@krossr/types';
 
 /** Sign-in popup */
 @Component({
@@ -49,7 +50,7 @@ export class SignInComponent implements OnInit {
     signIn() {
         this.signInService.signIn(this.username.value, this.password.value).then(() => {
             this.close();
-        }).catch((response: any) => {
+        }).catch((response: KrossrError) => {
             this.error = response.error.message;
 
             setTimeout(() => {

@@ -16,6 +16,7 @@ import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { Subscription } from 'rxjs';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { LevelLayout } from './LevelLayout';
+import { KrossrError } from '@krossr/types';
 
 @Component({
     selector: 'level',
@@ -220,7 +221,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
         this.levelService.createLevel(level).then((response: any) => {
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
-        }).catch(response => {
+        }).catch((response: KrossrError) => {
             this.error = response.error.message;
 
             setTimeout(() => {
@@ -234,7 +235,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
         this.levelService.updateLevel(level).then(() => {
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
-        }).catch(response => {
+        }).catch((response: KrossrError) => {
             this.error = response.error.message;
 
             setTimeout(() => {
