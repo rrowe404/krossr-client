@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Star } from './Star';
 
 @Component({
     selector: 'star-rating',
@@ -11,7 +12,7 @@ export class StarRatingComponent implements OnInit {
     @Input() public rating: number;
     @Input() public readOnly;
 
-    public stars: any[];
+    public stars: Star[];
 
     private updateStars() {
         this.stars = [];
