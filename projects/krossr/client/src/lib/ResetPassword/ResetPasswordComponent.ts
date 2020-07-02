@@ -1,15 +1,14 @@
-// TODO form should not be red after successful change
-
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ResetPasswordService } from './ResetPasswordService';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
+import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 
 @Component({
     selector: 'reset-password',
     templateUrl: './ResetPasswordView.html'
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
     @Input() token: string;
 
     public success: string;
@@ -22,6 +21,7 @@ export class ResetPasswordComponent implements OnInit {
     constructor(
         private resetPasswordService: ResetPasswordService
     ) {
+        super();
     }
 
     ngOnInit() {
@@ -45,11 +45,6 @@ export class ResetPasswordComponent implements OnInit {
         }).catch((response) => {
             this.error = response.error.message;
         });
-    }
-
-    private clearForm() {
-        this.updateNewPassword('');
-        this.updateVerifyPassword('');
     }
 
     public updateNewPassword(newPassword: string) {

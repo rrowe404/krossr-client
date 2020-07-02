@@ -4,12 +4,13 @@ import { Input, Component, Inject, Optional, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ForgotPasswordService } from './ForgotPasswordService';
+import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 
 @Component({
     selector: 'forgot-password',
     templateUrl: './ForgotPasswordView.html'
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
     @Input() public invalid = false;
 
     public username: string;
@@ -27,6 +28,7 @@ export class ForgotPasswordComponent implements OnInit {
         private forgotPasswordService: ForgotPasswordService,
         @Optional() @Inject(MAT_DIALOG_DATA) public data: { username: string }
     ) {
+        super();
     }
 
     close() {
@@ -39,10 +41,6 @@ export class ForgotPasswordComponent implements OnInit {
         this.formGroup = new FormGroup({});
         this.usernameFormControl = new FormControl(this.data ? this.data.username : '', [Validators.required]);
         this.formGroup.addControl('username', this.usernameFormControl);
-    }
-
-    private clearForm() {
-        this.updateUsername('');
     }
 
     // Submit forgotten password account id

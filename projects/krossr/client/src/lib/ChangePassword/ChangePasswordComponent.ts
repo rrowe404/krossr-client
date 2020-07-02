@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ChangePasswordService } from './ChangePasswordService';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
+import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 
 @Component({
     selector: 'change-password',
     templateUrl: './ChangePasswordView.html'
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
     public minPasswordLength = MinPasswordLength.value;
     public formGroup: FormGroup;
     public currentPasswordFormControl: FormControl;
@@ -19,6 +20,7 @@ export class ChangePasswordComponent implements OnInit {
     private timeout = 1000;
 
     constructor(private changePasswordService: ChangePasswordService) {
+        super();
     }
 
     ngOnInit() {
@@ -54,12 +56,6 @@ export class ChangePasswordComponent implements OnInit {
                 this.error = '';
             }, this.timeout);
         });
-    }
-
-    private clearForm() {
-        this.updateCurrentPassword('');
-        this.updateNewPassword('');
-        this.updateVerifyPassword('');
     }
 
     changePasswordButtonText() {
