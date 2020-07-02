@@ -10,7 +10,7 @@
 
     <mode-selector *ngIf="level && level.currentView === 'view'"></mode-selector>
 
-    <div (keydown)="keydown($event)" (keyup)="keyup($event)" class="animate-hide gameContainer" tabindex="0" [hidden]="!level || !level.ready">
+    <div (keydown)="keydown($event)" (keyup)="keyup($event)" tabindex="0" [hidden]="!level || !level.ready">
         <div class="gameContainer-inner">
             <div class="top row">
                 <number-grid
