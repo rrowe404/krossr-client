@@ -15,6 +15,7 @@ import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { Subscription } from 'rxjs';
 import { LevelRoutes } from '../Routing/RouteNames';
+import { LevelLayout } from './LevelLayout';
 
 @Component({
     selector: 'level',
@@ -35,7 +36,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     ) {
     }
 
-    public finalLayout: any = {};
+    public finalLayout: LevelLayout = {};
     @Input() public mode: string; // string for edit, new, etc.
     public margin: string;
     public level: ILevel;
