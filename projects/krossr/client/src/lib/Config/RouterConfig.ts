@@ -1,5 +1,5 @@
+import { RouterParams } from '@krossr/types';
 import { UIRouter } from '@uirouter/core';
-import { RouterParams } from './RouterParams';
 import { HomeRoutes } from '../Routing/RouteNames';
 
 export function uiRouterConfigFn(router: UIRouter) {
