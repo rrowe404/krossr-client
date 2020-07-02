@@ -75,16 +75,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         });
     }
 
-     /** Create new Level (submit function) */
-    create(level, successFunc: Function, failFunc: Function) {
-        // Redirect after save
-        this.levelService.createLevel(level).then(response => {
-            successFunc(response);
-        }).catch(response => {
-            failFunc(response);
-        });
-    }
-
     createGameArray(action: string) {
         this.Utils.createNewGame({
             numberOfTiles: this.level ? this.level.size : 25,
@@ -227,19 +217,16 @@ export class LevelComponent implements OnInit, OnDestroy {
             size: this.gameMatrix.horizontal.length
         } as LevelParams;
 
-        let levelSaveSuccess = (response) => {
+        // Redirect after save TODO
+        this.levelService.createLevel(level).then((response: any) => {
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
-        };
-
-        let levelSaveFailure = (err) => {
-            this.error = err.error.message;
+        }).catch(response => {
+            this.error = response.error.message;
 
             setTimeout(() => {
                 this.error = '';
             }, this.timeout);
-        };
-
-        this.create(level, levelSaveSuccess, levelSaveFailure);
+        });
     }
 
     updateLevel(level) {

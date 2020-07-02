@@ -47,6 +47,7 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
     askForPasswordReset() {
         this.success = this.error = null;
 
+        // TODO type
         this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value).then((response: any) => {
             // Show user success message and clear form
             this.clearForm();

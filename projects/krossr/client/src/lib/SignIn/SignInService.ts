@@ -17,7 +17,7 @@ export class SignInService {
         return this.httpClient.post('auth/signin', {
             username,
             password
-        }).toPromise().then((response: UserViewModel) => { // todo User type
+        }).toPromise().then((response: UserViewModel) => {
             return this.authenticationService.signIn(response);
         });
     }

@@ -17,8 +17,6 @@ export class RatingService {
             rating
         };
 
-        this.httpClient.post(url, data).toPromise().then(() => {
-            console.log('omg');
-        });
+        return this.httpClient.post(url, data).toPromise();
     }
 }
