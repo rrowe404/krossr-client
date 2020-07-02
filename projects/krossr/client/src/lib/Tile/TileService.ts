@@ -2,6 +2,7 @@ import { Point } from '../Point/Point';
 import { SideLengthService } from '../SideLength/SideLengthService';
 import { TileState } from './TileState';
 import { Injectable } from '@angular/core';
+import { TileComponent } from './TileComponent';
 
 /**
  * Keeps a cache of the tiles on the screen for faster access (smooth animation for dragging & selecting),
@@ -12,7 +13,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class TileService {
-    private tileIndex: any[] = [];
+    private tileIndex: Array<{ tile: TileComponent }> = [];
 
     constructor(
         private sideLengthService: SideLengthService
@@ -53,7 +54,7 @@ export class TileService {
         let len = this.tileIndex.length;
 
         for (let i = 0; i < len; i++) {
-            this.tileIndex[i].tileCtrl.fill(TileState.empty);
+            this.tileIndex[i].tile.fill(TileState.empty);
         }
     }
 
@@ -77,18 +78,13 @@ export class TileService {
     }
 
     /** Grab a tile controller out of the tile index from a given 2D coordinate */
-    findTileCtrlByCoord(coord: Point): any { // todo
+    findTileCtrlByCoord(coord: Point): TileComponent {
         let index = this.convertTo1D(coord);
         return this.findTileCtrlByIndex(index);
     }
 
     /** Grab a tile controller out of the tile index from a given 1D index */
-    findTileCtrlByIndex(index: number): any { // todo
-        return this.tileIndex[index].tileCtrl;
-    }
-
-    /** Return the current tileIndex */
-    getTileIndex(): any { // todo
-        return this.tileIndex;
+    findTileCtrlByIndex(index: number): TileComponent {
+        return this.tileIndex[index].tile;
     }
 }

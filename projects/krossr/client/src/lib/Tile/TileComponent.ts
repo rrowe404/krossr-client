@@ -73,7 +73,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.tileService.addTile({ tileCtrl: this });
+        this.tileService.addTile({ tile: this });
 
         this.listeners = [
             this.renderer.listen(this.$element, 'mousedown', () => this.mouseDownEvent()),
