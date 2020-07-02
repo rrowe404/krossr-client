@@ -217,7 +217,6 @@ export class LevelComponent implements OnInit, OnDestroy {
             size: this.gameMatrix.horizontal.length
         } as LevelParams;
 
-        // Redirect after save TODO
         this.levelService.createLevel(level).then((response: any) => {
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
         }).catch(response => {
