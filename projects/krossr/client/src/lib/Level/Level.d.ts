@@ -1,10 +1,8 @@
-export interface ILevel {
+import { LevelViewModel } from '@krossr/types';
+
+export interface ILevel extends LevelViewModel {
     currentView: 'edit' | 'new' | 'view';
-    id?;
-    name: string;
-    ratings?;
     ready: boolean;
-    layout?: Boolean[][];
+    decodedLayout?: boolean[][];
     size: number;
-    yourRating?;
 }

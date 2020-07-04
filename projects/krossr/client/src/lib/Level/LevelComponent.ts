@@ -16,7 +16,7 @@ import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { Subscription } from 'rxjs';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { LevelLayout } from './LevelLayout';
-import { KrossrError } from '@krossr/types';
+import { KrossrError, LevelViewModel } from '@krossr/types';
 
 @Component({
     selector: 'level',
@@ -103,6 +103,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
         this.level = {
             currentView: action,
+            layout: '',
             ready: true,
             name,
             size: 25
@@ -121,20 +122,18 @@ export class LevelComponent implements OnInit, OnDestroy {
         this.mode = mode;
 
         if (this.selectedLevelId) {
-            this.levelService.getLevel(this.selectedLevelId).then((data: ILevel) => {
-                this.level = data;
+            this.levelService.getLevel(this.selectedLevelId).then((data: LevelViewModel) => {
+                this.level = Object.assign({}, data, { currentView: mode, ready: false });
 
-                this.setRating();
+                this.level.decodedLayout = this.levelService.decodeLayout(data.layout);
 
-                this.level.layout = this.levelService.decodeLayout(data.layout);
-
-                let flatLayout = this.Utils.flatten(this.level.layout);
+                let flatLayout = this.Utils.flatten(this.level.decodedLayout);
 
                 this.gameSizeService.calculatePlayableArea();
 
                 this.Utils.createNewGame({
                     numberOfTiles: flatLayout.length,
-                    layout: this.level.layout,
+                    layout: this.level.decodedLayout,
                     controller: mode
                 });
 
@@ -146,7 +145,7 @@ export class LevelComponent implements OnInit, OnDestroy {
                     this.goalMatrix = new GameMatrix(goalLayout, true);
                 }
 
-                this.getLayoutForRepeater(mode, this.level.layout);
+                this.getLayoutForRepeater(mode, this.level.decodedLayout);
                 this.level.currentView = mode;
 
                 this.level.ready = true;
@@ -202,14 +201,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         });
     }
 
-
-    /** This should be done on the server side, todo */
-    setRating() {
-        if (this.level.ratings && this.level.ratings.length) {
-            this.level.yourRating = this.level.ratings[0].rating;
-        }
-    }
-
     // Split out for easier testing
     submitCreate() {
         // Create new Level object
@@ -231,7 +222,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     }
 
     updateLevel(level) {
-        level.size = level.layout.length;
+        level.size = level.decodedLayout.length;
 
         this.levelService.updateLevel(level).then(() => {
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
