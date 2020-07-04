@@ -5,7 +5,7 @@
     </level-editor-form>
 
     <div class="rateLevel" *ngIf="Authentication.user && level && level.currentView === 'view'">
-        Rate: <star-rating [rating]="level.userRating" max="5" (onRatingSelected)="rate($event)"></star-rating>
+        Rate: <star-rating [rating]="level.userRating.rating" max="5" (onRatingSelected)="rate($event)"></star-rating>
     </div>
 
     <mode-selector *ngIf="level && level.currentView === 'view'"></mode-selector>
