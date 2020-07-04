@@ -16,7 +16,7 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
 
     public username: string;
 
-    private success: string;
+    private success: boolean;
     private error: string;
 
     private timeout = 1000;
@@ -48,11 +48,10 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
     askForPasswordReset() {
         this.success = this.error = null;
 
-        // TODO type
-        this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value).then((response: any) => {
+        this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value).then(() => {
             // Show user success message and clear form
             this.clearForm();
-            this.success = response.message;
+            this.success = true;
 
             setTimeout(() => {
                 this.close();
@@ -69,7 +68,11 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
     }
 
     askForResetButtonText() {
-        return this.success || this.error || 'Submit';
+        if (this.success) {
+            return 'Submitted!';
+        }
+
+        return this.error || 'Submit';
     }
 
     updateUsername(username: string) {
