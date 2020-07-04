@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LevelSelectFilterOptions } from '../LevelSelectFilter/LevelSelectFilterOptions';
+import { LevelListViewModel } from '@krossr/types';
 
 @Component({
     selector: 'level-select',
@@ -58,7 +59,7 @@ export class LevelSelectComponent implements OnInit {
             Object.assign(queryObj, this.filter);
         }
 
-        this.levelService.getLevels(queryObj).then(data => {
+        this.levelService.getLevels(queryObj).then((data: LevelListViewModel) => {
             let i = 0;
             let allLevels = data.levels;
             let len = allLevels ? allLevels.length : 0;

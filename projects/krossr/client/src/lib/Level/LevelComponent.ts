@@ -210,7 +210,7 @@ export class LevelComponent implements OnInit, OnDestroy {
             size: this.gameMatrix.horizontal.length
         } as LevelParams;
 
-        this.levelService.createLevel(level).then((response: any) => {
+        this.levelService.createLevel(level).then((response: LevelViewModel) => {
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
         }).catch((response: KrossrError) => {
             this.error = response.error.message;
