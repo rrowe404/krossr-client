@@ -1,4 +1,3 @@
-import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -20,7 +19,6 @@ export class SignInComponent implements OnInit {
     private timeout = 1000;
 
     constructor(
-        private Authentication: AuthenticationService,
         private matDialogRef: MatDialogRef<SignInComponent>,
         private matDialog: MatDialog,
         private signInService: SignInService
