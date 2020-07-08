@@ -5,9 +5,12 @@ import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordCompone
 import { ResetPasswordComponent } from '../ResetPassword/ResetPasswordComponent';
 import { HomeRoutes, LevelRoutes, UserRoutes } from './RouteNames';
 import { NotFoundComponent } from '../NotFound/NotFoundComponent';
+import { ResetPasswordService } from '../ResetPassword/ResetPasswordService';
 
 export class Routes {
     static getNg2Routes(): Ng2StateDeclaration[] {
+        let tokenValidResolve = 'tokenValid';
+
         let appRoutes = [
             {
                 name: HomeRoutes.home,
@@ -66,11 +69,25 @@ export class Routes {
                 name: UserRoutes.reset,
                 url: '/password/reset/:token',
                 component: ResetPasswordComponent,
+                redirectTo: (trans) => {
+                    let tokenValidResolvePromise: Promise<boolean> = trans.injector().getAsync(tokenValidResolve);
+
+                    return tokenValidResolvePromise.then((valid: boolean) => {
+                        return valid ? null : UserRoutes.resetInvalid;
+                    });
+                },
                 resolve: [
                     {
                         token: 'token',
                         deps: [Transition],
                         resolveFn: (trans) => trans.params().token
+                    },
+                    {
+                        token: tokenValidResolve,
+                        deps: [Transition, ResetPasswordService],
+                        resolveFn: (trans, resetPasswordService: ResetPasswordService) => {
+                            return resetPasswordService.validateToken(trans.params().token);
+                        }
                     }
                 ]
             },

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { HttpClient } from '@angular/common/http';
-import { UserViewModel } from '@krossr/types';
+import { UserViewModel, ResetValidationViewModel } from '@krossr/types';
 
 @Injectable({
     providedIn: 'root'
@@ -17,5 +17,9 @@ export class ResetPasswordService {
         return this.httpClient.post(`auth/reset/${token}`, passwordDetails).toPromise().then((response: UserViewModel) => {
             return this.authenticationService.signIn(response);
         });
+    }
+
+    validateToken(token: string) {
+        return this.httpClient.get(`auth/reset/${token}`).toPromise().then((response: ResetValidationViewModel) => response.valid);
     }
 }
