@@ -15,7 +15,7 @@ import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { Subscription } from 'rxjs';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { LevelLayout } from './LevelLayout';
-import { KrossrError, LevelViewModel, CreateLevelParamsViewModel, UpdateLevelParamsViewModel } from '@krossr/types';
+import { KrossrError, LevelViewModel, CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
 
 @Component({
     selector: 'level',
@@ -66,7 +66,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         ];
     }
 
-    confirmUpdate(level: UpdateLevelParamsViewModel) {
+    confirmUpdate(level: UpdateLevelBodyViewModel) {
         this.matDialog.open(ConfirmationComponent, {
             data: {
                 submitText: 'Update',
@@ -206,7 +206,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         let level = {
             name: this.level.name,
             decodedLayout: this.gameMatrix.horizontal.getLayout(),
-        } as CreateLevelParamsViewModel;
+        } as CreateLevelBodyViewModel;
 
         this.levelService.createLevel(level).then((response: LevelViewModel) => {
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
@@ -219,7 +219,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         });
     }
 
-    updateLevel(level: UpdateLevelParamsViewModel) {
+    updateLevel(level: UpdateLevelBodyViewModel) {
         this.levelService.updateLevel(level).then(() => {
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
         }).catch((response: KrossrError) => {
