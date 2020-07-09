@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ChangePasswordBodyViewModel } from '@krossr/types';
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,6 @@ export class ChangePasswordService {
             currentPassword,
             newPassword,
             verifyPassword
-        }).toPromise();
+        } as ChangePasswordBodyViewModel).toPromise();
     }
 }
