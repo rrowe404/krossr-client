@@ -7,7 +7,6 @@ import { ShiftService } from '../Shift/ShiftService';
 import { Utils } from '../Utils/Utils';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { RatingService } from '../Rating/RatingService';
-import { LevelParams } from './LevelParams';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
 import { StateService } from '@uirouter/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +15,7 @@ import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { Subscription } from 'rxjs';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { LevelLayout } from './LevelLayout';
-import { KrossrError, LevelViewModel } from '@krossr/types';
+import { KrossrError, LevelViewModel, CreateLevelParamsViewModel, UpdateLevelParamsViewModel } from '@krossr/types';
 
 @Component({
     selector: 'level',
@@ -67,7 +66,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         ];
     }
 
-    confirmUpdate(level: ILevel) {
+    confirmUpdate(level: UpdateLevelParamsViewModel) {
         this.matDialog.open(ConfirmationComponent, {
             data: {
                 submitText: 'Update',
@@ -206,9 +205,8 @@ export class LevelComponent implements OnInit, OnDestroy {
         // Create new Level object
         let level = {
             name: this.level.name,
-            layout: this.gameMatrix.horizontal.getLayout(),
-            size: this.gameMatrix.horizontal.length
-        } as LevelParams;
+            decodedLayout: this.gameMatrix.horizontal.getLayout(),
+        } as CreateLevelParamsViewModel;
 
         this.levelService.createLevel(level).then((response: LevelViewModel) => {
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
@@ -221,9 +219,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         });
     }
 
-    updateLevel(level) {
-        level.size = level.decodedLayout.length;
-
+    updateLevel(level: UpdateLevelParamsViewModel) {
         this.levelService.updateLevel(level).then(() => {
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
         }).catch((response: KrossrError) => {
