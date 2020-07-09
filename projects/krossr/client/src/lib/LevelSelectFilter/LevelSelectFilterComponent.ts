@@ -1,14 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { LevelSelectFilterOptions } from './LevelSelectFilterOptions';
 import { debounce } from '../Debounce/Debounce';
+import { LevelListFilterOptions } from '@krossr/types';
 
 @Component({
     selector: 'level-select-filter',
     templateUrl: './LevelSelectFilterView.html'
 })
 export class LevelSelectFilterComponent implements OnInit {
-    @Output() public refilter: EventEmitter<LevelSelectFilterOptions> = new EventEmitter();
+    @Output() public refilter: EventEmitter<LevelListFilterOptions> = new EventEmitter();
 
     public formGroup: FormGroup;
     public sizeFormControl: FormControl;
@@ -42,7 +42,7 @@ export class LevelSelectFilterComponent implements OnInit {
 
     public sortDirectionOptions = Object.keys(this.sortDirectionMap);
 
-    private options: LevelSelectFilterOptions = {};
+    private options: LevelListFilterOptions = {};
 
     private debouncedChange = debounce(() => this.onChange());
 

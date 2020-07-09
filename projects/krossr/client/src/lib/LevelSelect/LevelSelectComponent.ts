@@ -4,8 +4,7 @@ import { LevelService } from '../Level/LevelService';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { LevelSelectFilterOptions } from '../LevelSelectFilter/LevelSelectFilterOptions';
-import { LevelListViewModel } from '@krossr/types';
+import { LevelListViewModel, LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/types';
 
 @Component({
     selector: 'level-select',
@@ -26,16 +25,16 @@ export class LevelSelectComponent implements OnInit {
     public levels;
     public showFilter: boolean;
 
-    private filter: LevelSelectFilterOptions;
+    private filter: LevelListFilterOptions;
 
     public formGroup: FormGroup;
 
-    canEdit(level) {
+    canEdit(level: LevelListLevelViewModel) {
         if (!this.Authentication.user) {
             return false;
         }
 
-        return level.userId === this.Authentication.user.id;
+        return level.user.id === this.Authentication.user.id;
     }
 
     close() {
@@ -76,7 +75,7 @@ export class LevelSelectComponent implements OnInit {
         });
     }
 
-    refilter(options: LevelSelectFilterOptions) {
+    refilter(options: LevelListFilterOptions) {
         this.filter = options;
         this.find(0);
     }
