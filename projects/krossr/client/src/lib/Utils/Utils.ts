@@ -86,11 +86,6 @@ export class Utils {
         return this.goalMatrix;
     }
 
-    /* Display an integer size (e.g. 15) and convert it to a pleasing form (15x15). TODO this should be done server-side */
-    prettySize(size) {
-        return size + 'x' + size;
-    }
-
     /* Modify the current goal matrix (loading level from layout) */
     setGoalMatrix(layout?) {
         if (layout) {
