@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { debounce } from '../Debounce/Debounce';
-import { LevelListFilterOptions } from '@krossr/types';
+import { LevelListFilterOptions, LevelListFilterSelectOptionsViewModel, Dictionary } from '@krossr/types';
+import { LevelSelectFilterService } from './LevelSelectFilterService';
 
 @Component({
     selector: 'level-select-filter',
@@ -10,57 +11,65 @@ import { LevelListFilterOptions } from '@krossr/types';
 export class LevelSelectFilterComponent implements OnInit {
     @Output() public refilter: EventEmitter<LevelListFilterOptions> = new EventEmitter();
 
+    public isReady = false;
+
     public formGroup: FormGroup;
     public sizeFormControl: FormControl;
     public searchTextFormControl: FormControl;
     public sortByFormControl: FormControl;
     public sortDirectionFormControl: FormControl;
 
-    // todo these options should be provided by the server
+    constructor(
+        private levelSelectFilterService: LevelSelectFilterService
+    ) {
+    }
 
-    public sizeMap = {
-        All: '',
-        '5x5': '5',
-        '10x10': '10',
-        '15x15': '15'
-    };
+    public sizeMap: Dictionary<string>;
+    public sizeOptions: string[];
 
-    public sizeOptions = Object.keys(this.sizeMap);
+    public sortByMap: Dictionary<string>;
+    public sortByOptions: string[];
 
-    public sortByMap = {
-        'Created Date': '"createdAt"',
-        Name: 'name',
-        Ratings: '"avgRating"'
-    };
-
-    public sortByOptions = Object.keys(this.sortByMap);
-
-    public sortDirectionMap = {
-        Ascending: '',
-        Descending: 'DESC'
-    };
-
-    public sortDirectionOptions = Object.keys(this.sortDirectionMap);
+    public sortDirectionMap: Dictionary<string>;
+    public sortDirectionOptions: string[];
 
     private options: LevelListFilterOptions = {};
 
     private debouncedChange = debounce(() => this.onChange());
 
     public ngOnInit() {
-        this.formGroup = new FormGroup({});
-        this.sizeFormControl = new FormControl(this.sizeOptions[0]);
-        this.searchTextFormControl = new FormControl('');
-        this.sortByFormControl = new FormControl(this.sortByOptions[0]);
-        this.sortDirectionFormControl = new FormControl(this.sortDirectionOptions[0]);
+        this.levelSelectFilterService.getOptions().then(options => {
+            this.setupOptions(options);
 
-        this.formGroup.addControl('size', this.sizeFormControl);
-        this.formGroup.addControl('searchText', this.searchTextFormControl);
-        this.formGroup.addControl('sortBy', this.sortByFormControl);
-        this.formGroup.addControl('sortDirection', this.sortDirectionFormControl);
+            this.formGroup = new FormGroup({});
+            this.sizeFormControl = new FormControl(this.sizeOptions[0]);
+            this.searchTextFormControl = new FormControl('');
+            this.sortByFormControl = new FormControl(this.sortByOptions[0]);
+            this.sortDirectionFormControl = new FormControl(this.sortDirectionOptions[0]);
+
+            this.formGroup.addControl('size', this.sizeFormControl);
+            this.formGroup.addControl('searchText', this.searchTextFormControl);
+            this.formGroup.addControl('sortBy', this.sortByFormControl);
+            this.formGroup.addControl('sortDirection', this.sortDirectionFormControl);
+
+            this.isReady = true;
+        });
     }
 
     public onChange() {
         this.refilter.emit(this.options);
+    }
+
+    private setupOptions(options: LevelListFilterSelectOptionsViewModel) {
+        // todo, when forms are standardized a component can be created to pass the options directly into
+        this.sizeMap = options.sizeOptions;
+        this.sizeOptions = Object.keys(this.sizeMap);
+
+        this.sortByMap = options.sortByOptions;
+        this.sortByOptions = Object.keys(this.sortByMap);
+
+        this.sortDirectionMap = options.sortDirectionOptions;
+        this.sortDirectionOptions = Object.keys(options.sortDirectionOptions);
     }
 
     public updateSize(size: string) {

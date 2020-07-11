@@ -1,6 +1,6 @@
 <!-- These guys all get their own divs so they don't have the label and input on different lines -->
 
-<ng-container [formGroup]="formGroup">
+<ng-container [formGroup]="formGroup" *ngIf="isReady">
     <div class="form-group">
         <label>Size</label>
         <select [formControl]="sizeFormControl" (change)="updateSize($event.target.value)">
