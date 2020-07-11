@@ -8,7 +8,9 @@ import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelService } from '../Level/LevelService';
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 import { StateService } from '@uirouter/core';
-import { LevelRoutes, HomeRoutes } from '../Routing/RouteNames';
+import { HomeRoutes } from '../Routing/RouteNames';
+import { LevelEditorFormService } from './LevelEditorFormService';
+import { LevelEditorSelectOptionsViewModel, Dictionary } from '@krossr/types';
 
 @Component({
     selector: 'level-editor-form',
@@ -21,21 +23,18 @@ export class LevelEditorFormComponent implements OnInit {
     @Output() public sizeChange: EventEmitter<void> = new EventEmitter();
     @Output() public submitAction: EventEmitter<ILevel> = new EventEmitter();
 
+    public isReady = false;
+
     public formGroup: FormGroup;
     public nameFormControl: FormControl;
     public sizeFormControl: FormControl;
 
-    // TODO server-side this
-    public sizeMap = {
-        '5x5': 25,
-        '10x10': 100,
-        '15x15': 225
-    };
-
-    public sizeOptions = Object.keys(this.sizeMap);
+    public sizeMap: Dictionary<string>;
+    public sizeOptions: string[];
 
     constructor(
         private levelService: LevelService,
+        private levelEditorFormService: LevelEditorFormService,
         private matDialog: MatDialog,
         private stateService: StateService,
         private utils: Utils
@@ -82,9 +81,13 @@ export class LevelEditorFormComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.formGroup = new FormGroup({});
-        this.nameFormControl = new FormControl(this.level.name, [Validators.required]);
-        this.sizeFormControl = new FormControl(this.level.size, [Validators.required]);
+        this.levelEditorFormService.getOptions().then(options => {
+            this.setupOptions(options);
+            this.formGroup = new FormGroup({});
+            this.nameFormControl = new FormControl(this.level.name, [Validators.required]);
+            this.sizeFormControl = new FormControl(this.level.size, [Validators.required]);
+            this.isReady = true;
+        });
     }
 
     public submit() {
@@ -103,7 +106,12 @@ export class LevelEditorFormComponent implements OnInit {
     public updateSize(selected: number) {
         this.sizeFormControl.setValue(selected);
         let size = this.sizeMap[selected];
-        this.level.size = size;
+        this.level.size = parseInt(size, 10);
         this.sizeChange.emit();
+    }
+
+    private setupOptions(options: LevelEditorSelectOptionsViewModel) {
+        this.sizeMap = options.sizeOptions;
+        this.sizeOptions = Object.keys(this.sizeMap);
     }
 }
