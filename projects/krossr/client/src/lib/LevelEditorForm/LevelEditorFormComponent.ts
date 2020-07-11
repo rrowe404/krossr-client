@@ -25,6 +25,7 @@ export class LevelEditorFormComponent implements OnInit {
     public nameFormControl: FormControl;
     public sizeFormControl: FormControl;
 
+    // TODO server-side this
     public sizeMap = {
         '5x5': 25,
         '10x10': 100,
