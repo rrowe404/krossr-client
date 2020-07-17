@@ -24,7 +24,7 @@ export class LevelSelectFilterComponent implements OnInit {
     ) {
     }
 
-    public sizeMap: Dictionary<string>;
+    public sizeMap: Dictionary<number>;
     public sizeOptions: string[];
 
     public sortByMap: Dictionary<string>;
