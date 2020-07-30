@@ -12,7 +12,7 @@ import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy } from '@ang
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'game',
+    selector: 'krossr-game',
     styleUrls: ['./GameStyles.less'],
     templateUrl: './GameView.html'
 })

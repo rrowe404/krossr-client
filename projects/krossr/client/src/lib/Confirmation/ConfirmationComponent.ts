@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmationOptions } from './ConfirmationOptions';
 
 @Component({
-    selector: 'confirmation',
+    selector: 'krossr-confirmation',
     templateUrl: './ConfirmationView.html'
 })
 export class ConfirmationComponent {

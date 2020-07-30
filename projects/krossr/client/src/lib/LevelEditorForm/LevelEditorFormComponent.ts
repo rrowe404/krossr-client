@@ -13,7 +13,7 @@ import { LevelEditorFormService } from './LevelEditorFormService';
 import { LevelEditorSelectOptionsViewModel, Dictionary } from '@krossr/types';
 
 @Component({
-    selector: 'level-editor-form',
+    selector: 'krossr-level-editor-form',
     templateUrl: './LevelEditorFormView.html'
 })
 export class LevelEditorFormComponent implements OnInit {

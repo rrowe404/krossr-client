@@ -8,7 +8,7 @@ import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 import { KrossrError } from '@krossr/types';
 
 @Component({
-    selector: 'forgot-password',
+    selector: 'krossr-forgot-password',
     templateUrl: './ForgotPasswordView.html'
 })
 export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {

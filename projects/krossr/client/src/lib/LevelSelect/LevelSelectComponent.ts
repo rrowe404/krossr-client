@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { LevelListViewModel, LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/types';
 
 @Component({
-    selector: 'level-select',
+    selector: 'krossr-level-select',
     styleUrls: ['./LevelSelectStyles.less'],
     templateUrl: './LevelSelectView.html'
 })

@@ -2,7 +2,7 @@ import { ShiftService } from '../Shift/ShiftService';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'mode-selector',
+    selector: 'krossr-mode-selector',
     styleUrls: ['./ModeSelectorStyles.less'],
     templateUrl: './ModeSelectorView.html'
 

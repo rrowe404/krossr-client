@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TileGroupEntry } from '../TileGroup/TileGroupEntry';
 
 @Component({
-    selector: 'number-line',
+    selector: 'krossr-number-line',
     styleUrls: ['./NumberLineStyles.less'],
     templateUrl: './NumberLineView.html'
 })

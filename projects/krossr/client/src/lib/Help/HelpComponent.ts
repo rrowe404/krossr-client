@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    selector: 'help',
+    selector: 'krossr-help',
     styleUrls: ['./HelpStyles.less'],
     templateUrl: './HelpView.html'
 })

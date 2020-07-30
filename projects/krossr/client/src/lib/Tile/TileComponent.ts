@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'tile',
+    selector: 'krossr-tile',
     styleUrls: ['./TileStyles.less'],
     templateUrl: './TileView.html'
 })

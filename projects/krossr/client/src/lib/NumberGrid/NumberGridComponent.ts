@@ -5,7 +5,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'number-grid',
+    selector: 'krossr-number-grid',
     styleUrls: ['./NumberGridStyles.less'],
     templateUrl: './NumberGridView.html'
 })

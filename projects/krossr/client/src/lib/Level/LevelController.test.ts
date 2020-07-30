@@ -36,7 +36,8 @@
 //                 });
 //             }));
 
-//             it('$scope.findOne() should create an array with one Level object fetched from XHR using a levelId URL parameter', inject(function(Levels) {
+//             it('$scope.findOne() should create an array with one Level object fetched' +
+//                  'from XHR using a levelId URL parameter', inject(function(Levels) {
 //                 // Define a sample Level object
 //                 var sampleLevel = new Levels({
 //                     id: '525a8422f6d0f87f0e407a33',
@@ -60,7 +61,8 @@
 //                 expect(LevelController.level.id).toEqual(sampleLevel.id);
 //             }));
 
-//             it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Levels) {
+//             it('$scope.create() with valid form data should send a POST request with the form'
+                // + 'input values and then locate to new object URL', inject(function(Levels) {
 //                 // Create a sample Level object
 //                 var sampleLevelPostData = new Levels({
 //                     name: 'New Level',
@@ -103,8 +105,9 @@
 //                 $httpBackend.flush();
 //             }));
 
-//             it('$scope.remove() should send a DELETE request with a valid levelId and remove the Level from the scope', inject(function(Levels) {
-//                 // Create new Level object
+//             it('$scope.remove() should send a DELETE request with a valid' +
+                   // 'levelId and remove the Level from the scope', inject(function(Levels) {
+//                 // Create new Level objectk
 //                 var sampleLevel = new Levels({
 //                     id: '525a8422f6d0f87f0e407a33'
 //                 });

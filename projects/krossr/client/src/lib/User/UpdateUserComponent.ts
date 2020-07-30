@@ -4,7 +4,7 @@ import { UserService } from './UserService';
 import { KrossrError } from '@krossr/types';
 
 @Component({
-    selector: 'update-user',
+    selector: 'krossr-update-user',
     templateUrl: './UpdateUserView.html'
 })
 export class UpdateUserComponent implements OnInit{

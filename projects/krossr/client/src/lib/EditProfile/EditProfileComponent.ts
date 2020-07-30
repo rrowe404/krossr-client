@@ -4,7 +4,7 @@ import { SignOutService } from '../SignOut/SignOutService';
 /** Popup to change email/password or log out */
 
 @Component({
-    selector: 'edit-profile',
+    selector: 'krossr-edit-profile',
     templateUrl: './EditProfileView.html'
 })
 export class EditProfileComponent {
