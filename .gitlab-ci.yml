@@ -18,6 +18,7 @@ node test:
   before_script:
     - npm install
   script:
+    - npx ngcc
     - npm run test
 
 node lint:
