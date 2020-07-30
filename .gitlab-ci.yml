@@ -1,0 +1,29 @@
+### STAGES ###
+stages:
+  - test
+  # - build
+  # - review
+  # - deploy
+
+### GLOBAL VARS ###
+variables:
+  BUILD_IMAGE_VERSION: latest
+  IMAGE_NAME: registry.gitlab.com/${CI_PROJECT_PATH}
+  DOCKER_DRIVER: overlay2
+
+### TEST STAGE ###
+node test:
+  stage: test
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
+  before_script:
+    - npm install
+  script:
+    - npm run test
+
+node lint:
+  stage: test
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
+  before_script:
+    - npm install
+  script:
+    - npm run lint
