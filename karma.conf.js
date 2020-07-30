@@ -25,14 +25,14 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromiumHeadlessNoSandbox'],
+    browsers: ['ChromeHeadlessNoSandbox'],
         customLaunchers: {
-            ChromiumHeadlessNoSandbox: {
-                base: 'ChromiumHeadless',
+            ChromeHeadlessNoSandbox: {
+                base: 'ChromeHeadless',
                     flags: ['--no-sandbox']
             }
         },
-    singleRun: process.env.CI,
+    singleRun: process.env.NODE_ENV === 'test',
     restartOnFileChange: true
   });
 };
