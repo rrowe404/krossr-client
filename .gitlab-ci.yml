@@ -5,6 +5,13 @@ stages:
   # - review
   # - deploy
 
+### CACHE ###
+cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+    policy: pull
+
 ### GLOBAL VARS ###
 variables:
   BUILD_IMAGE_VERSION: latest
