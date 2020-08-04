@@ -1,5 +1,5 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { ILevel } from '../level/Level';
+import { ILevel } from './Level';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelService } from './LevelService';
