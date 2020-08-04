@@ -1,15 +1,23 @@
 ### STAGES ###
 stages:
-  - test
+  - install_dependencies
   # - build
+  - test
   # - review
   # - deploy
 
-### CACHE ###
-cache:
-    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
-    paths:
-      - node_modules/
+### DEPENDENCIES
+install_dependencies:
+    stage: install_dependencies
+    cache:
+        key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+        paths:
+          - node_modules/
+    script:
+      - npm install
+    only:
+      changes:
+        - package-lock.json
 
 ### GLOBAL VARS ###
 variables:
@@ -21,15 +29,11 @@ variables:
 node test:
   stage: test
   image: zenika/alpine-chrome:with-node
-  before_script:
-    - npm install
   script:
     - npm run test
 
 node lint:
   stage: test
   image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
-  before_script:
-    - npm install
   script:
     - npm run lint
