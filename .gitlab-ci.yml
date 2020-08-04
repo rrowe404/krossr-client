@@ -1,7 +1,7 @@
 ### STAGES ###
 stages:
   - install_dependencies
-  # - build
+  - build
   - test
   # - review
   # - deploy
@@ -21,6 +21,17 @@ install_dependencies:
     script:
       - npm install
 
+build_library:
+    image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION} 
+    stage: build
+    artifacts:
+      untracked: true
+    cache:
+      <<: *global_cache
+      policy: pull
+    script:
+      - ng build @krossr/client
+
 ### GLOBAL VARS ###
 variables:
   BUILD_IMAGE_VERSION: latest
@@ -32,6 +43,8 @@ node test:
   cache:
     <<: *global_cache
     policy: pull
+  dependencies:
+    - build
   stage: test
   image: zenika/alpine-chrome:with-node
   script:
