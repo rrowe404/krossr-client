@@ -14,6 +14,7 @@ cache: &global_cache
 
 ### DEPENDENCIES
 install_dependencies:
+    image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
     stage: install_dependencies
     cache:
       <<: *global_cache
