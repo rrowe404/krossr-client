@@ -44,7 +44,7 @@ node test:
     <<: *global_cache
     policy: pull
   dependencies:
-    - build
+    - build_library
   stage: test
   image: zenika/alpine-chrome:with-node
   script:
