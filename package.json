@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "buildLibrary": "ng build @krossr/client",
     "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build",
     "test": "cross-env NODE_ENV=test ng test",

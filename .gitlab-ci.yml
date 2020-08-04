@@ -30,7 +30,7 @@ build_library:
       <<: *global_cache
       policy: pull
     script:
-      - ng build @krossr/client
+      - npm run buildLibrary
 
 ### GLOBAL VARS ###
 variables:
