@@ -19,9 +19,6 @@ install_dependencies:
       <<: *global_cache
     script:
       - npm install
-    only:
-      changes:
-        - package-lock.json
 
 ### GLOBAL VARS ###
 variables:
