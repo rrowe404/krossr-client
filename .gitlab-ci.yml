@@ -13,25 +13,24 @@ cache: &global_cache
 
 ### DEPENDENCIES
 install_dependencies:
-    image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
-    stage: install_dependencies
-    cache:
-      <<: *global_cache
-    script:
-      - npm install
-      - npx ngcc
-
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
+  stage: install_dependencies
+  cache:
+    <<: *global_cache
+  script:
+    - npm install
+    - npx ngcc
 
 build_library:
-    image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION} 
-    stage: build
-    artifacts:
-      untracked: true
-    cache:
-      <<: *global_cache
-      policy: pull
-    script:
-      - npm run buildLibrary
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION} 
+  stage: build
+  artifacts:
+    untracked: true
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - npm run buildLibrary
 
 ### GLOBAL VARS ###
 variables:
