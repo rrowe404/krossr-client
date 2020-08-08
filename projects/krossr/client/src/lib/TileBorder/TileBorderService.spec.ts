@@ -1,4 +1,4 @@
-import { TileBorderService } from "./TileBorderService";
+import { TileBorderService } from './TileBorderService';
 import { TestBed } from '@angular/core/testing';
 import { Point } from '../Point/Point';
 import { Position } from '../Position/Position';
@@ -20,8 +20,8 @@ describe('TileBorderService', () => {
     it('should apply borders to medium-large puzzles appropriately', () => {
         let directions = ['left', 'right', 'bottom', 'top'];
         let isClean = (position: Point, length: number) => {
-            return directions.every((direction: Position) => !service.getBorder(direction, position, length) )
-        }
+            return directions.every((direction: Position) => !service.getBorder(direction, position, length) );
+        };
 
         expect(isClean({ x: 0, y: 0 }, 10)).toBeTrue();
         expect(isClean({ x: 0, y: 4 }, 10)).toBeFalsy();
