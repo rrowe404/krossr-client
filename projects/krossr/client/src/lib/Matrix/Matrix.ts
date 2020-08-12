@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { IEquatable } from '../Equatable/IEquatable';
 
 /**
@@ -27,11 +28,11 @@ export class Matrix<T> implements IEquatable<Matrix<T>> {
     }
 
     copyFrom(source: Matrix<T>) {
-        this.matrix = source.matrix;
+        this.matrix = _.cloneDeep(source.matrix);
     }
 
     /** Return a COPY of the current layout to preserve encapsulation -- you shouldn't be able to modify a matrix by normal means */
-    getLayout() {
+    getLayout(): T[][] {
         return JSON.parse(JSON.stringify(this.matrix));
     }
 

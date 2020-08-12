@@ -100,7 +100,7 @@ export class GameComponent implements OnInit, OnDestroy {
     private mouseUpEvent() {
         this.applyFillDragBox();
 
-        if (this.checkWin()) {
+        if (this.checkForWin()) {
             this.gameOverService.openDialog(this.level);
         }
     }
@@ -114,16 +114,6 @@ export class GameComponent implements OnInit, OnDestroy {
         } else {
             return false;
         }
-    }
-
-    checkWin() {
-        let winner = this.checkForWin();
-
-        if (winner) {
-            return true;
-        }
-
-        return false;
     }
 
     setMargin(tileSize: number) {

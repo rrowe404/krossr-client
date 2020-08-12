@@ -47,4 +47,8 @@ describe('TileBorderService', () => {
         expect(service.getBorder('right', { x: 9, y: 4 }, 10)).toBeFalsy();
         expect(service.getBorder('right', { x: 9, y: 4 }, 15)).toBeTruthy();
     });
+
+    it('should output nothing if the direction is invalid', () => {
+        expect(service.getBorder('kalamazoo' as any, { x: 0, y: 0 }, 10)).toBeFalsy();
+    });
 });
