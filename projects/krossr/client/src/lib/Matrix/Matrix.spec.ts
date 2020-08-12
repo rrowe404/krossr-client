@@ -1,4 +1,4 @@
-import { Matrix } from "./Matrix";
+import { Matrix } from './Matrix';
 
 describe('Matrix', () => {
     let matrix: Matrix<string>;
@@ -21,7 +21,7 @@ describe('Matrix', () => {
         matrix.setValueAt(0, 1, 'h');
         let rotated = matrix.rotate();
         expect(rotated.getValueAt(0, 1)).toBe('o');
-        expect(rotated.getValueAt(1, 1,)).toBe('h');
+        expect(rotated.getValueAt(1, 1)).toBe('h');
     });
 
     it('should be able to be flattened', () => {
@@ -46,7 +46,7 @@ describe('Matrix', () => {
     it('should be able to be set and compared', () => {
         let values = [['o', 'h'], ['i', 'o']];
         let otherMatrix = new Matrix<string>(2, 2);
-        
+
         matrix.initializeWith(values);
         otherMatrix.initializeWith(values);
 

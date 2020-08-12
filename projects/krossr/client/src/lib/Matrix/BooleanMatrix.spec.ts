@@ -1,4 +1,4 @@
-import { BooleanMatrix } from "./BooleanMatrix";
+import { BooleanMatrix } from './BooleanMatrix';
 
 describe('BooleanMatrix', () => {
     it('should initialize to false', () => {
