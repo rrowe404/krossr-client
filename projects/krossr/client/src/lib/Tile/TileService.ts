@@ -1,8 +1,8 @@
 import { Point } from '../Point/Point';
-import { SideLengthService } from '../SideLength/SideLengthService';
 import { TileState } from './TileState';
 import { Injectable } from '@angular/core';
 import { TileComponent } from './TileComponent';
+import { PointService } from '../Point/PointService';
 
 /**
  * Keeps a cache of the tiles on the screen for faster access (smooth animation for dragging & selecting),
@@ -16,14 +16,8 @@ export class TileService {
     private tileIndex: Array<{ tile: TileComponent }> = [];
 
     constructor(
-        private sideLengthService: SideLengthService
+        private pointService: PointService
     ) {
-
-    }
-
-    /** Convert a 2D coordinate into an index */
-    private convertTo1D(coord: Point): number {
-        return (coord.y * this.sideLengthService.sideLength) + coord.x;
     }
 
     /** Append the current tile index */
@@ -34,19 +28,6 @@ export class TileService {
     /** Make sure the index is clean before we add to it, to avoid bugs with switching between screens */
     clearTileIndex(): void {
         this.tileIndex = [];
-    }
-
-    /** Convert an index into a 2D coordinate */
-    convertTo2D(index: number): Point {
-        let x = index % this.sideLengthService.sideLength;
-        let y = (index - x) / this.sideLengthService.sideLength;
-
-        let coord = {
-            y,
-            x
-        };
-
-        return coord;
     }
 
     /** Empty out all of the tiles, but keep them on-screen */
@@ -79,7 +60,7 @@ export class TileService {
 
     /** Grab a tile controller out of the tile index from a given 2D coordinate */
     findTileCtrlByCoord(coord: Point): TileComponent {
-        let index = this.convertTo1D(coord);
+        let index = this.pointService.pointToIndex(coord);
         return this.findTileCtrlByIndex(index);
     }
 

@@ -15,6 +15,7 @@ import { TileEventService } from './TileEventService';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { TileBorderService } from '../TileBorder/TileBorderService';
+import { PointService } from '../Point/PointService';
 
 @Component({
     selector: 'krossr-tile',
@@ -48,6 +49,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         private utils: Utils,
         private dragBoxService: DragBoxService,
+        private pointService: PointService,
         private shiftService: ShiftService,
         private sideLengthService: SideLengthService,
         private tileBorderService: TileBorderService,
@@ -140,7 +142,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private fillPending(index) {
-        let coord = this.tileService.convertTo2D(index);
+        let coord = this.pointService.indexToPoint(index);
         let coordsToClear;
 
         // save a snapshot of the previous dragbox for comparison purposes
@@ -172,7 +174,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private mouseDownEvent() {
-        let coord = this.tileService.convertTo2D(this.index);
+        let coord = this.pointService.indexToPoint(this.index);
 
         this.dragBoxService.startCoord = coord;
         this.dragBoxService.initState = this.selected;
@@ -207,7 +209,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private tryEndDragbox() {
-        let coord = this.tileService.convertTo2D(this.index);
+        let coord = this.pointService.indexToPoint(this.index);
         this.dragBoxService.endCoord = coord;
         this.tileEventService.tileDragEnd.emit();
     }
@@ -228,7 +230,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         let coord;
 
         if (typeof index === 'number') {
-            coord = this.tileService.convertTo2D(index);
+            coord = this.pointService.indexToPoint(index);
         } else {
             coord = index;
         }
@@ -279,7 +281,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     /* Determine which tiles to add colored borders to */
     getBorderColors(direction, index) {
-        let coord = this.tileService.convertTo2D(index);
+        let coord = this.pointService.indexToPoint(index);
         let sideLength = this.sideLengthService.sideLength;
 
         return this.tileBorderService.getBorder(direction, coord, sideLength);
