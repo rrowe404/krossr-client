@@ -4,6 +4,8 @@
 process.env.CHROME_BIN = process.env.CHROME_BIN || require('puppeteer').executablePath();
 
 module.exports = function (config) {
+  const isTestEnv = process.env.NODE_ENV === 'test';
+
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -27,14 +29,14 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadlessNoSandbox'],
+    browsers: isTestEnv ? ['ChromeHeadlessNoSandbox'] : ['Chrome'],
     customLaunchers: {
         ChromeHeadlessNoSandbox: {
             base: 'ChromeHeadless',
                 flags: ['--no-sandbox']
         }
     },
-    singleRun: process.env.NODE_ENV === 'test',
+    singleRun: isTestEnv,
     restartOnFileChange: true
   });
 };
