@@ -1,4 +1,4 @@
-import { PointService } from "./PointService";
+import { PointService } from './PointService';
 import { TestBed } from '@angular/core/testing';
 import { SideLengthService } from '../SideLength/SideLengthService';
 

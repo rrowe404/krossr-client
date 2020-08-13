@@ -2,10 +2,14 @@ import { NumberLineComponent } from './NumberLineComponent';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
-import { Component } from '@angular/core';
 
 describe('NumberLineComponent', () => {
-    function getFixture(game: BooleanMatrix, goal: BooleanMatrix, index: number, orientation: 'horizontal' | 'vertical'): ComponentFixture<NumberLineComponent> {
+    function getFixture(
+        game: BooleanMatrix,
+        goal: BooleanMatrix,
+        index: number,
+        orientation: 'horizontal' | 'vertical'
+    ): ComponentFixture<NumberLineComponent> {
         let fixture = TestBed.createComponent(NumberLineComponent);
         let component = fixture.componentInstance;
 
@@ -42,9 +46,9 @@ describe('NumberLineComponent', () => {
 
         let goal = new BooleanMatrix(2, 2);
         goal.initializeWith([[true, false], [true, false]]);
-        
+
         let component = getFixture(game, goal, 0, 'horizontal').componentInstance;
-     
+
         expect(component.lineContent).toEqual([
             { finished: false, text: 1 }
         ]);

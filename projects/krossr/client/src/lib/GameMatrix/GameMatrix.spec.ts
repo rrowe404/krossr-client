@@ -1,4 +1,4 @@
-import { GameMatrix } from "./GameMatrix";
+import { GameMatrix } from './GameMatrix';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 
 describe('GameMatrix', () => {
