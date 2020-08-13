@@ -1,6 +1,5 @@
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { LineContent } from '../LineContent/LineContent';
-import { SideLengthService } from '../SideLength/SideLengthService';
 import { TileGroup } from '../TileGroup/TileGroup';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { Component, Input, OnInit } from '@angular/core';
@@ -14,8 +13,7 @@ import { TileGroupEntry } from '../TileGroup/TileGroupEntry';
 export class NumberLineComponent implements OnInit {
 
     constructor(
-        private sideLengthService: SideLengthService,
-        private tileSizeService: TileSizeService,
+        private tileSizeService: TileSizeService
     ) {
     }
 
@@ -23,7 +21,6 @@ export class NumberLineComponent implements OnInit {
     @Input() public goalMatrix: BooleanMatrix;
     public lineContent: LineContent[] = [];
 
-    private sideLength: number;
     private currentGroup: TileGroup = new TileGroup();
     private hasGroup = false;
 
@@ -31,7 +28,6 @@ export class NumberLineComponent implements OnInit {
     @Input() public orientation: string;
 
     ngOnInit() {
-        this.sideLength = this.sideLengthService.sideLength;
         this.getLineContent();
     }
 
@@ -65,7 +61,7 @@ export class NumberLineComponent implements OnInit {
         let resetInd = true;
 
         // Loop through the row, building a separate count for each group of consecutive true tiles
-        for (let i = 0; i < this.sideLength; i++) {
+        for (let i = 0; i < this.goalMatrix.length; i++) {
             // If the rotated goal matrix contains a true tile at the current index...
             if (this.goalMatrix.getValueAt(index, i)) {
                 if (!currentGroup[groupCount]) {
