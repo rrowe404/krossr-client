@@ -1,4 +1,4 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 import { DragBoxService } from './DragBoxService';
 import { Point } from '../Point/Point';
 

@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from "@angular/core/testing";
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { StarRatingComponent } from './StarRatingComponent';
 
 describe('StarRatingComponent', () => {
@@ -6,15 +6,15 @@ describe('StarRatingComponent', () => {
     let component: StarRatingComponent;
 
     function getFixture(rating: number, readonly: boolean) {
-        let fixture = TestBed.createComponent(StarRatingComponent);
-        let component = fixture.componentInstance;
+        let fix = TestBed.createComponent(StarRatingComponent);
+        let comp = fix.componentInstance;
 
-        component.rating = rating;
-        component.readOnly = readonly;
+        comp.rating = rating;
+        comp.readOnly = readonly;
 
-        fixture.detectChanges();
+        fix.detectChanges();
 
-        return fixture;
+        return fix;
     }
 
     beforeEach(() => {
@@ -32,8 +32,8 @@ describe('StarRatingComponent', () => {
     });
 
     it('should have a functioning toggle function', () => {
-        let fixture = getFixture(3, false);
-        let component = fixture.componentInstance;
+        fixture = getFixture(3, false);
+        component = fixture.componentInstance;
 
         component.toggle(3);
         expect(component.rating).toBe(4);

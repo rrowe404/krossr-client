@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PaginationComponent } from './PaginationComponent';
 
 describe('PaginationComponent', () => {
@@ -7,10 +7,10 @@ describe('PaginationComponent', () => {
 
     function getFixture(currentPage: number, totalPages: number) {
         fixture = TestBed.createComponent(PaginationComponent);
-        let component = fixture.componentInstance;
+        let comp = fixture.componentInstance;
 
-        component.currentPage = currentPage;
-        component.totalPages = totalPages;
+        comp.currentPage = currentPage;
+        comp.totalPages = totalPages;
 
         fixture.detectChanges();
 
@@ -58,5 +58,5 @@ describe('PaginationComponent', () => {
         component.pageUp();
 
         expect(component.currentPage).toBe(1);
-    })
+    });
 });

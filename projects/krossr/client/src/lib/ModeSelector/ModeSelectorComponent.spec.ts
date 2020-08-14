@@ -1,4 +1,4 @@
-import { ModeSelectorComponent } from "./ModeSelectorComponent";
+import { ModeSelectorComponent } from './ModeSelectorComponent';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe('ModeSelectorComponent', () => {
@@ -17,5 +17,5 @@ describe('ModeSelectorComponent', () => {
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
-    })
+    });
 });
