@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { LevelLayout } from './LevelLayout';
 import { KrossrError, LevelViewModel, CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
+import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 
 @Component({
     selector: 'krossr-level',
@@ -27,6 +28,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         private $state: StateService,
         public Authentication: AuthenticationService,
         private gameSizeService: GameSizeService,
+        private levelDecoder: LevelDecoder,
         private levelService: LevelService,
         private matDialog: MatDialog,
         private ratingService: RatingService,
@@ -124,7 +126,7 @@ export class LevelComponent implements OnInit, OnDestroy {
             this.levelService.getLevel(this.selectedLevelId).then((data: LevelViewModel) => {
                 this.level = Object.assign({}, data, { currentView: mode, ready: false });
 
-                this.level.decodedLayout = this.levelService.decodeLayout(data.layout);
+                this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
 
                 let flatLayout = this.utils.flatten(this.level.decodedLayout);
 
