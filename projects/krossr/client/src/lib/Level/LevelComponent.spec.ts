@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelComponent } from './LevelComponent';
 import { StateService } from '@uirouter/angular';
 import { MockStateService } from 'src/test/MockStateService';

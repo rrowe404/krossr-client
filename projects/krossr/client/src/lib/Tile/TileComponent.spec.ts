@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TileComponent } from './TileComponent';
 import { TileState } from './TileState';
 
 describe('TileComponent', () => {
-    let fixture: ComponentFixture<TileComponent>
+    let fixture: ComponentFixture<TileComponent>;
     let component: TileComponent;
 
     beforeEach(() => {
@@ -15,7 +15,7 @@ describe('TileComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    
+
     it('should be created', () => {
         expect(fixture).toBeTruthy();
     });
