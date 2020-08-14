@@ -26,7 +26,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     /* At this level, work with the horizontal version only */
     @Input() public gameMatrix: BooleanMatrix;
     @Input() public index;
-    @Input() public level: ILevel;
+    @Input() public isEditMode: boolean;
     @Input() public tiles;
     @Input() public editable: boolean;
 
@@ -36,7 +36,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     public height: string;
     public width: string;
 
-    private isEditMode: boolean;
     private goalMatrix;
 
     private $element: HTMLElement;
@@ -68,7 +67,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit() {
         this.$element = this.elementRef.nativeElement as HTMLElement;
-        this.isEditMode = this.level.currentView === 'edit';
 
         this.goalMatrix = this.utils.getGoalMatrix();
 
