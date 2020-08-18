@@ -1,6 +1,8 @@
-import { TileService } from '../Tile/TileService';
 import { Point } from '../Point/Point';
 import { Injectable } from '@angular/core';
+import { TileFillEvent } from '../Tile/TileFillEvent';
+import { TileState } from '../Tile/TileState';
+import { TileFillEventService } from '../Tile/TileFillEventService';
 
 @Injectable({
     providedIn: 'root'
@@ -36,7 +38,7 @@ export class DragBoxService {
     }
 
     constructor(
-        private tileService: TileService
+        private tileFillEventService: TileFillEventService
     ) {
 
     }
@@ -50,9 +52,15 @@ export class DragBoxService {
     /**
      * Change the tiles in the dragbox to the correct state
      */
-    fill(override: string): void {
+    fill(override: TileState): void {
         if (this.validate()) {
-            this.tileService.fillTiles(this.process(), this.initState, override);
+            let tileFillEvent: TileFillEvent = {
+                coords: this.process(),
+                initState: this.initState,
+                override
+            };
+
+            this.tileFillEventService.fill.emit(tileFillEvent);
             this.clearDragBox();
         }
     }

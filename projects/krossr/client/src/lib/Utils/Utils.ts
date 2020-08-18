@@ -1,8 +1,8 @@
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { SideLengthService } from '../SideLength/SideLengthService';
-import { TileService } from '../Tile/TileService';
 import { Injectable } from '@angular/core';
+import { TileFillEventService } from '../Tile/TileFillEventService';
 
 @Injectable({
     providedIn: 'root'
@@ -11,9 +11,8 @@ export class Utils {
     constructor(
         private gameSizeService: GameSizeService,
         private sideLengthService: SideLengthService,
-        private tileService: TileService
+        private tileFillEventService: TileFillEventService
     ) {
-
     }
 
     private gameMatrix: BooleanMatrix;
@@ -23,13 +22,11 @@ export class Utils {
     clearAll() {
         let currentGameMatrix = this.getGameMatrix();
 
-        this.tileService.eraseTiles();
+        this.tileFillEventService.clearAll();
 
         if (currentGameMatrix) {
             currentGameMatrix.clear();
         }
-
-        this.tileService.clearTileIndex();
     }
 
     /* Given a number of tiles, create an empty square matrix with that number */
@@ -47,7 +44,6 @@ export class Utils {
             this.setGoalMatrix(args.layout);
         }
 
-        this.tileService.clearTileIndex();
         this.gameSizeService.calculatePlayableArea();
         this.createEmptyMatrix(args.numberOfTiles);
 

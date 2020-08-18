@@ -85,7 +85,7 @@ export class GameComponent implements OnInit, OnDestroy {
      * (pending if being dragged over, selected if mouse released normally,
      * marked if shift was held)
      */
-    private applyFillDragBox(override?) {
+    private applyFillDragBox(override?: TileState) {
         this.dragBoxService.fill(override);
     }
 

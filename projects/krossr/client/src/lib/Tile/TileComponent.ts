@@ -3,7 +3,6 @@ import { DragBoxService } from '../DragBox/DragBoxService';
 import { ShiftService } from '../Shift/ShiftService';
 import { Point } from '../Point/Point';
 import { SideLengthService } from '../SideLength/SideLengthService';
-import { TileService } from './TileService';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileState } from './TileState';
 import { TouchService } from '../Touch/TouchService';
@@ -14,6 +13,8 @@ import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { TileBorderService } from '../TileBorder/TileBorderService';
 import { PointService } from '../Point/PointService';
+import { TileFillEventService } from './TileFillEventService';
+import { TileFillEvent } from './TileFillEvent';
 
 @Component({
     selector: 'krossr-tile',
@@ -48,7 +49,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         private sideLengthService: SideLengthService,
         private tileBorderService: TileBorderService,
         private tileEventService: TileEventService,
-        private tileService: TileService,
+        private tileFillEventService: TileFillEventService,
         private tileSizeEventService: TileSizeEventService,
         private tileSizeService: TileSizeService,
         private touchService: TouchService
@@ -68,8 +69,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.tileService.addTile({ tile: this });
-
         this.listeners = [
             this.renderer.listen(this.$element, 'mousedown', () => this.mouseDownEvent()),
             this.renderer.listen(this.$element, 'mousemove', () => this.mouseMoveEvent()),
@@ -101,12 +100,28 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (this.$element === tile ) {
                     this.tryEndDragbox();
                 }
+            }),
+            this.tileFillEventService.fill.subscribe((event: TileFillEvent) => {
+                let thisCoord = this.pointService.indexToPoint(this.index);
+                let hasCoord = !event.coords || _.findIndex(event.coords, thisCoord) > -1;
+                let isValid = !event.validate || event.validate(this);
+
+                if (hasCoord && isValid) {
+                    this.change(thisCoord, event.initState, event.override);
+                }
             })
         ];
     }
 
     private clearPending(coords: Point[]) {
-        this.tileService.fillTiles(coords, true, TileState.empty, tile => tile.isPendingAndNotSelected());
+        let tileFillEvent: TileFillEvent = {
+            coords,
+            initState: true,
+            override: TileState.empty,
+            validate: (tile) => tile.isPendingAndNotSelected()
+        };
+
+        this.tileFillEventService.fill.emit(tileFillEvent);
     }
 
     /** If the override value (which will be the value of the tile that a dragstart is activated on)
@@ -161,7 +176,14 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             this.clearPending(coordsToClear);
         }
 
-        this.tileService.fillTiles(allPendingCoords, true, TileState.pending, tile => tile.isNotPending());
+        let tileFillEvent: TileFillEvent = {
+            coords: allPendingCoords,
+            initState: true,
+            override: TileState.pending,
+            validate: (tile) => tile.isNotPending()
+        }
+
+        this.tileFillEventService.fill.emit(tileFillEvent);
     }
 
     private mouseDownEvent() {
@@ -278,12 +300,10 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         return this.tileBorderService.getBorder(direction, coord, sideLength);
     }
 
-    /** used with the validationFn in tileService.fillTiles */
     isPendingAndNotSelected() {
         return this.pending && !this.selected;
     }
 
-    /** used with the validationFn in tileService.fillTiles */
     isNotPending() {
         return !this.pending;
     }
