@@ -45,14 +45,14 @@ export class TileService {
       * @params {function} a function to run on each tile controller before changing it to determine whether or not to change.
       * must be defined in TileController
       */
-    fillTiles(coords: Point[], initState, override, validationFn?) {
+    fillTiles(coords: Point[], initState, override, validationFn?: (tile: TileComponent) => boolean) {
         let len = coords.length;
 
         for (let i = 0; i < len; i++) {
             let currentCoord = coords[i];
             let currentTileController = this.findTileCtrlByCoord(currentCoord);
 
-            if (!validationFn || (typeof currentTileController[validationFn] === 'function' && currentTileController[validationFn]())) {
+            if (!validationFn || validationFn(currentTileController)) {
                 currentTileController.change(currentCoord, initState, override);
             }
         }

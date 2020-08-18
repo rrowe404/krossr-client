@@ -106,7 +106,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private clearPending(coords: Point[]) {
-        this.tileService.fillTiles(coords, true, TileState.empty, 'isPendingAndNotSelected');
+        this.tileService.fillTiles(coords, true, TileState.empty, tile => tile.isPendingAndNotSelected());
     }
 
     /** If the override value (which will be the value of the tile that a dragstart is activated on)
@@ -161,7 +161,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             this.clearPending(coordsToClear);
         }
 
-        this.tileService.fillTiles(allPendingCoords, true, TileState.pending, 'isNotPending');
+        this.tileService.fillTiles(allPendingCoords, true, TileState.pending, tile => tile.isNotPending());
     }
 
     private mouseDownEvent() {
