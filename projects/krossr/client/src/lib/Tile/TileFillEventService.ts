@@ -12,7 +12,7 @@ export class TileFillEventService {
         let tileFillEvent: TileFillEvent = {
             initState: true,
             override: TileState.empty
-        }
+        };
 
         this.fill.emit(tileFillEvent);
     }

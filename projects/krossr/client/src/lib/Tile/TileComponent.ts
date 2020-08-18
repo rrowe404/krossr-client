@@ -181,7 +181,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             initState: true,
             override: TileState.pending,
             validate: (tile) => tile.isNotPending()
-        }
+        };
 
         this.tileFillEventService.fill.emit(tileFillEvent);
     }
