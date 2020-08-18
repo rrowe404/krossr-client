@@ -1,4 +1,4 @@
-import { LevelDecoder } from "./LevelDecoder";
+import { LevelDecoder } from './LevelDecoder';
 import { TestBed } from '@angular/core/testing';
 
 describe('LevelDecoder', () => {

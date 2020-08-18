@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class LevelDecoder {
-   /**
+    /**
      * Converts a base64 string that decodes into a binary string into a layout
      * This assumes the layout was square, like most everything else
      */
@@ -28,5 +28,5 @@ export class LevelDecoder {
         });
 
         return resultLayout;
-    } 
+    }
 }
