@@ -1,6 +1,5 @@
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { DragBoxService } from '../DragBox/DragBoxService';
-import { ILevel } from '../Level/Level';
 import { ShiftService } from '../Shift/ShiftService';
 import { Point } from '../Point/Point';
 import { SideLengthService } from '../SideLength/SideLengthService';
@@ -8,7 +7,6 @@ import { TileService } from './TileService';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileState } from './TileState';
 import { TouchService } from '../Touch/TouchService';
-import { Utils } from '../Utils/Utils';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Component, Input, OnInit, AfterViewInit, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { TileEventService } from './TileEventService';
@@ -36,8 +34,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     public height: string;
     public width: string;
 
-    private goalMatrix;
-
     private $element: HTMLElement;
 
     private listeners: Array<() => void> = [];
@@ -46,7 +42,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
-        private utils: Utils,
         private dragBoxService: DragBoxService,
         private pointService: PointService,
         private shiftService: ShiftService,
@@ -67,8 +62,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit() {
         this.$element = this.elementRef.nativeElement as HTMLElement;
-
-        this.goalMatrix = this.utils.getGoalMatrix();
 
         this.initializeFill();
         this.setTileSize(this.tileSizeService.getTileSize());
@@ -220,11 +213,11 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     change(index, initState, changeTo) {
         if (this.editable) {
-            this.changeTile(index, initState, changeTo, this.goalMatrix);
+            this.changeTile(index, initState, changeTo);
         }
     }
 
-    changeTile(index, initState, changeTo, goalMatrix) {
+    changeTile(index, initState, changeTo) {
         let coord;
 
         if (typeof index === 'number') {
