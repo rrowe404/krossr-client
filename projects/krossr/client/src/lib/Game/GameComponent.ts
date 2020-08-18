@@ -10,6 +10,7 @@ import { GameSizeEventService } from '../GameSize/GameSizeEventService';
 import { TileEventService } from '../Tile/TileEventService';
 import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ShiftService } from '../Shift/ShiftService';
 
 @Component({
     selector: 'krossr-game',
@@ -27,6 +28,7 @@ export class GameComponent implements OnInit, OnDestroy {
         private tileSizeEventService: TileSizeEventService,
         private tileSizeService: TileSizeService,
         private dragBoxService: DragBoxService,
+        private shiftService: ShiftService
     ) {
         this.$element = this.elementRef.nativeElement;
     }
@@ -85,7 +87,7 @@ export class GameComponent implements OnInit, OnDestroy {
      * (pending if being dragged over, selected if mouse released normally,
      * marked if shift was held)
      */
-    private applyFillDragBox(override?: TileState) {
+    private applyFillDragBox(override: TileState) {
         this.dragBoxService.fill(override);
     }
 
@@ -98,7 +100,9 @@ export class GameComponent implements OnInit, OnDestroy {
      * should always run after that event.
      */
     private mouseUpEvent() {
-        this.applyFillDragBox();
+        let fill = this.shiftService.shiftOn ? TileState.marked : TileState.selected;
+
+        this.applyFillDragBox(fill);
 
         if (this.checkForWin()) {
             this.gameOverService.openDialog(this.level);

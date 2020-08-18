@@ -1,6 +1,5 @@
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { DragBoxService } from '../DragBox/DragBoxService';
-import { ShiftService } from '../Shift/ShiftService';
 import { Point } from '../Point/Point';
 import { SideLengthService } from '../SideLength/SideLengthService';
 import { TileSizeService } from '../TileSize/TileSizeService';
@@ -45,7 +44,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         private dragBoxService: DragBoxService,
         private pointService: PointService,
-        private shiftService: ShiftService,
         private sideLengthService: SideLengthService,
         private tileBorderService: TileBorderService,
         private tileEventService: TileEventService,
@@ -238,22 +236,32 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
-        if (changeTo in TileState) {
-            this.fill(changeTo);
-        } else {
-            if (this.shiftService.shiftOn) {
-                this.marked ? this.empty() : this.fill(TileState.marked);
-
-                this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
-            } else {
-                this.selected ? this.empty() : this.fill(TileState.selected, initState);
-                this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
-            }
-        }
+        this.fill(changeTo);
+        this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
     }
 
     empty() {
         this.selected = false;
+        this.marked = false;
+        this.pending = false;
+    }
+
+    mark() {
+        if (this.marked) {
+            return this.empty();
+        }
+
+        this.marked = true;
+        this.selected = false;
+        this.pending = false;
+    }
+    
+    select(override?) {
+        if (this.selected) {
+            return this.empty();
+        }
+
+        this.selected = this.checkForOverride(override, this.selected);
         this.marked = false;
         this.pending = false;
     }
@@ -264,14 +272,10 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.pending = true;
                 break;
             case TileState.marked:
-                this.marked = true;
-                this.selected = false;
-                this.pending = false;
+                this.mark();
                 break;
             case TileState.selected:
-                this.selected = this.checkForOverride(override, this.selected);
-                this.marked = false;
-                this.pending = false;
+                this.select(override);
                 break;
             case TileState.empty:
                 this.empty();
