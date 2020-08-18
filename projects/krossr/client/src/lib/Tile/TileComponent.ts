@@ -253,7 +253,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         this.selected = false;
         this.pending = false;
     }
-    
+
     select(override?) {
         if (this.selected) {
             return this.empty();
@@ -277,6 +277,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 break;
             case TileState.empty:
                 this.empty();
+                break;
             default:
                 console.log('you done goofed');
                 break;
