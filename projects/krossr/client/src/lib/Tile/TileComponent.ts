@@ -107,7 +107,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 let isValid = !event.validate || event.validate(this);
 
                 if (hasCoord && isValid) {
-                    this.change(thisCoord, event.initState, event.override);
+                    this.changeTile(thisCoord, event.initState, event.override);
                 }
             })
         ];
@@ -143,7 +143,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.isEditMode && this.tiles && this.tiles[this.index] && this.tiles[this.index].selected) {
             this.fill(TileState.selected);
         } else {
-            this.fill(TileState.empty);
+            this.empty();
         }
     }
 
@@ -233,33 +233,29 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         return actualTile as HTMLElement;
     }
 
-    change(index, initState, changeTo) {
-        if (this.editable) {
-            this.changeTile(index, initState, changeTo);
-        }
-    }
-
-    changeTile(index, initState, changeTo) {
-        let coord;
-
-        if (typeof index === 'number') {
-            coord = this.pointService.indexToPoint(index);
-        } else {
-            coord = index;
+    changeTile(coord: Point, initState, changeTo: TileState) {
+        if (!this.editable) {
+            return;
         }
 
         if (changeTo in TileState) {
             this.fill(changeTo);
         } else {
-            if (this.shiftService.shiftOn === true) {
-                this.fill(this.marked ? TileState.empty : TileState.marked);
+            if (this.shiftService.shiftOn) {
+                this.marked ? this.empty() : this.fill(TileState.marked);
 
                 this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
             } else {
-                this.fill(this.selected ? TileState.empty : TileState.selected, initState);
+                this.selected ? this.empty() : this.fill(TileState.selected, initState);
                 this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
             }
         }
+    }
+
+    empty() {
+        this.selected = false;
+        this.marked = false;
+        this.pending = false;
     }
 
     fill(fillType, override?) {
@@ -278,10 +274,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.pending = false;
                 break;
             case TileState.empty:
-                this.selected = false;
-                this.marked = false;
-                this.pending = false;
-                break;
+                this.empty();
             default:
                 console.log('you done goofed');
                 break;
