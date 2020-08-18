@@ -91,7 +91,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             }),
             this.touchService.tileTouched.subscribe(tile => {
                 if (this.$element === tile) {
-                    this.tryFillPending();
+                    this.fillPending();
                 }
             }),
             this.touchService.tileTouchEnd.subscribe(tile => {
@@ -145,8 +145,12 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    private fillPending(index) {
-        let coord = this.pointService.indexToPoint(index);
+    private fillPending() {
+        if (!this.dragBoxService.validateStart()) {
+            return;
+        }
+
+        let coord = this.pointService.indexToPoint(this.index);
         let coordsToClear;
 
         // save a snapshot of the previous dragbox for comparison purposes
@@ -192,19 +196,13 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private mouseMoveEvent() {
-        this.tryFillPending();
+        this.fillPending();
     }
 
     private touchMoveEvent(e: TouchEvent) {
         let actualTile = this.getActualTileFromTouchEvent(e);
         this.touchService.tileTouched.emit(actualTile);
         this.touchService.lastTouchedTile = actualTile;
-    }
-
-    private tryFillPending() {
-        if (this.dragBoxService.validateStart())  {
-            this.fillPending(this.index);
-        }
     }
 
     /*
