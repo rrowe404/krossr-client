@@ -5,14 +5,18 @@ import { LevelSelectComponent } from './LevelSelectComponent';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { LevelSelectFilterModule } from '../LevelSelectFilter/LevelSelectFilterModule';
+import { PaginationModule } from '../Pagination/PaginationModule';
+import { UIRouterModule } from '@uirouter/angular';
 
 @NgModule({
     imports: [
         CommonModule,
         LevelSelectFilterModule,
         MatDialogModule,
+        PaginationModule,
         PopupContentModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        UIRouterModule.forChild()
     ],
     declarations: [
         LevelSelectComponent

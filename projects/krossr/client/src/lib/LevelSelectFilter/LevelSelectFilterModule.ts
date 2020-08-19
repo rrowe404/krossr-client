@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LevelSelectFilterComponent } from './LevelSelectFilterComponent';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        ReactiveFormsModule
     ],
     declarations: [
         LevelSelectFilterComponent
