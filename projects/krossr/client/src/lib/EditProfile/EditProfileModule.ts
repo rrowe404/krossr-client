@@ -3,12 +3,16 @@ import { EditProfileComponent } from './EditProfileComponent';
 import { KrossrButtonModule } from '../KrossrButton/KrossrButtonModule';
 import { PopupContentModule } from '../PopupContent/PopupContentModule';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UpdateUserModule } from '../User/UpdateUserModule';
+import { ChangePasswordModule } from '../ChangePassword/ChangePasswordModule';
 
 @NgModule({
     imports: [
+        ChangePasswordModule,
         KrossrButtonModule,
         MatDialogModule,
-        PopupContentModule
+        PopupContentModule,
+        UpdateUserModule
     ],
     declarations: [
         EditProfileComponent

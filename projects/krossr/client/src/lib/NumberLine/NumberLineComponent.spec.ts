@@ -2,6 +2,7 @@ import { NumberLineComponent } from './NumberLineComponent';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
+import { NumberLineModule } from './NumberLineModule';
 
 describe('NumberLineComponent', () => {
     function getFixture(
@@ -26,11 +27,8 @@ describe('NumberLineComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                CommonModule
+                NumberLineModule
             ],
-            declarations: [
-                NumberLineComponent
-            ]
         }).compileComponents();
 
     });

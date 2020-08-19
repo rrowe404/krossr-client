@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangePasswordComponent } from './ChangePasswordComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ChangePasswordModule } from './ChangePasswordModule';
 
 describe('ChangePasswordComponent', () => {
     let fixture: ComponentFixture<ChangePasswordComponent>;
@@ -9,9 +10,9 @@ describe('ChangePasswordComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
+                ChangePasswordModule,
                 HttpClientTestingModule
             ],
-            declarations: [ ChangePasswordComponent ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(ChangePasswordComponent);

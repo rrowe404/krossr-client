@@ -3,7 +3,7 @@ import { LevelComponent } from './LevelComponent';
 import { StateService } from '@uirouter/angular';
 import { MockStateService } from 'src/test/MockStateService';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatDialogModule } from '@angular/material/dialog';
+import { LevelModule } from './LevelModule';
 
 describe('LevelComponent', () => {
     let fixture: ComponentFixture<LevelComponent>;
@@ -12,10 +12,9 @@ describe('LevelComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MatDialogModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                LevelModule
             ],
-            declarations: [ LevelComponent ],
             providers: [
                 { provide: StateService, useClass: MockStateService }
             ]

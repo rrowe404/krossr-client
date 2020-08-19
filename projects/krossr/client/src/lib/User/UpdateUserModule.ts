@@ -18,5 +18,5 @@ import { ReactiveFormsModule } from '@angular/forms';
         UpdateUserComponent
     ]
 })
-export class UserModule {
+export class UpdateUserModule {
 }

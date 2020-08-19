@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
+import { NumberLineComponent } from './NumberLineComponent';
 import { CommonModule } from '@angular/common';
-import { LevelSelectFilterComponent } from './LevelSelectFilterComponent';
 
 @NgModule({
     imports: [
         CommonModule
     ],
     declarations: [
-        LevelSelectFilterComponent
+        NumberLineComponent
     ],
     entryComponents: [
-        LevelSelectFilterComponent
+        NumberLineComponent
     ],
     exports: [
-        LevelSelectFilterComponent
+        NumberLineComponent
     ]
 })
-export class LevelSelectFilterModule {
+export class NumberLineModule {
 }
