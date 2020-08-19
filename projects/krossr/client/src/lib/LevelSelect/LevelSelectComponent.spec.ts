@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelSelectComponent } from './LevelSelectComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MockStateService } from 'src/test/MockStateService';
 import { StateService } from '@uirouter/core';
+import { LevelSelectModule } from './LevelSelectModule';
 
 describe('LevelSelectComponent', () => {
     let fixture: ComponentFixture<LevelSelectComponent>;
@@ -12,10 +13,9 @@ describe('LevelSelectComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MatDialogModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                LevelSelectModule,
             ],
-            declarations: [ LevelSelectComponent ],
             providers: [
                 { provide: MatDialogRef, useValue: {} },
                 { provide: StateService, useValue: MockStateService },

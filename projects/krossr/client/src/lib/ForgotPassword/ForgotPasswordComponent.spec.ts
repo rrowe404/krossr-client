@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ForgotPasswordComponent } from './ForgotPasswordComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { ForgotPasswordModule } from './ForgotPasswordModule';
 
 describe('ForgotPasswordComponent', () => {
     let fixture: ComponentFixture<ForgotPasswordComponent>;
@@ -10,10 +11,9 @@ describe('ForgotPasswordComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MatDialogModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                ForgotPasswordModule
             ],
-            declarations: [ ForgotPasswordComponent ],
             providers: [
                 { provide: MatDialogRef, useValue: {} }
             ]

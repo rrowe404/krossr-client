@@ -9,19 +9,13 @@ import { NumberGridComponent } from './NumberGrid/NumberGridComponent';
 import { StarRatingComponent } from './StarRating/StarRatingComponent';
 import { ModeSelectorComponent } from './ModeSelector/ModeSelectorComponent';
 import { TileComponent } from './Tile/TileComponent';
-import { GameComponent } from './Game/GameComponent';
 import { LevelSelectComponent } from './LevelSelect/LevelSelectComponent';
 import { HeaderComponent } from './Header/HeaderComponent';
 import { PaginationComponent } from './Pagination/PaginationComponent';
 import { LoadingAnimationComponent } from './LoadingAnimation/LoadingAnimationComponent';
 import { HelpComponent } from './Help/HelpComponent';
-import { PopupContentComponent } from './PopupContent/PopupContentComponent';
-import { EditProfileComponent } from './EditProfile/EditProfileComponent';
-import { SignInComponent } from './SignIn/SignInComponent';
-import { ForgotPasswordComponent } from './ForgotPassword/ForgotPasswordComponent';
 import { ResetPasswordComponent } from './ResetPassword/ResetPasswordComponent';
 import { SignUpComponent } from './SignUp/SignUpComponent';
-import { ConfirmationComponent } from './Confirmation/ConfirmationComponent';
 import { Routes } from './Routing/Routes';
 import { ChangePasswordComponent } from './ChangePassword/ChangePasswordComponent';
 import { UpdateUserComponent } from './User/UpdateUserComponent';
@@ -34,29 +28,31 @@ import { LevelEditorFormComponent } from './LevelEditorForm/LevelEditorFormCompo
 import { uiRouterConfigFn } from './Config/RouterConfig';
 import { UIRouterModule } from '@uirouter/angular';
 import { LevelSelectFilterComponent } from './LevelSelectFilter/LevelSelectFilterComponent';
-import { KrossrButtonComponent } from './KrossrButton/KrossrButtonComponent';
 import { CommonModule } from '@angular/common';
 import { UserService } from './User/UserService';
 import { NotFoundComponent } from './NotFound/NotFoundComponent';
+import { EditProfileModule } from './EditProfile/EditProfileModule';
+import { ConfirmationModule } from './Confirmation/ConfirmationModule';
+import { GameModule } from './Game/GameModule';
+import { SignInModule } from './SignIn/SignInModule';
 
 @NgModule({
     imports: [
         BrowserAnimationsModule,
         CommonModule,
+        ConfirmationModule,
+        EditProfileModule,
+        GameModule,
         HttpClientModule,
         MatDialogModule,
         ReactiveFormsModule,
+        SignInModule,
         UIRouterModule.forRoot({ states: Routes.getNg2Routes(), config: uiRouterConfigFn })
     ],
     declarations: [
         ChangePasswordComponent,
-        ConfirmationComponent,
-        EditProfileComponent,
-        ForgotPasswordComponent,
-        GameComponent,
         GameOverComponent,
         HomeComponent,
-        KrossrButtonComponent,
         LevelComponent,
         HeaderComponent,
         HelpComponent,
@@ -69,11 +65,9 @@ import { NotFoundComponent } from './NotFound/NotFoundComponent';
         NumberLineComponent,
         NotFoundComponent,
         PaginationComponent,
-        PopupContentComponent,
         ResetPasswordComponent,
         ResizeDirective,
         ShellComponent,
-        SignInComponent,
         SignUpComponent,
         StarRatingComponent,
         TileComponent,
@@ -81,13 +75,8 @@ import { NotFoundComponent } from './NotFound/NotFoundComponent';
     ],
     entryComponents: [
         ChangePasswordComponent,
-        ConfirmationComponent,
-        EditProfileComponent,
-        ForgotPasswordComponent,
-        GameComponent,
         GameOverComponent,
         HomeComponent,
-        KrossrButtonComponent,
         LevelComponent,
         HeaderComponent,
         HelpComponent,
@@ -100,10 +89,8 @@ import { NotFoundComponent } from './NotFound/NotFoundComponent';
         NumberLineComponent,
         NotFoundComponent,
         PaginationComponent,
-        PopupContentComponent,
         ResetPasswordComponent,
         ShellComponent,
-        SignInComponent,
         SignUpComponent,
         StarRatingComponent,
         TileComponent,
