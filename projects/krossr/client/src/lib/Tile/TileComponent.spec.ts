@@ -17,7 +17,7 @@ describe('TileComponent', () => {
             setup(componentInstance);
         }
 
-        componentFixture.detectChanges(); 
+        componentFixture.detectChanges();
         return componentFixture;
     }
 
@@ -40,9 +40,9 @@ describe('TileComponent', () => {
     });
 
     it('should initialize fill if a selected TileLayout is passed in and the tile is in edit mode', () => {
-        let fixture2 = getFixture(component => {
-            component.isEditMode = true;
-            component.tile = { selected: true }
+        let fixture2 = getFixture(component2 => {
+            component2.isEditMode = true;
+            component2.tile = { selected: true };
         });
         expect(fixture2.componentInstance.selected).toBeTruthy();
     });
