@@ -11,6 +11,7 @@ import { TileEventService } from '../Tile/TileEventService';
 import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ShiftService } from '../Shift/ShiftService';
+import { TileLayout } from '../TileLayout/TileLayout';
 
 @Component({
     selector: 'krossr-game',
@@ -36,7 +37,7 @@ export class GameComponent implements OnInit, OnDestroy {
     @Input() public gameMatrix: GameMatrix;
     @Input() public goalMatrix: GameMatrix;
     @Input() public level: ILevel;
-    @Input() public tiles;
+    @Input() public tiles: TileLayout[];
     public gameSettings;
     public margin: string;
 

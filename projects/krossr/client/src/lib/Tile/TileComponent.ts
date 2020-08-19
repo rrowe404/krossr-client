@@ -14,6 +14,7 @@ import { TileBorderService } from '../TileBorder/TileBorderService';
 import { PointService } from '../Point/PointService';
 import { TileFillEventService } from './TileFillEventService';
 import { TileFillEvent } from './TileFillEvent';
+import { TileLayout } from '../TileLayout/TileLayout';
 
 @Component({
     selector: 'krossr-tile',
@@ -25,7 +26,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() public gameMatrix: BooleanMatrix;
     @Input() public index;
     @Input() public isEditMode: boolean;
-    @Input() public tiles;
+    @Input() public tile: TileLayout;
     @Input() public editable: boolean;
 
     public marked: boolean;
@@ -138,7 +139,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
      * Determine the initial state of the tile fills
      */
     private initializeFill() {
-        if (this.isEditMode && this.tiles && this.tiles[this.index] && this.tiles[this.index].selected) {
+        if (this.isEditMode && this.tile && this.tile.selected) {
             this.fill(TileState.selected);
         } else {
             this.empty();

@@ -9,6 +9,18 @@ describe('TileComponent', () => {
     let component: TileComponent;
     let dragBoxServiceSpy: jasmine.SpyObj<DragBoxService>;
 
+    function getFixture(setup?: (componentInstance: TileComponent) => void) {
+        let componentFixture = TestBed.createComponent(TileComponent);
+        let componentInstance = componentFixture.componentInstance;
+
+        if (setup) {
+            setup(componentInstance);
+        }
+
+        componentFixture.detectChanges(); 
+        return componentFixture;
+    }
+
     beforeEach(() => {
         dragBoxServiceSpy = jasmine.createSpyObj('DragBoxService', ['startCoord']);
 
@@ -19,13 +31,20 @@ describe('TileComponent', () => {
             ]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(TileComponent);
+        fixture = getFixture();
         component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+    });
+
+    it('should initialize fill if a selected TileLayout is passed in and the tile is in edit mode', () => {
+        let fixture2 = getFixture(component => {
+            component.isEditMode = true;
+            component.tile = { selected: true }
+        });
+        expect(fixture2.componentInstance.selected).toBeTruthy();
     });
 
     it('should have a working isPendingAndNotSelected fn', () => {
