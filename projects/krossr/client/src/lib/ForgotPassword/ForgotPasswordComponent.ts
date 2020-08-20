@@ -74,8 +74,4 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
 
         return this.error || 'Submit';
     }
-
-    updateUsername(username: string) {
-        this.usernameFormControl.setValue(username);
-    }
 }
