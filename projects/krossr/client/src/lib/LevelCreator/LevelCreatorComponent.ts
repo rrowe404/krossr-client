@@ -1,7 +1,6 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
-import { RatingService } from '../Rating/RatingService';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
 import { StateService } from '@uirouter/core';
 import { Subscription } from 'rxjs';
@@ -14,22 +13,23 @@ import { ILevel } from '../Level/Level';
 import { LevelLayout } from '../Level/LevelLayout';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { LevelService } from '../Level/LevelService';
+import { LevelComponentBase } from '../Level/LevelComponentBase';
 
 @Component({
     selector: 'krossr-level-creator',
     templateUrl: './LevelCreatorView.html'
 })
-export class LevelCreatorComponent implements OnInit, OnDestroy {
+export class LevelCreatorComponent extends LevelComponentBase implements OnInit, OnDestroy {
     constructor(
         private $state: StateService,
         public Authentication: AuthenticationService,
-        private gameSizeService: GameSizeService,
-        private levelEditorFormClearEventService: LevelEditorFormClearEventService,
+        protected gameSizeService: GameSizeService,
+        protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelService: LevelService,
-        private ratingService: RatingService,
-        private resizeEventService: ResizeEventService,
-        private tileSizeEventService: TileSizeEventService,
+        protected resizeEventService: ResizeEventService,
+        protected tileSizeEventService: TileSizeEventService,
     ) {
+        super(levelEditorFormClearEventService, gameSizeService, resizeEventService, tileSizeEventService);
     }
 
     public finalLayout: LevelLayout = {};
@@ -41,49 +41,9 @@ export class LevelCreatorComponent implements OnInit, OnDestroy {
     public goalMatrix: GameMatrix;
     public error: string;
 
-    private timeout = 1000;
-    private subscriptions: Subscription[];
-
-    /* Combine a lot of the other functions here to set up a new game */
-    createNewGame(args: { layout: boolean[][] }) {
-        let goalMatrix: BooleanMatrix;
-        let layout = args.layout;
-
-        goalMatrix = new BooleanMatrix(layout.length, layout.length);
-        goalMatrix.initializeWith(layout);
-
-        this.gameSizeService.calculatePlayableArea();
-        let gameMatrix = new BooleanMatrix(layout.length, layout.length);
-        this.gameSizeService.setGameSize(gameMatrix.length);
-
-        return {
-            gameMatrix,
-            goalMatrix
-        };
-    }
-
-    ngOnDestroy() {
-        this.subscriptions.forEach(sub => sub.unsubscribe());
-    }
-
     ngOnInit() {
         this.createNewLevel();
-
-        this.subscriptions = [
-            this.levelEditorFormClearEventService.formClearEvent.subscribe(() => {
-                this.gameMatrix.clear();
-            }),
-            this.resizeEventService.windowResized.subscribe(() => {
-                if (this.gameMatrix) {
-                    this.gameSizeService.calculatePlayableArea();
-                    this.gameSizeService.setGameSize(this.gameMatrix.length);
-                }
-            }),
-            this.tileSizeEventService.tileSizeChanged.subscribe(tileSize => {
-                let newSize = Math.floor(tileSize);
-                this.margin = newSize / 2 + 'px';
-            })
-        ];
+        super.ngOnInit();
     }
 
     createGameArray() {
@@ -122,12 +82,6 @@ export class LevelCreatorComponent implements OnInit, OnDestroy {
 
     toTileLayout(value: boolean) {
         return { selected: value };
-    }
-
-    rate(rating) {
-        setTimeout(() => {
-            this.ratingService.rate(this.level.id, rating);
-        });
     }
 
     // Split out for easier testing
