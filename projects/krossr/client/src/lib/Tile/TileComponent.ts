@@ -1,7 +1,6 @@
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { DragBoxService } from '../DragBox/DragBoxService';
 import { Point } from '../Point/Point';
-import { SideLengthService } from '../SideLength/SideLengthService';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileState } from './TileState';
 import { TouchService } from '../Touch/TouchService';
