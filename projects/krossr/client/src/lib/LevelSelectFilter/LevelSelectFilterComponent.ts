@@ -25,13 +25,8 @@ export class LevelSelectFilterComponent implements OnInit {
     }
 
     public sizeMap: Dictionary<number>;
-    public sizeOptions: string[];
-
     public sortByMap: Dictionary<string>;
-    public sortByOptions: string[];
-
     public sortDirectionMap: Dictionary<string>;
-    public sortDirectionOptions: string[];
 
     private options: LevelListFilterOptions = {};
 
@@ -44,8 +39,8 @@ export class LevelSelectFilterComponent implements OnInit {
             this.formGroup = new FormGroup({});
             this.sizeFormControl = new FormControl();
             this.searchTextFormControl = new FormControl('');
-            this.sortByFormControl = new FormControl(this.sortByOptions[0]);
-            this.sortDirectionFormControl = new FormControl(this.sortDirectionOptions[0]);
+            this.sortByFormControl = new FormControl();
+            this.sortDirectionFormControl = new FormControl();
 
             this.formGroup.addControl('size', this.sizeFormControl);
             this.formGroup.addControl('searchText', this.searchTextFormControl);
@@ -62,12 +57,8 @@ export class LevelSelectFilterComponent implements OnInit {
 
     private setupOptions(options: LevelListFilterSelectOptionsViewModel) {
         this.sizeMap = options.sizeOptions;
-
         this.sortByMap = options.sortByOptions;
-        this.sortByOptions = Object.keys(this.sortByMap);
-
         this.sortDirectionMap = options.sortDirectionOptions;
-        this.sortDirectionOptions = Object.keys(options.sortDirectionOptions);
     }
 
     public updateSize(size: string) {

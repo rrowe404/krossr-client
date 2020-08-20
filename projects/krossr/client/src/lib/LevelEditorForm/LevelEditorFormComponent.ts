@@ -30,7 +30,6 @@ export class LevelEditorFormComponent implements OnInit {
     public sizeFormControl: FormControl;
 
     public sizeMap: Dictionary<number>;
-    public sizeOptions: string[];
 
     constructor(
         private levelService: LevelService,
@@ -105,7 +104,6 @@ export class LevelEditorFormComponent implements OnInit {
     }
 
     public updateSize(selected: number) {
-        this.sizeFormControl.setValue(selected);
         let size = this.sizeMap[selected];
         this.level.size = size;
         this.sizeChange.emit();
@@ -113,6 +111,5 @@ export class LevelEditorFormComponent implements OnInit {
 
     private setupOptions(options: LevelEditorSelectOptionsViewModel) {
         this.sizeMap = options.sizeOptions;
-        this.sizeOptions = Object.keys(this.sizeMap);
     }
 }
