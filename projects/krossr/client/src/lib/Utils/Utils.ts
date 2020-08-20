@@ -16,7 +16,6 @@ export class Utils {
     }
 
     private gameMatrix: BooleanMatrix;
-    private goalMatrix: BooleanMatrix;
 
     /** Clear everything, to start a new game */
     clearAll() {
@@ -38,7 +37,7 @@ export class Utils {
 
     /* Combine a lot of the other functions here to set up a new game */
     createNewGame(args: { controller: 'edit' | 'view' | 'new', layout: boolean[][] }) {
-        let goalMatrix;
+        let goalMatrix: BooleanMatrix;
 
         if (args.layout) {
             goalMatrix = this.setGoalMatrix(args.layout);

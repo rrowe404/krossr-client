@@ -81,12 +81,14 @@ export class LevelComponent implements OnInit, OnDestroy {
     createGameArray() {
         let sideLength = this.level ? Math.sqrt(this.level.size) : 5;
 
-        this.utils.createNewGame({
+        let level = this.utils.createNewGame({
             controller: 'new',
             layout: new BooleanMatrix(sideLength, sideLength).getLayout()
         });
 
         this.finalLayout.tiles = this.getSize().map(this.toTileLayout);
+
+        return level;
     }
 
     // Create new level (load template)
@@ -101,7 +103,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
         this.level = undefined;
 
-        this.createGameArray();
+        let level = this.createGameArray();
 
         this.level = {
             currentView: 'new',
@@ -111,7 +113,7 @@ export class LevelComponent implements OnInit, OnDestroy {
             size: 25
         };
 
-        this.gameMatrix = new GameMatrix(this.utils.getGameMatrix(), false);
+        this.gameMatrix = new GameMatrix(level.gameMatrix, false);
     }
 
     // Find existing Level
