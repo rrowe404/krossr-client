@@ -84,7 +84,7 @@ export class LevelComponent implements OnInit, OnDestroy {
             layout: new BooleanMatrix(sideLength, sideLength).getLayout()
         });
 
-        this.finalLayout.tiles = this.getSize().map(this.toTileLayout);
+        this.finalLayout.tiles = game.gameMatrix.flatten().map(this.toTileLayout);
 
         this.gameMatrix = new GameMatrix(game.gameMatrix, false);
 
@@ -151,11 +151,6 @@ export class LevelComponent implements OnInit, OnDestroy {
 
             this.level.ready = true;
         });
-    }
-
-    getSize() {
-        let gameMatrix = this.utils.getGameMatrix();
-        return gameMatrix.flatten();
     }
 
     toTileLayout(value: boolean) {
