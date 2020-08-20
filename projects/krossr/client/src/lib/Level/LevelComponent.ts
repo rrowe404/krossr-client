@@ -51,7 +51,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     public goalMatrix: GameMatrix;
     public error: string;
 
-    private selectedLevelId;
     private timeout = 1000;
     private subscriptions: Subscription[];
 
@@ -60,7 +59,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.selectedLevelId = this.levelId;
         this.findOne(this.mode);
 
         this.subscriptions = [
@@ -109,8 +107,6 @@ export class LevelComponent implements OnInit, OnDestroy {
             name = this.level.name;
         }
 
-        this.utils.clearAll();
-
         this.level = undefined;
 
         this.createGameArray();
@@ -133,11 +129,11 @@ export class LevelComponent implements OnInit, OnDestroy {
         // depending on new, edit, etc.
         this.mode = mode;
 
-        if (!this.selectedLevelId) {
+        if (!this.levelId) {
             this.createNewLevel();
         }
 
-        this.levelService.getLevel(this.selectedLevelId).then((data: LevelViewModel) => {
+        this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
             this.level = Object.assign({}, data, { currentView: mode, ready: false });
 
             this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
