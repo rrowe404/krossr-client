@@ -19,6 +19,7 @@ import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
+import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 
 @Component({
     selector: 'krossr-level',
@@ -31,6 +32,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         public Authentication: AuthenticationService,
         private gameSizeService: GameSizeService,
         private levelDecoder: LevelDecoder,
+        private levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelService: LevelService,
         private matDialog: MatDialog,
         private ratingService: RatingService,
@@ -62,6 +64,9 @@ export class LevelComponent implements OnInit, OnDestroy {
         this.findOne(this.mode);
 
         this.subscriptions = [
+            this.levelEditorFormClearEventService.formClearEvent.subscribe(() => {
+                this.gameMatrix.clear();
+            }),
             this.resizeEventService.windowResized.subscribe(() => {
                 if (this.gameMatrix) {
                     this.gameSizeService.calculatePlayableArea();

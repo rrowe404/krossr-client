@@ -8,22 +8,8 @@ import { TileFillEventService } from '../Tile/TileFillEventService';
 })
 export class Utils {
     constructor(
-        private gameSizeService: GameSizeService,
-        private tileFillEventService: TileFillEventService
+        private gameSizeService: GameSizeService
     ) {
-    }
-
-    private gameMatrix: BooleanMatrix;
-
-    /** Clear everything, to start a new game */
-    clearAll() {
-        let currentGameMatrix = this.getGameMatrix();
-
-        this.tileFillEventService.clearAll();
-
-        if (currentGameMatrix) {
-            currentGameMatrix.clear();
-        }
     }
 
     /* Combine a lot of the other functions here to set up a new game */
@@ -36,22 +22,11 @@ export class Utils {
 
         this.gameSizeService.calculatePlayableArea();
         let gameMatrix = new BooleanMatrix(layout.length, layout.length);
-        this.setGameMatrix(gameMatrix);
+        this.gameSizeService.setGameSize(gameMatrix.length);
 
         return {
             gameMatrix,
             goalMatrix
         };
-    }
-
-    /* Return the current game matrix */
-    getGameMatrix(): BooleanMatrix {
-        return this.gameMatrix;
-    }
-
-    /* Modify the current game matrix, setting a new side length and game size as a side effect  (used for changing size) */
-    setGameMatrix(gameMatrix: BooleanMatrix) {
-        this.gameMatrix = gameMatrix;
-        this.gameSizeService.setGameSize(gameMatrix.length);
     }
 }

@@ -20,6 +20,11 @@ export class GameMatrix implements IEquatable<GameMatrix> {
         return this.horizontal.length;
     }
 
+    public clear() {
+        this.horizontal.clear();
+        this.vertical.clear();
+    }
+
     public equals(other: GameMatrix) {
         return this.horizontal.equals(other.horizontal);
     }

@@ -11,6 +11,9 @@ import { StateService } from '@uirouter/core';
 import { HomeRoutes } from '../Routing/RouteNames';
 import { LevelEditorFormService } from './LevelEditorFormService';
 import { LevelEditorSelectOptionsViewModel, Dictionary } from '@krossr/types';
+import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
+import { TileFillEventService } from '../Tile/TileFillEventService';
+import { TileState } from '../Tile/TileState';
 
 @Component({
     selector: 'krossr-level-editor-form',
@@ -33,15 +36,18 @@ export class LevelEditorFormComponent implements OnInit {
 
     constructor(
         private levelService: LevelService,
+        private levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelEditorFormService: LevelEditorFormService,
         private matDialog: MatDialog,
         private stateService: StateService,
+        private tileFillEventService: TileFillEventService,
         private utils: Utils
     ) {
     }
 
     public clearAll() {
-        this.utils.clearAll();
+        this.levelEditorFormClearEventService.formClearEvent.emit();
+        this.tileFillEventService.fill.emit({ initState: false, override: TileState.empty });
     }
 
     public confirmClear() {
