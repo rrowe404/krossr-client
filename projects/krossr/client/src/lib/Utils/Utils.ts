@@ -36,7 +36,7 @@ export class Utils {
     }
 
     /* Combine a lot of the other functions here to set up a new game */
-    createNewGame(args) {
+    createNewGame(args: { controller: 'edit' | 'view' | 'new', layout: boolean[][] }) {
         let goalMatrix;
 
         if (args.layout) {

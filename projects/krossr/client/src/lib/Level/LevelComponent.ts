@@ -17,6 +17,7 @@ import { LevelRoutes } from '../Routing/RouteNames';
 import { LevelLayout } from './LevelLayout';
 import { KrossrError, LevelViewModel, CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
+import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 
 @Component({
     selector: 'krossr-level',
@@ -77,17 +78,19 @@ export class LevelComponent implements OnInit, OnDestroy {
         });
     }
 
-    createGameArray(action: string) {
+    createGameArray() {
+        let sideLength = this.level ? Math.sqrt(this.level.size) : 5;
+
         this.utils.createNewGame({
-            controller: this.level ? this.level.currentView : 'new'
+            controller: 'new',
+            layout: new BooleanMatrix(sideLength, sideLength).getLayout()
         });
 
-        this.getLayoutForRepeater(action);
+        this.getLayoutForRepeater('new');
     }
 
     // Create new level (load template)
     createNewLevel() {
-        let action: 'new' = 'new';
         let name = '';
 
         if (this.level) {
@@ -98,10 +101,10 @@ export class LevelComponent implements OnInit, OnDestroy {
 
         this.level = undefined;
 
-        this.createGameArray(action);
+        this.createGameArray();
 
         this.level = {
-            currentView: action,
+            currentView: 'new',
             layout: '',
             ready: true,
             name,
