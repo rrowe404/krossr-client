@@ -82,7 +82,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         let sideLength = this.level ? Math.sqrt(this.level.size) : 5;
 
         let game = this.utils.createNewGame({
-            controller: 'new',
             layout: new BooleanMatrix(sideLength, sideLength).getLayout()
         });
 
@@ -135,11 +134,12 @@ export class LevelComponent implements OnInit, OnDestroy {
             this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
 
             let game = this.utils.createNewGame({
-                layout: this.level.decodedLayout,
-                controller: mode
+                layout: this.level.decodedLayout
             });
 
-            this.gameMatrix = new GameMatrix(game.gameMatrix, mode === 'edit');
+            let isEdit = mode === 'edit';
+            let gameMatrix = isEdit ? game.goalMatrix : game.gameMatrix;
+            this.gameMatrix = new GameMatrix(gameMatrix, isEdit);
 
             let goalLayout = game.goalMatrix;
 
@@ -147,7 +147,7 @@ export class LevelComponent implements OnInit, OnDestroy {
                 this.goalMatrix = new GameMatrix(goalLayout, true);
             }
 
-            this.finalLayout.tiles = game.gameMatrix.flatten().map(this.toTileLayout);
+            this.finalLayout.tiles = gameMatrix.flatten().map(this.toTileLayout);
             this.level.currentView = mode;
 
             this.level.ready = true;

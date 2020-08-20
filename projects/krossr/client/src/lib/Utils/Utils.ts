@@ -34,7 +34,7 @@ export class Utils {
     }
 
     /* Combine a lot of the other functions here to set up a new game */
-    createNewGame(args: { controller: 'edit' | 'view' | 'new', layout: boolean[][] }) {
+    createNewGame(args: { layout: boolean[][] }) {
         let goalMatrix: BooleanMatrix;
         let layout = args.layout;
 
@@ -43,10 +43,6 @@ export class Utils {
 
         this.gameSizeService.calculatePlayableArea();
         let gameMatrix = this.createEmptyMatrix(args.layout.length);
-
-        if (args.controller === 'edit' && goalMatrix) {
-            this.setGameMatrix(goalMatrix);
-        }
 
         return {
             gameMatrix,
