@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { KrossrInputComponent } from './KrossrInputComponent';
 import { ReactiveFormsModule } from '@angular/forms';
 

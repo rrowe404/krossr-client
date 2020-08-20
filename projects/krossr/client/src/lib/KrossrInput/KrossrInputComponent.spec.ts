@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { KrossrInputComponent } from './KrossrInputComponent';
 import { KrossrInputModule } from './KrossrInputModule';
 
@@ -18,5 +18,4 @@ describe('KrossrInputComponent', () => {
     it('should be created', () => {
         expect(fixture).toBeTruthy();
     });
-
 });

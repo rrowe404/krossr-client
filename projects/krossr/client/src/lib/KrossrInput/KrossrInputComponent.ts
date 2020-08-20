@@ -11,7 +11,7 @@ export class KrossrInputComponent implements OnInit {
     @Input() details: string;
     @Input() label: string;
     @Input() placeholder: string;
-    @Input() type: string = 'text';
+    @Input() type = 'text';
     @Output() updated: EventEmitter<string> = new EventEmitter();
 
     ngOnInit() {
