@@ -57,11 +57,6 @@ export class LevelSelectComponent implements OnInit {
         }
 
         this.levelService.getLevels(queryObj).then((data: LevelListViewModel) => {
-            let i = 0;
-            let allLevels = data.levels;
-            let len = allLevels ? allLevels.length : 0;
-            let currentLevel;
-
             this.totalPages = Math.ceil(data.count / data.numPerPage);
             this.levels = data.levels;
         });

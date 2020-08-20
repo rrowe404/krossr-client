@@ -86,7 +86,7 @@ export class LevelComponent implements OnInit, OnDestroy {
             this.resizeEventService.windowResized.subscribe(() => {
                 if (this.gameMatrix) {
                     this.gameSizeService.calculatePlayableArea();
-                    this.gameSizeService.setGameSize(this.gameMatrix.length)
+                    this.gameSizeService.setGameSize(this.gameMatrix.length);
                 }
             }),
             this.tileSizeEventService.tileSizeChanged.subscribe(tileSize => {
