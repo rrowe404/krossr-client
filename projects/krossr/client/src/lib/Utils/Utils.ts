@@ -30,8 +30,7 @@ export class Utils {
     }
 
     /* Given a number of tiles, create an empty square matrix with that number */
-    createEmptyMatrix(numberOfTiles: number) {
-        const sideLength = Math.sqrt(numberOfTiles);
+    createEmptyMatrix(sideLength: number) {
         const finalMatrix = new BooleanMatrix(sideLength, sideLength);
         this.setGameMatrix(finalMatrix);
     }
@@ -45,7 +44,7 @@ export class Utils {
         }
 
         this.gameSizeService.calculatePlayableArea();
-        this.createEmptyMatrix(args.numberOfTiles);
+        this.createEmptyMatrix(args.layout.length);
 
         /* When editing the level, we'll prepopulate the game matrix (revealed tiles) with the goal matrix,
         then get rid of the goal matrix (since we don't want to be able to win while editing) */

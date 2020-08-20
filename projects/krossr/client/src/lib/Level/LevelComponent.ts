@@ -79,7 +79,6 @@ export class LevelComponent implements OnInit, OnDestroy {
 
     createGameArray(action: string) {
         this.utils.createNewGame({
-            numberOfTiles: this.level ? this.level.size : 25,
             controller: this.level ? this.level.currentView : 'new'
         });
 
@@ -130,10 +129,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
             this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
 
-            let flatLayout = this.utils.flatten(this.level.decodedLayout);
-
             this.utils.createNewGame({
-                numberOfTiles: flatLayout.length,
                 layout: this.level.decodedLayout,
                 controller: mode
             });
