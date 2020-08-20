@@ -47,12 +47,4 @@ export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
             this.error = response.error.message;
         });
     }
-
-    public updateNewPassword(newPassword: string) {
-        this.newPasswordFormControl.setValue(newPassword);
-    }
-
-    public updateVerifyPassword(verifyPassword: string) {
-        this.verifyPasswordFormControl.setValue(verifyPassword);
-    }
 }

@@ -66,16 +66,4 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
 
         return this.error || 'Save Password';
     }
-
-    updateCurrentPassword(currentPassword: string) {
-        this.currentPasswordFormControl.setValue(currentPassword);
-    }
-
-    updateNewPassword(newPassword: string) {
-        this.newPasswordFormControl.setValue(newPassword);
-    }
-
-    updateVerifyPassword(verifyPassword: string) {
-        this.verifyPasswordFormControl.setValue(verifyPassword);
-    }
 }

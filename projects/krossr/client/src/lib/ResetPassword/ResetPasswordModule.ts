@@ -3,10 +3,12 @@ import { ResetPasswordComponent } from './ResetPasswordComponent';
 import { KrossrButtonModule } from '../KrossrButton/KrossrButtonModule';
 import { PopupContentModule } from '../PopupContent/PopupContentModule';
 import { ReactiveFormsModule } from '@angular/forms';
+import { KrossrInputModule } from '../KrossrInput/KrossrInputModule';
 
 @NgModule({
     imports: [
         KrossrButtonModule,
+        KrossrInputModule,
         PopupContentModule,
         ReactiveFormsModule
     ],
