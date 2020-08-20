@@ -80,6 +80,8 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
     }
 
     updateLevel(level: UpdateLevelBodyViewModel) {
+        level.decodedLayout = this.gameMatrix.horizontal.getLayout();
+
         this.levelService.updateLevel(level).then(() => {
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
         }).catch((response: KrossrError) => {
