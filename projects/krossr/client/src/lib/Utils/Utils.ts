@@ -26,13 +26,6 @@ export class Utils {
         }
     }
 
-    /* Given a number of tiles, create an empty square matrix with that number */
-    createEmptyMatrix(sideLength: number) {
-        const finalMatrix = new BooleanMatrix(sideLength, sideLength);
-        this.setGameMatrix(finalMatrix);
-        return this.getGameMatrix();
-    }
-
     /* Combine a lot of the other functions here to set up a new game */
     createNewGame(args: { layout: boolean[][] }) {
         let goalMatrix: BooleanMatrix;
@@ -42,7 +35,8 @@ export class Utils {
         goalMatrix.initializeWith(layout);
 
         this.gameSizeService.calculatePlayableArea();
-        let gameMatrix = this.createEmptyMatrix(args.layout.length);
+        let gameMatrix = new BooleanMatrix(layout.length, layout.length);
+        this.setGameMatrix(gameMatrix);
 
         return {
             gameMatrix,
