@@ -24,6 +24,7 @@ import { LevelModule } from './Level/LevelModule';
 import { HelpModule } from './Help/HelpModule';
 import { HeaderModule } from './Header/HeaderModule';
 import { ResetPasswordModule } from './ResetPassword/ResetPasswordModule';
+import { LevelCreatorModule } from './LevelCreator/LevelCreatorModule';
 
 @NgModule({
     imports: [
@@ -36,6 +37,7 @@ import { ResetPasswordModule } from './ResetPassword/ResetPasswordModule';
         HeaderModule,
         HelpModule,
         HttpClientModule,
+        LevelCreatorModule,
         LevelModule,
         LevelSelectModule,
         MatDialogModule,
