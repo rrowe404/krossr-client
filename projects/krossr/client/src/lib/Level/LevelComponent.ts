@@ -86,7 +86,7 @@ export class LevelComponent implements OnInit, OnDestroy {
             layout: new BooleanMatrix(sideLength, sideLength).getLayout()
         });
 
-        this.getLayoutForRepeater('new');
+        this.finalLayout.tiles = this.getSize().map(this.toTileLayout);
     }
 
     // Create new level (load template)
@@ -145,39 +145,20 @@ export class LevelComponent implements OnInit, OnDestroy {
                 this.goalMatrix = new GameMatrix(goalLayout, true);
             }
 
-            this.getLayoutForRepeater(mode, this.level.decodedLayout);
+            this.finalLayout.tiles = this.utils.flatten(this.level.decodedLayout).map(this.toTileLayout);
             this.level.currentView = mode;
 
             this.level.ready = true;
         });
     }
 
-    getLayoutForRepeater(mode, layout?) {
-        // use finalLayout from above to prevent calculating this more than once
-        let layoutForRepeater;
-
-        switch (mode) {
-            case 'view':
-            case 'edit':
-                layoutForRepeater = this.utils.flatten(layout);
-                break;
-
-            case 'new':
-                layoutForRepeater = this.getSize();
-                break;
-        }
-
-        // these should be an object so i don't have to track by $index, which causes rendering issues
-        this.finalLayout.tiles = layoutForRepeater.map((value) => {
-            return {
-                selected: value
-            };
-        });
-    }
-
     getSize() {
         let gameMatrix = this.utils.getGameMatrix();
         return gameMatrix.flatten();
+    }
+
+    toTileLayout(value: boolean) {
+        return { selected: value };
     }
 
     keydown($event: KeyboardEvent) {
