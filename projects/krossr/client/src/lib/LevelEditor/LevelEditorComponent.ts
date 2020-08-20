@@ -125,7 +125,6 @@ export class LevelEditorComponent {
             }
 
             this.finalLayout.tiles = gameMatrix.flatten().map(this.toTileLayout);
-            this.level.currentView = 'edit';
 
             this.level.ready = true;
         });

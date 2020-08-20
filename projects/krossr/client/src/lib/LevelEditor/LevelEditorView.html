@@ -1,5 +1,5 @@
 <section class="viewLevel" *ngIf="level">
-    <krossr-level-editor-form [error]="error" [level]="level" submitText="Update" (submitAction)="confirmUpdate($event)">
+    <krossr-level-editor-form [isEdit]="true" [error]="error" [level]="level" submitText="Update" (submitAction)="confirmUpdate($event)">
     </krossr-level-editor-form>
 
     <div tabindex="0" [hidden]="!level || !level.ready">

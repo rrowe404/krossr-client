@@ -19,6 +19,7 @@ import { TileState } from '../Tile/TileState';
     templateUrl: './LevelEditorFormView.html'
 })
 export class LevelEditorFormComponent implements OnInit {
+    @Input() public isEdit = false;
     @Input() public level: ILevel;
     @Input() public error: string;
     @Input() public submitText: string;

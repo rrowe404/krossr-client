@@ -100,7 +100,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         this.mode = 'view';
 
         this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
-            this.level = Object.assign({}, data, { currentView: mode, ready: false });
+            this.level = Object.assign({}, data, { ready: false });
 
             this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
 
@@ -119,7 +119,6 @@ export class LevelComponent implements OnInit, OnDestroy {
             }
 
             this.finalLayout.tiles = gameMatrix.flatten().map(this.toTileLayout);
-            this.level.currentView = mode;
 
             this.level.ready = true;
         });

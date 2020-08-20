@@ -1,9 +1,9 @@
 <div class="form-group" *ngIf="isReady">
-    <h2>{{ level.currentView }} level</h2>
+    <h2>{{ isEdit ? 'Edit' : 'New' }} level</h2>
 
     <krossr-input name="name" label="Name" [control]="nameFormControl" (updated)="updateName($event)"></krossr-input>
 
-    <div class="form-group" *ngIf="level.currentView === 'new'">
+    <div class="form-group" *ngIf="!isEdit">
         <label for="size">Size</label>
         <krossr-select [control]="sizeFormControl" (updated)="updateSize($event)" [optionMap]="sizeMap"></krossr-select>
     </div>

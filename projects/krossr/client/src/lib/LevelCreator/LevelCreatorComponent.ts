@@ -113,7 +113,6 @@ export class LevelCreatorComponent implements OnInit, OnDestroy {
         this.createGameArray();
 
         this.level = {
-            currentView: 'new',
             layout: '',
             ready: true,
             name,
