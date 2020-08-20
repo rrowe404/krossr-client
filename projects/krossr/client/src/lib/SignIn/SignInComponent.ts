@@ -60,12 +60,4 @@ export class SignInComponent implements OnInit {
     signInButtonText() {
         return this.error || 'Sign In';
     }
-
-    updateUsername(username: string) {
-        this.username.setValue(username);
-    }
-
-    updatePassword(password: string) {
-        this.password.setValue(password);
-    }
 }

@@ -73,13 +73,11 @@ export class LevelSelectFilterComponent implements OnInit {
     }
 
     public updateSize(size: string) {
-        this.sizeFormControl.setValue(size);
         this.options.sizeRestriction = this.sizeMap[size].toString();
         this.onChange();
     }
 
     public updateSearchText(text: string) {
-        this.searchTextFormControl.setValue(text);
         this.options.searchText = text;
         this.debouncedChange.next();
     }

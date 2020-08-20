@@ -1,4 +1,4 @@
 <div class="form-group">
     <label [for]="name">{{ label }}</label>
-    <input [type]="type" (keyup)="update($event.target.value)" [placeholder]="placeholder" [formControl]="control" />
+    <input [type]="type" (keyup)="update($event.target.value)" [placeholder]="placeholder" [formControl]="control" [id]="name" />
 </div>

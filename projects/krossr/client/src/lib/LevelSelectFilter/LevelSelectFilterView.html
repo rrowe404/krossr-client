@@ -8,10 +8,7 @@
         </select>
     </div>
 
-    <div class="form-group">
-        <label>Search</label>
-        <input [formControl]="searchTextFormControl" (keyup)="updateSearchText($event.target.value)">
-    </div>
+    <krossr-input label="Search" name="search" [control]="searchTextFormControl" (updated)="updateSearchText($event)"></krossr-input>
 
     <div class="form-group">
         <label>Sort by</label>
