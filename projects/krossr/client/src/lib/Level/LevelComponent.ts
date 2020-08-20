@@ -1,7 +1,6 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { ILevel } from './Level';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
-import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelService } from './LevelService';
 import { ShiftService } from '../Shift/ShiftService';
 import { Utils } from '../Utils/Utils';
