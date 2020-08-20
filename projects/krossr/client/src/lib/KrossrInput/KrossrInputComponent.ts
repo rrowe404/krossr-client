@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 export class KrossrInputComponent implements OnInit {
     @Input() name: string;
     @Input() control: FormControl;
+    @Input() details: string;
     @Input() label: string;
     @Input() placeholder: string;
     @Input() type: string = 'text';
