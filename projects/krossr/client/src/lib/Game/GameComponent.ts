@@ -34,6 +34,7 @@ export class GameComponent implements OnInit, OnDestroy {
         this.$element = this.elementRef.nativeElement;
     }
 
+    @Input() public isEditMode = false;
     @Input() public gameMatrix: GameMatrix;
     @Input() public goalMatrix: GameMatrix;
     @Input() public level: ILevel;
