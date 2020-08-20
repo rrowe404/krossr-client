@@ -27,7 +27,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     constructor(
         private $state: StateService,
         public Authentication: AuthenticationService,
-        private gameSizeService: GameSizeService,
         private levelDecoder: LevelDecoder,
         private levelService: LevelService,
         private matDialog: MatDialog,
@@ -122,38 +121,36 @@ export class LevelComponent implements OnInit, OnDestroy {
         // depending on new, edit, etc.
         this.mode = mode;
 
-        if (this.selectedLevelId) {
-            this.levelService.getLevel(this.selectedLevelId).then((data: LevelViewModel) => {
-                this.level = Object.assign({}, data, { currentView: mode, ready: false });
-
-                this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
-
-                let flatLayout = this.utils.flatten(this.level.decodedLayout);
-
-                this.gameSizeService.calculatePlayableArea();
-
-                this.utils.createNewGame({
-                    numberOfTiles: flatLayout.length,
-                    layout: this.level.decodedLayout,
-                    controller: mode
-                });
-
-                this.gameMatrix = new GameMatrix(this.utils.getGameMatrix(), mode === 'edit');
-
-                let goalLayout = this.utils.getGoalMatrix();
-
-                if (goalLayout) {
-                    this.goalMatrix = new GameMatrix(goalLayout, true);
-                }
-
-                this.getLayoutForRepeater(mode, this.level.decodedLayout);
-                this.level.currentView = mode;
-
-                this.level.ready = true;
-            });
-        } else {
+        if (!this.selectedLevelId) {
             this.createNewLevel();
         }
+
+        this.levelService.getLevel(this.selectedLevelId).then((data: LevelViewModel) => {
+            this.level = Object.assign({}, data, { currentView: mode, ready: false });
+
+            this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
+
+            let flatLayout = this.utils.flatten(this.level.decodedLayout);
+
+            this.utils.createNewGame({
+                numberOfTiles: flatLayout.length,
+                layout: this.level.decodedLayout,
+                controller: mode
+            });
+
+            this.gameMatrix = new GameMatrix(this.utils.getGameMatrix(), mode === 'edit');
+
+            let goalLayout = this.utils.getGoalMatrix();
+
+            if (goalLayout) {
+                this.goalMatrix = new GameMatrix(goalLayout, true);
+            }
+
+            this.getLayoutForRepeater(mode, this.level.decodedLayout);
+            this.level.currentView = mode;
+
+            this.level.ready = true;
+        });
     }
 
     getLayoutForRepeater(mode, layout?) {
