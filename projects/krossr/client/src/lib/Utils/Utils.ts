@@ -47,21 +47,8 @@ export class Utils {
         this.gameSizeService.calculatePlayableArea();
         let gameMatrix = this.createEmptyMatrix(args.layout.length);
 
-        /* When editing the level, we'll prepopulate the game matrix (revealed tiles) with the goal matrix,
-        then get rid of the goal matrix (since we don't want to be able to win while editing) */
-        switch (args.controller) {
-            case 'edit':
-                if (goalMatrix) {
-                    this.setGameMatrix(goalMatrix);
-                }
-
-                this.setGoalMatrix();
-                break;
-            case 'new':
-                this.setGoalMatrix();
-                break;
-            default:
-                break;
+        if (args.controller === 'edit' && goalMatrix) {
+            this.setGameMatrix(goalMatrix);
         }
 
         return {
@@ -82,14 +69,10 @@ export class Utils {
 
     /* Modify the current goal matrix (loading level from layout) */
     setGoalMatrix(layout?) {
-        if (layout) {
-            this.goalMatrix = new BooleanMatrix(layout.length, layout.length);
-            this.goalMatrix.initializeWith(layout);
-        } else {
-            this.goalMatrix = null;
-        }
+        let goalMatrix = new BooleanMatrix(layout.length, layout.length);
+        goalMatrix.initializeWith(layout);
 
-        return this.goalMatrix;
+        return goalMatrix;
     }
 
     /* Modify the current game matrix, setting a new side length and game size as a side effect  (used for changing size) */
