@@ -132,14 +132,14 @@ export class LevelComponent implements OnInit, OnDestroy {
 
             this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
 
-            this.utils.createNewGame({
+            let game = this.utils.createNewGame({
                 layout: this.level.decodedLayout,
                 controller: mode
             });
 
-            this.gameMatrix = new GameMatrix(this.utils.getGameMatrix(), mode === 'edit');
+            this.gameMatrix = new GameMatrix(game.gameMatrix, mode === 'edit');
 
-            let goalLayout = this.utils.getGoalMatrix();
+            let goalLayout = game.goalMatrix;
 
             if (goalLayout) {
                 this.goalMatrix = new GameMatrix(goalLayout, true);

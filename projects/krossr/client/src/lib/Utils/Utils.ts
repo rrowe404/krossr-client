@@ -33,6 +33,7 @@ export class Utils {
     createEmptyMatrix(sideLength: number) {
         const finalMatrix = new BooleanMatrix(sideLength, sideLength);
         this.setGameMatrix(finalMatrix);
+        return this.getGameMatrix();
     }
 
     /* Combine a lot of the other functions here to set up a new game */
@@ -40,18 +41,16 @@ export class Utils {
         let goalMatrix;
 
         if (args.layout) {
-            this.setGoalMatrix(args.layout);
+            goalMatrix = this.setGoalMatrix(args.layout);
         }
 
         this.gameSizeService.calculatePlayableArea();
-        this.createEmptyMatrix(args.layout.length);
+        let gameMatrix = this.createEmptyMatrix(args.layout.length);
 
         /* When editing the level, we'll prepopulate the game matrix (revealed tiles) with the goal matrix,
         then get rid of the goal matrix (since we don't want to be able to win while editing) */
         switch (args.controller) {
             case 'edit':
-                goalMatrix = this.getGoalMatrix();
-
                 if (goalMatrix) {
                     this.setGameMatrix(goalMatrix);
                 }
@@ -64,6 +63,11 @@ export class Utils {
             default:
                 break;
         }
+
+        return {
+            gameMatrix,
+            goalMatrix
+        };
     }
 
     /* Convert a Matrix into an array (for ng-repeat to hit all of them) */
@@ -76,11 +80,6 @@ export class Utils {
         return this.gameMatrix;
     }
 
-    /* Return the current goal matrix (matrix for game matrix to be compared to to determine a win) */
-    getGoalMatrix() {
-        return this.goalMatrix;
-    }
-
     /* Modify the current goal matrix (loading level from layout) */
     setGoalMatrix(layout?) {
         if (layout) {
@@ -89,6 +88,8 @@ export class Utils {
         } else {
             this.goalMatrix = null;
         }
+
+        return this.goalMatrix;
     }
 
     /* Modify the current game matrix, setting a new side length and game size as a side effect  (used for changing size) */
