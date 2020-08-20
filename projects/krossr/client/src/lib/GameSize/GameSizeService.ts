@@ -1,4 +1,3 @@
-import { SideLengthService } from '../SideLength/SideLengthService';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { GameSizeEventService } from './GameSizeEventService';
 import { Injectable } from '@angular/core';

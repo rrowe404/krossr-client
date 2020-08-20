@@ -1,6 +1,5 @@
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { GameSizeService } from '../GameSize/GameSizeService';
-import { SideLengthService } from '../SideLength/SideLengthService';
 import { Injectable } from '@angular/core';
 import { TileFillEventService } from '../Tile/TileFillEventService';
 
@@ -10,7 +9,6 @@ import { TileFillEventService } from '../Tile/TileFillEventService';
 export class Utils {
     constructor(
         private gameSizeService: GameSizeService,
-        private sideLengthService: SideLengthService,
         private tileFillEventService: TileFillEventService
     ) {
     }
@@ -64,7 +62,6 @@ export class Utils {
     /* Modify the current game matrix, setting a new side length and game size as a side effect  (used for changing size) */
     setGameMatrix(gameMatrix: BooleanMatrix) {
         this.gameMatrix = gameMatrix;
-        this.sideLengthService.sideLength = gameMatrix.length;
         this.gameSizeService.setGameSize(gameMatrix.length);
     }
 }

@@ -99,7 +99,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             }),
             this.tileFillEventService.fill.subscribe((event: TileFillEvent) => {
-                let thisCoord = this.pointService.indexToPoint(this.index);
+                let thisCoord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
                 let hasCoord = !event.coords || _.findIndex(event.coords, thisCoord) > -1;
                 let isValid = !event.validate || event.validate(this);
 
@@ -149,7 +149,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
-        let coord = this.pointService.indexToPoint(this.index);
+        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
         let coordsToClear;
 
         // save a snapshot of the previous dragbox for comparison purposes
@@ -188,7 +188,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private mouseDownEvent() {
-        let coord = this.pointService.indexToPoint(this.index);
+        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
 
         this.dragBoxService.startCoord = coord;
         this.dragBoxService.initState = this.selected;
@@ -217,7 +217,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private tryEndDragbox() {
-        let coord = this.pointService.indexToPoint(this.index);
+        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
         this.dragBoxService.endCoord = coord;
         this.tileEventService.tileDragEnd.emit();
     }
@@ -283,13 +283,13 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    fillBorders(direction, index) {
-      return this.getBorderColors(direction, index);
+    fillBorders(direction) {
+      return this.getBorderColors(direction);
     }
 
     /* Determine which tiles to add colored borders to */
-    getBorderColors(direction, index) {
-        let coord = this.pointService.indexToPoint(index);
+    getBorderColors(direction) {
+        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
         let sideLength = this.gameMatrix.length;
 
         return this.tileBorderService.getBorder(direction, coord, sideLength);
