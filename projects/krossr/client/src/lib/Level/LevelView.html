@@ -10,7 +10,7 @@
 
     <krossr-mode-selector *ngIf="level && level.currentView === 'view'"></krossr-mode-selector>
 
-    <div (keydown)="keydown($event)" (keyup)="keyup($event)" tabindex="0" [hidden]="!level || !level.ready">
+    <div tabindex="0" [hidden]="!level || !level.ready">
         <div class="gameContainer-inner">
             <div class="top row">
                 <krossr-number-grid

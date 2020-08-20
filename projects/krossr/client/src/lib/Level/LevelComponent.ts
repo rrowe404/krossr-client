@@ -184,18 +184,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         return { selected: value };
     }
 
-    keydown($event: KeyboardEvent) {
-        if ($event.shiftKey) {
-            this.shiftService.shiftOn = true;
-        }
-    }
-
-    keyup($event: KeyboardEvent) {
-        if (!$event.shiftKey) {
-            this.shiftService.shiftOn = false;
-        }
-    }
-
     rate(rating) {
         setTimeout(() => {
             this.ratingService.rate(this.level.id, rating);
