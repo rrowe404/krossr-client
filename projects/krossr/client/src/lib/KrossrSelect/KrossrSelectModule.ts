@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { KrossrInputComponent } from './KrossrInputComponent';
+import { KrossrSelectComponent } from './KrossrSelectComponent';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -9,14 +9,14 @@ import { CommonModule } from '@angular/common';
         ReactiveFormsModule
     ],
     declarations: [
-        KrossrInputComponent
+        KrossrSelectComponent
     ],
     entryComponents: [
-        KrossrInputComponent
+        KrossrSelectComponent
     ],
     exports: [
-        KrossrInputComponent
+        KrossrSelectComponent
     ]
 })
-export class KrossrInputModule {
+export class KrossrSelectModule {
 }

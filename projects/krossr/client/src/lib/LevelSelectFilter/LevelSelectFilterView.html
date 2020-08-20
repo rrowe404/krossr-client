@@ -1,13 +1,7 @@
 <!-- These guys all get their own divs so they don't have the label and input on different lines -->
 
 <ng-container [formGroup]="formGroup" *ngIf="isReady">
-    <div class="form-group">
-        <label>Size</label>
-        <select [formControl]="sizeFormControl" (change)="updateSize($event.target.value)">
-            <option *ngFor="let option of sizeOptions">{{ option }}</option>
-        </select>
-    </div>
-
+    <krossr-select name="size" label="Size" [control]="sizeFormControl" (updated)="updateSize($event)" [optionMap]="sizeMap"></krossr-select>
     <krossr-input label="Search" name="search" [control]="searchTextFormControl" (updated)="updateSearchText($event)"></krossr-input>
 
     <div class="form-group">

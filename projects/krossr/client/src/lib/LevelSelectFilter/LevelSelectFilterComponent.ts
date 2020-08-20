@@ -42,7 +42,7 @@ export class LevelSelectFilterComponent implements OnInit {
             this.setupOptions(options);
 
             this.formGroup = new FormGroup({});
-            this.sizeFormControl = new FormControl(this.sizeOptions[0]);
+            this.sizeFormControl = new FormControl();
             this.searchTextFormControl = new FormControl('');
             this.sortByFormControl = new FormControl(this.sortByOptions[0]);
             this.sortDirectionFormControl = new FormControl(this.sortDirectionOptions[0]);
@@ -61,9 +61,7 @@ export class LevelSelectFilterComponent implements OnInit {
     }
 
     private setupOptions(options: LevelListFilterSelectOptionsViewModel) {
-        // todo, when forms are standardized a component can be created to pass the options directly into
         this.sizeMap = options.sizeOptions;
-        this.sizeOptions = Object.keys(this.sizeMap);
 
         this.sortByMap = options.sortByOptions;
         this.sortByOptions = Object.keys(this.sortByMap);
