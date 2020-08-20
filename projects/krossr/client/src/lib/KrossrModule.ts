@@ -7,7 +7,6 @@ import { LoadingAnimationComponent } from './LoadingAnimation/LoadingAnimationCo
 import { Routes } from './Routing/Routes';
 import { ShellComponent } from './Shell/ShellComponent';
 import { ResizeDirective } from './Resize/ResizeDirective';
-import { GameResizeService } from './GameSize/GameResizeService';
 import { HomeComponent } from './Home/HomeComponent';
 import { uiRouterConfigFn } from './Config/RouterConfig';
 import { UIRouterModule } from '@uirouter/angular';
@@ -71,10 +70,8 @@ import { ResetPasswordModule } from './ResetPassword/ResetPasswordModule';
 })
 export class KrossrModule {
     constructor(
-        private gameResizeService: GameResizeService,
         private userService: UserService
     ) {
-        this.gameResizeService.initialize();
         this.userService.getLoggedInUser();
     }
 }

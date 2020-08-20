@@ -15,6 +15,11 @@ export class GameMatrix implements IEquatable<GameMatrix> {
         this.vertical = this.horizontal.rotate();
     }
 
+    // assumes squareness, bad todo
+    get length() {
+        return this.horizontal.length;
+    }
+
     public equals(other: GameMatrix) {
         return this.horizontal.equals(other.horizontal);
     }

@@ -17,6 +17,8 @@ import { LevelLayout } from './LevelLayout';
 import { KrossrError, LevelViewModel, CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
+import { ResizeEventService } from '../Resize/ResizeEventService';
+import { GameSizeService } from '../GameSize/GameSizeService';
 
 @Component({
     selector: 'krossr-level',
@@ -27,10 +29,12 @@ export class LevelComponent implements OnInit, OnDestroy {
     constructor(
         private $state: StateService,
         public Authentication: AuthenticationService,
+        private gameSizeService: GameSizeService,
         private levelDecoder: LevelDecoder,
         private levelService: LevelService,
         private matDialog: MatDialog,
         private ratingService: RatingService,
+        private resizeEventService: ResizeEventService,
         private shiftService: ShiftService,
         private tileSizeEventService: TileSizeEventService,
         private utils: Utils
@@ -60,6 +64,12 @@ export class LevelComponent implements OnInit, OnDestroy {
         this.findOne(this.mode);
 
         this.subscriptions = [
+            this.resizeEventService.windowResized.subscribe(() => {
+                if (this.gameMatrix) {
+                    this.gameSizeService.calculatePlayableArea();
+                    this.gameSizeService.setGameSize(this.gameMatrix.length)
+                }
+            }),
             this.tileSizeEventService.tileSizeChanged.subscribe(tileSize => {
                 let newSize = Math.floor(tileSize);
                 this.margin = newSize / 2 + 'px';
