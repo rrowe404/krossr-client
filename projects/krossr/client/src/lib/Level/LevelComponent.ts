@@ -147,7 +147,7 @@ export class LevelComponent implements OnInit, OnDestroy {
                 this.goalMatrix = new GameMatrix(goalLayout, true);
             }
 
-            this.finalLayout.tiles = this.utils.flatten(this.level.decodedLayout).map(this.toTileLayout);
+            this.finalLayout.tiles = game.gameMatrix.flatten().map(this.toTileLayout);
             this.level.currentView = mode;
 
             this.level.ready = true;
