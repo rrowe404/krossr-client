@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { HeaderComponent } from './Header/HeaderComponent';
 import { LoadingAnimationComponent } from './LoadingAnimation/LoadingAnimationComponent';
 import { Routes } from './Routing/Routes';
 import { ShellComponent } from './Shell/ShellComponent';

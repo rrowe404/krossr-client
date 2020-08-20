@@ -86,6 +86,8 @@ export class LevelEditorFormComponent implements OnInit {
             this.formGroup = new FormGroup({});
             this.nameFormControl = new FormControl(this.level.name, [Validators.required]);
             this.sizeFormControl = new FormControl(this.level.size, [Validators.required]);
+
+            this.formGroup.addControl('name', this.nameFormControl);
             this.isReady = true;
         });
     }
@@ -99,8 +101,7 @@ export class LevelEditorFormComponent implements OnInit {
     }
 
     public updateName(name: string) {
-        this.nameFormControl.setValue(name);
-        this.level.name = this.nameFormControl.value;
+        this.level.name = name;
     }
 
     public updateSize(selected: number) {
