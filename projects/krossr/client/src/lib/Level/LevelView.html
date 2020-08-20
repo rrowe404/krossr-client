@@ -1,7 +1,4 @@
 <section class="viewLevel" *ngIf="level">
-    <krossr-level-editor-form *ngIf="level.currentView === 'edit'" [error]="error" [level]="level" submitText="Update" (submitAction)="confirmUpdate($event)">
-    </krossr-level-editor-form>
-
     <div class="rateLevel" *ngIf="Authentication.user && level && level.currentView === 'view'">
         Rate: <krossr-star-rating [rating]="level.userRating ? level.userRating.rating : 0" max="5" (ratingSelected)="rate($event)"></krossr-star-rating>
     </div>

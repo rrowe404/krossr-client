@@ -7,12 +7,9 @@ import { RatingService } from '../Rating/RatingService';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
 import { StateService } from '@uirouter/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
-import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { Subscription } from 'rxjs';
-import { LevelRoutes } from '../Routing/RouteNames';
 import { LevelLayout } from './LevelLayout';
-import { KrossrError, LevelViewModel, CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
+import { LevelViewModel } from '@krossr/types';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
@@ -94,23 +91,13 @@ export class LevelComponent implements OnInit, OnDestroy {
         ];
     }
 
-    confirmUpdate(level: UpdateLevelBodyViewModel) {
-        this.matDialog.open(ConfirmationComponent, {
-            data: {
-                submitText: 'Update',
-                submitAction: () => this.updateLevel(level)
-            } as ConfirmationOptions,
-            disableClose: true
-        });
-    }
-
     findOne(mode) {
         this.finalLayout = {};
         this.level = null;
 
         // store the name of the controller so we can have the same functions do different things
         // depending on new, edit, etc.
-        this.mode = mode;
+        this.mode = 'view';
 
         this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
             this.level = Object.assign({}, data, { currentView: mode, ready: false });
@@ -145,18 +132,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     rate(rating) {
         setTimeout(() => {
             this.ratingService.rate(this.level.id, rating);
-        });
-    }
-
-    updateLevel(level: UpdateLevelBodyViewModel) {
-        this.levelService.updateLevel(level).then(() => {
-            this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
-        }).catch((response: KrossrError) => {
-            this.error = response.error.message;
-
-            setTimeout(() => {
-                this.error = null;
-            }, this.timeout);
         });
     }
 }
