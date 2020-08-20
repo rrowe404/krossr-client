@@ -1,6 +1,4 @@
 <section class="viewLevel" *ngIf="level">
-    <krossr-level-editor-form *ngIf="level.currentView === 'new'" [error]="error" [level]="level" submitText="Submit" (sizeChange)="createGameArray()" (submitAction)="submitCreate()">
-    </krossr-level-editor-form>
     <krossr-level-editor-form *ngIf="level.currentView === 'edit'" [error]="error" [level]="level" submitText="Update" (submitAction)="confirmUpdate($event)">
     </krossr-level-editor-form>
 

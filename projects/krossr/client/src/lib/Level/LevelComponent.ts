@@ -104,42 +104,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         });
     }
 
-    createGameArray() {
-        let sideLength = this.level ? Math.sqrt(this.level.size) : 5;
-
-        let game = this.createNewGame({
-            layout: new BooleanMatrix(sideLength, sideLength).getLayout()
-        });
-
-        this.finalLayout.tiles = game.gameMatrix.flatten().map(this.toTileLayout);
-
-        this.gameMatrix = new GameMatrix(game.gameMatrix, false);
-
-        return game;
-    }
-
-    // Create new level (load template)
-    createNewLevel() {
-        let name = '';
-
-        if (this.level) {
-            name = this.level.name;
-        }
-
-        this.level = undefined;
-
-        this.createGameArray();
-
-        this.level = {
-            currentView: 'new',
-            layout: '',
-            ready: true,
-            name,
-            size: 25
-        };
-    }
-
-    // Find existing Level
     findOne(mode) {
         this.finalLayout = {};
         this.level = null;
@@ -147,10 +111,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         // store the name of the controller so we can have the same functions do different things
         // depending on new, edit, etc.
         this.mode = mode;
-
-        if (!this.levelId) {
-            this.createNewLevel();
-        }
 
         this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
             this.level = Object.assign({}, data, { currentView: mode, ready: false });
@@ -185,25 +145,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     rate(rating) {
         setTimeout(() => {
             this.ratingService.rate(this.level.id, rating);
-        });
-    }
-
-    // Split out for easier testing
-    submitCreate() {
-        // Create new Level object
-        let level = {
-            name: this.level.name,
-            decodedLayout: this.gameMatrix.horizontal.getLayout(),
-        } as CreateLevelBodyViewModel;
-
-        this.levelService.createLevel(level).then((response: LevelViewModel) => {
-            this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
-        }).catch((response: KrossrError) => {
-            this.error = response.error.message;
-
-            setTimeout(() => {
-                this.error = '';
-            }, this.timeout);
         });
     }
 
