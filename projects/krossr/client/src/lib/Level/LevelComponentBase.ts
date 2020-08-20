@@ -12,6 +12,7 @@ import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditor
 @Component({
     template: ''
 })
+// tslint:disable-next-line component-class-suffix
 export abstract class LevelComponentBase implements OnInit, OnDestroy {
     constructor(
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService  ,

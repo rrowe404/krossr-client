@@ -1,7 +1,7 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
-import { Input, Component } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
 import { StateService } from '@uirouter/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
@@ -19,7 +19,7 @@ import { LevelComponentBase } from '../Level/LevelComponentBase';
     selector: 'krossr-level-editor',
     templateUrl: './LevelEditorView.html'
 })
-export class LevelEditorComponent extends LevelComponentBase {
+export class LevelEditorComponent extends LevelComponentBase implements OnInit {
     constructor(
         private $state: StateService,
         public Authentication: AuthenticationService,
@@ -33,7 +33,7 @@ export class LevelEditorComponent extends LevelComponentBase {
     ) {
         super(levelEditorFormClearEventService, gameSizeService, resizeEventService, tileSizeEventService);
     }
-   
+
     @Input() public levelId;
 
     ngOnInit() {

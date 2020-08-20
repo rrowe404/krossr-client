@@ -3,7 +3,7 @@ import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { LevelService } from './LevelService';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { RatingService } from '../Rating/RatingService';
-import { Input, Component } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
 import { LevelViewModel } from '@krossr/types';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { ResizeEventService } from '../Resize/ResizeEventService';
@@ -16,7 +16,7 @@ import { LevelComponentBase } from './LevelComponentBase';
     styleUrls: ['./LevelStyles.less'],
     templateUrl: './LevelView.html'
 })
-export class LevelComponent extends LevelComponentBase {
+export class LevelComponent extends LevelComponentBase implements OnInit {
     constructor(
         public Authentication: AuthenticationService,
         protected gameSizeService: GameSizeService,
