@@ -45,7 +45,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         private dragBoxService: DragBoxService,
         private pointService: PointService,
-        private sideLengthService: SideLengthService,
         private tileBorderService: TileBorderService,
         private tileEventService: TileEventService,
         private tileFillEventService: TileFillEventService,
@@ -292,7 +291,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     /* Determine which tiles to add colored borders to */
     getBorderColors(direction, index) {
         let coord = this.pointService.indexToPoint(index);
-        let sideLength = this.sideLengthService.sideLength;
+        let sideLength = this.gameMatrix.length;
 
         return this.tileBorderService.getBorder(direction, coord, sideLength);
     }
