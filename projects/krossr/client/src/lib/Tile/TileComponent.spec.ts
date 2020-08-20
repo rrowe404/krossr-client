@@ -13,6 +13,8 @@ describe('TileComponent', () => {
         let componentFixture = TestBed.createComponent(TileComponent);
         let componentInstance = componentFixture.componentInstance;
 
+        componentInstance.gameMatrix = new BooleanMatrix(2, 2);
+
         if (setup) {
             setup(componentInstance);
         }
