@@ -1,5 +1,4 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { Utils } from '../Utils/Utils';
 import { LevelService } from '../Level/LevelService';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -16,7 +15,6 @@ export class LevelSelectComponent implements OnInit {
         public Authentication: AuthenticationService,
         private levelService: LevelService,
         private matDialogRef: MatDialogRef<LevelSelectComponent>,
-        private utils: Utils
     ) {
     }
 

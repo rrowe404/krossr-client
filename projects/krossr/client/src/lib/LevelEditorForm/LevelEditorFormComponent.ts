@@ -2,7 +2,6 @@ import { Input, Output, OnInit, EventEmitter, Component } from '@angular/core';
 import { ILevel } from '../Level/Level';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Utils } from '../Utils/Utils';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelService } from '../Level/LevelService';
@@ -41,7 +40,6 @@ export class LevelEditorFormComponent implements OnInit {
         private matDialog: MatDialog,
         private stateService: StateService,
         private tileFillEventService: TileFillEventService,
-        private utils: Utils
     ) {
     }
 

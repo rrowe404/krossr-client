@@ -3,7 +3,6 @@ import { ILevel } from './Level';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { LevelService } from './LevelService';
 import { ShiftService } from '../Shift/ShiftService';
-import { Utils } from '../Utils/Utils';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { RatingService } from '../Rating/RatingService';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
@@ -39,7 +38,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         private resizeEventService: ResizeEventService,
         private shiftService: ShiftService,
         private tileSizeEventService: TileSizeEventService,
-        private utils: Utils
     ) {
     }
 
@@ -55,6 +53,24 @@ export class LevelComponent implements OnInit, OnDestroy {
 
     private timeout = 1000;
     private subscriptions: Subscription[];
+
+    /* Combine a lot of the other functions here to set up a new game */
+    createNewGame(args: { layout: boolean[][] }) {
+        let goalMatrix: BooleanMatrix;
+        let layout = args.layout;
+
+        goalMatrix = new BooleanMatrix(layout.length, layout.length);
+        goalMatrix.initializeWith(layout);
+
+        this.gameSizeService.calculatePlayableArea();
+        let gameMatrix = new BooleanMatrix(layout.length, layout.length);
+        this.gameSizeService.setGameSize(gameMatrix.length);
+
+        return {
+            gameMatrix,
+            goalMatrix
+        };
+    }
 
     ngOnDestroy() {
         this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -93,7 +109,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     createGameArray() {
         let sideLength = this.level ? Math.sqrt(this.level.size) : 5;
 
-        let game = this.utils.createNewGame({
+        let game = this.createNewGame({
             layout: new BooleanMatrix(sideLength, sideLength).getLayout()
         });
 
@@ -143,7 +159,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
             this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
 
-            let game = this.utils.createNewGame({
+            let game = this.createNewGame({
                 layout: this.level.decodedLayout
             });
 
