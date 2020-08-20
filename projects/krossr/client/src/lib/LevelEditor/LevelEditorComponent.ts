@@ -66,13 +66,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
 
             let gameMatrix = game.goalMatrix;
             this.gameMatrix = new GameMatrix(gameMatrix, true);
-
-            let goalLayout = game.goalMatrix;
-
-            if (goalLayout) {
-                this.goalMatrix = new GameMatrix(goalLayout, true);
-            }
-
+            
             this.finalLayout.tiles = gameMatrix.flatten().map(this.toTileLayout);
 
             this.level.ready = true;
