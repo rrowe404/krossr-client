@@ -61,7 +61,6 @@ describe('LevelCreatorComponent', () => {
     it('should handle a submit failure', () => {
         setupForSubmit(component);
 
-        let submit = () => component.submitCreate();
         let levelService: LevelService = TestBed.inject(LevelService);
         spyOn(levelService, 'createLevel').and.returnValue(Promise.reject({ error: { message: 'haw haw' }}));
 
