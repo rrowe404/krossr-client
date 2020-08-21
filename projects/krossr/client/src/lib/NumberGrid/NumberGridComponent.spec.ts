@@ -2,6 +2,8 @@ import { NumberGridComponent } from './NumberGridComponent';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { NumberGridModule } from './NumberGridModule';
+import { TileSizeService } from '../TileSize/TileSizeService';
+import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 
 describe('NumberGridComponent', () => {
     let fixture: ComponentFixture<NumberGridComponent>;
@@ -22,5 +24,11 @@ describe('NumberGridComponent', () => {
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+    });
+
+    it('should update its tile size when setTileSize is called', () => {
+        let tileSizeService: TileSizeService = TestBed.inject(TileSizeService);
+        tileSizeService.setTileSize(500, 10);
+        expect(component.tileSize).toBe('50px');
     });
 });

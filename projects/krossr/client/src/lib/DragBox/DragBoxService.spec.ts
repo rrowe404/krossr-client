@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { DragBoxService } from './DragBoxService';
 import { Point } from '../Point/Point';
+import { TileState } from '../Tile/TileState';
 
 describe('DragBoxService', () => {
     let service: DragBoxService;
@@ -89,5 +90,13 @@ describe('DragBoxService', () => {
         let start = { x: 0, y: 0 };
         service.startCoord = start;
         expect(service.validateStart()).toBe(start);
+    });
+
+    it('should clear itself after a fill', () => {
+        service.startCoord = { x: 0, y: 0 };
+        service.endCoord = { x: 2, y: 2 };
+        service.fill(TileState.selected);
+        expect(service.startCoord).toBeFalsy();
+        expect(service.endCoord).toBeFalsy();
     });
 });
