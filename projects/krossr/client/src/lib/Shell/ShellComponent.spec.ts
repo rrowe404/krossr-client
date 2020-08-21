@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ShellComponent } from './ShellComponent';
 import { HeaderModule } from '../Header/HeaderModule';
 import { UIRouterModule } from '@uirouter/angular';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('ShellComponent', () => {
     let fixture: ComponentFixture<ShellComponent>;
@@ -14,6 +15,9 @@ describe('ShellComponent', () => {
             ],
             declarations: [
                 ShellComponent
+            ],
+            providers: [
+                { provide: APP_BASE_HREF, useValue: '/' }
             ]
         }).compileComponents();
 

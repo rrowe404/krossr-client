@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { NumberGridModule } from './NumberGridModule';
 import { TileSizeService } from '../TileSize/TileSizeService';
-import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 
 describe('NumberGridComponent', () => {
     let fixture: ComponentFixture<NumberGridComponent>;

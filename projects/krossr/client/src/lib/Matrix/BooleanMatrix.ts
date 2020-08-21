@@ -16,4 +16,11 @@ export class BooleanMatrix extends Matrix<boolean> {
             this.setValueAt(row, column, false);
         });
     }
+
+    rotate() {
+        let rotatedMatrix = super.rotate();
+        let result = new BooleanMatrix(this.length, this.length); // assumes squareness, todo
+        result.copyFrom(rotatedMatrix);
+        return result;
+    }
 }

@@ -65,7 +65,7 @@ export class Matrix<T> implements IEquatable<Matrix<T>> {
     }
 
     /** Create a new matrix of equal size to the one passed in, and assign it to the original rotated 90 degrees */
-    rotate() {
+    rotate(): Matrix<T> {
         let rotatedMatrix = new Matrix<T>(this.matrix.length, this.matrix.length);
 
         rotatedMatrix.iterate((row, column) => {
