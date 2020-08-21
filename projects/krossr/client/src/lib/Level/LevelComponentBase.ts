@@ -37,23 +37,23 @@ export abstract class LevelComponentBase implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        return Promise.resolve(() => {
-            this.subscriptions = [
-                this.levelEditorFormClearEventService.formClearEvent.subscribe(() => {
-                    this.gameMatrix.clear();
-                }),
-                this.resizeEventService.windowResized.subscribe(() => {
-                    if (this.gameMatrix) {
-                        this.gameSizeService.calculatePlayableArea();
-                        this.gameSizeService.setGameSize(this.gameMatrix.length);
-                    }
-                }),
-                this.tileSizeEventService.tileSizeChanged.subscribe(tileSize => {
-                    let newSize = Math.floor(tileSize);
-                    this.margin = newSize / 2 + 'px';
-                })
-            ];
-        });
+        this.subscriptions = [
+            this.levelEditorFormClearEventService.formClearEvent.subscribe(() => {
+                this.gameMatrix.clear();
+            }),
+            this.resizeEventService.windowResized.subscribe(() => {
+                if (this.gameMatrix) {
+                    this.gameSizeService.calculatePlayableArea();
+                    this.gameSizeService.setGameSize(this.gameMatrix.length);
+                }
+            }),
+            this.tileSizeEventService.tileSizeChanged.subscribe(tileSize => {
+                let newSize = Math.floor(tileSize);
+                this.margin = newSize / 2 + 'px';
+            })
+        ];
+
+        return Promise.resolve();
     }
 
     /* Combine a lot of the other functions here to set up a new game */
