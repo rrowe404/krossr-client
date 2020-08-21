@@ -20,7 +20,7 @@ describe('LevelEditorFormComponent', () => {
             declarations: [ LevelEditorFormComponent ],
             providers: [
                 { provide: LevelEditorFormService, useClass: MockLevelEditorFormService },
-                { provide: StateService, useValue: MockStateService }
+                { provide: StateService, useClass: MockStateService }
             ]
         }).compileComponents();
 

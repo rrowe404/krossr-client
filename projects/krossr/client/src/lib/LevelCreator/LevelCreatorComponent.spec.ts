@@ -4,9 +4,14 @@ import { LevelCreatorModule } from './LevelCreatorModule';
 import { StateService } from '@uirouter/core';
 import { MockStateService } from 'src/test/MockStateService';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { GameMatrix } from '../GameMatrix/GameMatrix';
+import { BooleanMatrix } from '../Matrix/BooleanMatrix';
+import { LevelService } from '../Level/LevelService';
+import { MockLevelService } from 'src/test/MockLevelService';
 
 describe('LevelCreatorComponent', () => {
     let fixture: ComponentFixture<LevelCreatorComponent>;
+    let component: LevelCreatorComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -15,15 +20,53 @@ describe('LevelCreatorComponent', () => {
                 LevelCreatorModule
             ],
             providers: [
-                { provide: StateService, useValue: MockStateService }
+                { provide: LevelService, useClass: MockLevelService },
+                { provide: StateService, useClass: MockStateService }
             ]
         });
 
         fixture = TestBed.createComponent(LevelCreatorComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
     });
+
+    it('should use the existing level in createNewLevel && createGameArray if possible', () => {
+        component.level = { layout: '', ready: true, name: 'bill murray', size: 25 };
+        component.createGameArray();
+        expect(component.gameMatrix.length).toBe(5);
+
+        component.createNewLevel();
+        expect(component.level.name).toBe('bill murray');
+    });
+
+    function setupForSubmit(component: LevelCreatorComponent) {
+        component.level = { layout: '', ready: true, name: 'bill murray', size: 25 };
+        let layout = [[false, true], [true, false]];
+        let booleanMatrix = new BooleanMatrix(2, 2);
+        booleanMatrix.initializeWith(layout);
+        component.gameMatrix = new GameMatrix(booleanMatrix, true);
+    }
+
+    it('should submit a completed level', () => {
+        setupForSubmit(component);
+        let submit = () => component.submitCreate();
+
+        expect(submit).not.toThrow();
+    });
+
+    it('should handle a submit failure', () => {
+        setupForSubmit(component);
+
+        let submit = () => component.submitCreate();
+        let levelService: LevelService = TestBed.inject(LevelService);
+        spyOn(levelService, 'createLevel').and.returnValue(Promise.reject({ error: { message: 'haw haw' }}));
+
+        component.submitCreate().then(() => {
+            expect(component.error).toBeTruthy();
+        });
+    })
 });

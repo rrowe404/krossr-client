@@ -87,7 +87,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
             decodedLayout: this.gameMatrix.horizontal.getLayout(),
         } as CreateLevelBodyViewModel;
 
-        this.levelService.createLevel(level).then((response: LevelViewModel) => {
+        return this.levelService.createLevel(level).then((response: LevelViewModel) => {
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
         }).catch((response: KrossrError) => {
             this.error = response.error.message;
