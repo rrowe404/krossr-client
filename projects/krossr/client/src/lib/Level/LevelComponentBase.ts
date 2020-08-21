@@ -15,7 +15,7 @@ import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditor
 // tslint:disable-next-line component-class-suffix
 export abstract class LevelComponentBase implements OnInit, OnDestroy {
     constructor(
-        protected levelEditorFormClearEventService: LevelEditorFormClearEventService  ,
+        protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         protected gameSizeService: GameSizeService,
         protected resizeEventService: ResizeEventService,
         protected tileSizeEventService: TileSizeEventService
@@ -37,21 +37,23 @@ export abstract class LevelComponentBase implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscriptions = [
-            this.levelEditorFormClearEventService.formClearEvent.subscribe(() => {
-                this.gameMatrix.clear();
-            }),
-            this.resizeEventService.windowResized.subscribe(() => {
-                if (this.gameMatrix) {
-                    this.gameSizeService.calculatePlayableArea();
-                    this.gameSizeService.setGameSize(this.gameMatrix.length);
-                }
-            }),
-            this.tileSizeEventService.tileSizeChanged.subscribe(tileSize => {
-                let newSize = Math.floor(tileSize);
-                this.margin = newSize / 2 + 'px';
-            })
-        ];
+        return Promise.resolve(() => {
+            this.subscriptions = [
+                this.levelEditorFormClearEventService.formClearEvent.subscribe(() => {
+                    this.gameMatrix.clear();
+                }),
+                this.resizeEventService.windowResized.subscribe(() => {
+                    if (this.gameMatrix) {
+                        this.gameSizeService.calculatePlayableArea();
+                        this.gameSizeService.setGameSize(this.gameMatrix.length);
+                    }
+                }),
+                this.tileSizeEventService.tileSizeChanged.subscribe(tileSize => {
+                    let newSize = Math.floor(tileSize);
+                    this.margin = newSize / 2 + 'px';
+                })
+            ];
+        });
     }
 
     /* Combine a lot of the other functions here to set up a new game */

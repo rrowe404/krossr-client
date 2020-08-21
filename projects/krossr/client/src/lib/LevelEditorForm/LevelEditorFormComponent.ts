@@ -85,7 +85,7 @@ export class LevelEditorFormComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.levelEditorFormService.getOptions().then(options => {
+        return this.levelEditorFormService.getOptions().then(options => {
             this.setupOptions(options);
             this.formGroup = new FormGroup({});
             this.nameFormControl = new FormControl(this.level.name, [Validators.required]);

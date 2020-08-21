@@ -38,7 +38,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
 
     ngOnInit() {
         this.findOne();
-        super.ngOnInit();
+        return super.ngOnInit();
     }
 
     confirmUpdate(level: UpdateLevelBodyViewModel) {

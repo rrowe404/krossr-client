@@ -33,7 +33,7 @@ export class LevelSelectFilterComponent implements OnInit {
     private debouncedChange = debounce(() => this.onChange());
 
     public ngOnInit() {
-        this.levelSelectFilterService.getOptions().then(options => {
+        return this.levelSelectFilterService.getOptions().then(options => {
             this.setupOptions(options);
 
             this.formGroup = new FormGroup({});

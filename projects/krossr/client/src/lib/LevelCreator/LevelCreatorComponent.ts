@@ -42,7 +42,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
 
     ngOnInit() {
         this.createNewLevel();
-        super.ngOnInit();
+        return super.ngOnInit();
     }
 
     createGameArray() {
