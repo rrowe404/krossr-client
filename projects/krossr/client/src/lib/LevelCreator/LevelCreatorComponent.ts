@@ -3,7 +3,6 @@ import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
 import { StateService } from '@uirouter/core';
-import { Subscription } from 'rxjs';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { KrossrError, LevelViewModel, CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
@@ -78,10 +77,6 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
             name,
             size: 25
         };
-    }
-
-    toTileLayout(value: boolean) {
-        return { selected: value };
     }
 
     // Split out for easier testing

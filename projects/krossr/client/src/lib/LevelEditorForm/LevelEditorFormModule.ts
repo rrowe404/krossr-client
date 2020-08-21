@@ -5,10 +5,12 @@ import { KrossrButtonModule } from '../KrossrButton/KrossrButtonModule';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KrossrInputModule } from '../KrossrInput/KrossrInputModule';
 import { KrossrSelectModule } from '../KrossrSelect/KrossrSelectModule';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     imports: [
         CommonModule,
+        MatDialogModule,
         KrossrButtonModule,
         KrossrInputModule,
         KrossrSelectModule,

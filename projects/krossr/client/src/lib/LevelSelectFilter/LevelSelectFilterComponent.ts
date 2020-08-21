@@ -72,13 +72,11 @@ export class LevelSelectFilterComponent implements OnInit {
     }
 
     public updateSortBy(sortBy: string) {
-        this.sortByFormControl.setValue(sortBy);
         this.options.sortBy = this.sortByMap[sortBy];
         this.onChange();
     }
 
     public updateSortDirection(sortDirection: string) {
-        this.sortDirectionFormControl.setValue(sortDirection);
         this.options.sortDirection = this.sortDirectionMap[sortDirection];
         this.onChange();
     }
