@@ -4,6 +4,7 @@ import { GameOverModule } from './GameOverModule';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UIRouterModule } from '@uirouter/angular';
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('GameOverComponent', () => {
     let fixture: ComponentFixture<GameOverComponent>;
@@ -17,7 +18,8 @@ describe('GameOverComponent', () => {
             ],
             providers: [
                 { provide: MatDialogRef, useValue: {} },
-                { provide: MAT_DIALOG_DATA, useValue: { levelId: 1 } }
+                { provide: MAT_DIALOG_DATA, useValue: { levelId: 1 } },
+                { provide: APP_BASE_HREF, useValue: '/' }
             ]
         }).compileComponents();
 

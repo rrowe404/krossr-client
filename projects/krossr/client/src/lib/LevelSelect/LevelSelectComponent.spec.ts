@@ -9,6 +9,7 @@ import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { LevelListLevelViewModel, LevelListViewModel } from '@krossr/types';
 import { UIRouterModule } from '@uirouter/angular';
 import { LevelService } from '../Level/LevelService';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('LevelSelectComponent', () => {
     let fixture: ComponentFixture<LevelSelectComponent>;
@@ -24,6 +25,7 @@ describe('LevelSelectComponent', () => {
             providers: [
                 { provide: MatDialogRef, useValue: {} },
                 { provide: StateService, useValue: MockStateService },
+                { provide: APP_BASE_HREF, useValue: '/' }
             ]
         }).compileComponents();
 

@@ -42,20 +42,24 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
     }
 
     confirmUpdate(level: UpdateLevelBodyViewModel) {
-        this.matDialog.open(ConfirmationComponent, {
+        this.matDialog.open(ConfirmationComponent, this.getConfirmUpdateOptions(level));
+    }
+
+    getConfirmUpdateOptions(level: UpdateLevelBodyViewModel) {
+        return {
             data: {
                 submitText: 'Update',
                 submitAction: () => this.updateLevel(level)
             } as ConfirmationOptions,
             disableClose: true
-        });
+        }
     }
 
     findOne() {
         this.finalLayout = {};
         this.level = null;
 
-        this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
+        return this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
             this.level = Object.assign({}, data, { ready: false });
 
             this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
@@ -76,7 +80,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
     updateLevel(level: UpdateLevelBodyViewModel) {
         level.decodedLayout = this.gameMatrix.horizontal.getLayout();
 
-        this.levelService.updateLevel(level).then(() => {
+        return this.levelService.updateLevel(level).then(() => {
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
         }).catch((response: KrossrError) => {
             this.error = response.error.message;
