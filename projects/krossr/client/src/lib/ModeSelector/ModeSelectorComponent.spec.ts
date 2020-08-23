@@ -22,6 +22,10 @@ describe('ModeSelectorComponent', () => {
     });
 
     it('should select each mode without error', () => {
-        component.modes.forEach(mode => component.selectMode(mode));
+        let test = () => {
+            component.modes.forEach(mode => component.selectMode(mode));
+        };
+
+        expect(test).not.toThrow();
     });
 });
