@@ -59,11 +59,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
         this.listeners = [
             // focus the game when the mouse enters it so that the first click will register
-            this.renderer.listen(this.$element, 'mouseenter', () => {
-                let elements = this.$element.querySelectorAll('.inner') as NodeListOf<HTMLElement>;
-
-                elements.forEach(ele => ele.focus());
-            }),
+            this.renderer.listen(this.$element, 'mouseenter', this.setFocus),
             // If the user goes too far away from the game area, clear the dragbox and empty the tiles.
             this.renderer.listen(this.$element, 'mouseleave', (e) => {
                 e.preventDefault();
@@ -136,5 +132,11 @@ export class GameComponent implements OnInit, OnDestroy {
                 height: newGameSettings.gameHeight
             };
         }
+    }
+
+    private setFocus() {
+        let elements = this.$element.querySelectorAll('.inner') as NodeListOf<HTMLElement>;
+
+        elements.forEach(ele => ele.focus());
     }
 }
