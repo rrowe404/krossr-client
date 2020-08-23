@@ -65,10 +65,13 @@ describe('GameComponent', () => {
     });
 
     it('should focus the game when the mouse enters it', () => {
+        let inner = element.querySelector('.inner') as HTMLElement;
+        spyOn(inner, 'focus');
+
         let event = new MouseEvent('mouseenter');
         element.dispatchEvent(event);
 
-        expect(true).toBeTruthy(); // todo, triggering focus doesn't seem to work
+        expect(inner.focus).toHaveBeenCalled();
     });
 
     it('should empty the dragbox when the mouse leaves the game', () => {
