@@ -50,38 +50,32 @@ export class LevelEditorFormComponent implements OnInit {
     }
 
     public confirmClear() {
-        this.matDialog.open(ConfirmationComponent, {
-            data: {
-                submitText: 'Clear',
-                submitAction: () => this.clearAll()
-            } as ConfirmationOptions,
-            disableClose: true
-        });
+        return this.matDialog.open(ConfirmationComponent, this.getClearConfirmationOptions());
     }
 
     public confirmRemove() {
-        this.matDialog.open(ConfirmationComponent, {
-            data: {
-                submitText: 'Delete',
-                submitAction: () => this.removeCurrentLevel()
-            } as ConfirmationOptions,
-            disableClose: true
-        });
+        return this.matDialog.open(ConfirmationComponent, this.getRemoveConfirmationOptions());
     }
 
-    /** Remove the level you're looking at */
-    removeCurrentLevel() {
-        this.remove(this.level);
+    public getClearConfirmationOptions = () => this.getConfirmationOptions('Clear', () => this.clearAll());
+    public getRemoveConfirmationOptions = () => this.getConfirmationOptions('Remove', () => this.remove(this.level));
+
+    public getConfirmationOptions(submitText, submitAction: () => void) {
+        return {
+            data: {
+                submitText,
+                submitAction
+            } as ConfirmationOptions,
+            disableClose: true
+        };
     }
 
     /** Remove any Level passed in */
-    remove(level) {
-        if (level) {
-            this.levelService.removeLevel(level.id).then(() => {
-                this.matDialog.open(LevelSelectComponent);
-                this.stateService.go(HomeRoutes.home, {}, { reload: true });
-            });
-        }
+    remove(level: { id?: number }) {
+        return this.levelService.removeLevel(level.id).then(() => {
+            this.matDialog.open(LevelSelectComponent);
+            this.stateService.go(HomeRoutes.home, {}, { reload: true });
+        });
     }
 
     public ngOnInit() {
