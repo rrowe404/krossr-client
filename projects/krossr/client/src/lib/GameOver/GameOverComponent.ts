@@ -1,25 +1,23 @@
 import { Component, Input, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
+import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
 
 @Component({
     selector: 'krossr-game-over',
     templateUrl: './GameOverView.html'
 })
-export class GameOverComponent {
+export class GameOverComponent extends KrossrDialogBase {
     constructor(
-        private matDialogRef: MatDialogRef<GameOverComponent>,
+        protected matDialogRef: MatDialogRef<GameOverComponent>,
         private matDialog: MatDialog,
         @Inject(MAT_DIALOG_DATA) public data: { levelId: number }
     ) {
-    }
-
-    close() {
-        this.matDialogRef.close();
+        super(matDialogRef);
     }
 
     newLevel() {
-        this.matDialogRef.close();
+        this.close();
         this.matDialog.open(LevelSelectComponent);
     }
 }
