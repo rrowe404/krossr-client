@@ -35,6 +35,7 @@ describe('ChangePasswordComponent', () => {
 
         return component.changeUserPassword().then(() => {
             expect(component.success).toBeTruthy();
+            expect(component.changePasswordButtonText()).toBe('Password Saved!');
         });
     });
 
