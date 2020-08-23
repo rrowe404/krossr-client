@@ -37,7 +37,7 @@ export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
     resetUserPassword() {
         this.success = this.error = null;
 
-        this.resetPasswordService.resetPassword(this.token, {
+        return this.resetPasswordService.resetPassword(this.token, {
             newPassword: this.newPasswordFormControl.value,
             verifyPassword: this.verifyPasswordFormControl.value
         }).then(() => {
