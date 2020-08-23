@@ -16,15 +16,30 @@ describe('ConfirmationComponent', () => {
             ],
             providers: [
                 { provide: MatDialogRef, useValue: {} },
-                { provide: MAT_DIALOG_DATA, useValue: {} }
+                {
+                    provide: MAT_DIALOG_DATA, useValue: {
+                        submitAction: () => {}
+                    }
+                }
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(ConfirmationComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+    });
+
+    it('should confirm and close', () => {
+        spyOn(component.data, 'submitAction');
+        spyOn(component, 'close');
+
+        component.confirm();
+
+        expect(component.data.submitAction).toHaveBeenCalled();
+        expect(component.close).toHaveBeenCalled();
     });
 });
