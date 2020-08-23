@@ -30,7 +30,7 @@ export class UpdateUserComponent implements OnInit{
     updateUser() {
         this.success = this.error = null;
 
-        this.userService.updateUser(this.emailFormControl.value).then(() => {
+        return this.userService.updateUser(this.emailFormControl.value).then(() => {
             this.success = true;
 
             setTimeout(() => {
