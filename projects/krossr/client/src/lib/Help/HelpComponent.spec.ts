@@ -25,11 +25,4 @@ describe('HelpComponent', () => {
     it('should be created', () => {
         expect(fixture).toBeTruthy();
     });
-
-    it('should close', () => {
-        let matDialogRef: MatDialogRef<HelpComponent> = TestBed.inject(MatDialogRef);
-        spyOn(matDialogRef, 'close');
-        component.close();
-        expect(matDialogRef.close).toHaveBeenCalled();
-    });
 });

@@ -3,6 +3,7 @@ import { EditProfileComponent } from './EditProfileComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { EditProfileModule } from './EditProfileModule';
+import { SignOutService } from '../SignOut/SignOutService';
 
 describe('EditProfileComponent', () => {
     let fixture: ComponentFixture<EditProfileComponent>;
@@ -20,10 +21,22 @@ describe('EditProfileComponent', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(EditProfileComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+    });
+
+    it('should sign out and close', () => {
+        let signOutService: SignOutService = TestBed.inject(SignOutService);
+        spyOn(signOutService, 'signout').and.returnValue(Promise.resolve());
+        spyOn(component, 'close');
+
+        return component.signout().then(() => {
+            expect(signOutService.signout).toHaveBeenCalled();
+            expect(component.close).toHaveBeenCalled();
+        });
     });
 });

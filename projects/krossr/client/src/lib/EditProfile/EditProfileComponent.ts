@@ -1,25 +1,23 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SignOutService } from '../SignOut/SignOutService';
+import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
 /** Popup to change email/password or log out */
 
 @Component({
     selector: 'krossr-edit-profile',
     templateUrl: './EditProfileView.html'
 })
-export class EditProfileComponent {
+export class EditProfileComponent extends KrossrDialogBase {
     constructor(
-        private matDialogRef: MatDialogRef<EditProfileComponent>,
+        protected matDialogRef: MatDialogRef<EditProfileComponent>,
         private signOutService: SignOutService
     ) {
-    }
-
-    close() {
-        this.matDialogRef.close();
+        super(matDialogRef);
     }
 
     signout() {
-        this.signOutService.signout().then(() => {
+        return this.signOutService.signout().then(() => {
             this.close();
         });
     }
