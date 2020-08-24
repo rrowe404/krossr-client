@@ -3,17 +3,22 @@ import { TileComponent } from './TileComponent';
 import { TileState } from './TileState';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { DragBoxService } from '../DragBox/DragBoxService';
+import { TileModule } from './TileModule';
+import { TileFillEvent } from 'dist/krossr/client/lib/Tile/TileFillEvent';
+import { TileFillEventService } from './TileFillEventService';
 
 describe('TileComponent', () => {
     let fixture: ComponentFixture<TileComponent>;
     let component: TileComponent;
-    let dragBoxServiceSpy: jasmine.SpyObj<DragBoxService>;
+    let element: HTMLElement;
 
     function getFixture(setup?: (componentInstance: TileComponent) => void) {
         let componentFixture = TestBed.createComponent(TileComponent);
         let componentInstance = componentFixture.componentInstance;
 
         componentInstance.gameMatrix = new BooleanMatrix(2, 2);
+        componentInstance.index = 0;
+        componentInstance.selected = false;
 
         if (setup) {
             setup(componentInstance);
@@ -24,17 +29,15 @@ describe('TileComponent', () => {
     }
 
     beforeEach(() => {
-        dragBoxServiceSpy = jasmine.createSpyObj('DragBoxService', ['startCoord']);
-
         TestBed.configureTestingModule({
-            declarations: [ TileComponent ],
-            providers: [
-                { provide: DragBoxService, useValue: dragBoxServiceSpy }
+            imports: [
+                TileModule
             ]
         }).compileComponents();
 
         fixture = getFixture();
         component = fixture.componentInstance;
+        element = fixture.debugElement.nativeElement;
     });
 
     it('should be created', () => {
@@ -74,6 +77,9 @@ describe('TileComponent', () => {
         expect(component.marked).toBeFalsy();
         expect(component.pending).toBeFalsy();
 
+        component.fill(TileState.selected);
+        expect(component.selected).toBeFalsy();
+
         component.fill(TileState.selected, true);
         expect(component.selected).toBeFalsy();
 
@@ -108,5 +114,148 @@ describe('TileComponent', () => {
             component.mark();
             expect(component.marked).toBeFalsy();
         });
+    });
+
+    describe('mouseDown', () => {
+        it('should catch the event', () => {
+            let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
+
+            let event = new MouseEvent('mousedown');
+            element.dispatchEvent(event);
+
+            expect(dragBoxService.startCoord).toEqual({ x: 0, y: 0 });
+            expect(dragBoxService.initState).toBeFalsy();
+        });
+    });
+
+    describe('touchStart', () => {
+        it('should catch the event', () => {
+            let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
+
+            let event = new TouchEvent('touchstart');
+            element.dispatchEvent(event);
+
+            expect(dragBoxService.startCoord).toEqual({ x: 0, y: 0 });
+            expect(dragBoxService.initState).toBeFalsy();
+        });
+    });
+
+    describe('mouseMove', () => {
+        it('should catch the event', () => {
+            let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
+
+            let event = new MouseEvent('mousemove');
+            element.dispatchEvent(event);
+
+            expect(dragBoxService.endCoord).toBeFalsy();
+
+            dragBoxService.startCoord = { x: 2, y: 2 };
+            element.dispatchEvent(event);
+            expect(dragBoxService.endCoord).toEqual({x: 0, y: 0});
+        });
+
+        it('should clear when the dragbox is smaller than the previous one', () => {
+            let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
+            
+            dragBoxService.startCoord = { x: 0, y: 0 };
+            dragBoxService.endCoord = { x: 2, y: 2 };
+            component.index = 0;
+
+            let event = new MouseEvent('mousemove');
+            element.dispatchEvent(event);
+        });
+    });
+
+    describe('touchMove', () => {
+        it('should catch the event', () => {
+            let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
+            let touches = [new Touch({identifier: 0, target: element})];
+
+            let event = new TouchEvent('touchmove', { touches });
+            element.dispatchEvent(event);
+
+            expect(dragBoxService.endCoord).toBeFalsy()
+        });
+
+    });
+
+    describe('mouseUp', () => {
+        it('should catch the event', () => {
+            let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
+
+            let event = new MouseEvent('mouseup');
+            element.dispatchEvent(event);
+
+            expect(dragBoxService.endCoord).toEqual({x: 0, y: 0 });
+        });
+    });
+
+    describe('touchEnd', () => {
+        it('should catch the event', () => {
+            let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
+
+            let event = new TouchEvent('touchend');
+            element.dispatchEvent(event);
+
+            expect(dragBoxService.endCoord).toBeFalsy();
+        });
+    });
+
+    describe('tileFillEvent', () => {
+        it('should respond when no coords are specified', () => {
+            spyOn(component, 'changeTile');
+            
+            let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
+
+            tileFillEventService.fill.emit({
+                initState: true,
+                override: TileState.selected
+            });
+
+            expect(component.changeTile).toHaveBeenCalled();
+        });
+
+        it('should respond when its own coord is specified', () => {
+            spyOn(component, 'changeTile');
+            
+            let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
+
+            tileFillEventService.fill.emit({
+                coords: [{x: 0, y: 0}],
+                initState: true,
+                override: TileState.selected
+            });
+
+            expect(component.changeTile).toHaveBeenCalled();
+        });
+
+        it('should not respond when its own coord is not specified', () => {
+            spyOn(component, 'changeTile');
+            
+            let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
+
+            tileFillEventService.fill.emit({
+                coords: [{x: 1, y: 0}],
+                initState: true,
+                override: TileState.selected
+            });
+
+            expect(component.changeTile).not.toHaveBeenCalled();
+        });
+
+        it('should not respond when it is not valid', () => {
+            spyOn(component, 'changeTile');
+            
+            let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
+
+            tileFillEventService.fill.emit({
+                coords: [{x: 0, y: 0}],
+                initState: true,
+                override: TileState.selected,
+                validate: (tile) => tile.selected
+            });
+
+            expect(component.changeTile).not.toHaveBeenCalled();
+        })
     });
 });
