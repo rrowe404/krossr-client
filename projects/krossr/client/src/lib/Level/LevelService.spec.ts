@@ -34,11 +34,11 @@ describe('LevelService', () => {
     it('should update a level', () => {
         let promise = service.updateLevel({ id: 1, name: 'testname', decodedLayout: [[]]});
         let req = httpTestingController.expectOne('levels/1');
-        
+
         promise.then(() => {
             expect(req.request.method).toBe('PUT');
         });
-        
+
         req.flush({});
 
         return promise;
@@ -47,13 +47,13 @@ describe('LevelService', () => {
     it('should remove a level', () => {
         let promise = service.removeLevel(1);
         let req = httpTestingController.expectOne('levels/1');
-        
+
         promise.then(() => {
             expect(req.request.method).toBe('DELETE');
         });
-        
+
         req.flush({});
 
         return promise;
-    })
+    });
 });

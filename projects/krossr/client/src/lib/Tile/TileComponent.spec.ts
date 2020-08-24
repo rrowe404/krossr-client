@@ -156,7 +156,7 @@ describe('TileComponent', () => {
 
         it('should clear when the dragbox is smaller than the previous one', () => {
             let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
-            
+
             dragBoxService.startCoord = { x: 0, y: 0 };
             dragBoxService.endCoord = { x: 2, y: 2 };
             component.index = 0;
@@ -174,9 +174,8 @@ describe('TileComponent', () => {
             let event = new TouchEvent('touchmove', { touches });
             element.dispatchEvent(event);
 
-            expect(dragBoxService.endCoord).toBeFalsy()
+            expect(dragBoxService.endCoord).toBeFalsy();
         });
-
     });
 
     describe('mouseUp', () => {
@@ -204,7 +203,7 @@ describe('TileComponent', () => {
     describe('tileFillEvent', () => {
         it('should respond when no coords are specified', () => {
             spyOn(component, 'changeTile');
-            
+
             let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
 
             tileFillEventService.fill.emit({
@@ -217,7 +216,7 @@ describe('TileComponent', () => {
 
         it('should respond when its own coord is specified', () => {
             spyOn(component, 'changeTile');
-            
+
             let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
 
             tileFillEventService.fill.emit({
@@ -231,7 +230,7 @@ describe('TileComponent', () => {
 
         it('should not respond when its own coord is not specified', () => {
             spyOn(component, 'changeTile');
-            
+
             let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
 
             tileFillEventService.fill.emit({
@@ -245,7 +244,7 @@ describe('TileComponent', () => {
 
         it('should not respond when it is not valid', () => {
             spyOn(component, 'changeTile');
-            
+
             let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
 
             tileFillEventService.fill.emit({
@@ -256,6 +255,6 @@ describe('TileComponent', () => {
             });
 
             expect(component.changeTile).not.toHaveBeenCalled();
-        })
+        });
     });
 });

@@ -28,7 +28,7 @@ describe('UpdateUserComponent', () => {
     it('should update user', () => {
         let userService: UserService = TestBed.inject(UserService);
         spyOn(userService, 'updateUser').and.returnValue(Promise.resolve());
-        
+
         component.emailFormControl.setValue('test@test.com');
 
         return component.updateUser().then(() => {

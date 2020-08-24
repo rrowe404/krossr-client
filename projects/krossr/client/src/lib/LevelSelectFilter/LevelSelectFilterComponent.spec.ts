@@ -50,7 +50,7 @@ describe('LevelSelectFilterComponent', () => {
     });
 
     it('should update sort by', () => {
-        component.sortByMap = { 'Date': 'date' };
+        component.sortByMap = { Date: 'date' };
 
         spyOn(component.refilter, 'emit');
         component.updateSortBy('Date');
@@ -66,7 +66,7 @@ describe('LevelSelectFilterComponent', () => {
     });
 
     it('should update sort direction', () => {
-        component.sortDirectionMap = { 'Descending': 'DESC' };
+        component.sortDirectionMap = { Descending: 'DESC' };
 
         spyOn(component.refilter, 'emit');
         component.updateSortDirection('Descending');

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ForgotPasswordComponent } from './ForgotPasswordComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ForgotPasswordModule } from './ForgotPasswordModule';
 import { ForgotPasswordService } from './ForgotPasswordService';
 
@@ -16,7 +16,7 @@ describe('ForgotPasswordComponent', () => {
             setup(fixture.componentInstance);
         }
 
-        fixture.detectChanges()
+        fixture.detectChanges();
         return fixture;
     }
 
@@ -52,7 +52,7 @@ describe('ForgotPasswordComponent', () => {
         component.usernameFormControl.setValue('mumbojumbo');
 
         let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
-        
+
         spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.resolve({}));
 
         return component.askForPasswordReset().then(() => {
@@ -64,7 +64,7 @@ describe('ForgotPasswordComponent', () => {
         component.usernameFormControl.setValue('banjokazooie');
 
         let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
-        
+
         spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.reject({
             error: {
                 message: 'dumb bear'

@@ -23,7 +23,7 @@ describe('SignOutService', () => {
     it('should sign out', () => {
         let authenticationService: AuthenticationService = TestBed.inject(AuthenticationService);
         spyOn(authenticationService, 'signOut').and.returnValue();
-        
+
         let promise = service.signout().then(() => {
             expect(authenticationService.signOut).toHaveBeenCalled();
         });

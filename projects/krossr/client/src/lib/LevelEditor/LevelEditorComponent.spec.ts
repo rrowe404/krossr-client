@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelEditorComponent } from './LevelEditorComponent';
 import { LevelEditorModule } from './LevelEditorModule';
 import { StateService } from '@uirouter/core';
@@ -56,7 +56,7 @@ describe('LevelEditorComponent', () => {
         let stateService: StateService = TestBed.inject(StateService);
         spyOn(stateService, 'go');
 
-        let level = { id: 1, decodedLayout: [[]], name: 'trogdor' }; 
+        let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
 
         return component.updateLevel(level).then(() => {
             expect(stateService.go).toHaveBeenCalled();
@@ -68,7 +68,7 @@ describe('LevelEditorComponent', () => {
         let error = 'pitiful.';
         spyOn(levelService, 'updateLevel').and.returnValue(Promise.reject({ error: { message: error }}));
 
-        let level = { id: 1, decodedLayout: [[]], name: 'trogdor' }; 
+        let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
 
         return component.updateLevel(level).then(() => {
             expect(component.error).toBe(error);
@@ -76,12 +76,12 @@ describe('LevelEditorComponent', () => {
     });
 
     it('should set up a level for editing correctly', () => {
-        let level = { id: 1, name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==' }; 
+        let level = { id: 1, name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==' };
         let levelService: LevelService = TestBed.inject(LevelService);
         spyOn(levelService, 'getLevel').and.returnValue(Promise.resolve(level));
 
         component.levelId = level.id;
-        
+
         component.findOne().then(() => {
             expect(component.level.decodedLayout).toBeTruthy();
             expect(component.level.name).toBe('trogdor');

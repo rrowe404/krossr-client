@@ -1,4 +1,4 @@
-import { TileFillEventService } from "./TileFillEventService";
+import { TileFillEventService } from './TileFillEventService';
 import { TestBed } from '@angular/core/testing';
 
 describe('TileFillEventService', () => {

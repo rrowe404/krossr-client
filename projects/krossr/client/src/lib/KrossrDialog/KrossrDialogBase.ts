@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 @Component({
     template: ''
 })
+// tslint:disable-next-line
 export abstract class KrossrDialogBase {
     constructor(
         protected matDialogRef: MatDialogRef<KrossrDialogBase>

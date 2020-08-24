@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { ResizeDirective } from './ResizeDirective';
 import { ResizeEventService } from './ResizeEventService';

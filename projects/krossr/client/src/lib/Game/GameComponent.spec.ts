@@ -116,7 +116,7 @@ describe('GameComponent', () => {
         spyOn(gameOverService, 'openDialog');
 
         let tileEventService: TileEventService = TestBed.inject(TileEventService);
-        tileEventService.tileDragEnd.emit(); 
+        tileEventService.tileDragEnd.emit();
 
         expect(gameOverService.openDialog).toHaveBeenCalled();
     });

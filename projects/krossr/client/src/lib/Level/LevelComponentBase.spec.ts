@@ -1,4 +1,4 @@
-import { LevelComponentBase } from "./LevelComponentBase";
+import { LevelComponentBase } from './LevelComponentBase';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';

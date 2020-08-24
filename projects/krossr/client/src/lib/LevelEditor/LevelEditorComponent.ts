@@ -52,7 +52,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
                 submitAction: () => this.updateLevel(level)
             } as ConfirmationOptions,
             disableClose: true
-        }
+        };
     }
 
     findOne() {

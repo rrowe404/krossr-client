@@ -1,4 +1,4 @@
-import { SignUpService } from "./SignUpService";
+import { SignUpService } from './SignUpService';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthenticationService } from '../Authentication/AuthenticationService';

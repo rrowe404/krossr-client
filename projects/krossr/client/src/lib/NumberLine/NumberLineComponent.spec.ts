@@ -72,7 +72,7 @@ describe('NumberLineComponent', () => {
 
     it('should toggle finished', () => {
         let game = new BooleanMatrix(2, 2);
-        game.initializeWith([[false,false], [false,false]]);
+        game.initializeWith([[false, false], [false, false]]);
 
         let component = getFixture(game, game, 0, 'horizontal').componentInstance;
 

@@ -7,13 +7,13 @@ export class MockLevelSelectFilterService extends LevelSelectFilterService {
     getOptions(): Promise<LevelListFilterSelectOptionsViewModel> {
         return Promise.resolve({
             sortByOptions: {
-                'Fake': 'fake'
+                Fake: 'fake'
             },
             sizeOptions: {
                 '5x5': 25
             },
             sortDirectionOptions: {
-                'Ascending': 'ASC'
+                Ascending: 'ASC'
             }
         });
     }

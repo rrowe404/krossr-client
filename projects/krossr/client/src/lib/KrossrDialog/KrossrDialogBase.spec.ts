@@ -1,5 +1,5 @@
-import { KrossrDialogBase } from "./KrossrDialogBase";
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { KrossrDialogBase } from './KrossrDialogBase';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 

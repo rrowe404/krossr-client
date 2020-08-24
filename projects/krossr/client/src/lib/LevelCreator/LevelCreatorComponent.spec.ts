@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelCreatorComponent } from './LevelCreatorComponent';
 import { LevelCreatorModule } from './LevelCreatorModule';
 import { StateService } from '@uirouter/core';
@@ -43,12 +43,12 @@ describe('LevelCreatorComponent', () => {
         expect(component.level.name).toBe('bill murray');
     });
 
-    function setupForSubmit(component: LevelCreatorComponent) {
-        component.level = { layout: '', ready: true, name: 'bill murray', size: 25 };
+    function setupForSubmit(theComponent: LevelCreatorComponent) {
+        theComponent.level = { layout: '', ready: true, name: 'bill murray', size: 25 };
         let layout = [[false, true], [true, false]];
         let booleanMatrix = new BooleanMatrix(2, 2);
         booleanMatrix.initializeWith(layout);
-        component.gameMatrix = new GameMatrix(booleanMatrix, true);
+        theComponent.gameMatrix = new GameMatrix(booleanMatrix, true);
     }
 
     it('should submit a completed level', () => {
@@ -67,5 +67,5 @@ describe('LevelCreatorComponent', () => {
         component.submitCreate().then(() => {
             expect(component.error).toBeTruthy();
         });
-    })
+    });
 });

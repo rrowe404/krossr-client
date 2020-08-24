@@ -28,19 +28,21 @@ describe('TouchService', () => {
                 touches
             }
         };
+
         expect(service.getTouches(fakeEvent)[0]).toEqual(touches[0]);
 
         let fakeEvent2 = {
             originalEvent: {
                 changedTouches: touches
             }
-        }
+        };
 
         expect(service.getTouches(fakeEvent2)[0]).toEqual(touches[0]);
 
         let fakeEvent3 = {
             originalEvent: {}
-        }
+        };
+
         expect(service.getTouches(fakeEvent3)).toEqual([{}]);
     });
 

@@ -60,9 +60,9 @@ describe('SignInComponent', () => {
     it('should handle an error signing in', () => {
         let signInService: SignInService = TestBed.inject(SignInService);
         spyOn(signInService, 'signIn').and.returnValue(Promise.reject({ error: { message: 'nope' }} ));
-        
+
         return component.signIn().then(() => {
             expect(component.error).toBe('nope');
         });
-    })
+    });
 });

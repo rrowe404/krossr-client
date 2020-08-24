@@ -42,7 +42,7 @@ describe('ChangePasswordComponent', () => {
     it('should error if changing the password fails', () => {
         let changePasswordService: ChangePasswordService = TestBed.inject(ChangePasswordService);
 
-        let errorMessage = 'massive failure'
+        let errorMessage = 'massive failure';
 
         spyOn(changePasswordService, 'changePassword').and.returnValue(Promise.reject({
             error: {

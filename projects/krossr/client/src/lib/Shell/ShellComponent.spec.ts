@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShellComponent } from './ShellComponent';
 import { HeaderModule } from '../Header/HeaderModule';
 import { UIRouterModule } from '@uirouter/angular';
@@ -39,7 +39,7 @@ describe('ShellComponent', () => {
         });
 
         component.keydown(event);
-        
+
         expect(shiftService.shiftOn).toBeTruthy();
 
         const event2 = new KeyboardEvent('keyup', {
@@ -55,7 +55,7 @@ describe('ShellComponent', () => {
         });
 
         component.keydown(event3);
-        
+
         expect(shiftService.shiftOn).toBeFalsy();
 
         const event4 = new KeyboardEvent('keyup', {

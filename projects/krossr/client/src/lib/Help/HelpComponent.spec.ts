@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HelpComponent } from './HelpComponent';
 import { HelpModule } from './HelpModule';
 import { MatDialogRef } from '@angular/material/dialog';

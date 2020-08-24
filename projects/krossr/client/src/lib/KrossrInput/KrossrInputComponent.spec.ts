@@ -7,11 +7,11 @@ describe('KrossrInputComponent', () => {
     let fixture: ComponentFixture<KrossrInputComponent>;
     let component: KrossrInputComponent;
 
-    function getFixture(setup: (fixture: ComponentFixture<KrossrInputComponent>) => void) {
+    function getFixture(setup: (instance: KrossrInputComponent) => void) {
         let componentFixture = TestBed.createComponent(KrossrInputComponent);
 
-        setup(componentFixture);
-        
+        setup(componentFixture.componentInstance);
+
         componentFixture.detectChanges();
 
         return componentFixture;
@@ -24,7 +24,7 @@ describe('KrossrInputComponent', () => {
             ]
         }).compileComponents();
 
-        fixture = getFixture((fixture) => fixture.componentInstance.control = new FormControl());
+        fixture = getFixture((instance) => instance.control = new FormControl());
         component = fixture.componentInstance;
     });
 
@@ -38,21 +38,19 @@ describe('KrossrInputComponent', () => {
     });
 
     it('should sync the placeholder to the label if the placeholder is not provided', () => {
-        let fixture2 = getFixture((fixture) => {
-            let component2 = fixture.componentInstance;
-            component2.control = new FormControl();
-            component2.label = 'HiHo';
+        let fixture2 = getFixture((instance) => {
+            instance.control = new FormControl();
+            instance.label = 'HiHo';
         });
 
         expect(fixture2.componentInstance.placeholder).toBe('HiHo');
     });
 
     it('should support a separate placeholder and label', () => {
-        let fixture2 = getFixture((fixture) => {
-            let component2 = fixture.componentInstance;
-            component2.control = new FormControl();
-            component2.label = 'HiHo';
-            component2.placeholder = 'OhIo';
+        let fixture2 = getFixture((instance) => {
+            instance.control = new FormControl();
+            instance.label = 'HiHo';
+            instance.placeholder = 'OhIo';
         });
 
         expect(fixture2.componentInstance.label).toBe('HiHo');
