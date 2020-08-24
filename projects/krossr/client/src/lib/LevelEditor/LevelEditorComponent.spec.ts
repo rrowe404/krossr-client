@@ -82,7 +82,7 @@ describe('LevelEditorComponent', () => {
 
         component.levelId = level.id;
 
-        component.findOne().then(() => {
+        return component.findOne().then(() => {
             expect(component.level.decodedLayout).toBeTruthy();
             expect(component.level.name).toBe('trogdor');
             expect(component.level.ready).toBeTruthy();

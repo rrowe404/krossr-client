@@ -156,6 +156,8 @@ describe('TileComponent', () => {
 
         it('should clear when the dragbox is smaller than the previous one', () => {
             let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
+            let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
+            spyOn(tileFillEventService.fill, 'emit');
 
             dragBoxService.startCoord = { x: 0, y: 0 };
             dragBoxService.endCoord = { x: 2, y: 2 };
@@ -163,6 +165,8 @@ describe('TileComponent', () => {
 
             let event = new MouseEvent('mousemove');
             element.dispatchEvent(event);
+
+            expect(tileFillEventService.fill.emit).toHaveBeenCalled();
         });
     });
 

@@ -40,7 +40,8 @@ describe('ForgotPasswordComponent', () => {
     });
 
     it('should close', () => {
-        component.close();
+        let fn = () => component.close();
+        expect(fn).not.toThrow();
     });
 
     it('should display appropriate text on success', () => {
