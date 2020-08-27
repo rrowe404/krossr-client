@@ -14,9 +14,11 @@ import { Component, Input, OnInit, AfterViewInit, ElementRef, OnDestroy, Rendere
 import { TileEventService } from './TileEventService';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
+import { TileBorderService } from '../TileBorder/TileBorderService';
+import { PointService } from '../Point/PointService';
 
 @Component({
-    selector: 'tile',
+    selector: 'krossr-tile',
     styleUrls: ['./TileStyles.less'],
     templateUrl: './TileView.html'
 })
@@ -24,7 +26,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     /* At this level, work with the horizontal version only */
     @Input() public gameMatrix: BooleanMatrix;
     @Input() public index;
-    @Input() public level: ILevel;
+    @Input() public isEditMode: boolean;
     @Input() public tiles;
     @Input() public editable: boolean;
 
@@ -34,7 +36,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     public height: string;
     public width: string;
 
-    private isEditMode: boolean;
     private goalMatrix;
 
     private $element: HTMLElement;
@@ -47,8 +48,10 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         private utils: Utils,
         private dragBoxService: DragBoxService,
+        private pointService: PointService,
         private shiftService: ShiftService,
         private sideLengthService: SideLengthService,
+        private tileBorderService: TileBorderService,
         private tileEventService: TileEventService,
         private tileService: TileService,
         private tileSizeEventService: TileSizeEventService,
@@ -64,7 +67,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit() {
         this.$element = this.elementRef.nativeElement as HTMLElement;
-        this.isEditMode = this.level.currentView === 'edit';
 
         this.goalMatrix = this.utils.getGoalMatrix();
 
@@ -138,7 +140,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private fillPending(index) {
-        let coord = this.tileService.convertTo2D(index);
+        let coord = this.pointService.indexToPoint(index);
         let coordsToClear;
 
         // save a snapshot of the previous dragbox for comparison purposes
@@ -170,7 +172,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private mouseDownEvent() {
-        let coord = this.tileService.convertTo2D(this.index);
+        let coord = this.pointService.indexToPoint(this.index);
 
         this.dragBoxService.startCoord = coord;
         this.dragBoxService.initState = this.selected;
@@ -205,7 +207,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private tryEndDragbox() {
-        let coord = this.tileService.convertTo2D(this.index);
+        let coord = this.pointService.indexToPoint(this.index);
         this.dragBoxService.endCoord = coord;
         this.tileEventService.tileDragEnd.emit();
     }
@@ -226,7 +228,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         let coord;
 
         if (typeof index === 'number') {
-            coord = this.tileService.convertTo2D(index);
+            coord = this.pointService.indexToPoint(index);
         } else {
             coord = index;
         }
@@ -277,35 +279,10 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     /* Determine which tiles to add colored borders to */
     getBorderColors(direction, index) {
-        let canColor;
-        let coord = this.tileService.convertTo2D(index);
+        let coord = this.pointService.indexToPoint(index);
         let sideLength = this.sideLengthService.sideLength;
 
-        // no borders through puzzle for small puzzles
-        if (sideLength <= 5) {
-            return;
-        }
-
-        switch (direction) {
-            case 'left':
-                canColor = this.testTileForBorder(sideLength, coord.x);
-                break;
-            case 'right':
-                canColor = this.testTileForBorder(sideLength, coord.x + 1);
-                break;
-            case 'bottom':
-                canColor = this.testTileForBorder(sideLength, coord.y + 1);
-                break;
-            case 'top':
-                canColor = this.testTileForBorder(sideLength, coord.y);
-                break;
-            default:
-                break;
-        }
-
-        if (canColor) {
-            return '1px solid #222';
-        }
+        return this.tileBorderService.getBorder(direction, coord, sideLength);
     }
 
     /** used with the validationFn in tileService.fillTiles */
@@ -322,11 +299,5 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         tileSize = Math.floor(tileSize);
         this.width = tileSize + 'px';
         this.height = tileSize + 'px';
-    }
-
-    /** We want to add colored borders to every 5th tile, unless it is at the beginning or end of a column or row */
-    testTileForBorder(sideLength, index) {
-        return (index % 5 === 0
-                && index % sideLength !== 0);
     }
 }

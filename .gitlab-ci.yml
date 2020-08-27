@@ -1,0 +1,59 @@
+### STAGES ###
+stages:
+  - install_dependencies
+  - build
+  - test
+  # - review
+  # - deploy
+
+cache: &global_cache
+    key: "$CI_COMMIT_REF_SLUG"
+    paths: 
+      - node_modules
+
+### DEPENDENCIES
+install_dependencies:
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
+  stage: install_dependencies
+  cache:
+    <<: *global_cache
+  script:
+    - npm install
+    - npx ngcc
+
+build_library:
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION} 
+  stage: build
+  artifacts:
+    untracked: true
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - npm run buildLibrary
+
+### GLOBAL VARS ###
+variables:
+  BUILD_IMAGE_VERSION: latest
+  IMAGE_NAME: registry.gitlab.com/${CI_PROJECT_PATH}
+  DOCKER_DRIVER: overlay2
+
+### TEST STAGE ###
+### no need for caches on these bc the cache will be part of the artifacts
+node test:
+  cache: {}
+  dependencies:
+    - build_library
+  stage: test
+  image: zenika/alpine-chrome:with-node
+  script:
+    - npm run test
+
+node lint:
+  cache: {}
+  dependencies:
+    - build_library
+  stage: test
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
+  script:
+    - npm run lint

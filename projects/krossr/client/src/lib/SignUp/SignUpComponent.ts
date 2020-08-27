@@ -6,7 +6,7 @@ import { MinPasswordLength } from '../Password/MinPasswordLength';
 import { KrossrError } from '@krossr/types';
 
 @Component({
-    selector: 'sign-up',
+    selector: 'krossr-sign-up',
     templateUrl: './SignUpView.html'
 })
 export class SignUpComponent implements OnInit {

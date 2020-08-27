@@ -129,7 +129,7 @@
       "projectType": "library",
       "root": "projects/krossr/client",
       "sourceRoot": "projects/krossr/client/src",
-      "prefix": "lib",
+      "prefix": "krossr",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

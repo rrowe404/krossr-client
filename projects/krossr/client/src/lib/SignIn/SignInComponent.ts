@@ -7,7 +7,7 @@ import { KrossrError } from '@krossr/types';
 
 /** Sign-in popup */
 @Component({
-    selector: 'sign-in',
+    selector: 'krossr-sign-in',
     templateUrl: './SignInView.html'
 })
 export class SignInComponent implements OnInit {

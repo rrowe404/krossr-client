@@ -1,4 +1,4 @@
-<popup-content>
+<krossr-popup-content>
     <div class="listLevels" [formGroup]="formGroup">
         <h2>
             Levels
@@ -12,7 +12,7 @@
 
         <div class="form-group">
             <div class="form-group" [hidden]="!showFilter">
-                <level-select-filter (refilter)="refilter($event)"></level-select-filter>
+                <krossr-level-select-filter (refilter)="refilter($event)"></krossr-level-select-filter>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
             No Levels yet!
         </div>
 
-        <pagination *ngIf="levels && levels.length > 0" (onPagination)="find($event)" [currentPage]="currentPage"
-            [totalPages]="totalPages"></pagination>
+        <krossr-pagination *ngIf="levels && levels.length > 0" (paginate)="find($event)" [currentPage]="currentPage"
+            [totalPages]="totalPages"></krossr-pagination>
     </div>
-</popup-content>
+</krossr-popup-content>

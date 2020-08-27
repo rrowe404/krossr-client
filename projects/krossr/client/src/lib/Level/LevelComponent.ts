@@ -1,5 +1,5 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { ILevel } from '../level/Level';
+import { ILevel } from './Level';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelService } from './LevelService';
@@ -16,9 +16,10 @@ import { Subscription } from 'rxjs';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { LevelLayout } from './LevelLayout';
 import { KrossrError, LevelViewModel, CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
+import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 
 @Component({
-    selector: 'level',
+    selector: 'krossr-level',
     styleUrls: ['./LevelStyles.less'],
     templateUrl: './LevelView.html'
 })
@@ -27,12 +28,13 @@ export class LevelComponent implements OnInit, OnDestroy {
         private $state: StateService,
         public Authentication: AuthenticationService,
         private gameSizeService: GameSizeService,
+        private levelDecoder: LevelDecoder,
         private levelService: LevelService,
         private matDialog: MatDialog,
         private ratingService: RatingService,
         private shiftService: ShiftService,
         private tileSizeEventService: TileSizeEventService,
-        private Utils: Utils
+        private utils: Utils
     ) {
     }
 
@@ -77,7 +79,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     }
 
     createGameArray(action: string) {
-        this.Utils.createNewGame({
+        this.utils.createNewGame({
             numberOfTiles: this.level ? this.level.size : 25,
             controller: this.level ? this.level.currentView : 'new'
         });
@@ -94,7 +96,7 @@ export class LevelComponent implements OnInit, OnDestroy {
             name = this.level.name;
         }
 
-        this.Utils.clearAll();
+        this.utils.clearAll();
 
         this.level = undefined;
 
@@ -108,7 +110,7 @@ export class LevelComponent implements OnInit, OnDestroy {
             size: 25
         };
 
-        this.gameMatrix = new GameMatrix(this.Utils.getGameMatrix(), false);
+        this.gameMatrix = new GameMatrix(this.utils.getGameMatrix(), false);
     }
 
     // Find existing Level
@@ -124,21 +126,21 @@ export class LevelComponent implements OnInit, OnDestroy {
             this.levelService.getLevel(this.selectedLevelId).then((data: LevelViewModel) => {
                 this.level = Object.assign({}, data, { currentView: mode, ready: false });
 
-                this.level.decodedLayout = this.levelService.decodeLayout(data.layout);
+                this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
 
-                let flatLayout = this.Utils.flatten(this.level.decodedLayout);
+                let flatLayout = this.utils.flatten(this.level.decodedLayout);
 
                 this.gameSizeService.calculatePlayableArea();
 
-                this.Utils.createNewGame({
+                this.utils.createNewGame({
                     numberOfTiles: flatLayout.length,
                     layout: this.level.decodedLayout,
                     controller: mode
                 });
 
-                this.gameMatrix = new GameMatrix(this.Utils.getGameMatrix(), mode === 'edit');
+                this.gameMatrix = new GameMatrix(this.utils.getGameMatrix(), mode === 'edit');
 
-                let goalLayout = this.Utils.getGoalMatrix();
+                let goalLayout = this.utils.getGoalMatrix();
 
                 if (goalLayout) {
                     this.goalMatrix = new GameMatrix(goalLayout, true);
@@ -161,7 +163,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         switch (mode) {
             case 'view':
             case 'edit':
-                layoutForRepeater = this.Utils.flatten(layout);
+                layoutForRepeater = this.utils.flatten(layout);
                 break;
 
             case 'new':
@@ -178,7 +180,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     }
 
     getSize() {
-        let gameMatrix = this.Utils.getGameMatrix();
+        let gameMatrix = this.utils.getGameMatrix();
         return gameMatrix.flatten();
     }
 

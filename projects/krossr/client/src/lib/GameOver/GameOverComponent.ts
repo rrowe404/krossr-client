@@ -3,7 +3,7 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dial
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 
 @Component({
-    selector: 'game-over',
+    selector: 'krossr-game-over',
     templateUrl: './GameOverView.html'
 })
 export class GameOverComponent {

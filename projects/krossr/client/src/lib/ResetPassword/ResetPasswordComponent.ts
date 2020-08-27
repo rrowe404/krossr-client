@@ -6,7 +6,7 @@ import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 import { KrossrError } from '@krossr/types';
 
 @Component({
-    selector: 'reset-password',
+    selector: 'krossr-reset-password',
     templateUrl: './ResetPasswordView.html'
 })
 export class ResetPasswordComponent extends KrossrFormBase implements OnInit {

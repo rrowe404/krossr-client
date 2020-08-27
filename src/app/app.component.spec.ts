@@ -1,5 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
+import { UserService } from '@krossr/client';
+import { MockUserService } from 'src/test/MockUserService';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -7,6 +10,12 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [
+        AppModule
+      ],
+      providers: [
+        { provide: UserService, useClass: MockUserService }
+      ]
     }).compileComponents();
   }));
 

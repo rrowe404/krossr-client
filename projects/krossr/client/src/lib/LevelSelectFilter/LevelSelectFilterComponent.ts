@@ -5,7 +5,7 @@ import { LevelListFilterOptions, LevelListFilterSelectOptionsViewModel, Dictiona
 import { LevelSelectFilterService } from './LevelSelectFilterService';
 
 @Component({
-    selector: 'level-select-filter',
+    selector: 'krossr-level-select-filter',
     templateUrl: './LevelSelectFilterView.html'
 })
 export class LevelSelectFilterComponent implements OnInit {

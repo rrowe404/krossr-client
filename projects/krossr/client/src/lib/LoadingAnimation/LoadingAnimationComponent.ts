@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'loading-animation',
+    selector: 'krossr-loading-animation',
     styleUrls: ['./LoadingAnimationStyles.less'],
     templateUrl: './LoadingAnimationView.html'
 })
