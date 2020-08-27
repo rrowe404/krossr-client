@@ -4,13 +4,14 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { SignInService } from './SignInService';
 import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordComponent';
 import { KrossrError } from '@krossr/types';
+import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
 
 /** Sign-in popup */
 @Component({
     selector: 'krossr-sign-in',
     templateUrl: './SignInView.html'
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent extends KrossrDialogBase implements OnInit {
     public formGroup: FormGroup;
     public username: FormControl;
     public password: FormControl;
@@ -19,10 +20,12 @@ export class SignInComponent implements OnInit {
     private timeout = 1000;
 
     constructor(
-        private matDialogRef: MatDialogRef<SignInComponent>,
+        protected matDialogRef: MatDialogRef<SignInComponent>,
         private matDialog: MatDialog,
         private signInService: SignInService
-    ) {}
+    ) {
+        super(matDialogRef);
+    }
 
     ngOnInit() {
         this.formGroup = new FormGroup({});
@@ -30,10 +33,6 @@ export class SignInComponent implements OnInit {
         this.password = new FormControl('');
         this.formGroup.addControl('username', this.username);
         this.formGroup.addControl('password', this.password);
-    }
-
-    close() {
-        this.matDialogRef.close();
     }
 
     openForgotPassword() {
@@ -46,7 +45,7 @@ export class SignInComponent implements OnInit {
     }
 
     signIn() {
-        this.signInService.signIn(this.username.value, this.password.value).then(() => {
+        return this.signInService.signIn(this.username.value, this.password.value).then(() => {
             this.close();
         }).catch((response: KrossrError) => {
             this.error = response.error.message;
@@ -59,13 +58,5 @@ export class SignInComponent implements OnInit {
 
     signInButtonText() {
         return this.error || 'Sign In';
-    }
-
-    updateUsername(username: string) {
-        this.username.setValue(username);
-    }
-
-    updatePassword(password: string) {
-        this.password.setValue(password);
     }
 }

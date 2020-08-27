@@ -48,16 +48,4 @@ export class SignUpComponent implements OnInit {
     signUpButtonText() {
         return this.error || 'Sign Up';
     }
-
-    updateUsername(username: string) {
-        this.username.setValue(username);
-    }
-
-    updateEmail(email: string) {
-        this.email.setValue(email);
-    }
-
-    updatePassword(password: string) {
-        this.password.setValue(password);
-    }
 }

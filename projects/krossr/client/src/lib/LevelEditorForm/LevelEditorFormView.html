@@ -1,18 +1,11 @@
 <div class="form-group" *ngIf="isReady">
-    <h2>{{ level.currentView }} level</h2>
+    <h2>{{ isEdit ? 'Edit' : 'New' }} level</h2>
 
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" [formControl]="nameFormControl" (keyup)="updateName($event.target.value)" id="name" placeholder="Name">
-    </div>
+    <krossr-input name="name" label="Name" [control]="nameFormControl" (updated)="updateName($event)"></krossr-input>
 
-    <div class="form-group" *ngIf="level.currentView === 'new'">
+    <div class="form-group" *ngIf="!isEdit">
         <label for="size">Size</label>
-        <select [formControl]="sizeFormControl" (change)="updateSize($event.target.value)">
-            <option *ngFor="let value of sizeOptions">
-                {{ value }}
-            </option>
-        </select>
+        <krossr-select [control]="sizeFormControl" (updated)="updateSize($event)" [optionMap]="sizeMap"></krossr-select>
     </div>
 
     <krossr-button (click)="confirmClear()" text="Clear Tiles"></krossr-button>

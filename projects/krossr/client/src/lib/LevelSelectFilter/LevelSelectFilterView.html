@@ -1,29 +1,8 @@
 <!-- These guys all get their own divs so they don't have the label and input on different lines -->
 
 <ng-container [formGroup]="formGroup" *ngIf="isReady">
-    <div class="form-group">
-        <label>Size</label>
-        <select [formControl]="sizeFormControl" (change)="updateSize($event.target.value)">
-            <option *ngFor="let option of sizeOptions">{{ option }}</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Search</label>
-        <input [formControl]="searchTextFormControl" (keyup)="updateSearchText($event.target.value)">
-    </div>
-
-    <div class="form-group">
-        <label>Sort by</label>
-        <select [formControl]="sortByFormControl" (change)="updateSortBy($event.target.value)">
-            <option *ngFor="let option of sortByOptions">{{ option }}</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Sort direction</label>
-        <select [formControl]="sortDirectionFormControl" (change)="updateSortDirection($event.target.value)">
-            <option *ngFor="let option of sortDirectionOptions">{{ option }}</option>
-        </select>
-    </div>
+    <krossr-select name="size" label="Size" [control]="sizeFormControl" (updated)="updateSize($event)" [optionMap]="sizeMap"></krossr-select>
+    <krossr-input label="Search" name="search" [control]="searchTextFormControl" (updated)="updateSearchText($event)"></krossr-input>
+    <krossr-select name="sortBy" label="Sort by" [control]="sortByFormControl" (updated)="updateSortBy($event)" [optionMap]="sortByMap"></krossr-select>
+    <krossr-select name="sortDirection" label="Sort direction" [control]="sortDirectionFormControl" (updated)="updateSortDirection($event)" [optionMap]="sortDirectionMap"></krossr-select>
 </ng-container>

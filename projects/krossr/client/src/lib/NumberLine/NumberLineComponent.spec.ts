@@ -2,6 +2,7 @@ import { NumberLineComponent } from './NumberLineComponent';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
+import { NumberLineModule } from './NumberLineModule';
 
 describe('NumberLineComponent', () => {
     function getFixture(
@@ -26,11 +27,8 @@ describe('NumberLineComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                CommonModule
+                NumberLineModule
             ],
-            declarations: [
-                NumberLineComponent
-            ]
         }).compileComponents();
 
     });
@@ -70,5 +68,18 @@ describe('NumberLineComponent', () => {
         expect(component.lineContent).toEqual([
             { finished: true, text: 0 }
         ]);
+    });
+
+    it('should toggle finished', () => {
+        let game = new BooleanMatrix(2, 2);
+        game.initializeWith([[false, false], [false, false]]);
+
+        let component = getFixture(game, game, 0, 'horizontal').componentInstance;
+
+        let entry = { text: 1, finished: true };
+        component.toggleFinished(entry);
+        expect(entry.finished).toBeFalsy();
+        component.toggleFinished(entry);
+        expect(entry.finished).toBeTruthy();
     });
 });

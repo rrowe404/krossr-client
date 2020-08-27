@@ -7,7 +7,6 @@ import { ForgotPasswordBodyViewModel } from '@krossr/types';
 })
 export class ForgotPasswordService {
     constructor(private httpClient: HttpClient) {
-
     }
 
     sendForgotPasswordRequest(username: string) {

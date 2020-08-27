@@ -1,14 +1,9 @@
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { DragBoxService } from '../DragBox/DragBoxService';
-import { ILevel } from '../Level/Level';
-import { ShiftService } from '../Shift/ShiftService';
 import { Point } from '../Point/Point';
-import { SideLengthService } from '../SideLength/SideLengthService';
-import { TileService } from './TileService';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileState } from './TileState';
 import { TouchService } from '../Touch/TouchService';
-import { Utils } from '../Utils/Utils';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Component, Input, OnInit, AfterViewInit, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { TileEventService } from './TileEventService';
@@ -16,6 +11,9 @@ import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { TileBorderService } from '../TileBorder/TileBorderService';
 import { PointService } from '../Point/PointService';
+import { TileFillEventService } from './TileFillEventService';
+import { TileFillEvent } from './TileFillEvent';
+import { TileLayout } from '../TileLayout/TileLayout';
 
 @Component({
     selector: 'krossr-tile',
@@ -27,7 +25,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() public gameMatrix: BooleanMatrix;
     @Input() public index;
     @Input() public isEditMode: boolean;
-    @Input() public tiles;
+    @Input() public tile: TileLayout;
     @Input() public editable: boolean;
 
     public marked: boolean;
@@ -35,8 +33,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     public selected: boolean;
     public height: string;
     public width: string;
-
-    private goalMatrix;
 
     private $element: HTMLElement;
 
@@ -46,14 +42,11 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
-        private utils: Utils,
         private dragBoxService: DragBoxService,
         private pointService: PointService,
-        private shiftService: ShiftService,
-        private sideLengthService: SideLengthService,
         private tileBorderService: TileBorderService,
         private tileEventService: TileEventService,
-        private tileService: TileService,
+        private tileFillEventService: TileFillEventService,
         private tileSizeEventService: TileSizeEventService,
         private tileSizeService: TileSizeService,
         private touchService: TouchService
@@ -68,15 +61,11 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit() {
         this.$element = this.elementRef.nativeElement as HTMLElement;
 
-        this.goalMatrix = this.utils.getGoalMatrix();
-
         this.initializeFill();
         this.setTileSize(this.tileSizeService.getTileSize());
     }
 
     ngAfterViewInit() {
-        this.tileService.addTile({ tile: this });
-
         this.listeners = [
             this.renderer.listen(this.$element, 'mousedown', () => this.mouseDownEvent()),
             this.renderer.listen(this.$element, 'mousemove', () => this.mouseMoveEvent()),
@@ -101,19 +90,35 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             }),
             this.touchService.tileTouched.subscribe(tile => {
                 if (this.$element === tile) {
-                    this.tryFillPending();
+                    this.fillPending();
                 }
             }),
             this.touchService.tileTouchEnd.subscribe(tile => {
                 if (this.$element === tile ) {
                     this.tryEndDragbox();
                 }
+            }),
+            this.tileFillEventService.fill.subscribe((event: TileFillEvent) => {
+                let thisCoord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
+                let hasCoord = !event.coords || _.findIndex(event.coords, thisCoord) > -1;
+                let isValid = !event.validate || event.validate(this);
+
+                if (hasCoord && isValid) {
+                    this.changeTile(thisCoord, event.initState, event.override);
+                }
             })
         ];
     }
 
     private clearPending(coords: Point[]) {
-        this.tileService.fillTiles(coords, true, TileState.empty, 'isPendingAndNotSelected');
+        let tileFillEvent: TileFillEvent = {
+            coords,
+            initState: true,
+            override: TileState.empty,
+            validate: (tile) => tile.isPendingAndNotSelected()
+        };
+
+        this.tileFillEventService.fill.emit(tileFillEvent);
     }
 
     /** If the override value (which will be the value of the tile that a dragstart is activated on)
@@ -132,15 +137,19 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
      * Determine the initial state of the tile fills
      */
     private initializeFill() {
-        if (this.isEditMode && this.tiles && this.tiles[this.index] && this.tiles[this.index].selected) {
+        if (this.isEditMode && this.tile && this.tile.selected) {
             this.fill(TileState.selected);
         } else {
-            this.fill(TileState.empty);
+            this.empty();
         }
     }
 
-    private fillPending(index) {
-        let coord = this.pointService.indexToPoint(index);
+    private fillPending() {
+        if (!this.dragBoxService.validateStart()) {
+            return;
+        }
+
+        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
         let coordsToClear;
 
         // save a snapshot of the previous dragbox for comparison purposes
@@ -168,30 +177,31 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             this.clearPending(coordsToClear);
         }
 
-        this.tileService.fillTiles(allPendingCoords, true, TileState.pending, 'isNotPending');
+        let tileFillEvent: TileFillEvent = {
+            coords: allPendingCoords,
+            initState: true,
+            override: TileState.pending,
+            validate: (tile) => tile.isNotPending()
+        };
+
+        this.tileFillEventService.fill.emit(tileFillEvent);
     }
 
     private mouseDownEvent() {
-        let coord = this.pointService.indexToPoint(this.index);
+        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
 
         this.dragBoxService.startCoord = coord;
         this.dragBoxService.initState = this.selected;
     }
 
     private mouseMoveEvent() {
-        this.tryFillPending();
+        this.fillPending();
     }
 
     private touchMoveEvent(e: TouchEvent) {
         let actualTile = this.getActualTileFromTouchEvent(e);
         this.touchService.tileTouched.emit(actualTile);
         this.touchService.lastTouchedTile = actualTile;
-    }
-
-    private tryFillPending() {
-        if (this.dragBoxService.validateStart())  {
-            this.fillPending(this.index);
-        }
     }
 
     /*
@@ -207,7 +217,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private tryEndDragbox() {
-        let coord = this.pointService.indexToPoint(this.index);
+        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
         this.dragBoxService.endCoord = coord;
         this.tileEventService.tileDragEnd.emit();
     }
@@ -218,33 +228,39 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         return actualTile as HTMLElement;
     }
 
-    change(index, initState, changeTo) {
-        if (this.editable) {
-            this.changeTile(index, initState, changeTo, this.goalMatrix);
+    changeTile(coord: Point, initState, changeTo: TileState) {
+        if (!this.editable) {
+            return;
         }
+
+        this.fill(changeTo);
+        this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
     }
 
-    changeTile(index, initState, changeTo, goalMatrix) {
-        let coord;
+    empty() {
+        this.selected = false;
+        this.marked = false;
+        this.pending = false;
+    }
 
-        if (typeof index === 'number') {
-            coord = this.pointService.indexToPoint(index);
-        } else {
-            coord = index;
+    mark() {
+        if (this.marked) {
+            return this.empty();
         }
 
-        if (changeTo in TileState) {
-            this.fill(changeTo);
-        } else {
-            if (this.shiftService.shiftOn === true) {
-                this.fill(this.marked ? TileState.empty : TileState.marked);
+        this.marked = true;
+        this.selected = false;
+        this.pending = false;
+    }
 
-                this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
-            } else {
-                this.fill(this.selected ? TileState.empty : TileState.selected, initState);
-                this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
-            }
+    select(override?) {
+        if (this.selected) {
+            return this.empty();
         }
+
+        this.selected = this.checkForOverride(override, this.selected);
+        this.marked = false;
+        this.pending = false;
     }
 
     fill(fillType, override?) {
@@ -253,19 +269,13 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.pending = true;
                 break;
             case TileState.marked:
-                this.marked = true;
-                this.selected = false;
-                this.pending = false;
+                this.mark();
                 break;
             case TileState.selected:
-                this.selected = this.checkForOverride(override, this.selected);
-                this.marked = false;
-                this.pending = false;
+                this.select(override);
                 break;
             case TileState.empty:
-                this.selected = false;
-                this.marked = false;
-                this.pending = false;
+                this.empty();
                 break;
             default:
                 console.log('you done goofed');
@@ -273,24 +283,22 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    fillBorders(direction, index) {
-      return this.getBorderColors(direction, index);
+    fillBorders(direction) {
+      return this.getBorderColors(direction);
     }
 
     /* Determine which tiles to add colored borders to */
-    getBorderColors(direction, index) {
-        let coord = this.pointService.indexToPoint(index);
-        let sideLength = this.sideLengthService.sideLength;
+    getBorderColors(direction) {
+        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
+        let sideLength = this.gameMatrix.length;
 
         return this.tileBorderService.getBorder(direction, coord, sideLength);
     }
 
-    /** used with the validationFn in tileService.fillTiles */
     isPendingAndNotSelected() {
         return this.pending && !this.selected;
     }
 
-    /** used with the validationFn in tileService.fillTiles */
     isNotPending() {
         return !this.pending;
     }

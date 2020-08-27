@@ -39,7 +39,7 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
         this.success = false;
         this.error = '';
 
-        this.changePasswordService.changePassword(
+        return this.changePasswordService.changePassword(
             this.currentPasswordFormControl.value,
             this.newPasswordFormControl.value,
             this.verifyPasswordFormControl.value
@@ -65,17 +65,5 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
         }
 
         return this.error || 'Save Password';
-    }
-
-    updateCurrentPassword(currentPassword: string) {
-        this.currentPasswordFormControl.setValue(currentPassword);
-    }
-
-    updateNewPassword(newPassword: string) {
-        this.newPasswordFormControl.setValue(newPassword);
-    }
-
-    updateVerifyPassword(verifyPassword: string) {
-        this.verifyPasswordFormControl.setValue(verifyPassword);
     }
 }

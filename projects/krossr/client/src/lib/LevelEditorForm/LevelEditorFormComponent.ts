@@ -2,7 +2,6 @@ import { Input, Output, OnInit, EventEmitter, Component } from '@angular/core';
 import { ILevel } from '../Level/Level';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Utils } from '../Utils/Utils';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelService } from '../Level/LevelService';
@@ -11,12 +10,16 @@ import { StateService } from '@uirouter/core';
 import { HomeRoutes } from '../Routing/RouteNames';
 import { LevelEditorFormService } from './LevelEditorFormService';
 import { LevelEditorSelectOptionsViewModel, Dictionary } from '@krossr/types';
+import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
+import { TileFillEventService } from '../Tile/TileFillEventService';
+import { TileState } from '../Tile/TileState';
 
 @Component({
     selector: 'krossr-level-editor-form',
     templateUrl: './LevelEditorFormView.html'
 })
 export class LevelEditorFormComponent implements OnInit {
+    @Input() public isEdit = false;
     @Input() public level: ILevel;
     @Input() public error: string;
     @Input() public submitText: string;
@@ -30,62 +33,59 @@ export class LevelEditorFormComponent implements OnInit {
     public sizeFormControl: FormControl;
 
     public sizeMap: Dictionary<number>;
-    public sizeOptions: string[];
 
     constructor(
         private levelService: LevelService,
+        private levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelEditorFormService: LevelEditorFormService,
         private matDialog: MatDialog,
         private stateService: StateService,
-        private utils: Utils
+        private tileFillEventService: TileFillEventService,
     ) {
     }
 
     public clearAll() {
-        this.utils.clearAll();
+        this.levelEditorFormClearEventService.formClearEvent.emit();
+        this.tileFillEventService.fill.emit({ initState: false, override: TileState.empty });
     }
 
     public confirmClear() {
-        this.matDialog.open(ConfirmationComponent, {
-            data: {
-                submitText: 'Clear',
-                submitAction: () => this.clearAll()
-            } as ConfirmationOptions,
-            disableClose: true
-        });
+        return this.matDialog.open(ConfirmationComponent, this.getClearConfirmationOptions());
     }
 
     public confirmRemove() {
-        this.matDialog.open(ConfirmationComponent, {
-            data: {
-                submitText: 'Delete',
-                submitAction: () => this.removeCurrentLevel()
-            } as ConfirmationOptions,
-            disableClose: true
-        });
+        return this.matDialog.open(ConfirmationComponent, this.getRemoveConfirmationOptions());
     }
 
-    /** Remove the level you're looking at */
-    removeCurrentLevel() {
-        this.remove(this.level);
+    public getClearConfirmationOptions = () => this.getConfirmationOptions('Clear', () => this.clearAll());
+    public getRemoveConfirmationOptions = () => this.getConfirmationOptions('Remove', () => this.remove(this.level));
+
+    public getConfirmationOptions(submitText, submitAction: () => void) {
+        return {
+            data: {
+                submitText,
+                submitAction
+            } as ConfirmationOptions,
+            disableClose: true
+        };
     }
 
     /** Remove any Level passed in */
-    remove(level) {
-        if (level) {
-            this.levelService.removeLevel(level.id).then(() => {
-                this.matDialog.open(LevelSelectComponent);
-                this.stateService.go(HomeRoutes.home, {}, { reload: true });
-            });
-        }
+    remove(level: { id?: number }) {
+        return this.levelService.removeLevel(level.id).then(() => {
+            this.matDialog.open(LevelSelectComponent);
+            this.stateService.go(HomeRoutes.home, {}, { reload: true });
+        });
     }
 
     public ngOnInit() {
-        this.levelEditorFormService.getOptions().then(options => {
+        return this.levelEditorFormService.getOptions().then(options => {
             this.setupOptions(options);
             this.formGroup = new FormGroup({});
             this.nameFormControl = new FormControl(this.level.name, [Validators.required]);
             this.sizeFormControl = new FormControl(this.level.size, [Validators.required]);
+
+            this.formGroup.addControl('name', this.nameFormControl);
             this.isReady = true;
         });
     }
@@ -99,12 +99,10 @@ export class LevelEditorFormComponent implements OnInit {
     }
 
     public updateName(name: string) {
-        this.nameFormControl.setValue(name);
-        this.level.name = this.nameFormControl.value;
+        this.level.name = name;
     }
 
     public updateSize(selected: number) {
-        this.sizeFormControl.setValue(selected);
         let size = this.sizeMap[selected];
         this.level.size = size;
         this.sizeChange.emit();
@@ -112,6 +110,5 @@ export class LevelEditorFormComponent implements OnInit {
 
     private setupOptions(options: LevelEditorSelectOptionsViewModel) {
         this.sizeMap = options.sizeOptions;
-        this.sizeOptions = Object.keys(this.sizeMap);
     }
 }

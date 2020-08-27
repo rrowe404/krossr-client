@@ -1,0 +1,6 @@
+<div class="form-group">
+    <label [for]="name">{{ label }}</label>
+    <select [formControl]="control" [id]="name" (change)="update($event.target.value)">
+        <option *ngFor="let option of options">{{ option }}</option>
+    </select>
+</div>

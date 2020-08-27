@@ -8,10 +8,13 @@
         background-color: @tileColor;
         color: @markedColor;
         transition: color .5s;
+        position: relative;
     
         &:after {
+            position: absolute;
+            left: 0;
+            right: 0;
             content: '✖';
-            display: block;
             text-align: center;
         }
     }

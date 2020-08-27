@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignInComponent } from './SignInComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { SignInModule } from './SignInModule';
+import { SignInService } from './SignInService';
 
 describe('SignInComponent', () => {
     let fixture: ComponentFixture<SignInComponent>;
@@ -10,20 +12,57 @@ describe('SignInComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MatDialogModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                SignInModule
             ],
-            declarations: [ SignInComponent ],
             providers: [
-                { provide: MatDialogRef, useValue: {} }
+                {
+                    provide: MatDialogRef, useValue: {
+                        open: () => { }
+                    }
+                }
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(SignInComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+    });
+
+    it('should open the forgot password screen', () => {
+        let dialogService = TestBed.inject(MatDialog);
+
+        spyOn(component, 'close');
+        spyOn(dialogService, 'open');
+
+        component.openForgotPassword();
+        expect(component.close).toHaveBeenCalled();
+        expect(dialogService.open).toHaveBeenCalled();
+    });
+
+    it('should sign in and close', () => {
+        let signInService: SignInService = TestBed.inject(SignInService);
+        spyOn(component, 'close');
+        spyOn(signInService, 'signIn').and.returnValue(Promise.resolve());
+
+        component.username.setValue('rosalyn');
+        component.password.setValue('hunter2');
+
+        return component.signIn().then(() => {
+            expect(component.close).toHaveBeenCalled();
+        });
+    });
+
+    it('should handle an error signing in', () => {
+        let signInService: SignInService = TestBed.inject(SignInService);
+        spyOn(signInService, 'signIn').and.returnValue(Promise.reject({ error: { message: 'nope' }} ));
+
+        return component.signIn().then(() => {
+            expect(component.error).toBe('nope');
+        });
     });
 });

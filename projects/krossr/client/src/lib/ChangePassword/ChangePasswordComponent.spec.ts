@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangePasswordComponent } from './ChangePasswordComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ChangePasswordModule } from './ChangePasswordModule';
+import { ChangePasswordService } from './ChangePasswordService';
 
 describe('ChangePasswordComponent', () => {
     let fixture: ComponentFixture<ChangePasswordComponent>;
@@ -9,16 +11,47 @@ describe('ChangePasswordComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
+                ChangePasswordModule,
                 HttpClientTestingModule
             ],
-            declarations: [ ChangePasswordComponent ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(ChangePasswordComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+    });
+
+    it('should change password', () => {
+        component.currentPasswordFormControl.setValue('current');
+        component.newPasswordFormControl.setValue('replacement');
+        component.verifyPasswordFormControl.setValue('replacement');
+
+        let changePasswordService: ChangePasswordService = TestBed.inject(ChangePasswordService);
+        spyOn(changePasswordService, 'changePassword').and.returnValue(Promise.resolve({}));
+
+        return component.changeUserPassword().then(() => {
+            expect(component.success).toBeTruthy();
+            expect(component.changePasswordButtonText()).toBe('Password Saved!');
+        });
+    });
+
+    it('should error if changing the password fails', () => {
+        let changePasswordService: ChangePasswordService = TestBed.inject(ChangePasswordService);
+
+        let errorMessage = 'massive failure';
+
+        spyOn(changePasswordService, 'changePassword').and.returnValue(Promise.reject({
+            error: {
+                message: errorMessage
+            }
+        }));
+
+        return component.changeUserPassword().then(() => {
+            expect(component.error).toBe(errorMessage);
+        });
     });
 });

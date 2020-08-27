@@ -1,0 +1,9 @@
+import { LevelEditorFormService } from 'projects/krossr/client/src/lib/LevelEditorForm/LevelEditorFormService';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class MockLevelEditorFormService extends LevelEditorFormService {
+    getOptions() {
+        return Promise.resolve({ sizeOptions: {} });
+    }
+}

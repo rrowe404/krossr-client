@@ -1,23 +1,23 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { Utils } from '../Utils/Utils';
 import { LevelService } from '../Level/LevelService';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LevelListViewModel, LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/types';
+import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
 
 @Component({
     selector: 'krossr-level-select',
     styleUrls: ['./LevelSelectStyles.less'],
     templateUrl: './LevelSelectView.html'
 })
-export class LevelSelectComponent implements OnInit {
+export class LevelSelectComponent extends KrossrDialogBase implements OnInit {
     constructor(
         public Authentication: AuthenticationService,
         private levelService: LevelService,
-        private matDialogRef: MatDialogRef<LevelSelectComponent>,
-        private utils: Utils
+        protected matDialogRef: MatDialogRef<LevelSelectComponent>,
     ) {
+        super(matDialogRef);
     }
 
     public totalPages: number;
@@ -25,7 +25,7 @@ export class LevelSelectComponent implements OnInit {
     public levels;
     public showFilter: boolean;
 
-    private filter: LevelListFilterOptions;
+    private filter: LevelListFilterOptions = {};
 
     public formGroup: FormGroup;
 
@@ -35,10 +35,6 @@ export class LevelSelectComponent implements OnInit {
         }
 
         return level.user.id === this.Authentication.user.id;
-    }
-
-    close() {
-        this.matDialogRef.close();
     }
 
     ngOnInit() {
@@ -54,16 +50,9 @@ export class LevelSelectComponent implements OnInit {
             pageNum: currentPage
         };
 
-        if (this.filter) {
-            Object.assign(queryObj, this.filter);
-        }
+        Object.assign(queryObj, this.filter);
 
         this.levelService.getLevels(queryObj).then((data: LevelListViewModel) => {
-            let i = 0;
-            let allLevels = data.levels;
-            let len = allLevels ? allLevels.length : 0;
-            let currentLevel;
-
             this.totalPages = Math.ceil(data.count / data.numPerPage);
             this.levels = data.levels;
         });

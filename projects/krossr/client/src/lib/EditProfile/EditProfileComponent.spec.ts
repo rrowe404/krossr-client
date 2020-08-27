@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditProfileComponent } from './EditProfileComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { EditProfileModule } from './EditProfileModule';
+import { SignOutService } from '../SignOut/SignOutService';
 
 describe('EditProfileComponent', () => {
     let fixture: ComponentFixture<EditProfileComponent>;
@@ -10,20 +12,31 @@ describe('EditProfileComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MatDialogModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                EditProfileModule
             ],
-            declarations: [ EditProfileComponent ],
             providers: [
                 { provide: MatDialogRef, useValue: {} }
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(EditProfileComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+    });
+
+    it('should sign out and close', () => {
+        let signOutService: SignOutService = TestBed.inject(SignOutService);
+        spyOn(signOutService, 'signout').and.returnValue(Promise.resolve());
+        spyOn(component, 'close');
+
+        return component.signout().then(() => {
+            expect(signOutService.signout).toHaveBeenCalled();
+            expect(component.close).toHaveBeenCalled();
+        });
     });
 });

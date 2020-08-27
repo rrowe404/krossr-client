@@ -1,29 +1,84 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ForgotPasswordComponent } from './ForgotPasswordComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ForgotPasswordModule } from './ForgotPasswordModule';
+import { ForgotPasswordService } from './ForgotPasswordService';
 
 describe('ForgotPasswordComponent', () => {
     let fixture: ComponentFixture<ForgotPasswordComponent>;
     let component: ForgotPasswordComponent;
 
+    function getFixture(setup?: (instance: ForgotPasswordComponent) => void) {
+        fixture = TestBed.createComponent(ForgotPasswordComponent);
+
+        if (setup) {
+            setup(fixture.componentInstance);
+        }
+
+        fixture.detectChanges();
+        return fixture;
+    }
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MatDialogModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                ForgotPasswordModule
             ],
-            declarations: [ ForgotPasswordComponent ],
             providers: [
-                { provide: MatDialogRef, useValue: {} }
+                { provide: MatDialogRef, useValue: { close: () => {} } }
             ]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ForgotPasswordComponent);
-        fixture.detectChanges();
+        fixture = getFixture();
+        component = fixture.componentInstance;
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+    });
+
+    it('should close', () => {
+        let fn = () => component.close();
+        expect(fn).not.toThrow();
+    });
+
+    it('should display appropriate text on success', () => {
+        component.success = true;
+        expect(component.askForResetButtonText()).toBe('Submitted!');
+    });
+
+    it('should ask for password reset', () => {
+        component.usernameFormControl.setValue('mumbojumbo');
+
+        let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
+
+        spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.resolve({}));
+
+        return component.askForPasswordReset().then(() => {
+            expect(component.success).toBeTruthy();
+        });
+    });
+
+    it('should catch an error asking for password reset', () => {
+        component.usernameFormControl.setValue('banjokazooie');
+
+        let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
+
+        spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.reject({
+            error: {
+                message: 'dumb bear'
+            }
+        }));
+
+        return component.askForPasswordReset().then(() => {
+            expect(component.error).toBeTruthy();
+        });
+    });
+
+    it('should initialize the username if possible', () => {
+        let fixture2 = getFixture(instance => instance.data = { username: 'grunty' });
+        expect(fixture2.componentInstance.usernameFormControl.value).toBe('grunty');
     });
 });

@@ -1,4 +1,3 @@
-import { SideLengthService } from '../SideLength/SideLengthService';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { GameSizeEventService } from './GameSizeEventService';
 import { Injectable } from '@angular/core';
@@ -14,19 +13,18 @@ export class GameSizeService {
 
     constructor(
         private gameSizeEventService: GameSizeEventService,
-        private sideLengthService: SideLengthService,
         private tileSizeService: TileSizeService
     ) {
     }
 
      /* Take a given game width and subtract border widths. I either have to do this
         or remove border-box and add them instead... doesn't really matter */
-    private adjustForBorders(width) {
+    private adjustForBorders(width, sideLength: number) {
         let borderWidth = 1;
 
         /* 18 is a bit of a magic number, I worked backwards from determining how much extra space
             the game had based on sideLength */
-        return width - ((borderWidth * this.sideLengthService.sideLength) + (18 - this.sideLengthService.sideLength));
+        return width - ((borderWidth * sideLength) + (18 - sideLength));
     }
 
 
@@ -57,7 +55,7 @@ export class GameSizeService {
         let finalWidth = Math.floor(this.playableAreaSize / 1.6);
         let finalHeight;
 
-        finalWidth = this.adjustForBorders(finalWidth);
+        finalWidth = this.adjustForBorders(finalWidth, widthInTiles);
 
         finalHeight = finalWidth;
         this.gameWidth = finalWidth + 'px';

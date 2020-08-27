@@ -1,22 +1,17 @@
 <section class="viewLevel" *ngIf="level">
-    <krossr-level-editor-form *ngIf="level.currentView === 'new'" [error]="error" [level]="level" submitText="Submit" (sizeChange)="createGameArray('new')" (submitAction)="submitCreate()">
-    </krossr-level-editor-form>
-    <krossr-level-editor-form *ngIf="level.currentView === 'edit'" [error]="error" [level]="level" submitText="Update" (sizeChange)="createGameArray('edit')" (submitAction)="confirmUpdate($event)">
-    </krossr-level-editor-form>
-
-    <div class="rateLevel" *ngIf="Authentication.user && level && level.currentView === 'view'">
+    <div class="rateLevel" *ngIf="Authentication.user">
         Rate: <krossr-star-rating [rating]="level.userRating ? level.userRating.rating : 0" max="5" (ratingSelected)="rate($event)"></krossr-star-rating>
     </div>
 
-    <krossr-mode-selector *ngIf="level && level.currentView === 'view'"></krossr-mode-selector>
+    <krossr-mode-selector></krossr-mode-selector>
 
-    <div (keydown)="keydown($event)" (keyup)="keyup($event)" tabindex="0" [hidden]="!level || !level.ready">
+    <div tabindex="0" [hidden]="!level || !level.ready">
         <div class="gameContainer-inner">
             <div class="top row">
                 <krossr-number-grid
                     [gameMatrix]="gameMatrix['vertical']"
                     [goalMatrix]="goalMatrix['vertical']"
-                    *ngIf="level && level.decodedLayout && level.currentView === 'view'"
+                    *ngIf="level && level.decodedLayout"
                     orientation="vertical"
                     class="top-grid"
                     [ngStyle]="{'padding-right': margin}"></krossr-number-grid>
@@ -28,7 +23,7 @@
                 <krossr-number-grid
                     [gameMatrix]="gameMatrix['horizontal']"
                     [goalMatrix]="goalMatrix['horizontal']"
-                    *ngIf="level && level.decodedLayout && level.currentView === 'view'"
+                    *ngIf="level && level.decodedLayout"
                     orientation="horizontal"
                     class="left-grid"
                     [ngStyle]="{'padding-top': margin}">

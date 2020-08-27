@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignUpComponent } from './SignUpComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { SignUpModule } from './SignUpModule';
 
 describe('SignUpComponent', () => {
     let fixture: ComponentFixture<SignUpComponent>;
@@ -10,10 +11,9 @@ describe('SignUpComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MatDialogModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                SignUpModule
             ],
-            declarations: [ SignUpComponent ],
             providers: [
                 { provide: MatDialogRef, useValue: {} }
             ]

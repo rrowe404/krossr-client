@@ -6,6 +6,8 @@ import { ResetPasswordComponent } from '../ResetPassword/ResetPasswordComponent'
 import { HomeRoutes, LevelRoutes, UserRoutes } from './RouteNames';
 import { NotFoundComponent } from '../NotFound/NotFoundComponent';
 import { ResetPasswordService } from '../ResetPassword/ResetPasswordService';
+import { LevelCreatorComponent } from '../LevelCreator/LevelCreatorComponent';
+import { LevelEditorComponent } from '../LevelEditor/LevelEditorComponent';
 
 export class Routes {
     static getNg2Routes(): Ng2StateDeclaration[] {
@@ -21,10 +23,7 @@ export class Routes {
             {
                 name: LevelRoutes.create,
                 url: '/level/new',
-                component: LevelComponent,
-                resolve: [
-                    { provide: 'mode', useFactory: () => 'new' }
-                ]
+                component: LevelCreatorComponent
             },
             {
                 name: LevelRoutes.read,
@@ -44,9 +43,8 @@ export class Routes {
             {
                 name: LevelRoutes.update,
                 url: '/level/:levelId/edit',
-                component: LevelComponent,
+                component: LevelEditorComponent,
                 resolve: [
-                    { provide: 'mode', useFactory: () => 'edit' },
                     {
                         token: 'levelId',
                         deps: [Transition],
