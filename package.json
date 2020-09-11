@@ -5,6 +5,7 @@
     "ng": "ng",
     "buildLibrary": "ng build @krossr/client",
     "start": "ng serve --proxy-config proxy.config.json --host 0.0.0.0",
+    "startProd": "ng serve --proxy-config proxy.config.json --host 0.0.0.0 --disable-host-check --port 8080",
     "build": "ng build",
     "test": "cross-env NODE_ENV=test ng test",
     "lint": "ng lint",

@@ -10,4 +10,4 @@ RUN npm run build
 
 EXPOSE 4200/tcp
 
-CMD npm run start
+CMD npm run startProd

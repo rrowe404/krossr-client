@@ -1,0 +1,61 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    id: "docker-build"
+    args: [
+      "build",
+      "-t",
+      "gcr.io/krossr/client",
+      "."
+    ]
+  # Try to load a cached version from google cloud storage
+  # This uses the hashed package-lock.json as the key
+  # If the cache is bad, it will print out which cache version it is using and you can remove it from the cloud bucket
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'take-from-cache'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        (
+          # Fail if any step fail
+          set -e
+          # Hash the package-lock.json file
+          gsutil hash -h package-lock.json | grep md5 | tr -s " " | awk '{print $3}' > hashed.pkg-lock
+          # Try to get the file from Google Cloud Storage
+          gsutil -m cp "gs://krossr-client-cache/$(cat hashed.pkg-lock)" node_modules.tar.gz 2> /dev/null
+          # Check if we found the cached node_modules
+          test -f node_modules.tar.gz
+          # If we found the cached node_modules, extract the files to node_modules
+          tar -zxf node_modules.tar.gz
+          # Echo to the logs stating that we are using cache
+          echo "Using cached node_modules from gs://krossr-client-cache/$(cat hashed.pkg-lock)"
+        ) || true
+  # Only NPM CI if the cache missed
+  - name: 'gcr.io/cloud-builders/npm'
+    id: 'npm-install'
+    entrypoint: 'sh'
+    waitFor: ['take-from-cache']
+    args:
+      - '-c'
+      - |
+          # If we did not find the cached node_modules, install from the lock
+          test -f node_modules.tar.gz || npm ci;
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "upload-to-cache"
+    waitFor: ["docker-build"]
+    entrypoint: "sh"
+    args:
+      - '-c'
+      - |
+        (
+          # Fail if any step fail
+          set -e
+          # Only update the cache if we found no previous cache
+          test ! -f node_modules.tar.gz
+          # Tar the cache
+          tar -zcf node_modules.tar.gz node_modules
+          # Upload the cache
+          gsutil -m cp node_modules.tar.gz "gs://krossr-client-cache/$(cat hashed.pkg-lock)"
+        ) || true
+images:
+  - gcr.io/krossr/client
