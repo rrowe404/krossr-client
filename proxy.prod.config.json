@@ -1,0 +1,8 @@
+{
+    "*": {
+        "target": "https://api-m7onbzp6ia-ue.a.run.app:8080",
+        "changeOrigin": true,
+        "secure": false,
+        "logLevel": "info"
+    }
+}
