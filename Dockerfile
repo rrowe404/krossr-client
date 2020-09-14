@@ -1,13 +1,19 @@
-FROM node
+# Stage 1: Build
+FROM node as builder
 
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY . /app
 RUN npx ngcc
+COPY . /app
 RUN npm run buildLibrary
-RUN npm run build
+RUN npm run buildProd
 
-EXPOSE 4200/tcp
+# Stage 2: Setup
+FROM nginx
+COPY nginx/default.conf /etc/nginx/conf.d/
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /app/dist/krossr-client /usr/share/nginx/html
 
-CMD npm run startProd
+# Stage 3: Go
+CMD ["nginx", "-g", "daemon off;"]
