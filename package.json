@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "buildLibrary": "ng build @krossr/client",
-    "start": "ng serve --proxy-config proxy.config.json --host 0.0.0.0",
+    "start": "ng serve --host 0.0.0.0",
     "startProd": "ng serve --prod --disable-host-check --port 8080",
     "build": "ng build",
     "buildProd": "ng build --prod=true",
