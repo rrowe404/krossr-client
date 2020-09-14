@@ -18,7 +18,7 @@ RUN cat /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/dist/krossr-client /usr/share/nginx/html
 
-EXPOSE 80/tcp
+EXPOSE 4200/tcp
 
 # Stage 3: Go
 CMD ["nginx", "-g", "daemon off;"]
