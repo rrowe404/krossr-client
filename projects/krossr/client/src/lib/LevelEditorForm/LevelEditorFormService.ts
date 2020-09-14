@@ -12,7 +12,7 @@ export class LevelEditorFormService {
     }
 
     getOptions() {
-        return this.httpClient.get('/levelEditor/options').toPromise().then((response: LevelEditorSelectOptionsViewModel) => {
+        return this.httpClient.get('levelEditor/options').toPromise().then((response: LevelEditorSelectOptionsViewModel) => {
             return response;
         });
     }

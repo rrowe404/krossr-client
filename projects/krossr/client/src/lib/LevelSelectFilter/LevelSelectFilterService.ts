@@ -7,12 +7,12 @@ import { LevelListFilterSelectOptionsViewModel } from '@krossr/types';
 })
 export class LevelSelectFilterService {
     constructor(
-        private httpService: HttpClient
+        private httpClient: HttpClient
     ) {
     }
 
     public getOptions(): Promise<LevelListFilterSelectOptionsViewModel> {
-        return this.httpService.get('/levels/options').toPromise().then((response: LevelListFilterSelectOptionsViewModel) => {
+        return this.httpClient.get('levels/options').toPromise().then((response: LevelListFilterSelectOptionsViewModel) => {
             return response;
         });
     }
