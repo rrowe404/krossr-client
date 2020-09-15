@@ -3,15 +3,16 @@ FROM node as builder
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
-RUN npx ngcc
+RUN npm install && \
+    npx ngcc
 COPY . /app
-RUN npm run buildLibrary
-RUN npm run buildProd
+RUN npm run buildLibrary && \
+    npm run buildProd
 
 # Stage 2: Setup
 FROM nginx
 RUN rm -rf /usr/share/nginx/html/*
+COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/krossr-client /usr/share/nginx/html
 
 # Stage 3: Go
