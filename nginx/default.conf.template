@@ -14,7 +14,4 @@ server {
     location / {
         try_files $uri $uri/ /index.html =404;
     }
-    location /api {
-        proxy_pass ${NGINX_API_PROXY};
-    }
 }
