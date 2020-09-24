@@ -1,7 +1,7 @@
 ### STAGES ###
 stages:
   - build
-  # - test
+  - test
   # - review
   # - deploy
 
@@ -25,14 +25,13 @@ build:
     - bash ./ci/build
 
 ### TEST STAGE ###
-# karma:
-#   stage: test
-#   image: google/cloud-sdk
-#   services:
-#     - docker:dind
-#   script:
-#     - ./ci/set-tag
-#     - echo $TAG
+karma:
+  stage: test
+  image: google/cloud-sdk
+  services:
+    - docker:dind
+  script:
+    - bash ./ci/test 
 
 # node lint:
 #   cache: {}
