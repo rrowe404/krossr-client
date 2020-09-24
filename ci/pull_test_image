@@ -4,4 +4,3 @@ if [ $CI_COMMIT_BRANCH == "master" ];
 fi
 
 docker pull gcr.io/krossr/client:${TAG}
-npm run test
