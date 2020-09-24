@@ -2,5 +2,5 @@ steps:
   - name: "gcr.io/kaniko-project/executor:latest"
     id: "docker-build"
     args:
-      - --destination=gcr.io/krossr/client:${_TAG}
+      - --destination=gcr.io/krossr/client
       - --cache=true
