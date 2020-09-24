@@ -47,6 +47,7 @@ run test:
   dependencies:
     - pull image
   script:
+    - ls -la
     - npm run test
 
 # node lint:
