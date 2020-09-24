@@ -1,4 +1,4 @@
-bash ./set-tag
+bash ./ci/set-tag
 echo $TAG
 
 # - gcloud builds submit . --config=cloudbuild.yaml --substitutions=_TAG=${TAG}
