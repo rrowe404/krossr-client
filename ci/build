@@ -1,2 +1,2 @@
 bash ./ci/set-tag
-gcloud builds submit . --config=cloudbuild.yaml -t gcr.io/krossr/client:${TAG}
+gcloud builds submit . --config=cloudbuild.yaml --substitutions=TAG_NAME=$TAG
