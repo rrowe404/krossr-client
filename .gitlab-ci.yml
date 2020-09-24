@@ -14,7 +14,7 @@ variables:
 ### BUILD STAGE
 build:
   stage: build
-  image: google/cloud/sdk
+  image: google/cloud-sdk
   except:
     - chat
     - trigger
