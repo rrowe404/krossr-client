@@ -3,4 +3,4 @@ if [ $CI_COMMIT_BRANCH == "master" ];
     else TAG="$CI_COMMIT_BRANCH";
 fi
 
-echo $TAG
+export TAG=$TAG
