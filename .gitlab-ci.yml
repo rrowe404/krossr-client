@@ -1,6 +1,7 @@
 ### STAGES ###
 stages:
   - build
+  - pull
   - test
   # - review
   # - deploy
@@ -26,7 +27,7 @@ build:
 
 ### TEST STAGE ###
 pull image:
-  stage: test
+  stage: pull
   image: google/cloud-sdk
   services:
     - docker:dind
