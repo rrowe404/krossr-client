@@ -29,6 +29,8 @@ build:
 pull image:
   stage: pull
   image: google/cloud-sdk
+  artifacts:
+    untracked: true
   services:
     - docker:dind
   variables:
