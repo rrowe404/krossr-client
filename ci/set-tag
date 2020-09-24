@@ -1,4 +1,4 @@
-if [ "$CI_COMMIT_BRANCH" == "master" ];
+if [ $CI_COMMIT_BRANCH == "master" ];
     then TAG="latest";
     else TAG="$CI_COMMIT_BRANCH";
 fi
