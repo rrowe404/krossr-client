@@ -1,2 +1,6 @@
-bash ./ci/set-tag
+if [ $CI_COMMIT_BRANCH == "master" ];
+    then TAG="latest";
+    else TAG="$CI_COMMIT_BRANCH";
+fi
+
 gcloud builds submit . --config=cloudbuild.yaml --substitutions=TAG_NAME=$TAG
