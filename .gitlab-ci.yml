@@ -29,7 +29,7 @@ variables:
 ### TEST STAGE ###
 test image:
   stage: test
-   image: google/cloud-sdk
+  image: google/cloud-sdk
   artifacts:
     untracked: true
   services:
