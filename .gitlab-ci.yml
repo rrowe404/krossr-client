@@ -1,7 +1,6 @@
 ### STAGES ###
 stages:
   # - build
-  - pull
   - test
   # - review
   # - deploy
@@ -27,7 +26,7 @@ variables:
 
 ### TEST STAGE ###
 test image:
-  stage: pull
+  stage: test
   image: google/cloud-sdk
   artifacts:
     untracked: true
@@ -40,15 +39,6 @@ test image:
     - gcloud auth activate-service-account krossr-client@krossr.iam.gserviceaccount.com --key-file=keyfile.json
     - gcloud auth configure-docker
     - bash ./ci/run_test_image 
-
-run test:
-  stage: test
-  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
-  dependencies:
-    - test image
-  script:
-    - ls -la
-    - npm run test
 
 # node lint:
 #   cache: {}
