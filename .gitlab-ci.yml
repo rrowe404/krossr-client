@@ -1,7 +1,8 @@
 ### STAGES ###
 stages:
-  - build
+  - install_dependencies
   - test
+  - build
   # - review
   # - deploy
 
@@ -12,54 +13,65 @@ variables:
   TAG_LOGIC: '(if [ "$${CI_COMMIT_BRANCH}" == "master" ]; then echo "latest"; else echo "$${CI_COMMIT_BRANCH}"; fi);'
   DOCKER_DRIVER: overlay2
 
-### BUILD STAGE
-# build:
-#   stage: build
-#   image: google/cloud-sdk
-#   except:
-#     - chat
-#     - trigger
-#   script:
-#     - TAG=$(eval $TAG_LOGIC)
-#     - echo $GCP_SERVICE_KEY > keyfile.json
-#     - gcloud auth activate-service-account krossr-client@krossr.iam.gserviceaccount.com --key-file=keyfile.json
-#     - gcloud config set project $GCP_PROJECT_ID
-#     - gcloud builds submit . --config=cloudbuild.yaml --substitutions=TAG_NAME=$TAG
+cache: &global_cache
+    key: "$CI_COMMIT_REF_SLUG"
+    paths: 
+      - node_modules
 
-# build test:
-#   stage: build
-#   image: google/cloud-sdk
-#   except:
-#     - chat
-#     - trigger
-#   script:
-#     - TAG=$(eval $TAG_LOGIC)
-#     - echo $GCP_SERVICE_KEY > keyfile.json
-#     - gcloud auth activate-service-account krossr-client@krossr.iam.gserviceaccount.com --key-file=keyfile.json
-#     - gcloud config set project $GCP_PROJECT_ID
-#     - gcloud builds submit . --config=cloudbuild.test.yaml --substitutions=TAG_NAME=$TAG
+### DEPENDENCIES
+install_dependencies:
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
+  stage: install_dependencies
+  cache:
+    <<: *global_cache
+  script:
+    - npm install
+    - npx ngcc
 
-### TEST STAGE ###
-test image:
-  stage: test
-  image: google/cloud-sdk
+build_library:
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION} 
+  stage: build
   artifacts:
     untracked: true
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: tcp://docker:2375/
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - npm run buildLibrary
+
+
+### TEST STAGE ###
+### no need for caches on these bc the cache will be part of the artifacts
+node test:
+  cache: {}
+  dependencies:
+    - build_library
+  stage: test
+  image: zenika/alpine-chrome:with-node
+  script:
+    - npm run test
+
+node lint:
+  cache: {}
+  dependencies:
+    - build_library
+  stage: test
+  image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
+  script:
+    - npm run lint
+
+### BUILD STAGE
+build prod:
+  stage: build
+  image: google/cloud-sdk
+  dependencies:
+    - build_library
+  except:
+    - chat
+    - trigger
   script:
     - TAG=$(eval $TAG_LOGIC)
     - echo $GCP_SERVICE_KEY > keyfile.json
     - gcloud auth activate-service-account krossr-client@krossr.iam.gserviceaccount.com --key-file=keyfile.json
-    - gcloud auth configure-docker
-    - docker run -d --name $TAG gcr.io/krossr/client:${TAG}-test
-    - docker exec "echo hi";
-
-# node lint:
-#   cache: {}
-#   stage: test
-#   image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
-#   script:
-#     - npm run lint
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud builds submit . --config=cloudbuild.yaml --substitutions=TAG_NAME=$TAG

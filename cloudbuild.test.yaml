@@ -1,7 +1,0 @@
-steps:
-  - name: "gcr.io/kaniko-project/executor:latest"
-    id: "docker-build"
-    args:
-      - --destination=gcr.io/krossr/client:${TAG_NAME}-test
-      - --dockerfile=Dockerfile.test
-      - --cache=true
