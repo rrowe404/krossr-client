@@ -11,7 +11,6 @@ RUN npm run buildLibrary && \
 
 # Stage 2: Setup
 FROM nginx
-RUN apk add --update npm
 RUN rm -rf /usr/share/nginx/html/*
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/krossr-client /usr/share/nginx/html
