@@ -3,6 +3,7 @@ if [ $CI_COMMIT_BRANCH == "master" ];
     else TAG="$CI_COMMIT_BRANCH";
 fi
 
+apt-get update && apt-get install npm -y
 docker run -d --name $TAG gcr.io/krossr/client:${TAG}
 docker exec $TAG npm run test
 docker stop $TAG
