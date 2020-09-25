@@ -1,0 +1,3 @@
+docker run -d --name $TAG gcr.io/krossr/client:${TAG}
+docker exec $TAG npm run test
+docker stop $TAG
