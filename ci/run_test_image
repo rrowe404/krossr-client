@@ -3,4 +3,4 @@ if [ $CI_COMMIT_BRANCH == "master" ];
     else TAG="$CI_COMMIT_BRANCH";
 fi
 
-docker pull gcr.io/krossr/client:${TAG}
+docker run gcr.io/krossr/client:${TAG}
