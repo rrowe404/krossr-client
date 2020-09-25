@@ -9,6 +9,7 @@ stages:
 variables:
   BUILD_IMAGE_VERSION: latest
   IMAGE_NAME: gcr.io/krossr/client
+  TAG_LOGIC: '(if [ "$${CI_COMMIT_BRANCH}" == "master" ]; then echo "latest"; else echo "$${CI_COMMIT_BRANCH}"; fi);'
   DOCKER_DRIVER: overlay2
 
 ### BUILD STAGE
@@ -19,6 +20,7 @@ variables:
 #     - chat
 #     - trigger
 #   script:
+#     - TAG=$(eval $TAG_LOGIC)
 #     - echo $GCP_SERVICE_KEY > keyfile.json
 #     - gcloud auth activate-service-account krossr-client@krossr.iam.gserviceaccount.com --key-file=keyfile.json
 #     - gcloud config set project $GCP_PROJECT_ID
@@ -27,18 +29,9 @@ variables:
 ### TEST STAGE ###
 test image:
   stage: test
-  image: google/cloud-sdk
-  artifacts:
-    untracked: true
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: tcp://docker:2375/
+  image: ${IMAGE_NAME}:$(eval $TAG_LOGIC)
   script:
-    - echo $GCP_SERVICE_KEY > keyfile.json
-    - gcloud auth activate-service-account krossr-client@krossr.iam.gserviceaccount.com --key-file=keyfile.json
-    - gcloud auth configure-docker
-    - bash ./ci/run_test_image 
+    - npm run test
 
 # node lint:
 #   cache: {}
