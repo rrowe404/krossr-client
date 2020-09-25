@@ -1,0 +1,7 @@
+steps:
+  - name: "gcr.io/kaniko-project/executor:latest"
+    id: "docker-build"
+    args:
+      - --destination=gcr.io/krossr/client:${CI_COMMIT_BRANCH}:test
+      - --dockerfile=Dockerfile.test
+      - --cache=true
