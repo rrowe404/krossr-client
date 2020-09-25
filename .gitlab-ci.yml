@@ -10,6 +10,7 @@ variables:
   BUILD_IMAGE_VERSION: latest
   IMAGE_NAME: gcr.io/krossr/client
   TAG_LOGIC: '(if [ "$${CI_COMMIT_BRANCH}" == "master" ]; then echo "latest"; else echo "$${CI_COMMIT_BRANCH}"; fi);'
+  TAGGED_IMAGE_NAME: ${IMAGE_NAME}:$(eval $TAG_LOGIC)
   DOCKER_DRIVER: overlay2
 
 ### BUILD STAGE
@@ -29,7 +30,7 @@ variables:
 ### TEST STAGE ###
 test image:
   stage: test
-  image: ${IMAGE_NAME}:$(eval $TAG_LOGIC)
+  image: ${TAGGED_IMAGE_NAME}
   script:
     - npm run test
 
