@@ -1,6 +1,7 @@
 ### STAGES ###
 stages:
   - install_dependencies
+  - build_library
   - test
   - build
   # - review
@@ -30,7 +31,7 @@ install_dependencies:
 
 build_library:
   image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION} 
-  stage: build
+  stage: build_library
   artifacts:
     untracked: true
   cache:
