@@ -9,7 +9,8 @@
     "buildProd": "ng build --prod=true",
     "test": "cross-env NODE_ENV=test ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "watchLibrary": "ng build @krossr/client --watch"
   },
   "private": true,
   "dependencies": {
