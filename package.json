@@ -13,7 +13,7 @@
         "test:development": "ng test",
         "e2e": "ng e2e",
         "lint": "ng lint",
-        "start": "ng serve --host 0.0.0.0",
+        "start": "ng serve --host 0.0.0.0 --disableHostCheck",
         "watchLibrary": "ng build @krossr/client --watch"
     },
     "private": true,
