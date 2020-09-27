@@ -6,8 +6,7 @@ COPY package*.json ./
 RUN npm install && \
     npx ngcc
 COPY . /app
-RUN npm run buildLibrary && \
-    npm run buildProd
+RUN npm run buildAll
 
 # Stage 2: Setup
 FROM nginx

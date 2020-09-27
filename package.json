@@ -8,6 +8,7 @@
         "build": "by-node-env",
         "build:development": "ng build",
         "build:production": "ng build --prod=true",
+        "buildAll": "npm run buildLibrary && npm run build",
         "test": "cross-env NODE_ENV=test ng test",
         "test:development": "ng test",
         "e2e": "ng e2e",
