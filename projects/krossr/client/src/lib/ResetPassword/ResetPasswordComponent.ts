@@ -12,8 +12,7 @@ import { KrossrError } from '@krossr/types';
 export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
     @Input() token: string;
 
-    public success: string;
-    public error: string;
+    defaultMessage = 'Update Password';
 
     public formGroup: FormGroup;
     public newPasswordFormControl: FormControl;
@@ -37,14 +36,16 @@ export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
     resetUserPassword() {
         this.success = this.error = null;
 
+        this.successMessage = 'Password updated!';
+
         return this.resetPasswordService.resetPassword(this.token, {
             newPassword: this.newPasswordFormControl.value,
             verifyPassword: this.verifyPasswordFormControl.value
         }).then(() => {
             this.clearForm();
-            this.success = `Password updated!`;
+            this.displaySuccessMessage();
         }).catch((response: KrossrError) => {
-            this.error = response.error.message;
+            this.displayErrorMessage(response);
         });
     }
 }

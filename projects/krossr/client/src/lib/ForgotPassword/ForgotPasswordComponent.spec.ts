@@ -45,8 +45,8 @@ describe('ForgotPasswordComponent', () => {
     });
 
     it('should display appropriate text on success', () => {
-        component.success = true;
-        expect(component.askForResetButtonText()).toBe('Submitted!');
+        component.success = 'Submitted!';
+        expect(component.buttonText()).toBe('Submitted!');
     });
 
     it('should ask for password reset', () => {
@@ -55,9 +55,10 @@ describe('ForgotPasswordComponent', () => {
         let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
 
         spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.resolve({}));
+        spyOn(component, 'close');
 
         return component.askForPasswordReset().then(() => {
-            expect(component.success).toBeTruthy();
+            expect(component.close).toHaveBeenCalled();
         });
     });
 

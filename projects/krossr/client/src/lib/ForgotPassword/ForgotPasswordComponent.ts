@@ -15,11 +15,9 @@ import { nowAndLater } from '../Debounce/Debounce';
 export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
     @Input() public invalid = false;
 
+    defaultMessage = 'Submit';
+
     public username: string;
-
-    public success: boolean;
-    public error: string;
-
     public formGroup: FormGroup;
     public usernameFormControl: FormControl;
 
@@ -48,22 +46,11 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
         this.success = this.error = null;
 
         return this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value).then(() => {
-            this.clearForm();
-
-            // Show user success message and clear form
-            nowAndLater(() => this.success = true, () => this.close());
+            this.close();
         }).catch((response: KrossrError) => {
             // Show user error message and clear form
             this.clearForm();
-            nowAndLater(() => this.error = response.error.message, () => this.error = '');
+            this.displayErrorMessage(response);
         });
-    }
-
-    askForResetButtonText() {
-        if (this.success) {
-            return 'Submitted!';
-        }
-
-        return this.error || 'Submit';
     }
 }

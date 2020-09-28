@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 describe('KrossrFormBase', () => {
     class DummyKrossrForm extends KrossrFormBase {
         formGroup = new FormGroup({});
+        defaultMessage = '';
     }
 
     it('should call reset when cleared', () => {
