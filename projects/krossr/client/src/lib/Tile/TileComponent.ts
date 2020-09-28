@@ -110,18 +110,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         ];
     }
 
-    /** If the override value (which will be the value of the tile that a dragstart is activated on)
-     *  is present, use that for all tiles being considered.
-     *  This is so you don't unselect previously selected tiles if your drags overlap
-     */
-    private checkForOverride(override, value) {
-        if (typeof override !== 'undefined') {
-            return !override;
-        } else {
-            return !value;
-        }
-    }
-
     /**
      * Determine the initial state of the tile fills
      */
@@ -174,7 +162,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
 
         this.dragBoxService.startCoord = coord;
-        this.dragBoxService.initState = this.selected;
+        this.dragBoxService.initState = this.selected || this.marked;
     }
 
     private mouseMoveEvent() {
@@ -211,6 +199,12 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         return actualTile as HTMLElement;
     }
 
+    private processTileState(active: boolean, override?: boolean) {
+        let temp = !_.isUndefined(override) ? override : active;
+        this.empty();
+        return !temp;
+    }
+
     changeTile(coord: Point, initState, changeTo: TileState) {
         if (!this.editable) {
             return;
@@ -226,33 +220,21 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         this.pending = false;
     }
 
-    mark() {
-        if (this.marked) {
-            return this.empty();
-        }
-
-        this.marked = true;
-        this.selected = false;
-        this.pending = false;
+    mark(override?: boolean) {
+        this.marked = this.processTileState(this.marked, override);
     }
 
-    select(override?) {
-        if (this.selected) {
-            return this.empty();
-        }
-
-        this.selected = this.checkForOverride(override, this.selected);
-        this.marked = false;
-        this.pending = false;
+    select(override?: boolean) {
+        this.selected = this.processTileState(this.selected, override);
     }
 
-    fill(fillType, override?) {
+    fill(fillType, override?: boolean) {
         switch (fillType) {
             case TileState.pending:
                 this.pending = true;
                 break;
             case TileState.marked:
-                this.mark();
+                this.mark(override);
                 break;
             case TileState.selected:
                 this.select(override);
