@@ -5,7 +5,7 @@
     <div tabindex="0" [hidden]="!level || !level.ready">
         <div class="gameContainer-inner">
             <div class="bottom row">
-                <krossr-game [gameMatrix]="gameMatrix" [goalMatrix]="goalMatrix" [level]="level" [tiles]="finalLayout.tiles" *ngIf="finalLayout.tiles"></krossr-game>
+                <krossr-game [gameMatrix]="gameMatrix" [goalMatrix]="goalMatrix" [level]="level" [tiles]="finalLayout" *ngIf="finalLayout.length"></krossr-game>
             </div>
         </div>
     </div>

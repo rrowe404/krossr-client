@@ -9,10 +9,10 @@ import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { ILevel } from '../Level/Level';
-import { LevelLayout } from '../Level/LevelLayout';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
+import { TileLayout } from 'dist/krossr/client/lib/TileLayout/TileLayout';
 
 @Component({
     selector: 'krossr-level-creator',
@@ -31,7 +31,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
         super(levelEditorFormClearEventService, gameSizeService, resizeEventService, tileSizeEventService);
     }
 
-    public finalLayout: LevelLayout = {};
+    public finalLayout: Array<TileLayout> = [];
     public margin: string;
     public level: ILevel;
     @Input() public levelId;
@@ -52,7 +52,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
             layout: new BooleanMatrix(sideLength, sideLength).getLayout()
         });
 
-        this.finalLayout.tiles = game.gameMatrix.flatten().map(this.toTileLayout);
+        this.finalLayout = game.gameMatrix.flatten().map(this.toTileLayout);
 
         this.gameMatrix = new GameMatrix(game.gameMatrix, false);
 

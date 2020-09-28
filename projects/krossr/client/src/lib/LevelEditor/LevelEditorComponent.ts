@@ -56,7 +56,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
     }
 
     findOne() {
-        this.finalLayout = {};
+        this.finalLayout = [];
         this.level = null;
 
         return this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
@@ -71,7 +71,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
             let gameMatrix = game.goalMatrix;
             this.gameMatrix = new GameMatrix(gameMatrix, true);
 
-            this.finalLayout.tiles = gameMatrix.flatten().map(this.toTileLayout);
+            this.finalLayout = gameMatrix.flatten().map(this.toTileLayout);
 
             this.level.ready = true;
         });

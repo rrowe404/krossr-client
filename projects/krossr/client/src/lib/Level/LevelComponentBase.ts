@@ -3,11 +3,11 @@ import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { OnInit, OnDestroy, Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LevelLayout } from './LevelLayout';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
+import { TileLayout } from 'dist/krossr/client/lib/TileLayout/TileLayout';
 
 @Component({
     template: ''
@@ -21,7 +21,7 @@ export abstract class LevelComponentBase implements OnInit, OnDestroy {
         protected tileSizeEventService: TileSizeEventService
     ) {
     }
-    public finalLayout: LevelLayout = {};
+    public finalLayout: Array<TileLayout> = [];
     public gameMatrix: GameMatrix;
     public goalMatrix: GameMatrix;
     public error: string;

@@ -38,7 +38,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
     }
 
     findOne() {
-        this.finalLayout = {};
+        this.finalLayout = [];
         this.level = null;
 
         this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
@@ -58,7 +58,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
                 this.goalMatrix = new GameMatrix(goalLayout, true);
             }
 
-            this.finalLayout.tiles = game.gameMatrix.flatten().map(this.toTileLayout);
+            this.finalLayout = game.gameMatrix.flatten().map(this.toTileLayout);
 
             this.level.ready = true;
         });
