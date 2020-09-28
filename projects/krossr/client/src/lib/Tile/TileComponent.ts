@@ -62,7 +62,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         this.$element = this.elementRef.nativeElement as HTMLElement;
 
         this.initializeFill();
-        this.setTileSize(this.tileSizeService.getTileSize());
+        this.setTileSize();
     }
 
     ngAfterViewInit() {
@@ -86,7 +86,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.subscriptions = [
             this.tileSizeEventService.tileSizeChanged.subscribe(() => {
-                this.setTileSize(this.tileSizeService.getTileSize());
+                this.setTileSize();
             }),
             this.touchService.tileTouched.subscribe(tile => {
                 if (this.$element === tile) {
@@ -126,11 +126,9 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
      * Determine the initial state of the tile fills
      */
     private initializeFill() {
-        if (this.isEditMode && this.tile && this.tile.selected) {
-            this.fill(TileState.selected);
-        } else {
-            this.empty();
-        }
+        let fill = this.isEditMode && this.tile && this.tile.selected;
+
+        fill ? this.select() : this.empty();
     }
 
     private fillPending() {
@@ -284,9 +282,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         return !this.pending;
     }
 
-    setTileSize(tileSize) {
-        tileSize = Math.floor(tileSize);
-        this.width = tileSize + 'px';
-        this.height = tileSize + 'px';
+    setTileSize() {
+        this.width = this.height = this.tileSizeService.getTileSizePx();
     }
 }

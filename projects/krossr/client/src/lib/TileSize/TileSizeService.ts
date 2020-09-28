@@ -13,7 +13,7 @@ export class TileSizeService {
     }
 
     getTileSize() {
-        return this.tileSize;
+        return Math.floor(this.tileSize);
     }
 
     getTileSizePx() {
