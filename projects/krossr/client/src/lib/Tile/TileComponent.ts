@@ -268,10 +268,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    fillBorders(direction) {
-        return this.getBorderColors(direction);
-    }
-
     /* Determine which tiles to add colored borders to */
     getBorderColors(direction) {
         let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
