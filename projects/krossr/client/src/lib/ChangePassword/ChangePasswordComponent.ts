@@ -4,7 +4,6 @@ import { ChangePasswordService } from './ChangePasswordService';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 import { KrossrError } from '@krossr/types';
-import { nowAndLater } from '../Debounce/Debounce';
 
 @Component({
     selector: 'krossr-change-password',
