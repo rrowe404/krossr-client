@@ -62,15 +62,19 @@ describe('TileComponent', () => {
         expect(component.isNotPending()).toBeTrue();
     });
 
-    it('should have a working fill fn', () => {
+    it('should have a working fill fn (pending)', () => {
         component.fill(TileState.pending);
         expect(component.pending).toBeTruthy();
+    });
 
+    it('should have a working fill fn (marked)', () => {
         component.fill(TileState.marked);
         expect(component.marked).toBeTruthy();
         expect(component.selected).toBeFalsy();
         expect(component.pending).toBeFalsy();
+    });
 
+    it('should have a working fill fn (selected)', () => {
         component.fill(TileState.selected);
         expect(component.selected).toBeTruthy();
         expect(component.marked).toBeFalsy();
@@ -81,7 +85,9 @@ describe('TileComponent', () => {
 
         component.fill(TileState.selected, true);
         expect(component.selected).toBeFalsy();
+    });
 
+    it('should have a working fill fn (empty)', () => {
         component.fill(TileState.empty);
         expect(component.selected).toBeFalsy();
         expect(component.marked).toBeFalsy();
@@ -100,7 +106,7 @@ describe('TileComponent', () => {
         it('should fill an editable tile', () => {
             component.editable = true;
             component.gameMatrix = new BooleanMatrix(2, 2);
-            component.changeTile({ x: 0, y: 0 }, true, TileState.selected);
+            component.changeTile({ x: 0, y: 0 }, false, TileState.selected);
             expect(component.selected).toBeTruthy();
         });
     });
