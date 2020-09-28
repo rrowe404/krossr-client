@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Point } from 'dist/krossr/client/lib/Point/Point';
+import { Point } from '../Point/Point';
 import { TileFillEvent } from './TileFillEvent';
 import { TileState } from './TileState';
 

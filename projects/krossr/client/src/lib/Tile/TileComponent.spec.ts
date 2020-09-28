@@ -4,7 +4,6 @@ import { TileState } from './TileState';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { DragBoxService } from '../DragBox/DragBoxService';
 import { TileModule } from './TileModule';
-import { TileFillEvent } from 'dist/krossr/client/lib/Tile/TileFillEvent';
 import { TileFillEventService } from './TileFillEventService';
 
 describe('TileComponent', () => {

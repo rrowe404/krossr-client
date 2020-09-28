@@ -216,7 +216,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
-        this.fill(changeTo);
+        this.fill(changeTo, initState);
         this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
     }
 

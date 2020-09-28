@@ -12,7 +12,7 @@ import { ILevel } from '../Level/Level';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
-import { TileLayout } from 'dist/krossr/client/lib/TileLayout/TileLayout';
+import { TileLayout } from '../TileLayout/TileLayout';
 
 @Component({
     selector: 'krossr-level-creator',

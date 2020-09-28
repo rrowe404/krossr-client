@@ -7,7 +7,7 @@ import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
-import { TileLayout } from 'dist/krossr/client/lib/TileLayout/TileLayout';
+import { TileLayout } from '../TileLayout/TileLayout';
 
 @Component({
     template: ''
