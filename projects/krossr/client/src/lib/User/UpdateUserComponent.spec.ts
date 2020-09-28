@@ -33,7 +33,6 @@ describe('UpdateUserComponent', () => {
 
         return component.updateUser().then(() => {
             expect(component.success).toBeTruthy();
-            expect(component.buttonText()).toBe('Email Saved');
         });
     });
 

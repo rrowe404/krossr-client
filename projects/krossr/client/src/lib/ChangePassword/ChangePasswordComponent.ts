@@ -16,6 +16,7 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
     public verifyPasswordFormControl: FormControl;
 
     defaultMessage = 'Save Password';
+    successMessage = 'Password Saved!';
     public error: string;
 
     constructor(private changePasswordService: ChangePasswordService) {
@@ -35,8 +36,6 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
     changeUserPassword() {
         this.success = '';
         this.error = '';
-
-        this.successMessage = 'Password Saved!';
 
         return this.changePasswordService.changePassword(
             this.currentPasswordFormControl.value,

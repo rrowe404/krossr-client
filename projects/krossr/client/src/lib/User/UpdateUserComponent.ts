@@ -30,8 +30,6 @@ export class UpdateUserComponent extends KrossrFormBase implements OnInit {
     updateUser() {
         this.success = this.error = null;
 
-        this.successMessage = 'Email Saved';
-
         return this.userService.updateUser(this.emailFormControl.value).then(() => {
             this.displaySuccessMessage();
         }).catch((response: KrossrError) => {

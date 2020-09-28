@@ -13,6 +13,7 @@ export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
     @Input() token: string;
 
     defaultMessage = 'Update Password';
+    successMessage = 'Password updated!';
 
     public newPasswordFormControl: FormControl;
     public verifyPasswordFormControl: FormControl;
@@ -33,8 +34,6 @@ export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
     // Change user password
     resetUserPassword() {
         this.success = this.error = null;
-
-        this.successMessage = 'Password updated!';
 
         return this.resetPasswordService.resetPassword(this.token, {
             newPassword: this.newPasswordFormControl.value,
