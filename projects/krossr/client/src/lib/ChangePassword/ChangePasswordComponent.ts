@@ -4,6 +4,7 @@ import { ChangePasswordService } from './ChangePasswordService';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 import { KrossrError } from '@krossr/types';
+import { nowAndLater } from '../Debounce/Debounce';
 
 @Component({
     selector: 'krossr-change-password',
@@ -18,7 +19,6 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
 
     public success: boolean;
     public error: string;
-    private timeout = 1000;
 
     constructor(private changePasswordService: ChangePasswordService) {
         super();
@@ -44,18 +44,10 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
             this.newPasswordFormControl.value,
             this.verifyPasswordFormControl.value
         ).then(() => {
-            this.success = true;
             this.clearForm();
-
-            setTimeout(() => {
-                this.success = false;
-            }, this.timeout);
+            nowAndLater(() => this.success = true, () => this.success = false);
         }).catch((response: KrossrError) => {
-            this.error = response.error.message;
-
-            setTimeout(() => {
-                this.error = '';
-            }, this.timeout);
+            nowAndLater(() => this.error = response.error.message, () => this.error = '');
         });
     }
 

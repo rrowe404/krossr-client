@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ForgotPasswordService } from './ForgotPasswordService';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 import { KrossrError } from '@krossr/types';
+import { nowAndLater } from '../Debounce/Debounce';
 
 @Component({
     selector: 'krossr-forgot-password',
@@ -18,8 +19,6 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
 
     public success: boolean;
     public error: string;
-
-    private timeout = 1000;
 
     public formGroup: FormGroup;
     public usernameFormControl: FormControl;
@@ -49,21 +48,14 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
         this.success = this.error = null;
 
         return this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value).then(() => {
-            // Show user success message and clear form
             this.clearForm();
-            this.success = true;
 
-            setTimeout(() => {
-                this.close();
-            }, this.timeout);
+            // Show user success message and clear form
+            nowAndLater(() => this.success = true, () => this.close());
         }).catch((response: KrossrError) => {
             // Show user error message and clear form
             this.clearForm();
-            this.error = response.error.message;
-
-            setTimeout(() => {
-                this.error = null;
-            }, this.timeout);
+            nowAndLater(() => this.error = response.error.message, () => this.error = '');
         });
     }
 

@@ -5,6 +5,7 @@ import { SignInService } from './SignInService';
 import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordComponent';
 import { KrossrError } from '@krossr/types';
 import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
+import { nowAndLater } from '../Debounce/Debounce';
 
 /** Sign-in popup */
 @Component({
@@ -16,8 +17,6 @@ export class SignInComponent extends KrossrDialogBase implements OnInit {
     public username: FormControl;
     public password: FormControl;
     public error: string;
-
-    private timeout = 1000;
 
     constructor(
         protected matDialogRef: MatDialogRef<SignInComponent>,
@@ -48,11 +47,7 @@ export class SignInComponent extends KrossrDialogBase implements OnInit {
         return this.signInService.signIn(this.username.value, this.password.value).then(() => {
             this.close();
         }).catch((response: KrossrError) => {
-            this.error = response.error.message;
-
-            setTimeout(() => {
-                this.error = null;
-            }, this.timeout);
+            nowAndLater(() => this.error = response.error.message, () => this.error = '');
         });
     }
 

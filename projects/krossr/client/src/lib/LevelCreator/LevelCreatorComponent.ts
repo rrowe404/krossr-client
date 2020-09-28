@@ -13,6 +13,7 @@ import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditor
 import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { TileLayout } from '../TileLayout/TileLayout';
+import { nowAndLater } from '../Debounce/Debounce';
 
 @Component({
     selector: 'krossr-level-creator',
@@ -90,11 +91,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
         return this.levelService.createLevel(level).then((response: LevelViewModel) => {
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
         }).catch((response: KrossrError) => {
-            this.error = response.error.message;
-
-            setTimeout(() => {
-                this.error = '';
-            }, this.timeout);
+            nowAndLater(() => this.error = response.error.message, () => this.error = '');
         });
     }
 }

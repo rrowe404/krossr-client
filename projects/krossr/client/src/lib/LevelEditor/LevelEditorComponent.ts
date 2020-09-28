@@ -14,6 +14,7 @@ import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
+import { nowAndLater } from '../Debounce/Debounce';
 
 @Component({
     selector: 'krossr-level-editor',
@@ -83,11 +84,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
         return this.levelService.updateLevel(level).then(() => {
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
         }).catch((response: KrossrError) => {
-            this.error = response.error.message;
-
-            setTimeout(() => {
-                this.error = null;
-            }, this.timeout);
+            nowAndLater(() => this.error = response.error.message, () => this.error = '');
         });
     }
 }

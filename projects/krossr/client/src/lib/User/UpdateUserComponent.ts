@@ -17,8 +17,6 @@ export class UpdateUserComponent implements OnInit{
     public formGroup: FormGroup;
     public emailFormControl: FormControl;
 
-    private timeout = 1000;
-
     constructor(
         private userService: UserService
     ) {
