@@ -13,19 +13,10 @@ describe('ShiftService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should behave normally when shiftLock is off', () => {
-        service.shiftLock = false;
+    it('should behave correctly', () => {
         service.shiftOn = true;
         expect(service.shiftOn).toBeTrue();
         service.shiftOn = false;
         expect(service.shiftOn).toBeFalse();
-    });
-
-    it('should behave correctly when shiftLock is on', () => {
-        service.shiftLock = true;
-        service.shiftOn = true;
-        expect(service.shiftOn).toBeTrue();
-        service.shiftOn = false;
-        expect(service.shiftOn).toBeTrue();
     });
 });

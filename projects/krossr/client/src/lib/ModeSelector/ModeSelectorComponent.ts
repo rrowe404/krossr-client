@@ -1,5 +1,5 @@
 import { ShiftService } from '../Shift/ShiftService';
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 
 @Component({
     selector: 'krossr-mode-selector',
@@ -7,39 +7,46 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './ModeSelectorView.html'
 
 })
-export class ModeSelectorComponent implements OnInit {
+export class ModeSelectorComponent implements DoCheck, OnInit {
     constructor(
         private shiftService: ShiftService
     ) {
-
     }
 
-    public modes: IMode[];
-    public selectedMode: string;
+    public modes: { [key: string]: IMode };
+    public modeRepeater: string[];
+    public selectedMode: IMode;
+
+    ngDoCheck() {
+        if (this.shiftService.shiftOn) {
+            this.selectMode(this.modes.Mark);
+        } else {
+            this.selectMode(this.modes.Select);
+        }
+    }
 
     ngOnInit() {
-        this.modes = [
-            {
-                name: 'Select',
-                onSelect: () => this.shiftService.shiftLock = false
+        this.modes = {
+            Select: {
+                onSelect: () => this.shiftService.shiftOn = false
             },
-            {
-                name: 'Mark',
-                onSelect: () => this.shiftService.shiftLock = true
+            Mark: {
+                onSelect: () => this.shiftService.shiftOn = true
             }
-        ];
+        };
 
-        this.selectMode(this.modes[0]);
+        this.modeRepeater = Object.keys(this.modes);
+
+        this.selectMode(this.modes.Select);
     }
 
     selectMode(mode: IMode) {
-        this.selectedMode = mode.name;
+        this.selectedMode = mode;
 
         mode.onSelect();
     }
 }
 
 interface IMode {
-    name: string;
     onSelect: () => void;
 }
