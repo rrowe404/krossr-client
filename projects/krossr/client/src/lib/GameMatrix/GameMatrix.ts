@@ -26,6 +26,10 @@ export class GameMatrix implements IEquatable<GameMatrix> {
     }
 
     public equals(other: GameMatrix) {
+        if (!other) {
+            return false;
+        }
+
         return this.horizontal.equals(other.horizontal);
     }
 

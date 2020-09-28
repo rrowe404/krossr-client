@@ -111,11 +111,7 @@ export class GameComponent implements OnInit, OnDestroy {
      * Compare the current state of the game to the correct state
      */
     checkForWin() {
-        if (this.goalMatrix) {
-            return this.gameMatrix.equals(this.goalMatrix);
-        } else {
-            return false;
-        }
+        return this.gameMatrix && this.gameMatrix.equals(this.goalMatrix);
     }
 
     setMargin(tileSize: number) {
