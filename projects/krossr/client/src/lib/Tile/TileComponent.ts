@@ -94,7 +94,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             }),
             this.touchService.tileTouchEnd.subscribe(tile => {
-                if (this.$element === tile ) {
+                if (this.$element === tile) {
                     this.tryEndDragbox();
                 }
             }),
@@ -108,17 +108,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             })
         ];
-    }
-
-    private clearPending(coords: Point[]) {
-        let tileFillEvent: TileFillEvent = {
-            coords,
-            initState: true,
-            override: TileState.empty,
-            validate: (tile) => tile.isPendingAndNotSelected()
-        };
-
-        this.tileFillEventService.fill.emit(tileFillEvent);
     }
 
     /** If the override value (which will be the value of the tile that a dragstart is activated on)
@@ -150,7 +139,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
-        let coordsToClear;
 
         // save a snapshot of the previous dragbox for comparison purposes
         let oldCoords = this.dragBoxService.process();
@@ -160,31 +148,28 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
         let allPendingCoords = this.dragBoxService.process();
 
+        this.shrinkPendingArea(oldCoords, allPendingCoords);
+
+        this.tileFillEventService.fillPending(allPendingCoords);
+    }
+
+    private shrinkPendingArea(previous: Point[], current: Point[]) {
         // we should only clear the old coordinates off if the current selected area is
         // smaller than the previous selected area, for speed reasons
-        if (allPendingCoords &&
-            oldCoords &&
-            allPendingCoords.length < oldCoords.length) {
+        let needsShrinkage = previous && current && current.length < previous.length;
 
+        if (needsShrinkage) {
+            let coordsToClear: Point[];
             // more speed -- only clear the values that are present in
             // oldCoords but not allPendingCoords
-            coordsToClear = oldCoords.filter((e) => {
-                if (_.findIndex(allPendingCoords, e) === -1) {
+            coordsToClear = previous.filter((e) => {
+                if (_.findIndex(current, e) === -1) {
                     return true;
                 }
             });
 
-            this.clearPending(coordsToClear);
+            this.tileFillEventService.clearPending(coordsToClear);
         }
-
-        let tileFillEvent: TileFillEvent = {
-            coords: allPendingCoords,
-            initState: true,
-            override: TileState.pending,
-            validate: (tile) => tile.isNotPending()
-        };
-
-        this.tileFillEventService.fill.emit(tileFillEvent);
     }
 
     private mouseDownEvent() {
@@ -284,7 +269,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     fillBorders(direction) {
-      return this.getBorderColors(direction);
+        return this.getBorderColors(direction);
     }
 
     /* Determine which tiles to add colored borders to */
