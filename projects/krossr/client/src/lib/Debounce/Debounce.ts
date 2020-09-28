@@ -11,3 +11,18 @@ export function debounce(func: () => void, timeout: number = 250) {
 
     return subject;
 }
+
+
+export function nowAndLater(now: () => void, later: () => void, timeout: number = 1000) {
+    let subject = new Subject();
+
+    now();
+
+    subject.pipe(debounceTime(timeout)).subscribe(() => {
+        later();
+    });
+
+    subject.next();
+
+    return subject;
+}

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from './UserService';
 import { KrossrError } from '@krossr/types';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { nowAndLater } from '../Debounce/Debounce';
 
 @Component({
     selector: 'krossr-update-user',
@@ -31,17 +34,9 @@ export class UpdateUserComponent implements OnInit{
         this.success = this.error = null;
 
         return this.userService.updateUser(this.emailFormControl.value).then(() => {
-            this.success = true;
-
-            setTimeout(() => {
-                this.success = false;
-            }, this.timeout);
+            nowAndLater(() => this.success = true, () => this.success = false);
         }).catch((response: KrossrError) => {
-            this.error = response.error.message;
-
-            setTimeout(() => {
-                this.error = '';
-            }, this.timeout);
+            nowAndLater(() => this.error = response.error.message, () => this.error = '');
         });
     }
 
