@@ -14,6 +14,8 @@ export abstract class KrossrFormDialogBase extends KrossrFormBase {
     }
 
     close() {
-        this.matDialogRef.close();
+        if (this.matDialogRef) {
+            this.matDialogRef.close();
+        }
     }
 }

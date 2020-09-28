@@ -1,17 +1,17 @@
 /** Popup to change email/password or log out */
 
 import { Input, Component, Inject, Optional, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ForgotPasswordService } from './ForgotPasswordService';
-import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 import { KrossrError } from '@krossr/types';
+import { KrossrFormDialogBase } from '../KrossrFormDialog/KrossrFormDialogBase';
 
 @Component({
     selector: 'krossr-forgot-password',
     templateUrl: './ForgotPasswordView.html'
 })
-export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
+export class ForgotPasswordComponent extends KrossrFormDialogBase implements OnInit {
     @Input() public invalid = false;
 
     defaultMessage = 'Submit';
@@ -20,17 +20,11 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
     public usernameFormControl: FormControl;
 
     constructor(
-        @Optional() private matDialogRef: MatDialogRef<ForgotPasswordComponent>,
+        @Optional() matDialogRef: MatDialogRef<ForgotPasswordComponent>,
         private forgotPasswordService: ForgotPasswordService,
         @Optional() @Inject(MAT_DIALOG_DATA) public data: { username: string }
     ) {
-        super();
-    }
-
-    close() {
-        if (this.matDialogRef) {
-            this.matDialogRef.close();
-        }
+        super(matDialogRef);
     }
 
     ngOnInit() {
