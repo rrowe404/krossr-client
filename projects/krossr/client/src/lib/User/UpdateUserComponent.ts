@@ -2,22 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from './UserService';
 import { KrossrError } from '@krossr/types';
-import { nowAndLater } from '../Debounce/Debounce';
+import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 
 @Component({
     selector: 'krossr-update-user',
     templateUrl: './UpdateUserView.html'
 })
-export class UpdateUserComponent implements OnInit{
-    public success: boolean;
-    public error: string;
-
+export class UpdateUserComponent extends KrossrFormBase implements OnInit {
     public formGroup: FormGroup;
     public emailFormControl: FormControl;
+
+    defaultMessage = 'Save Email Address';
+    successMessage = 'Email Saved!';
 
     constructor(
         private userService: UserService
     ) {
+        super();
     }
 
     ngOnInit() {
@@ -29,18 +30,12 @@ export class UpdateUserComponent implements OnInit{
     updateUser() {
         this.success = this.error = null;
 
+        this.successMessage = 'Email Saved';
+
         return this.userService.updateUser(this.emailFormControl.value).then(() => {
-            nowAndLater(() => this.success = true, () => this.success = false);
+            this.displaySuccessMessage();
         }).catch((response: KrossrError) => {
-            nowAndLater(() => this.error = response.error.message, () => this.error = '');
+            this.displayErrorMessage(response);
         });
-    }
-
-    updateUserButtonText() {
-        if (this.success) {
-            return 'Email Saved';
-        }
-
-        return this.error || 'Save Email Address';
     }
 }

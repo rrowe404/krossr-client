@@ -33,7 +33,7 @@ describe('UpdateUserComponent', () => {
 
         return component.updateUser().then(() => {
             expect(component.success).toBeTruthy();
-            expect(component.updateUserButtonText()).toBe('Email Saved');
+            expect(component.buttonText()).toBe('Email Saved');
         });
     });
 
@@ -48,7 +48,7 @@ describe('UpdateUserComponent', () => {
 
         return component.updateUser().then(() => {
             expect(component.error).toBe('no');
-            expect(component.updateUserButtonText()).toBe('no');
+            expect(component.buttonText()).toBe('no');
         });
     });
 });
