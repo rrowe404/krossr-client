@@ -14,7 +14,6 @@ export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
 
     defaultMessage = 'Update Password';
 
-    public formGroup: FormGroup;
     public newPasswordFormControl: FormControl;
     public verifyPasswordFormControl: FormControl;
 
@@ -25,7 +24,6 @@ export class ResetPasswordComponent extends KrossrFormBase implements OnInit {
     }
 
     ngOnInit() {
-        this.formGroup = new FormGroup({});
         this.newPasswordFormControl = new FormControl('', [Validators.required, Validators.minLength(MinPasswordLength.value)]);
         this.verifyPasswordFormControl = new FormControl('', [Validators.required, Validators.minLength(MinPasswordLength.value)]);
         this.formGroup.addControl('newPassword', this.newPasswordFormControl);

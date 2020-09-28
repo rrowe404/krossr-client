@@ -11,7 +11,6 @@ import { KrossrError } from '@krossr/types';
 })
 export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
     public minPasswordLength = MinPasswordLength.value;
-    public formGroup: FormGroup;
     public currentPasswordFormControl: FormControl;
     public newPasswordFormControl: FormControl;
     public verifyPasswordFormControl: FormControl;
@@ -24,7 +23,6 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
     }
 
     ngOnInit() {
-        this.formGroup = new FormGroup({});
         this.currentPasswordFormControl = new FormControl('', [Validators.required]);
         this.newPasswordFormControl = new FormControl('', [Validators.required, Validators.minLength(this.minPasswordLength)]);
         this.verifyPasswordFormControl = new FormControl('', [Validators.required, Validators.minLength(this.minPasswordLength)]);

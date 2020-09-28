@@ -17,7 +17,6 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
     defaultMessage = 'Submit';
 
     public username: string;
-    public formGroup: FormGroup;
     public usernameFormControl: FormControl;
 
     constructor(
@@ -35,7 +34,6 @@ export class ForgotPasswordComponent extends KrossrFormBase implements OnInit {
     }
 
     ngOnInit() {
-        this.formGroup = new FormGroup({});
         this.usernameFormControl = new FormControl(this.data ? this.data.username : '', [Validators.required]);
         this.formGroup.addControl('username', this.usernameFormControl);
     }

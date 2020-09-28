@@ -3,7 +3,7 @@ import { KrossrError } from '@krossr/types';
 import { nowAndLater } from '../Debounce/Debounce';
 
 export abstract class KrossrFormBase {
-    abstract formGroup: FormGroup;
+    public formGroup: FormGroup = new FormGroup({});
     abstract defaultMessage: string;
 
     public success: string;

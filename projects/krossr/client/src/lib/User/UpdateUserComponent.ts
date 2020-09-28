@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from './UserService';
 import { KrossrError } from '@krossr/types';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { nowAndLater } from '../Debounce/Debounce';
 
 @Component({
