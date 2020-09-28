@@ -8,6 +8,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
     template: ''
 })
 class TestDialogComponent extends KrossrDialogBase {
+    defaultMessage = '';
 }
 
 describe('KrossrDialogBase', () => {
