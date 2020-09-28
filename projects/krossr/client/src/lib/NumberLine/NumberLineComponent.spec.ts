@@ -1,6 +1,5 @@
 import { NumberLineComponent } from './NumberLineComponent';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { CommonModule } from '@angular/common';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { NumberLineModule } from './NumberLineModule';
 
