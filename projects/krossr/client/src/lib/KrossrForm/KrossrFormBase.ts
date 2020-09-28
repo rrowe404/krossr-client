@@ -12,6 +12,22 @@ export abstract class KrossrFormBase {
     private defaultSuccessMessage = 'Submitted!';
     public successMessage = this.defaultSuccessMessage;
 
+    abstract trySubmit: () => Promise<any>;
+    protected onSuccess: () => Promise<any> = this.defaultOnSuccess;
+    protected onError: (error: KrossrError) => void = this.defaultOnError;
+
+    private defaultOnSuccess() {
+        this.clearForm();
+        this.displaySuccessMessage();
+
+        return Promise.resolve();
+    }
+
+    private defaultOnError(error: KrossrError) {
+        this.clearForm();
+        this.displayErrorMessage(error);
+    }
+
     public buttonText() {
         return this.success || this.error || this.defaultMessage;
     }
@@ -21,10 +37,14 @@ export abstract class KrossrFormBase {
     }
 
     public displaySuccessMessage() {
-        return nowAndLater(() => this.success = this.successMessage, () => this.success = '');
+        return nowAndLater(() => this.success = this.successMessage, () => this.success = '').toPromise();
     }
 
     public displayErrorMessage(response: KrossrError) {
         nowAndLater(() => this.error = response.error.message, () => this.error = '');
+    }
+
+    public submit() {
+        return this.trySubmit().then(() => this.onSuccess()).catch((err) => this.onError(err));
     }
 }

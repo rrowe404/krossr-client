@@ -2,6 +2,6 @@
 		<h2>Change your Email Address</h2>
 		<krossr-input label="Email" type="email" name="email" [control]="emailFormControl"></krossr-input>
 		<div class="form-group">
-			<krossr-button [disabled]="error || success" (click)="updateUser()" [text]="buttonText()"></krossr-button>
+			<krossr-button [disabled]="error || success" (click)="submit()" [text]="buttonText()"></krossr-button>
 		</div>
 	</form>

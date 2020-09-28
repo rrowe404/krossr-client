@@ -57,7 +57,7 @@ describe('ForgotPasswordComponent', () => {
         spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.resolve({}));
         spyOn(component, 'close');
 
-        return component.askForPasswordReset().then(() => {
+        return component.submit().then(() => {
             expect(component.close).toHaveBeenCalled();
         });
     });
@@ -73,7 +73,7 @@ describe('ForgotPasswordComponent', () => {
             }
         }));
 
-        return component.askForPasswordReset().then(() => {
+        return component.submit().then(() => {
             expect(component.error).toBeTruthy();
         });
     });

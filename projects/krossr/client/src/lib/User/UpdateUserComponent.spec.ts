@@ -31,7 +31,7 @@ describe('UpdateUserComponent', () => {
 
         component.emailFormControl.setValue('test@test.com');
 
-        return component.updateUser().then(() => {
+        return component.submit().then(() => {
             expect(component.success).toBeTruthy();
         });
     });
@@ -45,7 +45,7 @@ describe('UpdateUserComponent', () => {
             }
         }));
 
-        return component.updateUser().then(() => {
+        return component.submit().then(() => {
             expect(component.error).toBe('no');
             expect(component.buttonText()).toBe('no');
         });

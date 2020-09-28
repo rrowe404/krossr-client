@@ -33,7 +33,7 @@ describe('ChangePasswordComponent', () => {
         let changePasswordService: ChangePasswordService = TestBed.inject(ChangePasswordService);
         spyOn(changePasswordService, 'changePassword').and.returnValue(Promise.resolve({}));
 
-        return component.changeUserPassword().then(() => {
+        return component.submit().then(() => {
             expect(component.success).toBeTruthy();
             expect(component.buttonText()).toBe('Password Saved!');
         });
@@ -50,7 +50,7 @@ describe('ChangePasswordComponent', () => {
             }
         }));
 
-        return component.changeUserPassword().then(() => {
+        return component.submit().then(() => {
             expect(component.error).toBe(errorMessage);
         });
     });

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from './UserService';
-import { KrossrError } from '@krossr/types';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 
 @Component({
@@ -27,13 +26,7 @@ export class UpdateUserComponent extends KrossrFormBase implements OnInit {
         this.formGroup.addControl('email', this.emailFormControl);
     }
 
-    updateUser() {
-        this.success = this.error = null;
-
-        return this.userService.updateUser(this.emailFormControl.value).then(() => {
-            this.displaySuccessMessage();
-        }).catch((response: KrossrError) => {
-            this.displayErrorMessage(response);
-        });
+    trySubmit = () => {
+        return this.userService.updateUser(this.emailFormControl.value);
     }
 }

@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 describe('KrossrFormBase', () => {
     class DummyKrossrForm extends KrossrFormBase {
         defaultMessage = '';
+        trySubmit = () => Promise.resolve();
     }
 
     it('should call reset when cleared', () => {

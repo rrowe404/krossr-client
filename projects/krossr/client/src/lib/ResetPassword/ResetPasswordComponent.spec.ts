@@ -29,7 +29,7 @@ describe('ResetPasswordComponent', () => {
         let resetPasswordService: ResetPasswordService = TestBed.inject(ResetPasswordService);
         spyOn(resetPasswordService, 'resetPassword').and.returnValue(Promise.resolve());
 
-        return component.resetUserPassword().then(() => {
+        return component.submit().then(() => {
             expect(component.success).toBeTruthy();
         });
     });
@@ -43,7 +43,7 @@ describe('ResetPasswordComponent', () => {
             }
         }));
 
-        return component.resetUserPassword().then(() => {
+        return component.submit().then(() => {
             expect(component.error).toBeTruthy();
         });
     });

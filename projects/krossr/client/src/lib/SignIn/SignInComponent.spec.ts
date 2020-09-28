@@ -52,7 +52,7 @@ describe('SignInComponent', () => {
         component.username.setValue('rosalyn');
         component.password.setValue('hunter2');
 
-        return component.signIn().then(() => {
+        return component.submit().then(() => {
             expect(component.close).toHaveBeenCalled();
         });
     });
@@ -61,7 +61,7 @@ describe('SignInComponent', () => {
         let signInService: SignInService = TestBed.inject(SignInService);
         spyOn(signInService, 'signIn').and.returnValue(Promise.reject({ error: { message: 'nope' }} ));
 
-        return component.signIn().then(() => {
+        return component.submit().then(() => {
             expect(component.error).toBe('nope');
         });
     });

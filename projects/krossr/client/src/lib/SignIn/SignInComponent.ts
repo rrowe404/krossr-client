@@ -3,7 +3,6 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { SignInService } from './SignInService';
 import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordComponent';
-import { KrossrError } from '@krossr/types';
 import { KrossrFormDialogBase } from '../KrossrFormDialog/KrossrFormDialogBase';
 
 /** Sign-in popup */
@@ -42,11 +41,9 @@ export class SignInComponent extends KrossrFormDialogBase implements OnInit {
         });
     }
 
-    signIn() {
-        return this.signInService.signIn(this.username.value, this.password.value).then(() => {
-            this.close();
-        }).catch((response: KrossrError) => {
-            this.displayErrorMessage(response);
-        });
+    trySubmit = () => {
+        return this.signInService.signIn(this.username.value, this.password.value);
     }
+
+    onSuccess = () => Promise.resolve(this.close());
 }

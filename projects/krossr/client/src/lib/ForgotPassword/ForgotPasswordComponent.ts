@@ -32,16 +32,9 @@ export class ForgotPasswordComponent extends KrossrFormDialogBase implements OnI
         this.formGroup.addControl('username', this.usernameFormControl);
     }
 
-    // Submit forgotten password account id
-    askForPasswordReset() {
-        this.success = this.error = null;
-
+    trySubmit = () => {
         return this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value).then(() => {
             this.close();
-        }).catch((response: KrossrError) => {
-            // Show user error message and clear form
-            this.clearForm();
-            this.displayErrorMessage(response);
         });
     }
 }

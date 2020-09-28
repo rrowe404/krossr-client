@@ -3,7 +3,6 @@ import { SignUpService } from './SignUpService';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
-import { KrossrError } from '@krossr/types';
 import { KrossrFormDialogBase } from '../KrossrFormDialog/KrossrFormDialogBase';
 
 @Component({
@@ -33,11 +32,9 @@ export class SignUpComponent extends KrossrFormDialogBase implements OnInit {
         this.formGroup.addControl('password', this.password);
     }
 
-    signUp() {
-        this.signUpService.signUp(this.username.value, this.email.value, this.password.value).then(() => {
-            this.close();
-        }).catch((response: KrossrError) => {
-            this.displayErrorMessage(response);
-        });
+    trySubmit = () => {
+        return this.signUpService.signUp(this.username.value, this.email.value, this.password.value);
     }
+
+    onSuccess = () => Promise.resolve(this.close());
 }
