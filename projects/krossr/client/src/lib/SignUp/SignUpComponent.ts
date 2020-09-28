@@ -5,18 +5,21 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
 import { KrossrError } from '@krossr/types';
 import { nowAndLater } from '../Debounce/Debounce';
+import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 
 @Component({
     selector: 'krossr-sign-up',
     templateUrl: './SignUpView.html'
 })
-export class SignUpComponent implements OnInit {
-    public error: string;
+export class SignUpComponent extends KrossrFormBase implements OnInit {
+    defaultMessage = 'Sign Up';
 
     constructor(
         private matDialogRef: MatDialogRef<SignUpComponent>,
         private signUpService: SignUpService
-    ) {}
+    ) {
+        super();
+    }
 
     public formGroup: FormGroup;
     public username: FormControl;
@@ -37,11 +40,7 @@ export class SignUpComponent implements OnInit {
         this.signUpService.signUp(this.username.value, this.email.value, this.password.value).then(() => {
             this.matDialogRef.close();
         }).catch((response: KrossrError) => {
-            nowAndLater(() => this.error = response.error.message, () => this.error = null);
+            this.displayErrorMessage(response);
         });
-    }
-
-    signUpButtonText() {
-        return this.error || 'Sign Up';
     }
 }
