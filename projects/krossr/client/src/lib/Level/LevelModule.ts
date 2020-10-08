@@ -8,9 +8,11 @@ import { NumberGridModule } from '../NumberGrid/NumberGridModule';
 import { ModeSelectorModule } from '../ModeSelector/ModeSelectorModule';
 import { StarRatingModule } from '../StarRating/StarRatingModule';
 import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModule';
+import { AsyncModule } from '../Async/AsyncModule';
 
 @NgModule({
     imports: [
+        AsyncModule,
         CommonModule,
         GameModule,
         LoadingAnimationModule,

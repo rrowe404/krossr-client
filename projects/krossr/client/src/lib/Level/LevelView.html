@@ -1,36 +1,37 @@
-<krossr-loading-animation *ngIf="!isReady"></krossr-loading-animation>
-
-<section class="viewLevel" *ngIf="isReady">
-    <div class="rateLevel" *ngIf="Authentication.user">
-        Rate: <krossr-star-rating [rating]="level.userRating ? level.userRating.rating : 0" max="5" (ratingSelected)="rate($event)"></krossr-star-rating>
-    </div>
-
-    <krossr-mode-selector></krossr-mode-selector>
-
-    <div tabindex="0">
-        <div class="gameContainer-inner">
-            <div class="top row">
-                <krossr-number-grid
-                    [gameMatrix]="gameMatrix['vertical']"
-                    [goalMatrix]="goalMatrix['vertical']"
-                    *ngIf="level && level.decodedLayout"
-                    orientation="vertical"
-                    class="top-grid"
-                    [ngStyle]="{'padding-right': margin}"></krossr-number-grid>
-            </div>
-            
-            <div class="bottom row">
-                <krossr-game [gameMatrix]="gameMatrix" [goalMatrix]="goalMatrix" [level]="level" [tiles]="finalLayout" *ngIf="finalLayout.length"></krossr-game>
-
-                <krossr-number-grid
-                    [gameMatrix]="gameMatrix['horizontal']"
-                    [goalMatrix]="goalMatrix['horizontal']"
-                    *ngIf="level && level.decodedLayout"
-                    orientation="horizontal"
-                    class="left-grid"
-                    [ngStyle]="{'padding-top': margin}">
-                </krossr-number-grid>
+<krossr-async-content [isReady]="isReady">
+    <section class="viewLevel">
+        <div class="rateLevel" *ngIf="Authentication.user">
+            Rate: <krossr-star-rating [rating]="level.userRating ? level.userRating.rating : 0" max="5" (ratingSelected)="rate($event)"></krossr-star-rating>
+        </div>
+    
+        <krossr-mode-selector></krossr-mode-selector>
+    
+        <div tabindex="0">
+            <div class="gameContainer-inner">
+                <div class="top row">
+                    <krossr-number-grid
+                        [gameMatrix]="gameMatrix['vertical']"
+                        [goalMatrix]="goalMatrix['vertical']"
+                        *ngIf="level && level.decodedLayout"
+                        orientation="vertical"
+                        class="top-grid"
+                        [ngStyle]="{'padding-right': margin}"></krossr-number-grid>
+                </div>
+                
+                <div class="bottom row">
+                    <krossr-game [gameMatrix]="gameMatrix" [goalMatrix]="goalMatrix" [level]="level" [tiles]="finalLayout" *ngIf="finalLayout.length"></krossr-game>
+    
+                    <krossr-number-grid
+                        [gameMatrix]="gameMatrix['horizontal']"
+                        [goalMatrix]="goalMatrix['horizontal']"
+                        *ngIf="level && level.decodedLayout"
+                        orientation="horizontal"
+                        class="left-grid"
+                        [ngStyle]="{'padding-top': margin}">
+                    </krossr-number-grid>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</krossr-async-content>
+
