@@ -13,7 +13,7 @@ export class SignOutService {
     }
 
     async signout(): Promise<void> {
-        await this.httpClient.post('auth/signout', {}).toPromise()
+        await this.httpClient.post('auth/signout', {}).toPromise();
 
         this.authenticationService.signOut();
     }

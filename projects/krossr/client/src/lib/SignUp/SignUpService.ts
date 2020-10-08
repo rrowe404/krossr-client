@@ -13,13 +13,13 @@ export class SignUpService {
     ) {
     }
 
-    signUp(username: string, email: string, password: string) {
-        return this.httpClient.post('auth/signup', {
+    async signUp(username: string, email: string, password: string) {
+        let response = await this.httpClient.post('auth/signup', {
             username,
             email,
             password
-        }).toPromise().then((response: UserViewModel) => {
-            return this.authenticationService.signIn(response);
-        });
+        }).toPromise() as UserViewModel;
+
+        this.authenticationService.signIn(response);
     }
 }
