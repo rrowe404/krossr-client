@@ -3,12 +3,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { debounce } from '../Debounce/Debounce';
 import { LevelListFilterOptions, LevelListFilterSelectOptionsViewModel, Dictionary } from '@krossr/types';
 import { LevelSelectFilterService } from './LevelSelectFilterService';
+import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 
 @Component({
     selector: 'krossr-level-select-filter',
     templateUrl: './LevelSelectFilterView.html'
 })
-export class LevelSelectFilterComponent implements OnInit {
+export class LevelSelectFilterComponent implements AsyncLoadedComponent, OnInit {
     @Output() public refilter: EventEmitter<LevelListFilterOptions> = new EventEmitter();
 
     public isReady = false;

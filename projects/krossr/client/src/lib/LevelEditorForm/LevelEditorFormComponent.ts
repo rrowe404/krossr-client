@@ -13,12 +13,13 @@ import { LevelEditorSelectOptionsViewModel, Dictionary } from '@krossr/types';
 import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
 import { TileFillEventService } from '../Tile/TileFillEventService';
 import { TileState } from '../Tile/TileState';
+import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 
 @Component({
     selector: 'krossr-level-editor-form',
     templateUrl: './LevelEditorFormView.html'
 })
-export class LevelEditorFormComponent implements OnInit {
+export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
     @Input() public isEdit = false;
     @Input() public level: ILevel;
     @Input() public error: string;

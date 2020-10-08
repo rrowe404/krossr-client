@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 
 @Component({
     selector: 'krossr-popup-content',
     styleUrls: ['./PopupContentStyles.less'],
     templateUrl: './PopupContentView.html'
 })
-export class PopupContentComponent {
+export class PopupContentComponent implements AsyncLoadedComponent {
     @Input() public isReady = true;
 }
