@@ -41,8 +41,8 @@ export class SignInComponent extends KrossrFormDialogBase implements OnInit {
         });
     }
 
-    trySubmit = () => {
-        return this.signInService.signIn(this.username.value, this.password.value);
+    trySubmit = async () => {
+        await this.signInService.signIn(this.username.value, this.password.value);
     }
 
     onSuccess = () => Promise.resolve(this.close());

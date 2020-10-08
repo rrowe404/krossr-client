@@ -26,7 +26,7 @@ export class UpdateUserComponent extends KrossrFormBase implements OnInit {
         this.formGroup.addControl('email', this.emailFormControl);
     }
 
-    trySubmit = () => {
-        return this.userService.updateUser(this.emailFormControl.value);
+    trySubmit = async () => {
+        await this.userService.updateUser(this.emailFormControl.value);
     }
 }

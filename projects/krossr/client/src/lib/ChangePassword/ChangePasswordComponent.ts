@@ -31,8 +31,8 @@ export class ChangePasswordComponent extends KrossrFormBase implements OnInit {
         this.formGroup.addControl('verify', this.verifyPasswordFormControl);
     }
 
-    trySubmit = () => {
-        return this.changePasswordService.changePassword(
+    trySubmit = async () => {
+        await this.changePasswordService.changePassword(
             this.currentPasswordFormControl.value,
             this.newPasswordFormControl.value,
             this.verifyPasswordFormControl.value

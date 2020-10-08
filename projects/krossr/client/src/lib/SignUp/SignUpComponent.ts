@@ -32,8 +32,8 @@ export class SignUpComponent extends KrossrFormDialogBase implements OnInit {
         this.formGroup.addControl('password', this.password);
     }
 
-    trySubmit = () => {
-        return this.signUpService.signUp(this.username.value, this.email.value, this.password.value);
+    trySubmit = async () => {
+        await this.signUpService.signUp(this.username.value, this.email.value, this.password.value);
     }
 
     onSuccess = () => Promise.resolve(this.close());
