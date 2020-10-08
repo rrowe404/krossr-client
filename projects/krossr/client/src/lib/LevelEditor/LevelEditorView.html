@@ -1,14 +1,14 @@
-<krossr-loading-animation *ngIf="!isReady"></krossr-loading-animation>
+<krossr-async-content [isReady]="isReady">
+    <section class="viewLevel" *ngIf="level">
+        <krossr-level-editor-form [isEdit]="true" [error]="error" [level]="level" submitText="Update" (submitAction)="confirmUpdate($event)">
+        </krossr-level-editor-form>
 
-<section class="viewLevel" *ngIf="isReady">
-    <krossr-level-editor-form [isEdit]="true" [error]="error" [level]="level" submitText="Update" (submitAction)="confirmUpdate($event)">
-    </krossr-level-editor-form>
-
-    <div tabindex="0">
-        <div class="gameContainer-inner">
-            <div class="bottom row">
-                <krossr-game [gameMatrix]="gameMatrix" [goalMatrix]="goalMatrix" [isEditMode]="true" [level]="level" [tiles]="finalLayout" *ngIf="finalLayout.length"></krossr-game>
+        <div tabindex="0">
+            <div class="gameContainer-inner">
+                <div class="bottom row">
+                    <krossr-game [gameMatrix]="gameMatrix" [goalMatrix]="goalMatrix" [isEditMode]="true" [level]="level" [tiles]="finalLayout" *ngIf="finalLayout.length"></krossr-game>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</krossr-async-content>

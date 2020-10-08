@@ -4,9 +4,11 @@ import { LevelCreatorComponent } from './LevelCreatorComponent';
 import { GameModule } from '../Game/GameModule';
 import { CommonModule } from '@angular/common';
 import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModule';
+import { AsyncModule } from '../Async/AsyncModule';
 
 @NgModule({
     imports: [
+        AsyncModule,
         CommonModule,
         GameModule,
         LoadingAnimationModule,

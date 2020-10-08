@@ -7,9 +7,11 @@ import { KrossrInputModule } from '../KrossrInput/KrossrInputModule';
 import { KrossrSelectModule } from '../KrossrSelect/KrossrSelectModule';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModule';
+import { AsyncModule } from '../Async/AsyncModule';
 
 @NgModule({
     imports: [
+        AsyncModule,
         CommonModule,
         LoadingAnimationModule,
         MatDialogModule,

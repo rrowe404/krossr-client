@@ -1,11 +1,11 @@
-<krossr-loading-animation *ngIf="!isReady"></krossr-loading-animation>
+<krossr-async-content [isReady]="isReady">
+    <div class="form-group" *ngIf="isReady">
+        <h2>{{ isEdit ? 'Edit' : 'New' }} level</h2>
 
-<div class="form-group" *ngIf="isReady">
-    <h2>{{ isEdit ? 'Edit' : 'New' }} level</h2>
-
-    <krossr-input name="name" label="Name" [control]="nameFormControl" (updated)="updateName($event)"></krossr-input>
-    <krossr-select [control]="sizeFormControl" (updated)="updateSize($event)" [optionMap]="sizeMap" *ngIf="!isEdit" label="Size"></krossr-select>
-    <krossr-button (click)="confirmClear()" text="Clear Tiles"></krossr-button>
-    <krossr-button [disabled]="error" (click)="submit()" [text]="submitButtonText()"></krossr-button>
-    <krossr-button *ngIf="level.id" (click)="confirmRemove()" text="Delete Level"></krossr-button>
-</div>
+        <krossr-input name="name" label="Name" [control]="nameFormControl" (updated)="updateName($event)"> </krossr-input>
+        <krossr-select [control]="sizeFormControl" (updated)="updateSize($event)" [optionMap]="sizeMap" *ngIf="!isEdit" label="Size"></krossr-select>
+        <krossr-button (click)="confirmClear()" text="Clear Tiles"></krossr-button>
+        <krossr-button [disabled]="error" (click)="submit()" [text]="submitButtonText()"></krossr-button>
+        <krossr-button *ngIf="level.id" (click)="confirmRemove()" text="Delete Level"></krossr-button>
+    </div>
+</krossr-async-content>
