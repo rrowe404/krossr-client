@@ -18,18 +18,17 @@ describe('SignUpService', () => {
         service = TestBed.inject(SignUpService);
     });
 
-    it('should sign up and sign in', () => {
+    it('should sign up and sign in', async () => {
         let authenticationService: AuthenticationService = TestBed.inject(AuthenticationService);
         spyOn(authenticationService, 'signIn').and.returnValue();
 
-        let promise = service.signUp('username', 'email@server.com', 'password').then(() => {
-            expect(authenticationService.signIn).toHaveBeenCalledWith({ id: 1, username: 'Rosalyn' });
-        });
+        let promise = service.signUp('username', 'email@server.com', 'password');
 
         httpTestingController
             .expectOne('auth/signup')
             .flush({ id: 1, username: 'Rosalyn' });
 
-        return promise;
+        await promise;
+        expect(authenticationService.signIn).toHaveBeenCalledWith({ id: 1, username: 'Rosalyn' });
     });
 });

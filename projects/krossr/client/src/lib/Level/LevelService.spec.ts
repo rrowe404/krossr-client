@@ -18,42 +18,33 @@ describe('LevelService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should create a level', () => {
-        let promise = service.createLevel({ name: 'testname', decodedLayout: [[]]});
+    it('should create a level', async () => {
+        let promise = service.createLevel({ name: 'testname', decodedLayout: [[]] });
         let req = httpTestingController.expectOne('levels');
 
-        promise.then(() => {
-            expect(req.request.method).toBe('POST');
-        });
-
         req.flush({});
 
-        return promise;
+        await promise;
+        expect(req.request.method).toBe('POST');
     });
 
-    it('should update a level', () => {
-        let promise = service.updateLevel({ id: 1, name: 'testname', decodedLayout: [[]]});
+    it('should update a level', async () => {
+        let promise = service.updateLevel({ id: 1, name: 'testname', decodedLayout: [[]] });
         let req = httpTestingController.expectOne('levels/1');
 
-        promise.then(() => {
-            expect(req.request.method).toBe('PUT');
-        });
-
         req.flush({});
 
-        return promise;
+        await promise;
+        expect(req.request.method).toBe('PUT');
     });
 
-    it('should remove a level', () => {
+    it('should remove a level', async () => {
         let promise = service.removeLevel(1);
         let req = httpTestingController.expectOne('levels/1');
 
-        promise.then(() => {
-            expect(req.request.method).toBe('DELETE');
-        });
-
         req.flush({});
 
-        return promise;
+        await promise;
+        expect(req.request.method).toBe('DELETE');
     });
 });

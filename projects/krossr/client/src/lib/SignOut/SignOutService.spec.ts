@@ -24,14 +24,13 @@ describe('SignOutService', () => {
         let authenticationService: AuthenticationService = TestBed.inject(AuthenticationService);
         spyOn(authenticationService, 'signOut').and.returnValue();
 
-        let promise = service.signout().then(() => {
-            expect(authenticationService.signOut).toHaveBeenCalled();
-        });
+        let promise = service.signout();
 
         httpTestingController
             .expectOne('auth/signout')
             .flush({});
 
-        return promise;
+        await promise;
+        expect(authenticationService.signOut).toHaveBeenCalled();
     });
 });

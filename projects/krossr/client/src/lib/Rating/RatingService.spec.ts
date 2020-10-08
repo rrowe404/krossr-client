@@ -20,13 +20,12 @@ describe('RatingService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should make a request to the rating endpoint', () => {
-        let promise = service.rate(1, 5).then(() => {
-            expect(true).toBe(true);
-        });
+    it('should make a request to the rating endpoint', async () => {
+        let promise = service.rate(1, 5);
 
         httpTestingController.expectOne('levels/1/ratings').flush({});
 
-        return promise;
+        await promise;
+        expect(true).toBe(true);
     });
 });

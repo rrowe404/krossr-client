@@ -20,13 +20,12 @@ describe('ChangePasswordService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should make a request to the rating endpoint', () => {
-        let promise = service.changePassword('current', 'new', 'new').then(() => {
-            expect(true).toBe(true);
-        });
+    it('should make a request to the rating endpoint', async () => {
+        let promise = service.changePassword('current', 'new', 'new');
 
         httpTestingController.expectOne('users/password').flush({});
 
-        return promise;
+        await promise;
+        expect(true).toBe(true);
     });
 });
