@@ -92,7 +92,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
         try {
             let response = await this.levelService.createLevel(level) as LevelViewModel;
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
-        } catch(err) {
+        } catch (err) {
             let reponse = err as KrossrError;
             nowAndLater(() => this.error = reponse.error.message, () => this.error = '');
         }

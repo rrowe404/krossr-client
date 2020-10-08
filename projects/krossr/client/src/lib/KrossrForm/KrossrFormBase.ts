@@ -48,7 +48,7 @@ export abstract class KrossrFormBase {
         try {
             await this.trySubmit();
             this.onSuccess();
-        } catch(err) {
+        } catch (err) {
             this.onError(err);
         }
     }
