@@ -28,9 +28,9 @@ describe('SignOutService', () => {
             expect(authenticationService.signOut).toHaveBeenCalled();
         });
 
-        const req = httpTestingController.expectOne('auth/signout');
-
-        req.flush({});
+        httpTestingController
+            .expectOne('auth/signout')
+            .flush({});
 
         return promise;
     });

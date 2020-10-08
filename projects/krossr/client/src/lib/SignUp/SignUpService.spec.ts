@@ -26,9 +26,9 @@ describe('SignUpService', () => {
             expect(authenticationService.signIn).toHaveBeenCalledWith({ id: 1, username: 'Rosalyn' });
         });
 
-        const req = httpTestingController.expectOne('auth/signup');
-
-        req.flush({ id: 1, username: 'Rosalyn' });
+        httpTestingController
+            .expectOne('auth/signup')
+            .flush({ id: 1, username: 'Rosalyn' });
 
         return promise;
     });

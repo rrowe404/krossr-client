@@ -25,9 +25,7 @@ describe('RatingService', () => {
             expect(true).toBe(true);
         });
 
-        const req = httpTestingController.expectOne('levels/1/ratings');
-
-        req.flush({});
+        httpTestingController.expectOne('levels/1/ratings').flush({});
 
         return promise;
     });

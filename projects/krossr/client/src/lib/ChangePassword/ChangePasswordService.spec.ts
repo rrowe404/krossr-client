@@ -25,9 +25,7 @@ describe('ChangePasswordService', () => {
             expect(true).toBe(true);
         });
 
-        const req = httpTestingController.expectOne('users/password');
-
-        req.flush({});
+        httpTestingController.expectOne('users/password').flush({});
 
         return promise;
     });
