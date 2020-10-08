@@ -4,7 +4,6 @@ import { Input, Component, Inject, Optional, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ForgotPasswordService } from './ForgotPasswordService';
-import { KrossrError } from '@krossr/types';
 import { KrossrFormDialogBase } from '../KrossrFormDialog/KrossrFormDialogBase';
 
 @Component({
@@ -32,9 +31,8 @@ export class ForgotPasswordComponent extends KrossrFormDialogBase implements OnI
         this.formGroup.addControl('username', this.usernameFormControl);
     }
 
-    trySubmit = () => {
-        return this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value).then(() => {
-            this.close();
-        });
+    trySubmit = async () => {
+        await this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value);
+        this.close();
     }
 }

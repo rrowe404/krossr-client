@@ -81,17 +81,19 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
     }
 
     // Split out for easier testing
-    submitCreate() {
+    async submitCreate() {
         // Create new Level object
         let level = {
             name: this.level.name,
             decodedLayout: this.gameMatrix.horizontal.getLayout(),
         } as CreateLevelBodyViewModel;
 
-        return this.levelService.createLevel(level).then((response: LevelViewModel) => {
+        try {
+            let response = await this.levelService.createLevel(level) as LevelViewModel;
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
-        }).catch((response: KrossrError) => {
-            nowAndLater(() => this.error = response.error.message, () => this.error = '');
-        });
+        } catch(err) {
+            let reponse = err as KrossrError;
+            nowAndLater(() => this.error = reponse.error.message, () => this.error = '');
+        }
     }
 }

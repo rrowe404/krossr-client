@@ -67,12 +67,9 @@ export class Routes {
                 name: UserRoutes.reset,
                 url: '/password/reset/:token',
                 component: ResetPasswordComponent,
-                redirectTo: (trans) => {
-                    let tokenValidResolvePromise: Promise<boolean> = trans.injector().getAsync(tokenValidResolve);
-
-                    return tokenValidResolvePromise.then((valid: boolean) => {
-                        return valid ? null : UserRoutes.resetInvalid;
-                    });
+                redirectTo: async (trans) => {
+                    let valid = await trans.injector().getAsync(tokenValidResolve);
+                    return valid ? null : UserRoutes.resetInvalid;
                 },
                 resolve: [
                     {

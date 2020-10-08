@@ -56,26 +56,26 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
         };
     }
 
-    findOne() {
+    async findOne() {
         this.finalLayout = [];
         this.level = null;
 
-        return this.levelService.getLevel(this.levelId).then((data: LevelViewModel) => {
-            this.level = Object.assign({}, data, { ready: false });
 
-            this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
+        let data = await this.levelService.getLevel(this.levelId) as LevelViewModel;
+        this.level = Object.assign({}, data, { ready: false });
 
-            let game = this.createNewGame({
-                layout: this.level.decodedLayout
-            });
+        this.level.decodedLayout = this.levelDecoder.decodeLayout(data.layout);
 
-            let gameMatrix = game.goalMatrix;
-            this.gameMatrix = new GameMatrix(gameMatrix, true);
-
-            this.finalLayout = gameMatrix.flatten().map(this.toTileLayout);
-
-            this.level.ready = true;
+        let game = this.createNewGame({
+            layout: this.level.decodedLayout
         });
+
+        let gameMatrix = game.goalMatrix;
+        this.gameMatrix = new GameMatrix(gameMatrix, true);
+
+        this.finalLayout = gameMatrix.flatten().map(this.toTileLayout);
+
+        this.level.ready = true;
     }
 
     async updateLevel(level: UpdateLevelBodyViewModel) {
@@ -84,7 +84,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
         try {
             await this.levelService.updateLevel(level);
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
-        } catch(err) {
+        } catch (err) {
             let response = err as KrossrError;
             nowAndLater(() => this.error = response.error.message, () => this.error = '');
         }

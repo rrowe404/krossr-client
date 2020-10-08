@@ -44,7 +44,12 @@ export abstract class KrossrFormBase {
         nowAndLater(() => this.error = response.error.message, () => this.error = '');
     }
 
-    public submit() {
-        return this.trySubmit().then(() => this.onSuccess()).catch((err) => this.onError(err));
+    public async submit() {
+        try {
+            await this.trySubmit();
+            this.onSuccess();
+        } catch(err) {
+            this.onError(err);
+        }
     }
 }
