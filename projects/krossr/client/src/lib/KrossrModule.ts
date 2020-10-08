@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { LoadingAnimationComponent } from './LoadingAnimation/LoadingAnimationComponent';
 import { Routes } from './Routing/Routes';
 import { ShellComponent } from './Shell/ShellComponent';
 import { ResizeDirective } from './Resize/ResizeDirective';
@@ -26,6 +25,7 @@ import { HeaderModule } from './Header/HeaderModule';
 import { ResetPasswordModule } from './ResetPassword/ResetPasswordModule';
 import { LevelCreatorModule } from './LevelCreator/LevelCreatorModule';
 import { LevelEditorModule } from './LevelEditor/LevelEditorModule';
+import { LoadingAnimationModule } from './LoadingAnimation/LoadingAnimationModule';
 
 @NgModule({
     imports: [
@@ -38,6 +38,7 @@ import { LevelEditorModule } from './LevelEditor/LevelEditorModule';
         HeaderModule,
         HelpModule,
         HttpClientModule,
+        LoadingAnimationModule,
         LevelCreatorModule,
         LevelEditorModule,
         LevelModule,
@@ -51,14 +52,12 @@ import { LevelEditorModule } from './LevelEditor/LevelEditorModule';
     ],
     declarations: [
         HomeComponent,
-        LoadingAnimationComponent,
         NotFoundComponent,
         ResizeDirective,
         ShellComponent
     ],
     entryComponents: [
         HomeComponent,
-        LoadingAnimationComponent,
         NotFoundComponent,
         ShellComponent
     ],

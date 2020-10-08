@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
+import { CreateLevelBodyViewModel, LevelListViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
 
 @Injectable({
     providedIn: 'root'
@@ -19,10 +19,10 @@ export class LevelService {
         return this.httpClient.get(`levels/${levelId}`).toPromise();
     }
 
-    getLevels(query: any) {
+    async getLevels(query: any) {
         return this.httpClient.get('levels', {
             params: new HttpParams({ fromObject: query})
-        }).toPromise();
+        }).toPromise() as Promise<LevelListViewModel>;
     }
 
     updateLevel(params: UpdateLevelBodyViewModel) {

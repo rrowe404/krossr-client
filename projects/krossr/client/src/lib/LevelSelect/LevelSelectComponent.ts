@@ -5,13 +5,14 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LevelListViewModel, LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/types';
 import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
+import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 
 @Component({
     selector: 'krossr-level-select',
     styleUrls: ['./LevelSelectStyles.less'],
     templateUrl: './LevelSelectView.html'
 })
-export class LevelSelectComponent extends KrossrDialogBase implements OnInit {
+export class LevelSelectComponent extends KrossrDialogBase implements AsyncLoadedComponent, OnInit {
     constructor(
         public Authentication: AuthenticationService,
         private levelService: LevelService,
@@ -20,6 +21,7 @@ export class LevelSelectComponent extends KrossrDialogBase implements OnInit {
         super(matDialogRef);
     }
 
+    public isReady = false;
     public totalPages: number;
     public currentPage = 0;
     public levels;
@@ -37,13 +39,14 @@ export class LevelSelectComponent extends KrossrDialogBase implements OnInit {
         return level.user.id === this.Authentication.user.id;
     }
 
-    ngOnInit() {
-        this.find(this.currentPage);
+    async ngOnInit() {
+        await this.find(this.currentPage);
         this.formGroup = new FormGroup({});
+        this.isReady = true;
     }
 
     /* Find a list of levels */
-    find(currentPage: number) {
+    async find(currentPage: number) {
         this.currentPage = currentPage;
 
         let queryObj = {
@@ -52,10 +55,9 @@ export class LevelSelectComponent extends KrossrDialogBase implements OnInit {
 
         Object.assign(queryObj, this.filter);
 
-        this.levelService.getLevels(queryObj).then((data: LevelListViewModel) => {
-            this.totalPages = Math.ceil(data.count / data.numPerPage);
-            this.levels = data.levels;
-        });
+        let data: LevelListViewModel = await this.levelService.getLevels(queryObj);
+        this.totalPages = Math.ceil(data.count / data.numPerPage);
+        this.levels = data.levels;
     }
 
     refilter(options: LevelListFilterOptions) {

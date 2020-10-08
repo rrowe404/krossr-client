@@ -5,6 +5,7 @@ import { LevelSelectComponent } from './LevelSelectComponent';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { LevelSelectFilterModule } from '../LevelSelectFilter/LevelSelectFilterModule';
+import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModule';
 import { PaginationModule } from '../Pagination/PaginationModule';
 import { UIRouterModule } from '@uirouter/angular';
 
@@ -12,6 +13,7 @@ import { UIRouterModule } from '@uirouter/angular';
     imports: [
         CommonModule,
         LevelSelectFilterModule,
+        LoadingAnimationModule,
         MatDialogModule,
         PaginationModule,
         PopupContentModule,
