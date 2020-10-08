@@ -1,4 +1,4 @@
-<!-- These guys all get their own divs so they don't have the label and input on different lines -->
+<krossr-loading-animation *ngIf="!isReady"></krossr-loading-animation>
 
 <ng-container [formGroup]="formGroup" *ngIf="isReady">
     <krossr-select name="size" label="Size" [control]="sizeFormControl" (updated)="updateSize($event)" [optionMap]="sizeMap"></krossr-select>

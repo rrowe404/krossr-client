@@ -77,6 +77,8 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
             name,
             size: 25
         };
+
+        this.isReady = true;
     }
 
     // Split out for easier testing

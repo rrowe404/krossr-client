@@ -1,4 +1,6 @@
-<section class="viewLevel" *ngIf="level && isReady">
+<krossr-loading-animation *ngIf="!isReady"></krossr-loading-animation>
+
+<section class="viewLevel" *ngIf="isReady">
     <krossr-level-editor-form [error]="error" [level]="level" submitText="Submit" (sizeChange)="createGameArray()" (submitAction)="submitCreate()">
     </krossr-level-editor-form>
 
