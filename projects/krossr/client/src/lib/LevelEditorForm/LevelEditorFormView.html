@@ -1,4 +1,4 @@
-<krossr-loading-animation [condition]="!isReady"></krossr-loading-animation>
+<krossr-loading-animation *ngIf="!isReady"></krossr-loading-animation>
 
 <div class="form-group" *ngIf="isReady">
     <h2>{{ isEdit ? 'Edit' : 'New' }} level</h2>
