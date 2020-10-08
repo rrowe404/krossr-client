@@ -71,23 +71,21 @@ export class LevelEditorFormComponent implements OnInit {
     }
 
     /** Remove any Level passed in */
-    remove(level: { id?: number }) {
-        return this.levelService.removeLevel(level.id).then(() => {
-            this.matDialog.open(LevelSelectComponent);
-            this.stateService.go(HomeRoutes.home, {}, { reload: true });
-        });
+    async remove(level: { id?: number }) {
+        await this.levelService.removeLevel(level.id);
+        this.matDialog.open(LevelSelectComponent);
+        this.stateService.go(HomeRoutes.home, {}, { reload: true });
     }
 
-    public ngOnInit() {
-        return this.levelEditorFormService.getOptions().then(options => {
-            this.setupOptions(options);
-            this.formGroup = new FormGroup({});
-            this.nameFormControl = new FormControl(this.level.name, [Validators.required]);
-            this.sizeFormControl = new FormControl(this.level.size, [Validators.required]);
+    public async ngOnInit() {
+        let options = await this.levelEditorFormService.getOptions();
+        this.setupOptions(options);
+        this.formGroup = new FormGroup({});
+        this.nameFormControl = new FormControl(this.level.name, [Validators.required]);
+        this.sizeFormControl = new FormControl(this.level.size, [Validators.required]);
 
-            this.formGroup.addControl('name', this.nameFormControl);
-            this.isReady = true;
-        });
+        this.formGroup.addControl('name', this.nameFormControl);
+        this.isReady = true;
     }
 
     public submit() {

@@ -78,13 +78,15 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
         });
     }
 
-    updateLevel(level: UpdateLevelBodyViewModel) {
+    async updateLevel(level: UpdateLevelBodyViewModel) {
         level.decodedLayout = this.gameMatrix.horizontal.getLayout();
 
-        return this.levelService.updateLevel(level).then(() => {
+        try {
+            await this.levelService.updateLevel(level);
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
-        }).catch((response: KrossrError) => {
+        } catch(err) {
+            let response = err as KrossrError;
             nowAndLater(() => this.error = response.error.message, () => this.error = '');
-        });
+        }
     }
 }
