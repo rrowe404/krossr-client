@@ -11,9 +11,8 @@ export class LevelEditorFormService {
     ) {
     }
 
-    getOptions() {
-        return this.httpClient.get('levelEditor/options').toPromise().then((response: LevelEditorSelectOptionsViewModel) => {
-            return response;
-        });
+    async getOptions() {
+        let response = await this.httpClient.get('levelEditor/options').toPromise() as LevelEditorSelectOptionsViewModel;
+        return response;
     }
 }

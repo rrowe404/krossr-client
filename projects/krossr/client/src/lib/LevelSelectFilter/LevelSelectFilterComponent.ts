@@ -32,23 +32,22 @@ export class LevelSelectFilterComponent implements OnInit {
 
     private debouncedChange = debounce(() => this.onChange());
 
-    public ngOnInit() {
-        return this.levelSelectFilterService.getOptions().then(options => {
-            this.setupOptions(options);
+    public async ngOnInit() {
+        let options = await this.levelSelectFilterService.getOptions();
+        this.setupOptions(options);
 
-            this.formGroup = new FormGroup({});
-            this.sizeFormControl = new FormControl();
-            this.searchTextFormControl = new FormControl('');
-            this.sortByFormControl = new FormControl();
-            this.sortDirectionFormControl = new FormControl();
+        this.formGroup = new FormGroup({});
+        this.sizeFormControl = new FormControl();
+        this.searchTextFormControl = new FormControl('');
+        this.sortByFormControl = new FormControl();
+        this.sortDirectionFormControl = new FormControl();
 
-            this.formGroup.addControl('size', this.sizeFormControl);
-            this.formGroup.addControl('searchText', this.searchTextFormControl);
-            this.formGroup.addControl('sortBy', this.sortByFormControl);
-            this.formGroup.addControl('sortDirection', this.sortDirectionFormControl);
+        this.formGroup.addControl('size', this.sizeFormControl);
+        this.formGroup.addControl('searchText', this.searchTextFormControl);
+        this.formGroup.addControl('sortBy', this.sortByFormControl);
+        this.formGroup.addControl('sortDirection', this.sortDirectionFormControl);
 
-            this.isReady = true;
-        });
+        this.isReady = true;
     }
 
     public onChange() {

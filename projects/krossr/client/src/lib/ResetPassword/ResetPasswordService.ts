@@ -13,13 +13,13 @@ export class ResetPasswordService {
     ) {
     }
 
-    resetPassword(token: string, passwordDetails: ResetPasswordBodyViewModel) {
-        return this.httpClient.post(`auth/reset/${token}`, passwordDetails).toPromise().then((response: UserViewModel) => {
-            return this.authenticationService.signIn(response);
-        });
+    async resetPassword(token: string, passwordDetails: ResetPasswordBodyViewModel) {
+        let response = await this.httpClient.post(`auth/reset/${token}`, passwordDetails).toPromise() as UserViewModel;
+        return this.authenticationService.signIn(response);
     }
 
-    validateToken(token: string) {
-        return this.httpClient.get(`auth/reset/${token}`).toPromise().then((response: ResetValidationViewModel) => response.valid);
+    async validateToken(token: string) {
+        let response = await this.httpClient.get(`auth/reset/${token}`).toPromise() as ResetValidationViewModel;
+        return response.valid;
     }
 }

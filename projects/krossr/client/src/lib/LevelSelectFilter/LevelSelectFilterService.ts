@@ -11,9 +11,8 @@ export class LevelSelectFilterService {
     ) {
     }
 
-    public getOptions(): Promise<LevelListFilterSelectOptionsViewModel> {
-        return this.httpClient.get('levels/options').toPromise().then((response: LevelListFilterSelectOptionsViewModel) => {
-            return response;
-        });
+    async getOptions(): Promise<LevelListFilterSelectOptionsViewModel> {
+        let response = await this.httpClient.get('levels/options').toPromise() as LevelListFilterSelectOptionsViewModel;
+        return response;
     }
 }
