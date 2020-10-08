@@ -1,1 +1,2 @@
-<ng-content></ng-content>
+<krossr-popup-loading-animation *ngIf="!isReady"></krossr-popup-loading-animation>
+<ng-content *ngIf="isReady"></ng-content>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'krossr-popup-content',
@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
     templateUrl: './PopupContentView.html'
 })
 export class PopupContentComponent {
+    @Input() public isReady = true;
 }

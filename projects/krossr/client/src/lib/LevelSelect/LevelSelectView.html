@@ -1,11 +1,5 @@
-<krossr-popup-content *ngIf="!isReady">
-    <div class="loading-outer">
-        <krossr-loading-animation [condition]="true"></krossr-loading-animation>
-    </div>
-</krossr-popup-content>
-
-<krossr-popup-content *ngIf="isReady">
-    <div class="listLevels" [formGroup]="formGroup">
+<krossr-popup-content [isReady]="isReady">
+    <div class="listLevels" [formGroup]="formGroup" *ngIf="isReady">
         <h2>
             Levels
             <span class="filterIcon" (click)="toggleShowFilter()">
