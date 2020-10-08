@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
     selector: 'krossr-loading-animation',
@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LoadingAnimationComponent {
     @Input() public condition: boolean;
+    @Input() public pulse = true;
 }

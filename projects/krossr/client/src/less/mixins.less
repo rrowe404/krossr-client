@@ -90,3 +90,16 @@
 .standardMargin {
 	margin-top: @inputMargin;
 }
+
+.textShadowAnimation(@textShadow) {
+    @keyframes textShadow {
+        from {
+            text-shadow: none;
+        }
+    
+        to {
+            text-shadow: @textShadow;
+        }
+    }
+}
+

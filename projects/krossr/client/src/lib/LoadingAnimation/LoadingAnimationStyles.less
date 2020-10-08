@@ -1,6 +1,9 @@
 @import (reference) '../../less/variables.less';
+@import (reference) '../../less/mixins.less';
 
 :host {
+    @textShadow: 1px 3px 30px @selectedColor;
+
 	position: absolute;
     top: 0;
     right: 0;
@@ -26,7 +29,12 @@
         vertical-align: middle;
     }
 
-    .specialK {
-        text-shadow: 1px 3px 30px @selectedColor;
+    .pulse .specialK {
+        .textShadowAnimation(@textShadow);
+        animation: textShadow 1s infinite alternate;
+    }
+
+    .noPulse .specialK {
+        text-shadow: @textShadow;
     }
 }
