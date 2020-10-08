@@ -16,9 +16,8 @@ export class EditProfileComponent extends KrossrDialogBase {
         super(matDialogRef);
     }
 
-    signout() {
-        return this.signOutService.signout().then(() => {
-            this.close();
-        });
+    async signout() {
+        await this.signOutService.signout();
+        this.close();
     }
 }

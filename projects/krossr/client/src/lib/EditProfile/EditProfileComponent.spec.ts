@@ -29,14 +29,13 @@ describe('EditProfileComponent', () => {
         expect(fixture).toBeTruthy();
     });
 
-    it('should sign out and close', () => {
+    it('should sign out and close', async () => {
         let signOutService: SignOutService = TestBed.inject(SignOutService);
         spyOn(signOutService, 'signout').and.returnValue(Promise.resolve());
         spyOn(component, 'close');
 
-        return component.signout().then(() => {
-            expect(signOutService.signout).toHaveBeenCalled();
-            expect(component.close).toHaveBeenCalled();
-        });
+        await component.signout();
+        expect(signOutService.signout).toHaveBeenCalled();
+        expect(component.close).toHaveBeenCalled();
     });
 });
