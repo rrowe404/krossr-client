@@ -6,6 +6,7 @@ import { StateService } from '@uirouter/core';
 import { LevelSelectFilterService } from './LevelSelectFilterService';
 import { MockLevelSelectFilterService } from 'src/test/MockLevelSelectFilterService';
 import { LevelListFilterOptions } from '@krossr/types';
+import { LevelSelectFilterModule } from './LevelSelectFilterModule';
 
 describe('LevelSelectFilterComponent', () => {
     let fixture: ComponentFixture<LevelSelectFilterComponent>;
@@ -14,9 +15,9 @@ describe('LevelSelectFilterComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                LevelSelectFilterModule
             ],
-            declarations: [ LevelSelectFilterComponent ],
             providers: [
                 { provide: LevelSelectFilterService, useClass: MockLevelSelectFilterService },
                 { provide: StateService, useValue: MockStateService },
