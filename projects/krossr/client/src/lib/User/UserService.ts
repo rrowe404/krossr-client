@@ -13,15 +13,13 @@ export class UserService {
     ) {
     }
 
-    getLoggedInUser() {
-        return this.httpClient.get('users/me').toPromise().then((response: UserViewModel) => {
-            this.authenticationService.signIn(response);
-        });
+    async getLoggedInUser() {
+        let response = await this.httpClient.get('users/me').toPromise() as UserViewModel;
+        this.authenticationService.signIn(response);
     }
 
-    updateUser(email: string) {
-        return this.httpClient.put('users', { email }).toPromise().then((response: UserViewModel) => {
-            return this.authenticationService.signIn(response);
-        });
+    async updateUser(email: string) {
+        let response = await this.httpClient.put('users', { email }).toPromise() as UserViewModel;
+        this.authenticationService.signIn(response);
     }
 }
