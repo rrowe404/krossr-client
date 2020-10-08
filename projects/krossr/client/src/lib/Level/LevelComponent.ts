@@ -61,7 +61,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
 
         this.finalLayout = game.gameMatrix.flatten().map(this.toTileLayout);
 
-        this.level.ready = true;
+        this.isReady = true;
     }
 
     rate(rating) {

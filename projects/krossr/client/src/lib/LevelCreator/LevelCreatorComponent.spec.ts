@@ -35,7 +35,7 @@ describe('LevelCreatorComponent', () => {
     });
 
     it('should use the existing level in createNewLevel && createGameArray if possible', () => {
-        component.level = { layout: '', ready: true, name: 'bill murray', size: 25 };
+        component.level = { layout: '', name: 'bill murray', size: 25 };
         component.createGameArray();
         expect(component.gameMatrix.length).toBe(5);
 
@@ -44,7 +44,7 @@ describe('LevelCreatorComponent', () => {
     });
 
     function setupForSubmit(theComponent: LevelCreatorComponent) {
-        theComponent.level = { layout: '', ready: true, name: 'bill murray', size: 25 };
+        theComponent.level = { layout: '', name: 'bill murray', size: 25 };
         let layout = [[false, true], [true, false]];
         let booleanMatrix = new BooleanMatrix(2, 2);
         booleanMatrix.initializeWith(layout);

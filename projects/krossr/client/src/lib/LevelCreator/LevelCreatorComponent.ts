@@ -74,7 +74,6 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
 
         this.level = {
             layout: '',
-            ready: true,
             name,
             size: 25
         };

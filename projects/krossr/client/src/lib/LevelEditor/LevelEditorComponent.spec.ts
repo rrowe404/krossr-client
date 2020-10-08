@@ -83,6 +83,6 @@ describe('LevelEditorComponent', () => {
         await component.findOne();
         expect(component.level.decodedLayout).toBeTruthy();
         expect(component.level.name).toBe('trogdor');
-        expect(component.level.ready).toBeTruthy();
+        expect(component.isReady).toBeTruthy();
     });
 });

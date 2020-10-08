@@ -1,11 +1,11 @@
-<section class="viewLevel" *ngIf="level">
+<section class="viewLevel" *ngIf="level && isReady">
     <div class="rateLevel" *ngIf="Authentication.user">
         Rate: <krossr-star-rating [rating]="level.userRating ? level.userRating.rating : 0" max="5" (ratingSelected)="rate($event)"></krossr-star-rating>
     </div>
 
     <krossr-mode-selector></krossr-mode-selector>
 
-    <div tabindex="0" [hidden]="!level || !level.ready">
+    <div tabindex="0">
         <div class="gameContainer-inner">
             <div class="top row">
                 <krossr-number-grid

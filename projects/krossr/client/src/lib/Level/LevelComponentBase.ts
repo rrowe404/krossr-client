@@ -8,12 +8,13 @@ import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { TileLayout } from '../TileLayout/TileLayout';
+import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 
 @Component({
     template: ''
 })
 // tslint:disable-next-line component-class-suffix
-export abstract class LevelComponentBase implements OnInit, OnDestroy {
+export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit, OnDestroy {
     constructor(
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         protected gameSizeService: GameSizeService,
@@ -21,6 +22,8 @@ export abstract class LevelComponentBase implements OnInit, OnDestroy {
         protected tileSizeEventService: TileSizeEventService
     ) {
     }
+
+    public isReady = false;
     public finalLayout: Array<TileLayout> = [];
     public gameMatrix: GameMatrix;
     public goalMatrix: GameMatrix;
@@ -36,7 +39,7 @@ export abstract class LevelComponentBase implements OnInit, OnDestroy {
         this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.subscriptions = [
             this.levelEditorFormClearEventService.formClearEvent.subscribe(() => {
                 this.gameMatrix.clear();
@@ -52,8 +55,6 @@ export abstract class LevelComponentBase implements OnInit, OnDestroy {
                 this.margin = newSize / 2 + 'px';
             })
         ];
-
-        return Promise.resolve();
     }
 
     /* Combine a lot of the other functions here to set up a new game */

@@ -12,6 +12,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 import { HomeRoutes } from '../Routing/RouteNames';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
+import { LevelEditorFormModule } from './LevelEditorFormModule';
 
 describe('LevelEditorFormComponent', () => {
     let fixture: ComponentFixture<LevelEditorFormComponent>;
@@ -23,9 +24,9 @@ describe('LevelEditorFormComponent', () => {
             imports: [
                 MatDialogModule,
                 NoopAnimationsModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                LevelEditorFormModule
             ],
-            declarations: [ LevelEditorFormComponent ],
             providers: [
                 { provide: LevelEditorFormService, useClass: MockLevelEditorFormService },
                 { provide: StateService, useClass: MockStateService }
@@ -35,7 +36,6 @@ describe('LevelEditorFormComponent', () => {
         fixture = TestBed.createComponent(LevelEditorFormComponent);
         component = fixture.componentInstance;
         component.level = {
-            ready: true,
             size: 25,
             layout: '',
             name: 'wat'

@@ -1,8 +1,8 @@
-<section class="viewLevel" *ngIf="level">
+<section class="viewLevel" *ngIf="level && isReady">
     <krossr-level-editor-form [error]="error" [level]="level" submitText="Submit" (sizeChange)="createGameArray()" (submitAction)="submitCreate()">
     </krossr-level-editor-form>
 
-    <div tabindex="0" [hidden]="!level || !level.ready">
+    <div tabindex="0">
         <div class="gameContainer-inner">
             <div class="bottom row">
                 <krossr-game [gameMatrix]="gameMatrix" [goalMatrix]="goalMatrix" [level]="level" [tiles]="finalLayout" *ngIf="finalLayout.length"></krossr-game>

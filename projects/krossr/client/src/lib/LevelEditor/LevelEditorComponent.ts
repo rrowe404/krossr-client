@@ -75,7 +75,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
 
         this.finalLayout = gameMatrix.flatten().map(this.toTileLayout);
 
-        this.level.ready = true;
+        this.isReady = true;
     }
 
     async updateLevel(level: UpdateLevelBodyViewModel) {
