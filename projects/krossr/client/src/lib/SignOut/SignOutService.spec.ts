@@ -9,7 +9,7 @@ describe('SignOutService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ HttpClientTestingModule ]
+            imports: [HttpClientTestingModule]
         });
 
         httpTestingController = TestBed.inject(HttpTestingController);
@@ -20,18 +20,14 @@ describe('SignOutService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should sign out', () => {
+    it('should sign out', async () => {
         let authenticationService: AuthenticationService = TestBed.inject(AuthenticationService);
         spyOn(authenticationService, 'signOut').and.returnValue();
 
-        let promise = service.signout().then(() => {
-            expect(authenticationService.signOut).toHaveBeenCalled();
-        });
-
         const req = httpTestingController.expectOne('auth/signout');
+        await service.signout();
 
         req.flush({});
-
-        return promise;
+        expect(authenticationService.signOut).toHaveBeenCalled();
     });
 });
