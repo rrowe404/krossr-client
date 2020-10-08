@@ -44,7 +44,7 @@ describe('SignInComponent', () => {
         expect(dialogService.open).toHaveBeenCalled();
     });
 
-    it('should sign in and close', () => {
+    it('should sign in and close', async () => {
         let signInService: SignInService = TestBed.inject(SignInService);
         spyOn(component, 'close');
         spyOn(signInService, 'signIn').and.returnValue(Promise.resolve());
@@ -52,17 +52,15 @@ describe('SignInComponent', () => {
         component.username.setValue('rosalyn');
         component.password.setValue('hunter2');
 
-        return component.submit().then(() => {
-            expect(component.close).toHaveBeenCalled();
-        });
+        await component.submit();
+        expect(component.close).toHaveBeenCalled();
     });
 
-    it('should handle an error signing in', () => {
+    it('should handle an error signing in', async () => {
         let signInService: SignInService = TestBed.inject(SignInService);
         spyOn(signInService, 'signIn').and.returnValue(Promise.reject({ error: { message: 'nope' }} ));
 
-        return component.submit().then(() => {
-            expect(component.error).toBe('nope');
-        });
+        await component.submit();
+        expect(component.error).toBe('nope');
     });
 });

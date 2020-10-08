@@ -49,7 +49,7 @@ describe('LevelEditorComponent', () => {
         expect(component.updateLevel).toHaveBeenCalledWith(level);
     });
 
-    it('should update', () => {
+    it('should update', async () => {
         let levelService: LevelService = TestBed.inject(LevelService);
         spyOn(levelService, 'updateLevel').and.returnValue(Promise.resolve({}));
 
@@ -58,34 +58,31 @@ describe('LevelEditorComponent', () => {
 
         let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
 
-        return component.updateLevel(level).then(() => {
-            expect(stateService.go).toHaveBeenCalled();
-        });
+        await component.updateLevel(level);
+        expect(stateService.go).toHaveBeenCalled();
     });
 
-    it('should handle an update error', () => {
+    it('should handle an update error', async () => {
         let levelService: LevelService = TestBed.inject(LevelService);
         let error = 'pitiful.';
         spyOn(levelService, 'updateLevel').and.returnValue(Promise.reject({ error: { message: error }}));
 
         let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
 
-        return component.updateLevel(level).then(() => {
-            expect(component.error).toBe(error);
-        });
+        await component.updateLevel(level);
+        expect(component.error).toBe(error);
     });
 
-    it('should set up a level for editing correctly', () => {
+    it('should set up a level for editing correctly', async () => {
         let level = { id: 1, name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==' };
         let levelService: LevelService = TestBed.inject(LevelService);
         spyOn(levelService, 'getLevel').and.returnValue(Promise.resolve(level));
 
         component.levelId = level.id;
 
-        return component.findOne().then(() => {
-            expect(component.level.decodedLayout).toBeTruthy();
-            expect(component.level.name).toBe('trogdor');
-            expect(component.level.ready).toBeTruthy();
-        });
+        await component.findOne();
+        expect(component.level.decodedLayout).toBeTruthy();
+        expect(component.level.name).toBe('trogdor');
+        expect(component.level.ready).toBeTruthy();
     });
 });

@@ -25,16 +25,15 @@ describe('ResetPasswordComponent', () => {
         expect(fixture).toBeTruthy();
     });
 
-    it('should reset the user password', () => {
+    it('should reset the user password', async () => {
         let resetPasswordService: ResetPasswordService = TestBed.inject(ResetPasswordService);
         spyOn(resetPasswordService, 'resetPassword').and.returnValue(Promise.resolve());
 
-        return component.submit().then(() => {
-            expect(component.success).toBeTruthy();
-        });
+        await component.submit();
+        expect(component.success).toBeTruthy();
     });
 
-    it('should handle an error', () => {
+    it('should handle an error', async () => {
         let resetPasswordService: ResetPasswordService = TestBed.inject(ResetPasswordService);
 
         spyOn(resetPasswordService, 'resetPassword').and.returnValue(Promise.reject({
@@ -43,8 +42,7 @@ describe('ResetPasswordComponent', () => {
             }
         }));
 
-        return component.submit().then(() => {
-            expect(component.error).toBeTruthy();
-        });
+        await component.submit();
+        expect(component.error).toBeTruthy();
     });
 });

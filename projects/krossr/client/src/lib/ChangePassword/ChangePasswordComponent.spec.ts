@@ -25,7 +25,7 @@ describe('ChangePasswordComponent', () => {
         expect(fixture).toBeTruthy();
     });
 
-    it('should change password', () => {
+    it('should change password', async () => {
         component.currentPasswordFormControl.setValue('current');
         component.newPasswordFormControl.setValue('replacement');
         component.verifyPasswordFormControl.setValue('replacement');
@@ -33,13 +33,12 @@ describe('ChangePasswordComponent', () => {
         let changePasswordService: ChangePasswordService = TestBed.inject(ChangePasswordService);
         spyOn(changePasswordService, 'changePassword').and.returnValue(Promise.resolve({}));
 
-        return component.submit().then(() => {
-            expect(component.success).toBeTruthy();
-            expect(component.buttonText()).toBe('Password Saved!');
-        });
+        await component.submit();
+        expect(component.success).toBeTruthy();
+        expect(component.buttonText()).toBe('Password Saved!');
     });
 
-    it('should error if changing the password fails', () => {
+    it('should error if changing the password fails', async () => {
         let changePasswordService: ChangePasswordService = TestBed.inject(ChangePasswordService);
 
         let errorMessage = 'massive failure';
@@ -50,8 +49,7 @@ describe('ChangePasswordComponent', () => {
             }
         }));
 
-        return component.submit().then(() => {
-            expect(component.error).toBe(errorMessage);
-        });
+        await component.submit();
+        expect(component.error).toBe(errorMessage);
     });
 });

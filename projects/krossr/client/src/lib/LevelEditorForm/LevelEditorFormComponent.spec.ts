@@ -50,11 +50,10 @@ describe('LevelEditorFormComponent', () => {
     });
 
     it('should become ready', () => {
-        return new Promise((resolve, reject) => {
-            component.ngOnInit().then(() => {
-                expect(component.isReady).toBeTruthy();
-                resolve();
-            });
+        return new Promise(async (resolve, reject) => {
+            await component.ngOnInit();
+            expect(component.isReady).toBeTruthy();
+            resolve();
         });
     });
 
@@ -94,18 +93,17 @@ describe('LevelEditorFormComponent', () => {
     });
 
     describe('#remove', () => {
-        it('should remove, then open LevelSelect and go home', () => {
+        it('should remove, then open LevelSelect and go home', async () => {
             let levelService: LevelService = TestBed.inject(LevelService);
             let stateService: StateService = TestBed.inject(StateService);
 
             spyOn(levelService, 'removeLevel').and.returnValue(Promise.resolve({}));
             spyOn(stateService, 'go');
 
-            return component.remove({ id: 1 }).then(() => {
-                expect(levelService.removeLevel).toHaveBeenCalled();
-                expect(matDialog.open).toHaveBeenCalledWith(LevelSelectComponent);
-                expect(stateService.go).toHaveBeenCalledWith(HomeRoutes.home, {}, { reload: true });
-            });
+            await component.remove({ id: 1 });
+            expect(levelService.removeLevel).toHaveBeenCalled();
+            expect(matDialog.open).toHaveBeenCalledWith(LevelSelectComponent);
+            expect(stateService.go).toHaveBeenCalledWith(HomeRoutes.home, {}, { reload: true });
         });
     });
 

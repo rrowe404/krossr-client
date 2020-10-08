@@ -49,7 +49,7 @@ describe('ForgotPasswordComponent', () => {
         expect(component.buttonText()).toBe('Submitted!');
     });
 
-    it('should ask for password reset', () => {
+    it('should ask for password reset', async () => {
         component.usernameFormControl.setValue('mumbojumbo');
 
         let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
@@ -57,12 +57,11 @@ describe('ForgotPasswordComponent', () => {
         spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.resolve({}));
         spyOn(component, 'close');
 
-        return component.submit().then(() => {
-            expect(component.close).toHaveBeenCalled();
-        });
+        await component.submit();
+        expect(component.close).toHaveBeenCalled();
     });
 
-    it('should catch an error asking for password reset', () => {
+    it('should catch an error asking for password reset', async () => {
         component.usernameFormControl.setValue('banjokazooie');
 
         let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
@@ -73,9 +72,8 @@ describe('ForgotPasswordComponent', () => {
             }
         }));
 
-        return component.submit().then(() => {
-            expect(component.error).toBeTruthy();
-        });
+        await component.submit();
+        expect(component.error).toBeTruthy();
     });
 
     it('should initialize the username if possible', () => {

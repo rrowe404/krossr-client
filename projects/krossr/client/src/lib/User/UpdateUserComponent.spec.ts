@@ -25,18 +25,17 @@ describe('UpdateUserComponent', () => {
         expect(fixture).toBeTruthy();
     });
 
-    it('should update user', () => {
+    it('should update user', async () => {
         let userService: UserService = TestBed.inject(UserService);
         spyOn(userService, 'updateUser').and.returnValue(Promise.resolve());
 
         component.emailFormControl.setValue('test@test.com');
 
-        return component.submit().then(() => {
-            expect(component.success).toBeTruthy();
-        });
+        await component.submit();
+        expect(component.success).toBeTruthy();
     });
 
-    it('should handle error', () => {
+    it('should handle error', async () => {
         let userService: UserService = TestBed.inject(UserService);
 
         spyOn(userService, 'updateUser').and.returnValue(Promise.reject({
@@ -45,9 +44,8 @@ describe('UpdateUserComponent', () => {
             }
         }));
 
-        return component.submit().then(() => {
-            expect(component.error).toBe('no');
-            expect(component.buttonText()).toBe('no');
-        });
+        await component.submit();
+        expect(component.error).toBe('no');
+        expect(component.buttonText()).toBe('no');
     });
 });

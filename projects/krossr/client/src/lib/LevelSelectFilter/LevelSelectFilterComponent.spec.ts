@@ -33,11 +33,10 @@ describe('LevelSelectFilterComponent', () => {
     });
 
     it('should become ready', () => {
-        return new Promise((resolve, reject) => {
-            component.ngOnInit().then(() => {
-                expect(component.isReady).toBeTruthy();
-                resolve();
-            });
+        return new Promise(async (resolve, reject) => {
+            await component.ngOnInit();
+            expect(component.isReady).toBeTruthy();
+            resolve();
         });
     });
 
