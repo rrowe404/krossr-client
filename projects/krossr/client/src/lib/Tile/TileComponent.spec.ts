@@ -5,6 +5,7 @@ import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { DragBoxService } from '../DragBox/DragBoxService';
 import { TileModule } from './TileModule';
 import { TileFillEventService } from './TileFillEventService';
+import { TouchService } from '../Touch/TouchService';
 
 describe('TileComponent', () => {
     let fixture: ComponentFixture<TileComponent>;
@@ -184,6 +185,18 @@ describe('TileComponent', () => {
             element.dispatchEvent(event);
 
             expect(dragBoxService.endCoord).toBeFalsy();
+        });
+
+        it('should find the correct tile', () => {
+            let touchService: TouchService = TestBed.inject(TouchService);
+            let touches = [new Touch({identifier: 0, target: element})];
+
+            spyOn(touchService, 'getRealTarget').and.returnValue(element);
+
+            let event = new TouchEvent('touchmove', { touches });
+            element.dispatchEvent(event);
+
+            expect(touchService.lastTouchedTile).toBe(element);
         });
     });
 
