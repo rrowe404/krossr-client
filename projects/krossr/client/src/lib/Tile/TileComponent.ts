@@ -73,6 +73,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             this.renderer.listen(this.$element, 'touchstart', (e) => {
                 e.preventDefault();
                 this.mouseDownEvent();
+                this.touchMoveEvent(e);
             }),
             this.renderer.listen(this.$element, 'touchmove', (e) => {
                 e.preventDefault();
