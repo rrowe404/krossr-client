@@ -9,6 +9,7 @@ import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { TileLayout } from '../TileLayout/TileLayout';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
+import { GameSize } from '../GameSize/GameSize';
 
 @Component({
     template: ''
@@ -30,6 +31,7 @@ export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit
     public error: string;
     public level: ILevel;
     public margin: string;
+    public gameSize: GameSize;
 
     protected timeout = 1000;
 
@@ -47,7 +49,7 @@ export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit
             this.resizeEventService.windowResized.subscribe(() => {
                 if (this.gameMatrix) {
                     this.gameSizeService.calculatePlayableArea();
-                    this.gameSizeService.setGameSize(this.gameMatrix.length);
+                    this.gameSize = this.gameSizeService.setGameSize(this.gameMatrix.length);
                 }
             }),
             this.tileSizeEventService.tileSizeChanged.subscribe(tileSize => {
@@ -67,7 +69,7 @@ export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit
 
         this.gameSizeService.calculatePlayableArea();
         let gameMatrix = new BooleanMatrix(layout.length, layout.length);
-        this.gameSizeService.setGameSize(gameMatrix.length);
+        this.gameSize = this.gameSizeService.setGameSize(gameMatrix.length);
 
         return {
             gameMatrix,

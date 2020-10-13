@@ -1,5 +1,4 @@
 import { TileSizeService } from '../TileSize/TileSizeService';
-import { GameSizeEventService } from './GameSizeEventService';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -9,10 +8,8 @@ export class GameSizeService {
     private gameHeight: string;
     private gameWidth: string;
     private playableAreaSize: number;
-    private tutorialDivider = 4;
 
     constructor(
-        private gameSizeEventService: GameSizeEventService,
         private tileSizeService: TileSizeService
     ) {
     }
@@ -38,14 +35,6 @@ export class GameSizeService {
         return Math.floor(this.playableAreaSize);
     }
 
-     /* Return the current game size (width and height in pixels of the game field, changes depending on number of tiles) */
-    getGameSize() {
-        return {
-            gameHeight: this.gameHeight,
-            gameWidth: this.gameWidth
-        };
-    }
-
      /* Modify the current game size. */
     setGameSize(widthInTiles) {
         let finalWidth = Math.floor(this.playableAreaSize / 1.6);
@@ -57,10 +46,11 @@ export class GameSizeService {
         this.gameWidth = finalWidth + 'px';
         this.gameHeight = finalHeight + 'px';
 
-        setTimeout(() => {
-            this.gameSizeEventService.gameSizeChanged.emit();
-        });
-
         this.tileSizeService.setTileSize(finalWidth, widthInTiles);
+
+        return {
+            height: this.gameHeight,
+            width: this.gameWidth
+        };
     }
 }

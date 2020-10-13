@@ -6,13 +6,13 @@ import { ILevel } from '../Level/Level';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileState } from '../Tile/TileState';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
-import { GameSizeEventService } from '../GameSize/GameSizeEventService';
 import { TileEventService } from '../Tile/TileEventService';
 import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ShiftService } from '../Shift/ShiftService';
 import { TileLayout } from '../TileLayout/TileLayout';
 import { TouchService } from '../Touch/TouchService';
+import { GameSize } from '../GameSize/GameSize';
 
 @Component({
     selector: 'krossr-game',
@@ -24,8 +24,6 @@ export class GameComponent implements OnInit, OnDestroy {
         private elementRef: ElementRef,
         private renderer: Renderer2,
         private gameOverService: GameOverService,
-        private gameSizeEventService: GameSizeEventService,
-        private gameSizeService: GameSizeService,
         private tileEventService: TileEventService,
         private tileSizeEventService: TileSizeEventService,
         private tileSizeService: TileSizeService,
@@ -41,7 +39,7 @@ export class GameComponent implements OnInit, OnDestroy {
     @Input() public goalMatrix: GameMatrix;
     @Input() public level: ILevel;
     @Input() public tiles: TileLayout[];
-    public gameSettings;
+    @Input() public gameSize: GameSize;
     public margin: string;
 
     private $element: HTMLElement;
@@ -79,9 +77,6 @@ export class GameComponent implements OnInit, OnDestroy {
         ];
 
         this.subscriptions = [
-            this.gameSizeEventService.gameSizeChanged.subscribe(() => {
-                this.updateGameSize();
-            }),
             this.tileEventService.tileDragEnd.subscribe(() => {
                 this.mouseUpEvent();
             }),
@@ -127,17 +122,6 @@ export class GameComponent implements OnInit, OnDestroy {
 
     setMargin(tileSize: number) {
         this.margin = Math.floor(tileSize) / 2 + 'px';
-    }
-
-    updateGameSize() {
-        let newGameSettings = this.gameSizeService.getGameSize();
-
-        if (newGameSettings) {
-            this.gameSettings = {
-                width: newGameSettings.gameWidth,
-                height: newGameSettings.gameHeight
-            };
-        }
     }
 
     private setFocus() {

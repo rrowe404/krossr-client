@@ -23,7 +23,7 @@ describe('GameComponent', () => {
         fixture = TestBed.createComponent(GameComponent);
         component = fixture.componentInstance;
 
-        component.gameSettings = {
+        component.gameSize = {
             width: '200px',
             height: '200px'
         };
