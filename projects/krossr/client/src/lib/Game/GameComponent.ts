@@ -12,6 +12,7 @@ import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy } from '@ang
 import { Subscription } from 'rxjs';
 import { ShiftService } from '../Shift/ShiftService';
 import { TileLayout } from '../TileLayout/TileLayout';
+import { TouchService } from '../Touch/TouchService';
 
 @Component({
     selector: 'krossr-game',
@@ -28,6 +29,7 @@ export class GameComponent implements OnInit, OnDestroy {
         private tileEventService: TileEventService,
         private tileSizeEventService: TileSizeEventService,
         private tileSizeService: TileSizeService,
+        private touchService: TouchService,
         private dragBoxService: DragBoxService,
         private shiftService: ShiftService
     ) {
@@ -64,6 +66,15 @@ export class GameComponent implements OnInit, OnDestroy {
             this.renderer.listen(this.$element, 'mouseleave', (e) => {
                 e.preventDefault();
                 this.applyFillDragBox(TileState.empty);
+            }),
+            this.renderer.listen(this.$element, 'touchmove', (e: TouchEvent) => {
+                let target = this.touchService.getRealTarget(e);
+                let inBounds = !!target.closest(this.$element.tagName);
+
+                if (!inBounds) {
+                    e.preventDefault();
+                    this.applyFillDragBox(TileState.empty);
+                }
             })
         ];
 
