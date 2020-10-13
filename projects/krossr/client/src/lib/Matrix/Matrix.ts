@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { IEquatable } from '../Equatable/IEquatable';
+import { Point } from '../Point/Point';
 
 /**
  * Container for a 2D array
@@ -84,5 +85,9 @@ export class Matrix<T> implements IEquatable<Matrix<T>> {
 
     setValueAt(row: number, column: number, value: T) {
         this.matrix[row][column] = value;
+    }
+
+    setValueAtByCoord(coordinate: Point, value: T) {
+        this.matrix[coordinate.y][coordinate.x] = value;
     }
 }

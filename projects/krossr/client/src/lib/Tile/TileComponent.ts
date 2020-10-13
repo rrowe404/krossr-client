@@ -39,6 +39,8 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     private listeners: Array<() => void> = [];
     private subscriptions: Subscription[];
 
+    private coordinate: Point;
+
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
@@ -59,6 +61,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.coordinate = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
         this.$element = this.elementRef.nativeElement as HTMLElement;
 
         this.initializeFill();
@@ -100,12 +103,11 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             }),
             this.tileFillEventService.fill.subscribe((event: TileFillEvent) => {
-                let thisCoord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
-                let hasCoord = !event.coords || _.findIndex(event.coords, thisCoord) > -1;
+                let hasCoord = !event.coords || _.findIndex(event.coords, this.coordinate) > -1;
                 let isValid = !event.validate || event.validate(this);
 
                 if (hasCoord && isValid) {
-                    this.changeTile(thisCoord, event.initState, event.override);
+                    this.changeTile(event.initState, event.override);
                 }
             })
         ];
@@ -125,13 +127,11 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
-        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
-
         // save a snapshot of the previous dragbox for comparison purposes
         let oldCoords = this.dragBoxService.process();
 
         // set the current coordinate to the new dragbox end and compute the new dragbox
-        this.dragBoxService.endCoord = coord;
+        this.dragBoxService.endCoord = this.coordinate;
 
         let allPendingCoords = this.dragBoxService.process();
 
@@ -160,9 +160,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private mouseDownEvent() {
-        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
-
-        this.dragBoxService.startCoord = coord;
+        this.dragBoxService.startCoord = this.coordinate;
         this.dragBoxService.initState = this.selected || this.marked;
     }
 
@@ -189,8 +187,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private tryEndDragbox() {
-        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
-        this.dragBoxService.endCoord = coord;
+        this.dragBoxService.endCoord = this.coordinate;
         this.tileEventService.tileDragEnd.emit();
     }
 
@@ -206,13 +203,13 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         return !temp;
     }
 
-    changeTile(coord: Point, initState, changeTo: TileState) {
+    changeTile(initState, changeTo: TileState) {
         if (!this.editable) {
             return;
         }
 
         this.fill(changeTo, initState);
-        this.gameMatrix.setValueAt(coord.y, coord.x, this.selected);
+        this.gameMatrix.setValueAtByCoord(this.coordinate, this.selected);
     }
 
     empty() {
@@ -251,10 +248,9 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     /* Determine which tiles to add colored borders to */
     getBorderColors(direction) {
-        let coord = this.pointService.indexToPoint(this.index, this.gameMatrix.length);
         let sideLength = this.gameMatrix.length;
 
-        return this.tileBorderService.getBorder(direction, coord, sideLength);
+        return this.tileBorderService.getBorder(direction, this.coordinate, sideLength);
     }
 
     isPendingAndNotSelected() {
