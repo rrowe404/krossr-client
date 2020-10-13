@@ -40,7 +40,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     private listeners: Array<() => void> = [];
     private subscriptions: Subscription[];
 
-
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
