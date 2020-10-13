@@ -36,7 +36,7 @@ export class DragGestureService {
 
         this.shrinkPendingArea(oldCoords, allPendingCoords);
 
-        this.tileFillEventService.fillPending(allPendingCoords)
+        this.tileFillEventService.fillPending(allPendingCoords);
     }
 
     endDrag(coordinate: Point) {
