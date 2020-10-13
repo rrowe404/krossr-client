@@ -65,6 +65,8 @@ node lint:
 build prod:
   stage: build
   image: google/cloud-sdk
+  only:
+    - master@picrossr/krossr-client
   dependencies:
     - build_library
   script:
