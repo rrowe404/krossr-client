@@ -130,8 +130,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     updateGameSize() {
-        // don't use args, call to getGameSize so we take tutorials into account
-        let newGameSettings = this.gameSizeService.getGameSize(false);
+        let newGameSettings = this.gameSizeService.getGameSize();
 
         if (newGameSettings) {
             this.gameSettings = {

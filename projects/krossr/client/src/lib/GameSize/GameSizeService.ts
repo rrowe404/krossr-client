@@ -39,14 +39,10 @@ export class GameSizeService {
     }
 
      /* Return the current game size (width and height in pixels of the game field, changes depending on number of tiles) */
-    getGameSize(tutorialMode) {
-        // height/width will probably come in as px
-        let intHeight = parseInt(this.gameHeight, 10);
-        let intWidth = parseInt(this.gameWidth, 10);
-
+    getGameSize() {
         return {
-            gameHeight: tutorialMode ? intHeight / this.tutorialDivider : this.gameHeight,
-            gameWidth: tutorialMode ? intWidth / this.tutorialDivider : this.gameWidth
+            gameHeight: this.gameHeight,
+            gameWidth: this.gameWidth
         };
     }
 
