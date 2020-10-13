@@ -6,8 +6,4 @@ export class MockUserService extends UserService {
     getLoggedInUser() {
         return Promise.resolve(null);
     }
-
-    updateUser() {
-        return Promise.resolve();
-    }
 }

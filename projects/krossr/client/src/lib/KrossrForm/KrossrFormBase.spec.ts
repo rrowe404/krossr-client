@@ -1,5 +1,4 @@
 import { KrossrFormBase } from './KrossrFormBase';
-import { FormGroup } from '@angular/forms';
 
 describe('KrossrFormBase', () => {
     class DummyKrossrForm extends KrossrFormBase {
