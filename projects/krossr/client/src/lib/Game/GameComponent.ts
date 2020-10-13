@@ -67,7 +67,7 @@ export class GameComponent implements OnInit, OnDestroy {
             }),
             this.renderer.listen(this.$element, 'touchmove', (e: TouchEvent) => {
                 let target = this.touchService.getRealTarget(e);
-                let inBounds = !!target.closest(this.$element.tagName);
+                let inBounds = target && !!target.closest(this.$element.tagName);
 
                 if (!inBounds) {
                     e.preventDefault();

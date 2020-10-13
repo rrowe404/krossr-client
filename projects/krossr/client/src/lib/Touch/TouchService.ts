@@ -12,6 +12,10 @@ export class TouchService {
     getRealTarget(event: TouchEvent) {
         let myLocation = this.getTouches(event)[0];
 
+        if (!myLocation) {
+            return null;
+        }
+
         return document.elementFromPoint(myLocation.clientX, myLocation.clientY);
     }
 
