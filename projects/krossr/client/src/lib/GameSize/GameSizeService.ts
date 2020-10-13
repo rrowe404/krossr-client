@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class GameSizeService {
-    private gameHeight: string;
-    private gameWidth: string;
     private playableAreaSize: number;
 
     constructor(
@@ -43,14 +41,14 @@ export class GameSizeService {
         finalWidth = this.adjustForBorders(finalWidth, widthInTiles);
 
         finalHeight = finalWidth;
-        this.gameWidth = finalWidth + 'px';
-        this.gameHeight = finalHeight + 'px';
+        let width = finalWidth + 'px';
+        let height = finalHeight + 'px';
 
         this.tileSizeService.setTileSize(finalWidth, widthInTiles);
 
         return {
-            height: this.gameHeight,
-            width: this.gameWidth
+            height,
+            width
         };
     }
 }
