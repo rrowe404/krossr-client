@@ -100,14 +100,16 @@ describe('TileComponent', () => {
     describe('#changeTile', () => {
         it('should do nothing if the tile is uneditable', () => {
             component.editable = false;
-            component.changeTile({ x: 0, y: 0 }, true, TileState.selected);
+            component.coordinate = { x: 0, y: 0 };
+            component.changeTile(true, TileState.selected);
             expect(component.selected).toBeFalsy();
         });
 
         it('should fill an editable tile', () => {
             component.editable = true;
             component.gameMatrix = new BooleanMatrix(2, 2);
-            component.changeTile({ x: 0, y: 0 }, false, TileState.selected);
+            component.coordinate = { x: 0, y: 0 };
+            component.changeTile(false, TileState.selected);
             expect(component.selected).toBeTruthy();
         });
     });

@@ -28,6 +28,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() public tile: TileLayout;
     @Input() public editable: boolean;
 
+    public coordinate: Point;
     public marked: boolean;
     public pending: boolean;
     public selected: boolean;
@@ -39,7 +40,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     private listeners: Array<() => void> = [];
     private subscriptions: Subscription[];
 
-    private coordinate: Point;
 
     constructor(
         private elementRef: ElementRef,
