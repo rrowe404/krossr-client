@@ -13,6 +13,7 @@ import { TileFillEventService } from './TileFillEventService';
 import { TileFillEvent } from './TileFillEvent';
 import { TileLayout } from '../TileLayout/TileLayout';
 import { DragGestureService } from '../DragGesture/DragGestureService';
+import { TileStateOptions } from './TileStateOptions';
 
 @Component({
     selector: 'krossr-tile',
@@ -111,6 +112,12 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         ];
     }
 
+    private applyState(state: TileStateOptions) {
+        this.selected = state.selected;
+        this.marked = state.marked;
+        this.pending = state.pending;
+    }
+
     private beginDrag() {
         this.dragGestureService.beginDrag(this.coordinate, this.selected || this.marked);
     }
@@ -165,23 +172,41 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     empty() {
-        this.selected = false;
-        this.marked = false;
-        this.pending = false;
+        this.applyState({
+            selected: false,
+            marked: false,
+            pending: false
+        });
     }
 
     mark(override?: boolean) {
-        this.marked = this.processTileState(this.marked, override);
+        let marked = this.processTileState(this.marked, override);
+
+        this.applyState({
+            marked,
+            selected: false,
+            pending: false
+        });
     }
 
     select(override?: boolean) {
-        this.selected = this.processTileState(this.selected, override);
+        let selected = this.processTileState(this.selected, override);
+
+        this.applyState({
+            selected,
+            marked: false,
+            pending: false
+        });
     }
 
     fill(fillType, override?: boolean) {
         switch (fillType) {
             case TileState.pending:
-                this.pending = true;
+                this.applyState({
+                    pending: true,
+                    selected: false,
+                    marked: false
+                });
                 break;
             case TileState.marked:
                 this.mark(override);
