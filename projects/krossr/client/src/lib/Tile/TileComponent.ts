@@ -150,7 +150,8 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private getActualTileFromTouchEvent(e: TouchEvent) {
-        let actualTile = this.touchService.getRealTarget(e).closest(this.$element.tagName);
+        let target = this.touchService.getRealTarget(e);
+        let actualTile = target.closest(this.$element.tagName);
 
         return actualTile as HTMLElement;
     }
