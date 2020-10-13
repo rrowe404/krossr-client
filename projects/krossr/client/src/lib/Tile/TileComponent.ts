@@ -14,6 +14,7 @@ import { PointService } from '../Point/PointService';
 import { TileFillEventService } from './TileFillEventService';
 import { TileFillEvent } from './TileFillEvent';
 import { TileLayout } from '../TileLayout/TileLayout';
+import { DragGestureService } from '../DragGesture/DragGestureService';
 
 @Component({
     selector: 'krossr-tile',
@@ -45,6 +46,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
         private elementRef: ElementRef,
         private renderer: Renderer2,
         private dragBoxService: DragBoxService,
+        private dragGestureService: DragGestureService,
         private pointService: PointService,
         private tileBorderService: TileBorderService,
         private tileEventService: TileEventService,
@@ -70,12 +72,12 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.listeners = [
-            this.renderer.listen(this.$element, 'mousedown', () => this.mouseDownEvent()),
+            this.renderer.listen(this.$element, 'mousedown', () => this.beginDrag()),
             this.renderer.listen(this.$element, 'mousemove', () => this.mouseMoveEvent()),
             this.renderer.listen(this.$element, 'mouseup', () => this.mouseUpEvent()),
             this.renderer.listen(this.$element, 'touchstart', (e) => {
                 e.preventDefault();
-                this.mouseDownEvent();
+                this.beginDrag();
                 this.touchMoveEvent(e);
             }),
             this.renderer.listen(this.$element, 'touchmove', (e) => {
@@ -111,6 +113,10 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             })
         ];
+    }
+
+    private beginDrag() {
+        this.dragGestureService.beginDrag(this.coordinate, this.selected || this.marked);
     }
 
     /**
@@ -157,11 +163,6 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
 
             this.tileFillEventService.clearPending(coordsToClear);
         }
-    }
-
-    private mouseDownEvent() {
-        this.dragBoxService.startCoord = this.coordinate;
-        this.dragBoxService.initState = this.selected || this.marked;
     }
 
     private mouseMoveEvent() {
