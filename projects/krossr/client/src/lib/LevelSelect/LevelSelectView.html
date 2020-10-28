@@ -10,21 +10,11 @@
             </span>
         </h2>
 
-        <div class="form-group">
-            <div class="form-group" [hidden]="!showFilter">
-                <krossr-level-select-filter (refilter)="refilter($event)"></krossr-level-select-filter>
-            </div>
-        </div>
+        <krossr-level-select-filter [hidden]="!showFilter" (refilter)="refilter($event)"></krossr-level-select-filter>
 
-        <div class="list-group" *ngIf="levels">
-            <krossr-level-select-tile [level]="level" 
-                                      (refilter)="extendFilter($event)"
-                                      *ngFor="let level of levels"
-                                      uiSref="level"
-                                      [uiParams]="{ levelId: level.id }" 
-                                      [uiOptions]="{ reload: true }">
-            </krossr-level-select-tile>
-        </div>
+        <a *ngFor="let level of levels" uiSref="level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }">
+            <krossr-level-select-tile [level]="level" (refilter)="extendFilter($event)"></krossr-level-select-tile>
+        </a>
 
         <div class="alert alert-warning" *ngIf="!levels || !levels.length">
             No Levels yet!

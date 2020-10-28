@@ -1,9 +1,9 @@
-<div class="list-group-item level">
+<div class="level">
     <div class="list-group-item-heading">{{ level.name }}</div>
 
-    <div class="username" (click)="setSearchText($event, level.user.username)">
-        by {{ level.user.username }}
-    </div>
+    <a>
+        <span>by </span><span class="username" (click)="setSearchText($event, level.user.username)">{{ level.user.username }}</span>
+    </a>
 
     <a class="editButton" uiSref="update-level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }" *ngIf="canEdit()">
         <i class="fa fa-edit"></i>
