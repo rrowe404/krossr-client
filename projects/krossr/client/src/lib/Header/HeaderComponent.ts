@@ -1,11 +1,12 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { MatDialog } from '@angular/material/dialog';
 import { Component } from '@angular/core';
-import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 import { HelpComponent } from '../Help/HelpComponent';
 import { EditProfileComponent } from '../EditProfile/EditProfileComponent';
 import { SignInComponent } from '../SignIn/SignInComponent';
 import { SignUpComponent } from '../SignUp/SignUpComponent';
+import { StateService } from '@uirouter/core';
+import { LevelRoutes } from '../Routing/RouteNames';
 
 @Component({
     selector: 'krossr-header',
@@ -15,7 +16,8 @@ import { SignUpComponent } from '../SignUp/SignUpComponent';
 export class HeaderComponent {
     constructor(
         public Authentication: AuthenticationService,
-        private matDialog: MatDialog
+        private matDialog: MatDialog,
+        private stateService: StateService
     ) {
 
     }
@@ -29,7 +31,7 @@ export class HeaderComponent {
     }
 
     openLevelSelect() {
-        this.matDialog.open(LevelSelectComponent);
+        this.stateService.go(LevelRoutes.list);
     }
 
     openSignIn() {

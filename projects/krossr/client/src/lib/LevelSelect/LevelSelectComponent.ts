@@ -2,9 +2,7 @@ import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { LevelService } from '../Level/LevelService';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 import { LevelListViewModel, LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/types';
-import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 
 @Component({
@@ -12,13 +10,11 @@ import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
     styleUrls: ['./LevelSelectStyles.less'],
     templateUrl: './LevelSelectView.html'
 })
-export class LevelSelectComponent extends KrossrDialogBase implements AsyncLoadedComponent, OnInit {
+export class LevelSelectComponent implements AsyncLoadedComponent, OnInit {
     constructor(
         public Authentication: AuthenticationService,
-        private levelService: LevelService,
-        protected matDialogRef: MatDialogRef<LevelSelectComponent>,
+        private levelService: LevelService
     ) {
-        super(matDialogRef);
     }
 
     public isReady = false;

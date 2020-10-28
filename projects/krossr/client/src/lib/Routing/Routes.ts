@@ -8,6 +8,7 @@ import { NotFoundComponent } from '../NotFound/NotFoundComponent';
 import { ResetPasswordService } from '../ResetPassword/ResetPasswordService';
 import { LevelCreatorComponent } from '../LevelCreator/LevelCreatorComponent';
 import { LevelEditorComponent } from '../LevelEditor/LevelEditorComponent';
+import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 
 export class Routes {
     static getNg2Routes(): Ng2StateDeclaration[] {
@@ -39,6 +40,11 @@ export class Routes {
                         }
                     }
                 ]
+            },
+            {
+                name: LevelRoutes.list,
+                url: '/levels',
+                component: LevelSelectComponent
             },
             {
                 name: LevelRoutes.update,

@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelService } from '../Level/LevelService';
-import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 import { StateService } from '@uirouter/core';
 import { HomeRoutes } from '../Routing/RouteNames';
 import { LevelEditorFormService } from './LevelEditorFormService';
@@ -14,6 +13,7 @@ import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventSer
 import { TileFillEventService } from '../Tile/TileFillEventService';
 import { TileState } from '../Tile/TileState';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
+import { LevelRoutes } from '../Routing/RouteNames';
 
 @Component({
     selector: 'krossr-level-editor-form',
@@ -74,8 +74,7 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
     /** Remove any Level passed in */
     async remove(level: { id?: number }) {
         await this.levelService.removeLevel(level.id);
-        this.matDialog.open(LevelSelectComponent);
-        this.stateService.go(HomeRoutes.home, {}, { reload: true });
+        this.stateService.go(LevelRoutes.list, {}, { reload: true });
     }
 
     public async ngOnInit() {

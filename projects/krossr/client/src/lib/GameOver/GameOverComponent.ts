@@ -1,7 +1,8 @@
-import { Component, Input, Inject } from '@angular/core';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { StateService } from '@uirouter/core';
 import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
+import { LevelRoutes } from '../Routing/RouteNames';
 
 @Component({
     selector: 'krossr-game-over',
@@ -10,14 +11,14 @@ import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
 export class GameOverComponent extends KrossrDialogBase {
     constructor(
         protected matDialogRef: MatDialogRef<GameOverComponent>,
-        private matDialog: MatDialog,
-        @Inject(MAT_DIALOG_DATA) public data: { levelId: number }
+        @Inject(MAT_DIALOG_DATA) public data: { levelId: number },
+        private stateService: StateService
     ) {
         super(matDialogRef);
     }
 
     newLevel() {
         this.close();
-        this.matDialog.open(LevelSelectComponent);
+        this.stateService.go(LevelRoutes.list);
     }
 }
