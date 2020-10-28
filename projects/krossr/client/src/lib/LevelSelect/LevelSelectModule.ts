@@ -7,11 +7,13 @@ import { LevelSelectFilterModule } from '../LevelSelectFilter/LevelSelectFilterM
 import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModule';
 import { PaginationModule } from '../Pagination/PaginationModule';
 import { UIRouterModule } from '@uirouter/angular';
+import { LevelSelectTileModule } from '../LevelSelectTile/LevelSelectTileModule';
 
 @NgModule({
     imports: [
         CommonModule,
         LevelSelectFilterModule,
+        LevelSelectTileModule,
         LoadingAnimationModule,
         PaginationModule,
         PopupContentModule,

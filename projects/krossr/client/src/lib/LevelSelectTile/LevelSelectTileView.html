@@ -1,0 +1,21 @@
+<div class="list-group-item level">
+    <div class="list-group-item-heading">{{ level.name }}</div>
+
+    <div class="username" (click)="setSearchText($event, level.user.username)">
+        by {{ level.user.username }}
+    </div>
+
+    <a class="editButton" uiSref="update-level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }" *ngIf="canEdit()">
+        <i class="fa fa-edit"></i>
+    </a>
+
+    <div class="size">
+        {{ level.prettySize }}
+    </div>
+
+    <div class="averageRating">
+        Avg:
+        <span *ngIf="level.avgRating">{{ level.avgRating | number:'1.2-2' }}</span>
+        <span *ngIf="!level.avgRating">n/a</span>
+    </div>
+</div>

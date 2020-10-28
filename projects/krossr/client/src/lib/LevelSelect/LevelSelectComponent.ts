@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { LevelService } from '../Level/LevelService';
 import { Component, OnInit } from '@angular/core';
@@ -27,14 +28,6 @@ export class LevelSelectComponent implements AsyncLoadedComponent, OnInit {
 
     public formGroup: FormGroup;
 
-    canEdit(level: LevelListLevelViewModel) {
-        if (!this.Authentication.user) {
-            return false;
-        }
-
-        return level.user.id === this.Authentication.user.id;
-    }
-
     async ngOnInit() {
         await this.find(this.currentPage);
         this.formGroup = new FormGroup({});
@@ -59,6 +52,12 @@ export class LevelSelectComponent implements AsyncLoadedComponent, OnInit {
     refilter(options: LevelListFilterOptions) {
         this.filter = options;
         this.find(0);
+    }
+
+    extendFilter(options: LevelListFilterOptions) {
+        let filter = _.extend(this.filter, options);
+
+        this.refilter(filter);
     }
 
     setSearchText(text: string) {

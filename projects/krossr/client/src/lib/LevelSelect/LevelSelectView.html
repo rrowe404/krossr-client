@@ -17,31 +17,8 @@
         </div>
 
         <div class="list-group" *ngIf="levels">
-            <div *ngFor="let level of levels; let isOdd = odd" [ngClass]="{ 'odd': isOdd }"
-                class="list-group-item level">
-                <a class="playButton" uiSref="level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }">
-                    <i class="fa fa-play"></i>
-                </a>
-
-                <div class="list-group-item-heading">{{ level.name }}</div>
-
-                <div class="username" (click)="setSearchText(level.user.username)">
-                    by {{ level.user.username }}
-                </div>
-
-                <a class="editButton" uiSref="update-level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }" *ngIf="canEdit(level)">
-                    <i class="fa fa-edit"></i>
-                </a>
-
-                <div class="size">
-                    {{ level.prettySize }}
-                </div>
-
-                <div class="averageRating">
-                    Avg:
-                    <span *ngIf="level.avgRating">{{ level.avgRating | number:'1.2-2' }}</span>
-                    <span *ngIf="!level.avgRating">n/a</span>
-                </div>
+            <div *ngFor="let level of levels" uiSref="level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }">
+                <krossr-level-select-tile [level]="level" (refilter)="extendFilter($event)"></krossr-level-select-tile>
             </div>
         </div>
 
