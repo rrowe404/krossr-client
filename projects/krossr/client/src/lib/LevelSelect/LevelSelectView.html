@@ -17,9 +17,13 @@
         </div>
 
         <div class="list-group" *ngIf="levels">
-            <div *ngFor="let level of levels" uiSref="level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }">
-                <krossr-level-select-tile [level]="level" (refilter)="extendFilter($event)"></krossr-level-select-tile>
-            </div>
+            <krossr-level-select-tile [level]="level" 
+                                      (refilter)="extendFilter($event)"
+                                      *ngFor="let level of levels"
+                                      uiSref="level"
+                                      [uiParams]="{ levelId: level.id }" 
+                                      [uiOptions]="{ reload: true }">
+            </krossr-level-select-tile>
         </div>
 
         <div class="alert alert-warning" *ngIf="!levels || !levels.length">
