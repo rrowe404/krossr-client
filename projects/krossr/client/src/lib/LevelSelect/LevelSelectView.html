@@ -1,4 +1,4 @@
-<krossr-popup-content [isReady]="isReady">
+<krossr-async-content [isReady]="isReady">
     <div class="listLevels" [formGroup]="formGroup" *ngIf="isReady">
         <h2>
             Levels
@@ -23,4 +23,4 @@
         <krossr-pagination *ngIf="levels && levels.length > 0" (paginate)="find($event)" [currentPage]="currentPage"
             [totalPages]="totalPages"></krossr-pagination>
     </div>
-</krossr-popup-content>
+</krossr-async-content>

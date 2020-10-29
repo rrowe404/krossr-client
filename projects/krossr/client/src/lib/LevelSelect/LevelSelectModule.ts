@@ -8,9 +8,11 @@ import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModu
 import { PaginationModule } from '../Pagination/PaginationModule';
 import { UIRouterModule } from '@uirouter/angular';
 import { LevelSelectTileModule } from '../LevelSelectTile/LevelSelectTileModule';
+import { AsyncModule } from '../Async/AsyncModule';
 
 @NgModule({
     imports: [
+        AsyncModule,
         CommonModule,
         LevelSelectFilterModule,
         LevelSelectTileModule,
