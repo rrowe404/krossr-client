@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { LevelListLevelViewModel } from '@krossr/types';
 
 @Component({
     selector: 'krossr-complete-level-preview',
@@ -6,4 +7,5 @@ import { Component } from '@angular/core';
     templateUrl: 'CompleteLevelPreviewView.html'
 })
 export class CompleteLevelPreviewComponent {
+    @Input() public level: LevelListLevelViewModel;
 }
