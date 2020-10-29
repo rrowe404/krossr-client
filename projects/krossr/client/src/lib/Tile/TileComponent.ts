@@ -24,7 +24,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     /* At this level, work with the horizontal version only */
     @Input() public gameMatrix: BooleanMatrix;
     @Input() public index;
-    @Input() public isEditMode: boolean;
+    @Input() public prefill: boolean;
     @Input() public tile: TileLayout;
     @Input() public editable: boolean;
 
@@ -133,7 +133,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
      * Determine the initial state of the tile fills
      */
     private initializeFill() {
-        let fill = this.isEditMode && this.tile && this.tile.selected;
+        let fill = this.prefill && this.tile && this.tile.selected;
 
         fill ? this.select() : this.empty();
     }

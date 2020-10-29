@@ -1,7 +1,6 @@
 import { DragBoxService } from '../DragBox/DragBoxService';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { GameOverService } from '../GameOver/GameOverService';
-import { GameSizeService } from '../GameSize/GameSizeService';
 import { ILevel } from '../Level/Level';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileState } from '../Tile/TileState';
@@ -34,7 +33,7 @@ export class GameComponent implements OnInit, OnDestroy {
         this.$element = this.elementRef.nativeElement;
     }
 
-    @Input() public isEditMode = false;
+    @Input() public prefill = false;
     @Input() public gameMatrix: GameMatrix;
     @Input() public goalMatrix: GameMatrix;
     @Input() public level: ILevel;
