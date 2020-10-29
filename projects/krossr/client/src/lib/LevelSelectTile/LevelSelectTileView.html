@@ -1,16 +1,20 @@
 <div class="level">
-    <div class="list-group-item-heading">{{ level.name }}</div>
+    <div class="list-group-item-heading">
+        {{ level.name }}
+        <a class="editButton" uiSref="update-level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }" *ngIf="canEdit()">
+            <i class="fa fa-edit"></i>
+        </a>
+    </div>
+
 
     <!-- <krossr-uncomplete-level-preview></krossr-uncomplete-level-preview> -->
-    <krossr-complete-level-preview></krossr-complete-level-preview>
+    <krossr-complete-level-preview [level]="level"></krossr-complete-level-preview>
 
     <a>
         <span>by </span><span class="username" (click)="setSearchText($event, level.user.username)">{{ level.user.username }}</span>
     </a>
 
-    <a class="editButton" uiSref="update-level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }" *ngIf="canEdit()">
-        <i class="fa fa-edit"></i>
-    </a>
+
 
     <div class="size">
         {{ level.prettySize }}
