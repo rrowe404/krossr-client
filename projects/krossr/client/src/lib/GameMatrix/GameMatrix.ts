@@ -37,4 +37,10 @@ export class GameMatrix implements IEquatable<GameMatrix> {
         this.horizontal.setValueAt(row, column, value);
         this.vertical = this.horizontal.rotate();
     }
+
+    public toTileLayout() {
+        return this.horizontal.flatten().map((value: boolean) => {
+            return { selected: value  };
+        });
+    }
 }

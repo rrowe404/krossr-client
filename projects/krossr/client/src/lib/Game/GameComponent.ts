@@ -37,9 +37,10 @@ export class GameComponent implements OnInit, OnDestroy {
     @Input() public gameMatrix: GameMatrix;
     @Input() public goalMatrix: GameMatrix;
     @Input() public level: ILevel;
-    @Input() public tiles: TileLayout[];
     @Input() public gameSize: GameSize;
+
     public margin: string;
+    public tiles: TileLayout[] = [];
 
     private $element: HTMLElement;
 
@@ -52,6 +53,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.tiles = this.gameMatrix.toTileLayout();
         this.dragBoxService.clearDragBox();
 
         this.setMargin(this.tileSizeService.getTileSize());

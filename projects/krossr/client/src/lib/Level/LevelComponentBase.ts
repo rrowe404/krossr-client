@@ -7,7 +7,6 @@ import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
-import { TileLayout } from '../TileLayout/TileLayout';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 import { GameSize } from '../GameSize/GameSize';
 
@@ -25,7 +24,6 @@ export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit
     }
 
     public isReady = false;
-    public finalLayout: Array<TileLayout> = [];
     public gameMatrix: GameMatrix;
     public goalMatrix: GameMatrix;
     public error: string;
@@ -75,9 +73,5 @@ export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit
             gameMatrix,
             goalMatrix
         };
-    }
-
-    toTileLayout(value: boolean) {
-        return { selected: value };
     }
 }

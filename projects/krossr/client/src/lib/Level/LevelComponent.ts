@@ -38,7 +38,6 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
     }
 
     async findOne() {
-        this.finalLayout = [];
         this.level = null;
 
         let data = await this.levelService.getLevel(this.levelId) as LevelViewModel;
@@ -58,8 +57,6 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
         if (goalLayout) {
             this.goalMatrix = new GameMatrix(goalLayout, true);
         }
-
-        this.finalLayout = game.gameMatrix.flatten().map(this.toTileLayout);
 
         this.isReady = true;
     }

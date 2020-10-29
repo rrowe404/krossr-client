@@ -32,7 +32,6 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
         super(levelEditorFormClearEventService, gameSizeService, resizeEventService, tileSizeEventService);
     }
 
-    public finalLayout: Array<TileLayout> = [];
     public margin: string;
     public level: ILevel;
     @Input() public levelId;
@@ -52,8 +51,6 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
         let game = this.createNewGame({
             layout: new BooleanMatrix(sideLength, sideLength).getLayout()
         });
-
-        this.finalLayout = game.gameMatrix.flatten().map(this.toTileLayout);
 
         this.gameMatrix = new GameMatrix(game.gameMatrix, false);
 
