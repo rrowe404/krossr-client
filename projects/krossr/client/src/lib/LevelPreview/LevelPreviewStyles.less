@@ -1,0 +1,13 @@
+@import (reference) '../../less/mixins.less';
+@import (reference) '../../less/variables.less';
+
+:host {
+    .box {
+        @size: 100px;
+
+        background-color: fade(@black, 50%);
+        margin: @inputMargin;
+        width: @size;
+        height: @size;
+    }
+}

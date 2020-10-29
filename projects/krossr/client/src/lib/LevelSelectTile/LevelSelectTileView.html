@@ -1,6 +1,8 @@
 <div class="level">
     <div class="list-group-item-heading">{{ level.name }}</div>
 
+    <krossr-uncomplete-level-preview></krossr-uncomplete-level-preview>
+
     <a>
         <span>by </span><span class="username" (click)="setSearchText($event, level.user.username)">{{ level.user.username }}</span>
     </a>
