@@ -10,6 +10,7 @@ import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { LevelComponentBase } from './LevelComponentBase';
+import { GameOverService } from '../GameOver/GameOverService';
 
 @Component({
     selector: 'krossr-level',
@@ -20,6 +21,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
     constructor(
         public Authentication: AuthenticationService,
         protected gameSizeService: GameSizeService,
+        protected gameOverService: GameOverService,
         private levelDecoder: LevelDecoder,
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelService: LevelService,
@@ -59,6 +61,14 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
         }
 
         this.isReady = true;
+    }
+
+    checkForWin() {
+        let win = this.gameMatrix && this.gameMatrix.equals(this.goalMatrix);
+
+        if (win) {
+            this.gameOverService.openDialog(this.level);
+        }
     }
 
     rate(rating) {

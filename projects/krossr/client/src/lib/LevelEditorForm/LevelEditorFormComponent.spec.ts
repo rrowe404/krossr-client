@@ -9,9 +9,7 @@ import { MockLevelEditorFormService } from 'src/test/MockLevelEditorFormService'
 import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
 import { LevelService } from '../Level/LevelService';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 import { HomeRoutes, LevelRoutes } from '../Routing/RouteNames';
-import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { LevelEditorFormModule } from './LevelEditorFormModule';
 
 describe('LevelEditorFormComponent', () => {
@@ -93,7 +91,7 @@ describe('LevelEditorFormComponent', () => {
     });
 
     describe('#remove', () => {
-        it('should remove, then open LevelSelect and go home', async () => {
+        it('should remove, then open LevelSelect and go to level select', async () => {
             let levelService: LevelService = TestBed.inject(LevelService);
             let stateService: StateService = TestBed.inject(StateService);
 

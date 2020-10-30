@@ -19,7 +19,7 @@
                 </div>
                 
                 <div class="bottom row">
-                    <krossr-game [gameMatrix]="gameMatrix" [gameSize]="gameSize" [goalMatrix]="goalMatrix" [level]="level"></krossr-game>
+                    <krossr-game [gameMatrix]="gameMatrix" [gameSize]="gameSize" [level]="level" (check)="checkForWin()"></krossr-game>
     
                     <krossr-number-grid
                         [gameMatrix]="gameMatrix['horizontal']"

@@ -1,12 +1,11 @@
 import { DragBoxService } from '../DragBox/DragBoxService';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
-import { GameOverService } from '../GameOver/GameOverService';
 import { ILevel } from '../Level/Level';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileState } from '../Tile/TileState';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { TileEventService } from '../Tile/TileEventService';
-import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ShiftService } from '../Shift/ShiftService';
 import { TileLayout } from '../TileLayout/TileLayout';
@@ -22,7 +21,6 @@ export class GameComponent implements OnInit, OnDestroy {
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
-        private gameOverService: GameOverService,
         private tileEventService: TileEventService,
         private tileSizeEventService: TileSizeEventService,
         private tileSizeService: TileSizeService,
@@ -35,9 +33,9 @@ export class GameComponent implements OnInit, OnDestroy {
 
     @Input() public prefill = false;
     @Input() public gameMatrix: GameMatrix;
-    @Input() public goalMatrix: GameMatrix;
     @Input() public level: ILevel;
     @Input() public gameSize: GameSize;
+    @Output() public check: EventEmitter<void> = new EventEmitter();
 
     public margin: string;
     public tiles: TileLayout[] = [];
@@ -106,17 +104,7 @@ export class GameComponent implements OnInit, OnDestroy {
         let fill = this.shiftService.shiftOn ? TileState.marked : TileState.selected;
 
         this.applyFillDragBox(fill);
-
-        if (this.checkForWin()) {
-            this.gameOverService.openDialog(this.level);
-        }
-    }
-
-    /**
-     * Compare the current state of the game to the correct state
-     */
-    checkForWin() {
-        return this.gameMatrix && this.gameMatrix.equals(this.goalMatrix);
+        this.check.emit();
     }
 
     setMargin(tileSize: number) {

@@ -7,7 +7,6 @@ import { DragBoxService } from '../DragBox/DragBoxService';
 import { TileState } from '../Tile/TileState';
 import { TileEventService } from '../Tile/TileEventService';
 import { ShiftService } from '../Shift/ShiftService';
-import { GameOverService } from '../GameOver/GameOverService';
 
 describe('GameComponent', () => {
     let fixture: ComponentFixture<GameComponent>;
@@ -44,28 +43,6 @@ describe('GameComponent', () => {
         expect(fixture).toBeTruthy();
     });
 
-    describe('#checkForWin', () => {
-        it('should return false if there is no goal', () => {
-            component.goalMatrix = null;
-            expect(component.checkForWin()).toBeFalsy();
-        });
-
-        it('should return false if the goal does not match the game', () => {
-            component.goalMatrix = getGameMatrix([[false, false], [true, true]]);
-            component.gameMatrix = getGameMatrix([[false, false], [false, false]]);
-
-            expect(component.checkForWin()).toBeFalsy();
-        });
-
-        it('should return true if the goal matches the game', () => {
-            let goal = getGameMatrix([[true, true], [false, true]]);
-            component.goalMatrix = goal;
-            component.gameMatrix = goal;
-
-            expect(component.checkForWin()).toBeTruthy();
-        });
-    });
-
     it('should empty the dragbox when the mouse leaves the game', () => {
         let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
         spyOn(dragBoxService, 'fill');
@@ -97,19 +74,5 @@ describe('GameComponent', () => {
         tileEventService.tileDragEnd.emit();
 
         expect(dragBoxService.fill).toHaveBeenCalledWith(TileState.marked);
-    });
-
-    it('should open the game over dialog if necessary', () => {
-        let goal = new GameMatrix(new BooleanMatrix(2, 2), true);
-        component.gameMatrix = goal;
-        component.goalMatrix = goal;
-
-        let gameOverService: GameOverService = TestBed.inject(GameOverService);
-        spyOn(gameOverService, 'openDialog');
-
-        let tileEventService: TileEventService = TestBed.inject(TileEventService);
-        tileEventService.tileDragEnd.emit();
-
-        expect(gameOverService.openDialog).toHaveBeenCalled();
     });
 });
