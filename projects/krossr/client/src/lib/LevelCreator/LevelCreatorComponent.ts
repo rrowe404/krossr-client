@@ -12,7 +12,6 @@ import { ILevel } from '../Level/Level';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
-import { TileLayout } from '../TileLayout/TileLayout';
 import { nowAndLater } from '../Debounce/Debounce';
 
 @Component({
