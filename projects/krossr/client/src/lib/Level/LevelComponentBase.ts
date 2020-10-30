@@ -33,7 +33,7 @@ export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit
 
     protected timeout = 1000;
 
-    private subscriptions: Subscription[];
+    protected subscriptions: Subscription[];
 
     ngOnDestroy() {
         this.subscriptions.forEach(sub => sub.unsubscribe());
