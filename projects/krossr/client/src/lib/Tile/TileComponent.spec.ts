@@ -180,8 +180,11 @@ describe('TileComponent', () => {
 
     describe('touchMove', () => {
         it('should catch the event', () => {
+            let touchService: TouchService = TestBed.inject(TouchService);
             let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
             let touches = [new Touch({identifier: 0, target: element})];
+
+            spyOn(touchService, 'getRealTarget').and.returnValue(element);
 
             let event = new TouchEvent('touchmove', { touches });
             element.dispatchEvent(event);

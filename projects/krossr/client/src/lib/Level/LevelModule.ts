@@ -9,10 +9,13 @@ import { ModeSelectorModule } from '../ModeSelector/ModeSelectorModule';
 import { StarRatingModule } from '../StarRating/StarRatingModule';
 import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModule';
 import { AsyncModule } from '../Async/AsyncModule';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UIRouterModule } from '@uirouter/angular';
 
 @NgModule({
     imports: [
         AsyncModule,
+        BrowserAnimationsModule,
         CommonModule,
         GameModule,
         LoadingAnimationModule,

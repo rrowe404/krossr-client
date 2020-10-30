@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelComponent } from './LevelComponent';
-import { StateService } from '@uirouter/angular';
+import { StateService, UIRouterModule } from '@uirouter/angular';
 import { MockStateService } from 'src/test/MockStateService';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LevelModule } from './LevelModule';
@@ -8,6 +8,7 @@ import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { GameOverService } from '../GameOver/GameOverService';
 import { TileEventService } from '../Tile/TileEventService';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('LevelComponent', () => {
     let fixture: ComponentFixture<LevelComponent>;
@@ -17,16 +18,19 @@ describe('LevelComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                LevelModule
+                LevelModule,
+                UIRouterModule.forRoot()
             ],
             providers: [
-                { provide: StateService, useClass: MockStateService }
+                { provide: StateService, useClass: MockStateService },
+                { provide: APP_BASE_HREF, useValue: '/' },
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(LevelComponent);
         fixture.detectChanges();
         component = fixture.componentInstance;
+        component.level = { id: 1, size: 25, layout: '', name: '' };
     });
 
     it('should be created', () => {
@@ -72,6 +76,9 @@ describe('LevelComponent', () => {
         let tileEventService: TileEventService = TestBed.inject(TileEventService);
         tileEventService.tileDragEnd.emit();
 
-        expect(gameOverService.openDialog).toHaveBeenCalled();
+        // need a cycle for the event to catch
+        setTimeout(() => {
+            expect(gameOverService.openDialog).toHaveBeenCalled();
+        });
     });
 });

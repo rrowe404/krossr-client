@@ -69,6 +69,8 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
         if (win) {
             this.gameOverService.openDialog(this.level);
         }
+
+        return win;
     }
 
     rate(rating) {
