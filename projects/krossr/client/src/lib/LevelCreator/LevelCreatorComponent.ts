@@ -13,6 +13,7 @@ import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditor
 import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { nowAndLater } from '../Debounce/Debounce';
+import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 
 @Component({
     selector: 'krossr-level-creator',
@@ -23,12 +24,13 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
         private $state: StateService,
         public Authentication: AuthenticationService,
         protected gameSizeService: GameSizeService,
+        protected goalMatrixFactory: GoalMatrixFactory,
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelService: LevelService,
         protected resizeEventService: ResizeEventService,
         protected tileSizeEventService: TileSizeEventService,
     ) {
-        super(levelEditorFormClearEventService, gameSizeService, resizeEventService, tileSizeEventService);
+        super(levelEditorFormClearEventService, gameSizeService, goalMatrixFactory, resizeEventService, tileSizeEventService);
     }
 
     public margin: string;

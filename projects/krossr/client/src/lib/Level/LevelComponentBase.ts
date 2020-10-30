@@ -9,6 +9,7 @@ import { GameSizeService } from '../GameSize/GameSizeService';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 import { GameSize } from '../GameSize/GameSize';
+import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 
 @Component({
     template: ''
@@ -18,6 +19,7 @@ export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit
     constructor(
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         protected gameSizeService: GameSizeService,
+        protected goalMatrixFactory: GoalMatrixFactory,
         protected resizeEventService: ResizeEventService,
         protected tileSizeEventService: TileSizeEventService
     ) {
@@ -59,11 +61,8 @@ export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit
 
     /* Combine a lot of the other functions here to set up a new game */
     createNewGame(args: { layout: boolean[][] }) {
-        let goalMatrix: BooleanMatrix;
         let layout = args.layout;
-
-        goalMatrix = new BooleanMatrix(layout.length, layout.length);
-        goalMatrix.initializeWith(layout);
+        let goalMatrix = this.goalMatrixFactory.create(layout);
 
         this.gameSizeService.calculatePlayableArea();
         let gameMatrix = new BooleanMatrix(layout.length, layout.length);
