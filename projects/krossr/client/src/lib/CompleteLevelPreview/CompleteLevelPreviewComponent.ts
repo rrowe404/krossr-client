@@ -5,6 +5,7 @@ import { GameSize } from '../GameSize/GameSize';
 import { ILevel } from '../Level/Level';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
+import { TileSizeService } from '../TileSize/TileSizeService';
 
 @Component({
     selector: 'krossr-complete-level-preview',
@@ -18,7 +19,8 @@ export class CompleteLevelPreviewComponent implements OnInit {
     public gameMatrix: GameMatrix;
 
     constructor(
-        private levelDecoder: LevelDecoder
+        private levelDecoder: LevelDecoder,
+        private tileSizeService: TileSizeService
     ) {
     }
 
@@ -29,5 +31,6 @@ export class CompleteLevelPreviewComponent implements OnInit {
         matrix.initializeWith(layout);
         this.gameMatrix = new GameMatrix(matrix, true);
         this.gameSize = { width: '100px', height: '100px' }; // todo fix magic;
+        this.tileSizeService.setTileSize(100, layout.length);
     }
 }

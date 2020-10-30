@@ -1,5 +1,5 @@
 <div class="outer game" [ngStyle]="{'padding': margin}" *ngIf="gameSize">
 	<div class="inner game" [ngStyle]="{ 'width': gameSize.width, 'height': gameSize.height }" tabindex="1">
-         <krossr-tile [gameMatrix]="gameMatrix.horizontal" *ngFor="let tile of tiles; let $index = index;" [editable]='true' [prefill]="prefill" [index]="$index" [tile]="tile"></krossr-tile> 
+         <krossr-tile [gameMatrix]="gameMatrix.horizontal" *ngFor="let tile of tiles; let $index = index;" [editable]="!previewMode" [prefill]="prefill" [index]="$index" [tile]="tile" [previewMode]="previewMode"></krossr-tile> 
 	</div>
 </div>

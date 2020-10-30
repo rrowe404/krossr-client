@@ -32,6 +32,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     @Input() public prefill = false;
+    @Input() public previewMode = false;
     @Input() public gameMatrix: GameMatrix;
     @Input() public gameSize: GameSize;
     @Output() public check: EventEmitter<void> = new EventEmitter();

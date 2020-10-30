@@ -27,6 +27,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() public prefill: boolean;
     @Input() public tile: TileLayout;
     @Input() public editable: boolean;
+    @Input() public previewMode = false;
 
     public coordinate: Point;
     public marked: boolean;
@@ -67,7 +68,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.listeners = [
+        this.listeners = this.previewMode ? [] : [
             this.renderer.listen(this.$element, 'mousedown', () => this.beginDrag()),
             this.renderer.listen(this.$element, 'mousemove', () => this.continueDrag()),
             this.renderer.listen(this.$element, 'mouseup', () => this.endDrag()),
@@ -86,7 +87,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
             }),
         ];
 
-        this.subscriptions = [
+        this.subscriptions = this.previewMode ? [] : [
             this.tileSizeEventService.tileSizeChanged.subscribe(() => {
                 this.setTileSize();
             }),
