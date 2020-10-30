@@ -10,7 +10,7 @@ import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventSer
 import { LevelService } from '../Level/LevelService';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
-import { HomeRoutes } from '../Routing/RouteNames';
+import { HomeRoutes, LevelRoutes } from '../Routing/RouteNames';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { LevelEditorFormModule } from './LevelEditorFormModule';
 
@@ -102,8 +102,7 @@ describe('LevelEditorFormComponent', () => {
 
             await component.remove({ id: 1 });
             expect(levelService.removeLevel).toHaveBeenCalled();
-            expect(matDialog.open).toHaveBeenCalledWith(LevelSelectComponent);
-            expect(stateService.go).toHaveBeenCalledWith(HomeRoutes.home, {}, { reload: true });
+            expect(stateService.go).toHaveBeenCalledWith(LevelRoutes.list, {}, { reload: true });
         });
     });
 

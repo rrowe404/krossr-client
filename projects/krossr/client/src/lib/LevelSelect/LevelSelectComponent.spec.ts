@@ -38,35 +38,6 @@ describe('LevelSelectComponent', () => {
         expect(fixture).toBeTruthy();
     });
 
-    it('should only allow the user that created the level to see the edit button', () => {
-        let authenticationService: AuthenticationService = TestBed.inject(AuthenticationService);
-
-        authenticationService.signIn({ id: 1, username: 'Rosie' });
-
-        let level: LevelListLevelViewModel = {
-            avgRating: '3.5',
-            createdAt: 'nooow',
-            user: {
-                id: 2,
-                username: 'Waluigi'
-            },
-            prettySize: '5x5',
-            layout: '',
-            name: 'Waaah',
-            size: 25
-        };
-
-        expect(component.canEdit(level)).toBeFalsy();
-
-        level.user.id = 1;
-
-        expect(component.canEdit(level)).toBeTruthy();
-
-        authenticationService.signOut();
-
-        expect(component.canEdit(level)).toBeFalsy();
-    });
-
     it('should set search text', () => {
         let levelService: LevelService = TestBed.inject(LevelService);
 

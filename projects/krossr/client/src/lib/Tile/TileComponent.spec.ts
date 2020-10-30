@@ -46,7 +46,7 @@ describe('TileComponent', () => {
 
     it('should initialize fill if a selected TileLayout is passed in and the tile is in edit mode', () => {
         let fixture2 = getFixture(component2 => {
-            component2.isEditMode = true;
+            component2.prefill = true;
             component2.tile = { selected: true };
         });
         expect(fixture2.componentInstance.selected).toBeTruthy();

@@ -1,4 +1,4 @@
-<div class="level">
+<div class="level" *ngIf="level">
     <div class="list-group-item-heading">
         {{ level.name }}
         <a class="editButton" uiSref="update-level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }" *ngIf="canEdit()">

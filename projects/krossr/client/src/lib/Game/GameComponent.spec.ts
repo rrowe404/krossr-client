@@ -14,6 +14,12 @@ describe('GameComponent', () => {
     let component: GameComponent;
     let element: HTMLElement;
 
+    let getGameMatrix = (layout: boolean[][]) => {
+        let matrix = new BooleanMatrix(2, 2);
+        matrix.initializeWith(layout);
+        return new GameMatrix(matrix, true);
+    };
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ MatDialogModule ],
@@ -28,6 +34,8 @@ describe('GameComponent', () => {
             height: '200px'
         };
 
+        component.gameMatrix = getGameMatrix([[]]);
+
         element = fixture.debugElement.nativeElement;
         fixture.detectChanges();
     });
@@ -37,12 +45,6 @@ describe('GameComponent', () => {
     });
 
     describe('#checkForWin', () => {
-        let getGameMatrix = (layout: boolean[][]) => {
-            let matrix = new BooleanMatrix(2, 2);
-            matrix.initializeWith(layout);
-            return new GameMatrix(matrix, true);
-        };
-
         it('should return false if there is no goal', () => {
             component.goalMatrix = null;
             expect(component.checkForWin()).toBeFalsy();
@@ -62,16 +64,6 @@ describe('GameComponent', () => {
 
             expect(component.checkForWin()).toBeTruthy();
         });
-    });
-
-    it('should focus the game when the mouse enters it', () => {
-        let inner = element.querySelector('.inner') as HTMLElement;
-        spyOn(inner, 'focus');
-
-        let event = new MouseEvent('mouseenter');
-        element.dispatchEvent(event);
-
-        expect(inner.focus).toHaveBeenCalled();
     });
 
     it('should empty the dragbox when the mouse leaves the game', () => {
