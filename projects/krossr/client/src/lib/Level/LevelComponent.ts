@@ -12,6 +12,7 @@ import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditor
 import { LevelComponentBase } from './LevelComponentBase';
 import { GameOverService } from '../GameOver/GameOverService';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
+import { CompleteLevelService } from '../CompleteLevel/CompleteLevelService';
 
 @Component({
     selector: 'krossr-level',
@@ -24,6 +25,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
         protected gameSizeService: GameSizeService,
         protected gameOverService: GameOverService,
         protected goalMatrixFactory: GoalMatrixFactory,
+        private completeLevelService: CompleteLevelService,
         private levelDecoder: LevelDecoder,
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelService: LevelService,
@@ -70,6 +72,13 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
 
         if (win) {
             this.gameOverService.openDialog(this.level);
+
+            if (this.Authentication && this.Authentication.user) {
+                this.completeLevelService.completeLevel({
+                    userId: this.Authentication.user.id,
+                    levelId: this.level.id
+                });
+            }
         }
 
         return win;
