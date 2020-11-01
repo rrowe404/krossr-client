@@ -1,4 +1,3 @@
 .gitignore
 /dist
-/node_modules
 /projects/krossr/client/node_modules
