@@ -43,6 +43,7 @@ describe('LevelSelectTileComponent', () => {
         authenticationService.signIn({ id: 1, username: 'Rosie' });
 
         let level: LevelListLevelViewModel = {
+            completed: false,
             avgRating: '3.5',
             createdAt: 'nooow',
             user: {
