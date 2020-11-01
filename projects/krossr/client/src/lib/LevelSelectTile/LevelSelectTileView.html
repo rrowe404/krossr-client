@@ -7,8 +7,8 @@
     </div>
 
 
-    <!-- <krossr-uncomplete-level-preview></krossr-uncomplete-level-preview> -->
-    <krossr-complete-level-preview [level]="level"></krossr-complete-level-preview>
+    <krossr-uncomplete-level-preview *ngIf="!level.completed"></krossr-uncomplete-level-preview>
+    <krossr-complete-level-preview *ngIf="level.completed" [level]="level"></krossr-complete-level-preview>
 
     <a>
         <span>by </span><span class="username" (click)="setSearchText($event, level.user.username)">{{ level.user.username }}</span>
