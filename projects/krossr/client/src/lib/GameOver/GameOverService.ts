@@ -12,7 +12,6 @@ export class GameOverService {
     constructor(
         private matDialog: MatDialog
     ) {
-
     }
 
     openDialog(level: ILevel): void {
