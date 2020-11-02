@@ -1,11 +1,10 @@
 import { DragBoxService } from '../DragBox/DragBoxService';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
-import { ILevel } from '../Level/Level';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileState } from '../Tile/TileState';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { TileEventService } from '../Tile/TileEventService';
-import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy, Output, EventEmitter, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ShiftService } from '../Shift/ShiftService';
 import { TileLayout } from '../TileLayout/TileLayout';
@@ -17,7 +16,7 @@ import { GameSize } from '../GameSize/GameSize';
     styleUrls: ['./GameStyles.less'],
     templateUrl: './GameView.html'
 })
-export class GameComponent implements OnInit, OnDestroy {
+export class GameComponent implements OnInit, OnChanges, OnDestroy {
     constructor(
         private elementRef: ElementRef,
         private renderer: Renderer2,
@@ -48,6 +47,10 @@ export class GameComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.listeners.forEach(listener => listener());
         this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
+
+    ngOnChanges() {
+        this.tiles = this.gameMatrix.toTileLayout();
     }
 
     ngOnInit() {
