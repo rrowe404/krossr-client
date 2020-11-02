@@ -5,6 +5,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ForgotPasswordService } from './ForgotPasswordService';
 import { KrossrFormDialogBase } from '../KrossrFormDialog/KrossrFormDialogBase';
+import { ForgotPasswordDialogData } from './ForgotPasswordDialogData';
 
 @Component({
     selector: 'krossr-forgot-password',
@@ -21,7 +22,7 @@ export class ForgotPasswordComponent extends KrossrFormDialogBase implements OnI
     constructor(
         @Optional() matDialogRef: MatDialogRef<ForgotPasswordComponent>,
         private forgotPasswordService: ForgotPasswordService,
-        @Optional() @Inject(MAT_DIALOG_DATA) public data: { username: string }
+        @Optional() @Inject(MAT_DIALOG_DATA) public data: ForgotPasswordDialogData
     ) {
         super(matDialogRef);
     }
