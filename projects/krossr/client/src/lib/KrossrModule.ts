@@ -26,6 +26,7 @@ import { ResetPasswordModule } from './ResetPassword/ResetPasswordModule';
 import { LevelCreatorModule } from './LevelCreator/LevelCreatorModule';
 import { LevelEditorModule } from './LevelEditor/LevelEditorModule';
 import { LoadingAnimationModule } from './LoadingAnimation/LoadingAnimationModule';
+import { WINDOW_PROVIDERS } from './Window/WindowService';
 
 @NgModule({
     imports: [
@@ -68,7 +69,7 @@ import { LoadingAnimationModule } from './LoadingAnimation/LoadingAnimationModul
         ShellComponent
     ],
     providers: [
-        { provide: 'window', useValue: window }
+        WINDOW_PROVIDERS
     ]
 })
 export class KrossrModule {
