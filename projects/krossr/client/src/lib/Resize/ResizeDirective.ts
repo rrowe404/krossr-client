@@ -7,10 +7,13 @@ import { WINDOW } from '../Window/WindowService';
     selector: '[krossrResize]'
 })
 export class ResizeDirective implements OnInit {
+    private _window: Window;
+
     constructor(
-        @Inject(WINDOW) private window: Window,
+        @Inject(WINDOW) window: any,
         private resizeEventService: ResizeEventService
     ) {
+        this._window = window;
     }
 
     public ngOnInit() {
@@ -18,7 +21,7 @@ export class ResizeDirective implements OnInit {
             this.resizeEventService.windowResized.emit();
         });
 
-        this.window.addEventListener('resize', () => {
+        this._window.addEventListener('resize', () => {
             resizeFn.next();
         });
     }
