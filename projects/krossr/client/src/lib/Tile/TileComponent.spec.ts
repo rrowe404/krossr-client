@@ -11,6 +11,7 @@ describe('TileComponent', () => {
     let fixture: ComponentFixture<TileComponent>;
     let component: TileComponent;
     let element: HTMLElement;
+    let touchService: TouchService;
 
     function getFixture(setup?: (componentInstance: TileComponent) => void) {
         let componentFixture = TestBed.createComponent(TileComponent);
@@ -38,6 +39,9 @@ describe('TileComponent', () => {
         fixture = getFixture();
         component = fixture.componentInstance;
         element = fixture.debugElement.nativeElement;
+        touchService = TestBed.inject(TouchService);
+
+        spyOn(touchService, 'getRealTarget').and.returnValue(element);
     });
 
     it('should be created', () => {
@@ -165,14 +169,11 @@ describe('TileComponent', () => {
         it('should clear when the dragbox is smaller than the previous one', () => {
             let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
             let tileFillEventService: TileFillEventService = TestBed.inject(TileFillEventService);
-            let touchService: TouchService = TestBed.inject(TouchService);
             spyOn(tileFillEventService.fill, 'emit');
 
             dragBoxService.startCoord = { x: 0, y: 0 };
             dragBoxService.endCoord = { x: 2, y: 2 };
             component.index = 0;
-
-            spyOn(touchService, 'getRealTarget').and.returnValue(element);
 
             let event = new MouseEvent('mousemove');
             element.dispatchEvent(event);
@@ -183,11 +184,8 @@ describe('TileComponent', () => {
 
     describe('touchMove', () => {
         it('should catch the event', () => {
-            let touchService: TouchService = TestBed.inject(TouchService);
             let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
             let touches = [new Touch({identifier: 0, target: element})];
-
-            spyOn(touchService, 'getRealTarget').and.returnValue(element);
 
             let event = new TouchEvent('touchmove', { touches });
             element.dispatchEvent(event);
@@ -196,10 +194,7 @@ describe('TileComponent', () => {
         });
 
         it('should find the correct tile', () => {
-            let touchService: TouchService = TestBed.inject(TouchService);
             let touches = [new Touch({identifier: 0, target: element})];
-
-            spyOn(touchService, 'getRealTarget').and.returnValue(element);
 
             let event = new TouchEvent('touchmove', { touches });
             element.dispatchEvent(event);

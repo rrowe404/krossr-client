@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
+import { WINDOW_PROVIDERS } from '../Window/WindowService';
 import { ResizeDirective } from './ResizeDirective';
 import { ResizeEventService } from './ResizeEventService';
 
@@ -21,7 +22,7 @@ describe('ResizeDirective', () => {
                 ResizeDirectiveTestComponent
             ],
             providers: [
-                { provide: 'window', useValue: window }
+                WINDOW_PROVIDERS
             ]
         }).compileComponents();
 
