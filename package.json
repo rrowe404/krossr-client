@@ -4,9 +4,6 @@
     "scripts": {
         "clean": "rimraf dist",
         "ng": "ng",
-        "buildLibrary": "by-node-env",
-        "buildLibrary:development": "ng build @krossr/client",
-        "buildLibrary:production": "ng build @krossr/client --prod=true",
         "build": "by-node-env",
         "build:development": "ng build",
         "build:production": "ng build --prod=true",
@@ -14,9 +11,8 @@
         "test:development": "ng test",
         "e2e": "ng e2e",
         "lint": "ng lint",
-        "start": "npm run clean && concurrently \"npm run watchLibrary\" \"wait-on dist/krossr/client/public-api.d.ts && npm run devServer\"",
-        "devServer": "ng serve --host 0.0.0.0 --disableHostCheck",
-        "watchLibrary": "ng build @krossr/client --watch"
+        "start": "npm run clean && npm run devServer",
+        "devServer": "ng serve --host 0.0.0.0 --disableHostCheck"
     },
     "private": true,
     "dependencies": {

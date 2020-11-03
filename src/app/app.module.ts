@@ -2,9 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { KrossrModule } from '@krossr/client';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from 'src/interceptors/api-interceptor';
+import { KrossrModule } from 'src/KrossrModule';
 
 @NgModule({
   declarations: [

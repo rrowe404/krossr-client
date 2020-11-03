@@ -38,7 +38,7 @@ build_library:
     <<: *global_cache
     policy: pull
   script:
-    - npm run buildLibrary
+    - npm run build
 
 
 ### TEST STAGE ###

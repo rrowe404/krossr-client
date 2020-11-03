@@ -1,5 +1,5 @@
-import { UserService } from '@krossr/client';
 import { Injectable } from '@angular/core';
+import { UserService } from 'src/User/UserService';
 
 @Injectable()
 export class MockUserService extends UserService {

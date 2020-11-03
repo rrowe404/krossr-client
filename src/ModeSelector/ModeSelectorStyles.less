@@ -1,0 +1,16 @@
+@import (reference) '../less/mixins.less';
+@import (reference) '../less/variables.less';
+
+:host {
+    display: block;
+    margin: @inputMargin 0;
+
+    .mode {
+        display: inline-block;
+        padding: @inputMargin;
+    }
+
+    .selected {
+        .selectionTransition;
+    }
+}

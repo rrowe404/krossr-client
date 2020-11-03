@@ -1,9 +1,9 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
-import { UserService } from '@krossr/client';
 import { MockUserService } from 'src/test/MockUserService';
 import { APP_BASE_HREF } from '@angular/common';
+import { UserService } from 'src/User/UserService';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

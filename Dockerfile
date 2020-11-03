@@ -7,7 +7,6 @@ RUN npm install && \
     npx ngcc
 COPY . /app
 RUN echo $NODE_ENV
-RUN npm run buildLibrary
 RUN npm run build
 
 # Stage 2: Setup
