@@ -1,9 +1,7 @@
 import { MatDialogRef } from '@angular/material/dialog';
-import { Component } from '@angular/core';
+import { Directive } from '@angular/core';
 
-@Component({
-    template: ''
-})
+@Directive()
 // tslint:disable-next-line
 export abstract class KrossrDialogBase {
     constructor(

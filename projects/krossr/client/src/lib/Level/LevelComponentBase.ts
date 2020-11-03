@@ -1,7 +1,7 @@
 import { ILevel } from './Level';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
-import { OnInit, OnDestroy, Component } from '@angular/core';
+import { OnInit, OnDestroy, Directive } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
@@ -11,10 +11,8 @@ import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 import { GameSize } from '../GameSize/GameSize';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 
-@Component({
-    template: ''
-})
-// tslint:disable-next-line component-class-suffix
+@Directive()
+// tslint:disable-next-line directive-class-suffix
 export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit, OnDestroy {
     constructor(
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,

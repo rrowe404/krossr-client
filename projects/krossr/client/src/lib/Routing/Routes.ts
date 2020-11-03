@@ -11,10 +11,10 @@ import { LevelEditorComponent } from '../LevelEditor/LevelEditorComponent';
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
 
 export class Routes {
-    static getNg2Routes(): Ng2StateDeclaration[] {
-        let tokenValidResolve = 'tokenValid';
+    static tokenValidResolve = 'tokenValid';
 
-        let appRoutes = [
+    static getNg2Routes(): Ng2StateDeclaration[] {
+        return [
             {
                 name: HomeRoutes.home,
                 url: '/',
@@ -31,11 +31,11 @@ export class Routes {
                 url: '/level/:levelId',
                 component: LevelComponent,
                 resolve: [
-                    { provide: 'mode', useFactory: () => 'view' },
+                    { provide: 'mode', useFactory() { return 'view'; } },
                     {
                         token: 'levelId',
                         deps: [Transition],
-                        resolveFn: (trans) => {
+                        resolveFn(trans) {
                             return trans.params().levelId;
                         }
                     }
@@ -54,7 +54,7 @@ export class Routes {
                     {
                         token: 'levelId',
                         deps: [Transition],
-                        resolveFn: (trans) => {
+                        resolveFn(trans) {
                             return trans.params().levelId;
                         }
                     }
@@ -66,41 +66,39 @@ export class Routes {
                 url: '/password/reset/invalid',
                 component: ForgotPasswordComponent,
                 resolve: [
-                    { provide: 'invalid', useFactory: () => true }
+                    { provide: 'invalid', useFactory() { return true; } }
                 ]
             },
             {
                 name: UserRoutes.reset,
                 url: '/password/reset/:token',
                 component: ResetPasswordComponent,
-                redirectTo: async (trans) => {
-                    let valid = await trans.injector().getAsync(tokenValidResolve);
+                async redirectTo(trans) {
+                    let valid = await trans.injector().getAsync(Routes.tokenValidResolve);
                     return valid ? null : UserRoutes.resetInvalid;
                 },
                 resolve: [
                     {
                         token: 'token',
                         deps: [Transition],
-                        resolveFn: (trans) => trans.params().token
+                        resolveFn(trans) {
+                            return trans.params().token;
+                        }
                     },
                     {
-                        token: tokenValidResolve,
+                        token: Routes.tokenValidResolve,
                         deps: [Transition, ResetPasswordService],
-                        resolveFn: (trans, resetPasswordService: ResetPasswordService) => {
+                        resolveFn(trans, resetPasswordService: ResetPasswordService) {
                             return resetPasswordService.validateToken(trans.params().token);
                         }
                     }
                 ]
             },
+            {
+                name: HomeRoutes.notFound,
+                url: '/notfound',
+                component: NotFoundComponent
+            }
         ];
-
-        // always comes last
-        appRoutes.push({
-            name: HomeRoutes.notFound,
-            url: '/notfound',
-            component: NotFoundComponent
-        });
-
-        return appRoutes;
     }
 }

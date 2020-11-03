@@ -1,10 +1,8 @@
 import { MatDialogRef } from '@angular/material/dialog';
-import { Component } from '@angular/core';
+import { Directive } from '@angular/core';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 
-@Component({
-    template: ''
-})
+@Directive()
 // tslint:disable-next-line
 export abstract class KrossrFormDialogBase extends KrossrFormBase {
     constructor(
