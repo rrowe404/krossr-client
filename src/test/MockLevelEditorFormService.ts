@@ -1,4 +1,4 @@
-import { LevelEditorFormService } from 'projects/krossr/client/src/lib/LevelEditorForm/LevelEditorFormService';
+import { LevelEditorFormService } from '../LevelEditorForm/LevelEditorFormService';
 import { Injectable } from '@angular/core';
 
 @Injectable()

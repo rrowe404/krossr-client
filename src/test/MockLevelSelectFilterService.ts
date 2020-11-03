@@ -1,4 +1,4 @@
-import { LevelSelectFilterService } from 'projects/krossr/client/src/lib/LevelSelectFilter/LevelSelectFilterService';
+import { LevelSelectFilterService } from '../LevelSelectFilter/LevelSelectFilterService';
 import { LevelListFilterSelectOptionsViewModel } from '@krossr/types';
 import { Injectable } from '@angular/core';
 
