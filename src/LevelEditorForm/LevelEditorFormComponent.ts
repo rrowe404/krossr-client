@@ -1,12 +1,10 @@
 import { Input, Output, OnInit, EventEmitter, Component } from '@angular/core';
 import { ILevel } from '../Level/Level';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelService } from '../Level/LevelService';
 import { StateService } from '@uirouter/core';
-import { HomeRoutes } from '../Routing/RouteNames';
 import { LevelEditorFormService } from './LevelEditorFormService';
 import { LevelEditorSelectOptionsViewModel, Dictionary } from '@krossr/types';
 import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
@@ -14,6 +12,7 @@ import { TileFillEventService } from '../Tile/TileFillEventService';
 import { TileState } from '../Tile/TileState';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 import { LevelRoutes } from '../Routing/RouteNames';
+import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
 
 @Component({
     selector: 'krossr-level-editor-form',
@@ -39,7 +38,7 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
         private levelService: LevelService,
         private levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelEditorFormService: LevelEditorFormService,
-        private matDialog: MatDialog,
+        private dialogService: KrossrDialogService,
         private stateService: StateService,
         private tileFillEventService: TileFillEventService,
     ) {
@@ -51,11 +50,11 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
     }
 
     public confirmClear() {
-        return this.matDialog.open(ConfirmationComponent, this.getClearConfirmationOptions());
+        return this.dialogService.open(ConfirmationComponent, this.getClearConfirmationOptions());
     }
 
     public confirmRemove() {
-        return this.matDialog.open(ConfirmationComponent, this.getRemoveConfirmationOptions());
+        return this.dialogService.open(ConfirmationComponent, this.getRemoveConfirmationOptions());
     }
 
     public getClearConfirmationOptions = () => this.getConfirmationOptions('Clear', () => this.clearAll());

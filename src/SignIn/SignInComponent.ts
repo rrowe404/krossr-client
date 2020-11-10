@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { SignInService } from './SignInService';
 import { ForgotPasswordComponent } from '../ForgotPassword/ForgotPasswordComponent';
 import { KrossrFormDialogBase } from '../KrossrFormDialog/KrossrFormDialogBase';
+import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
 
 /** Sign-in popup */
 @Component({
@@ -19,7 +20,7 @@ export class SignInComponent extends KrossrFormDialogBase implements OnInit {
 
     constructor(
         protected matDialogRef: MatDialogRef<SignInComponent>,
-        private matDialog: MatDialog,
+        private dialogService: KrossrDialogService,
         private signInService: SignInService
     ) {
         super(matDialogRef);
@@ -34,7 +35,7 @@ export class SignInComponent extends KrossrFormDialogBase implements OnInit {
 
     openForgotPassword() {
         this.close();
-        this.matDialog.open(ForgotPasswordComponent, {
+        this.dialogService.open(ForgotPasswordComponent, {
             data: {
                 username: this.username.value
             }

@@ -1,5 +1,4 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { MatDialog } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 import { HelpComponent } from '../Help/HelpComponent';
 import { EditProfileComponent } from '../EditProfile/EditProfileComponent';
@@ -7,6 +6,7 @@ import { SignInComponent } from '../SignIn/SignInComponent';
 import { SignUpComponent } from '../SignUp/SignUpComponent';
 import { StateService } from '@uirouter/core';
 import { LevelRoutes } from '../Routing/RouteNames';
+import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
 
 @Component({
     selector: 'krossr-header',
@@ -16,18 +16,18 @@ import { LevelRoutes } from '../Routing/RouteNames';
 export class HeaderComponent {
     constructor(
         public Authentication: AuthenticationService,
-        private matDialog: MatDialog,
+        private dialogService: KrossrDialogService,
         private stateService: StateService
     ) {
 
     }
 
     openEditProfile() {
-        this.matDialog.open(EditProfileComponent);
+        this.dialogService.open(EditProfileComponent);
     }
 
     openHelp() {
-        this.matDialog.open(HelpComponent);
+        this.dialogService.open(HelpComponent);
     }
 
     openLevelSelect() {
@@ -35,10 +35,10 @@ export class HeaderComponent {
     }
 
     openSignIn() {
-        this.matDialog.open(SignInComponent);
+        this.dialogService.open(SignInComponent);
     }
 
     openSignUp() {
-        this.matDialog.open(SignUpComponent);
+        this.dialogService.open(SignUpComponent);
     }
 }

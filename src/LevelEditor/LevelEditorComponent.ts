@@ -3,7 +3,6 @@ import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Input, Component, OnInit } from '@angular/core';
 import { StateService } from '@uirouter/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelRoutes } from '../Routing/RouteNames';
@@ -16,6 +15,7 @@ import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { nowAndLater } from '../Debounce/Debounce';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
+import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
 
 @Component({
     selector: 'krossr-level-editor',
@@ -30,7 +30,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
         private levelDecoder: LevelDecoder,
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelService: LevelService,
-        private matDialog: MatDialog,
+        private dialogService: KrossrDialogService,
         protected resizeEventService: ResizeEventService,
         protected tileSizeEventService: TileSizeEventService,
     ) {
@@ -45,7 +45,7 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
     }
 
     confirmUpdate(level: UpdateLevelBodyViewModel) {
-        this.matDialog.open(ConfirmationComponent, this.getConfirmUpdateOptions(level));
+        this.dialogService.open(ConfirmationComponent, this.getConfirmUpdateOptions(level));
     }
 
     getConfirmUpdateOptions(level: UpdateLevelBodyViewModel) {

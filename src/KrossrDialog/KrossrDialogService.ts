@@ -13,7 +13,7 @@ export class KrossrDialogService {
     ) {
     }
 
-    open<TComponent>(component: ComponentType<TComponent>, options: KrossrDialogConfig) {
+    open<TComponent>(component: ComponentType<TComponent>, options?: KrossrDialogConfig) {
         return this.matDialog.open(component, options) as KrossrDialogRef<TComponent>;
     }
 }
