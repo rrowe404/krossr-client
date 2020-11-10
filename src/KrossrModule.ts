@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
 import { Routes } from './Routing/Routes';
 import { ShellComponent } from './Shell/ShellComponent';
 import { ResizeDirective } from './Resize/ResizeDirective';
@@ -27,6 +26,7 @@ import { LevelCreatorModule } from './LevelCreator/LevelCreatorModule';
 import { LevelEditorModule } from './LevelEditor/LevelEditorModule';
 import { LoadingAnimationModule } from './LoadingAnimation/LoadingAnimationModule';
 import { WINDOW_PROVIDERS } from './Window/WindowService';
+import { KrossrDialogModule } from './KrossrDialog/KrossrDialogModule';
 
 @NgModule({
     imports: [
@@ -44,7 +44,7 @@ import { WINDOW_PROVIDERS } from './Window/WindowService';
         LevelEditorModule,
         LevelModule,
         LevelSelectModule,
-        MatDialogModule,
+        KrossrDialogModule,
         ReactiveFormsModule,
         ResetPasswordModule,
         SignInModule,

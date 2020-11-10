@@ -3,11 +3,11 @@ import { GameOverComponent } from './GameOverComponent';
 import { KrossrButtonModule } from '../KrossrButton/KrossrButtonModule';
 import { UIRouterModule } from '@uirouter/angular';
 import { PopupContentModule } from '../PopupContent/PopupContentModule';
-import { MatDialogModule } from '@angular/material/dialog';
+import { KrossrDialogModule } from 'src/KrossrDialog/KrossrDialogModule';
 
 @NgModule({
     imports: [
-        MatDialogModule,
+        KrossrDialogModule,
         KrossrButtonModule,
         UIRouterModule.forChild(),
         PopupContentModule

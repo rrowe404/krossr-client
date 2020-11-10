@@ -5,16 +5,16 @@ import { KrossrButtonModule } from '../KrossrButton/KrossrButtonModule';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KrossrInputModule } from '../KrossrInput/KrossrInputModule';
 import { KrossrSelectModule } from '../KrossrSelect/KrossrSelectModule';
-import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModule';
 import { AsyncModule } from '../Async/AsyncModule';
+import { KrossrDialogModule } from 'src/KrossrDialog/KrossrDialogModule';
 
 @NgModule({
     imports: [
         AsyncModule,
         CommonModule,
         LoadingAnimationModule,
-        MatDialogModule,
+        KrossrDialogModule,
         KrossrButtonModule,
         KrossrInputModule,
         KrossrSelectModule,

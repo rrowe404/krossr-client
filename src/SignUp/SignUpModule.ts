@@ -4,15 +4,15 @@ import { KrossrButtonModule } from '../KrossrButton/KrossrButtonModule';
 import { PopupContentModule } from '../PopupContent/PopupContentModule';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
 import { KrossrInputModule } from '../KrossrInput/KrossrInputModule';
+import { KrossrDialogModule } from 'src/KrossrDialog/KrossrDialogModule';
 
 @NgModule({
     imports: [
         CommonModule,
         KrossrButtonModule,
         KrossrInputModule,
-        MatDialogModule,
+        KrossrDialogModule,
         PopupContentModule,
         ReactiveFormsModule
     ],

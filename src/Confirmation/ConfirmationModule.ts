@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { ConfirmationComponent } from './ConfirmationComponent';
 import { KrossrButtonModule } from '../KrossrButton/KrossrButtonModule';
 import { PopupContentModule } from '../PopupContent/PopupContentModule';
-import { MatDialogModule } from '@angular/material/dialog';
+import { KrossrDialogModule } from 'src/KrossrDialog/KrossrDialogModule';
 
 @NgModule({
     imports: [
         KrossrButtonModule,
-        MatDialogModule,
+        KrossrDialogModule,
         PopupContentModule
     ],
     declarations: [
