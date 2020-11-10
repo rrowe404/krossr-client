@@ -1,7 +1,7 @@
 import { ILevel } from '../Level/Level';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { GameOverComponent } from './GameOverComponent';
+import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
 
 /** Open the Game Over popup */
 
@@ -10,12 +10,12 @@ import { GameOverComponent } from './GameOverComponent';
 })
 export class GameOverService {
     constructor(
-        private matDialog: MatDialog
+        private dialogService: KrossrDialogService
     ) {
     }
 
     openDialog(level: ILevel): void {
-        this.matDialog.open(GameOverComponent, {
+        this.dialogService.open(GameOverComponent, {
             data: {
                 levelId: level.id
             },
