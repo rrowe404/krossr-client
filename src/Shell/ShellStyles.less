@@ -1,5 +1,32 @@
+@import (reference) '../less/mixins.less';
+
 :host {
+    /* Shell itself should take up as much space as possible */
+    display: block;
+    height: 100%;
+    
+    /**
+     * Content must account for the height of the navbar
+     * in order to scroll correctly
+     */
+    .content {
+        @height: calc(100% ~"-" @navbarHeight);
+        height: @height;
+    }
+
+    /* The main scrollable section */
+    ui-view {
+        display: block;
+        .Scrolly();
+    }
+
     & > div {
         height: 100%;
     }
+}
+
+/* Ensures that the currently loaded route takes up as much space as possible */
+::ng-deep ui-view > * {
+    display: block;
+    height: 100%;
 }
