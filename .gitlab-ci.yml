@@ -28,6 +28,7 @@ install_dependencies:
   cache:
     <<: *global_cache
   script:
+    - echo $NODE_ENV
     - npm install
     - npx ngcc
 
