@@ -2,6 +2,7 @@
 FROM node:14 as builder
 
 ARG NODE_ENV
+RUN echo $NODE_ENV
 
 WORKDIR /app
 COPY package*.json ./
