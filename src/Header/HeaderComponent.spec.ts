@@ -11,11 +11,12 @@ import { HeaderModule } from './HeaderModule';
 import { StateService } from '@uirouter/core';
 import { MockStateService } from 'src/test/MockStateService';
 import { LevelRoutes } from '../Routing/RouteNames';
+import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
 
 describe('HeaderComponent', () => {
     let fixture: ComponentFixture<HeaderComponent>;
     let component: HeaderComponent;
-    let matDialog: MatDialog;
+    let dialogService: KrossrDialogService;
     let stateService: StateService;
 
     beforeEach(() => {
@@ -33,10 +34,10 @@ describe('HeaderComponent', () => {
         fixture = TestBed.createComponent(HeaderComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        matDialog = TestBed.inject(MatDialog);
+        dialogService = TestBed.inject(KrossrDialogService);
         stateService = TestBed.inject(StateService);
         spyOn(stateService, 'go');
-        spyOn(matDialog, 'open');
+        spyOn(dialogService, 'open');
     });
 
     it('should be created', () => {
@@ -45,12 +46,12 @@ describe('HeaderComponent', () => {
 
     it('should open the profile', () => {
         component.openEditProfile();
-        expect(matDialog.open).toHaveBeenCalledWith(EditProfileComponent);
+        expect(dialogService.open).toHaveBeenCalledWith(EditProfileComponent);
     });
 
     it('should open the help', () => {
         component.openHelp();
-        expect(matDialog.open).toHaveBeenCalledWith(HelpComponent);
+        expect(dialogService.open).toHaveBeenCalledWith(HelpComponent);
     });
 
     it('should open the level select', () => {
@@ -61,11 +62,11 @@ describe('HeaderComponent', () => {
 
     it('should open the sign up', () => {
         component.openSignUp();
-        expect(matDialog.open).toHaveBeenCalledWith(SignUpComponent);
+        expect(dialogService.open).toHaveBeenCalledWith(SignUpComponent);
     });
 
     it('should open the sign in', () => {
         component.openSignIn();
-        expect(matDialog.open).toHaveBeenCalledWith(SignInComponent);
+        expect(dialogService.open).toHaveBeenCalledWith(SignInComponent);
     });
 });
