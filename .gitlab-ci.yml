@@ -23,6 +23,8 @@ cache: &global_cache
 install_dependencies:
   image: registry.gitlab.com/picrossr/images/build-image:${BUILD_IMAGE_VERSION}
   stage: install_dependencies
+  variables:
+    NODE_ENV: "development"
   cache:
     <<: *global_cache
   script:
