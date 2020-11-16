@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/types';
-import { AuthenticationService } from '../Authentication/AuthenticationService';
 
 @Component({
     selector: 'krossr-level-select-tile',
@@ -11,17 +10,8 @@ export class LevelSelectTileComponent {
     @Input() public level: LevelListLevelViewModel;
     @Output() public refilter: EventEmitter<LevelListFilterOptions> = new EventEmitter();
 
-    constructor(
-        public authentication: AuthenticationService
-    ) {
-    }
-
     canEdit() {
-        return this.authentication &&
-               this.authentication.user &&
-               this.level &&
-               this.level.user &&
-               this.level.user.id === this.authentication.user.id;
+        return this.level.editable;
     }
 
     filter(options: LevelListFilterOptions) {
