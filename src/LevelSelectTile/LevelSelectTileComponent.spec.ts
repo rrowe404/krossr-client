@@ -38,12 +38,9 @@ describe('LevelSelectTileComponent', () => {
     });
 
     it('should only allow the user that created the level to see the edit button', () => {
-        let authenticationService: AuthenticationService = TestBed.inject(AuthenticationService);
-
-        authenticationService.signIn({ id: 1, username: 'Rosie' });
-
         let level: LevelListLevelViewModel = {
             completed: false,
+            editable: false,
             avgRating: '3.5',
             createdAt: 'nooow',
             user: {
@@ -60,12 +57,8 @@ describe('LevelSelectTileComponent', () => {
 
         expect(component.canEdit()).toBeFalsy();
 
-        level.user.id = 1;
+        level.editable = true;
 
         expect(component.canEdit()).toBeTruthy();
-
-        authenticationService.signOut();
-
-        expect(component.canEdit()).toBeFalsy();
     });
 });
