@@ -13,6 +13,7 @@ import { APP_BASE_HREF } from '@angular/common';
 describe('LevelComponent', () => {
     let fixture: ComponentFixture<LevelComponent>;
     let component: LevelComponent;
+    let gameOverService: GameOverService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -31,6 +32,7 @@ describe('LevelComponent', () => {
         fixture.detectChanges();
         component = fixture.componentInstance;
         component.level = { id: 1, size: 25, layout: '', name: '' };
+        gameOverService = TestBed.inject(GameOverService);
     });
 
     it('should be created', () => {
@@ -70,11 +72,9 @@ describe('LevelComponent', () => {
         component.gameMatrix = goal;
         component.goalMatrix = goal;
 
-        let gameOverService: GameOverService = TestBed.inject(GameOverService);
         spyOn(gameOverService, 'openDialog');
 
-        let tileEventService: TileEventService = TestBed.inject(TileEventService);
-        tileEventService.tileDragEnd.emit();
+        component.checkForWin();
 
         // need a cycle for the event to catch
         setTimeout(() => {
