@@ -18,7 +18,6 @@ import { SignInModule } from './SignIn/SignInModule';
 import { ChangePasswordModule } from './ChangePassword/ChangePasswordModule';
 import { UpdateUserModule } from './User/UpdateUserModule';
 import { LevelSelectModule } from './LevelSelect/LevelSelectModule';
-import { LevelModule } from './Level/LevelModule';
 import { HelpModule } from './Help/HelpModule';
 import { HeaderModule } from './Header/HeaderModule';
 import { ResetPasswordModule } from './ResetPassword/ResetPasswordModule';
@@ -27,6 +26,7 @@ import { LevelEditorModule } from './LevelEditor/LevelEditorModule';
 import { LoadingAnimationModule } from './LoadingAnimation/LoadingAnimationModule';
 import { WINDOW_PROVIDERS } from './Window/WindowService';
 import { KrossrDialogModule } from './KrossrDialog/KrossrDialogModule';
+import { LevelModule } from './Level/LevelModule';
 
 @NgModule({
     imports: [
