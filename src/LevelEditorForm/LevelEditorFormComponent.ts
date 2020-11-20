@@ -28,9 +28,11 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
 
     public isReady = false;
 
+    public banMessage: string;
     public formGroup: FormGroup;
     public nameFormControl: FormControl;
     public sizeFormControl: FormControl;
+    public banMessageFormControl: FormControl;
 
     public sizeMap: Dictionary<number>;
 
@@ -76,7 +78,7 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
     }
 
     async ban(level: ILevel) {
-        await this.levelService.banLevel(level.id);
+        await this.levelService.banLevel(level.id, { message: this.banMessage });
         this.goToList();
     }
 
@@ -92,8 +94,10 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
         this.formGroup = new FormGroup({});
         this.nameFormControl = new FormControl(this.level.name, [Validators.required]);
         this.sizeFormControl = new FormControl(this.level.size, [Validators.required]);
+        this.banMessageFormControl = new FormControl('', []);
 
         this.formGroup.addControl('name', this.nameFormControl);
+        this.formGroup.addControl('banMessage', this.banMessageFormControl);
         this.isReady = true;
     }
 
@@ -113,6 +117,10 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
         let size = this.sizeMap[selected];
         this.level.size = size;
         this.sizeChange.emit();
+    }
+
+    public updateBanMessage(message: string) {
+        this.banMessage = message;
     }
 
     private goToList() {

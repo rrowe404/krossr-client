@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { CreateLevelBodyViewModel, LevelListViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
+import { CreateBannedLayoutBodyViewModel, CreateLevelBodyViewModel, LevelListViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +11,8 @@ export class LevelService {
     ) {
     }
 
-    banLevel(levelId: number) {
-        return this.httpClient.post(`levels/${levelId}/ban`, {}).toPromise();
+    banLevel(levelId: number, params: CreateBannedLayoutBodyViewModel) {
+        return this.httpClient.post(`levels/${levelId}/ban`, params).toPromise();
     }
 
     createLevel(params: CreateLevelBodyViewModel) {

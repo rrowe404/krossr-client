@@ -2,11 +2,13 @@
     <div class="form-group" *ngIf="isReady">
         <h2>{{ isEdit ? 'Edit' : 'New' }} level</h2>
 
-        <krossr-input name="name" label="Name" [control]="nameFormControl" (updated)="updateName($event)"> </krossr-input>
+        <krossr-input name="name" label="Name" [control]="nameFormControl" (updated)="updateName($event)"></krossr-input>
         <krossr-select [control]="sizeFormControl" (updated)="updateSize($event)" [optionMap]="sizeMap" *ngIf="!isEdit" label="Size"></krossr-select>
         <krossr-button (click)="confirmClear()" text="Clear Tiles"></krossr-button>
         <krossr-button [disabled]="error" (click)="submit()" [text]="submitButtonText()"></krossr-button>
         <krossr-button *ngIf="level.id" (click)="confirmRemove()" text="Delete Level"></krossr-button>
+        <br />
+        <krossr-input *ngIf="level.id" name="banMessage" label="Ban Message" [control]="banMessageFormControl" (updated)="updateBanMessage($event)"></krossr-input>
         <krossr-button *ngIf="level.id" (click)="confirmBan()" text="Ban Layout"></krossr-button>
     </div>
 </krossr-async-content>
