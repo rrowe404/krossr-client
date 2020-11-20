@@ -11,6 +11,10 @@ export class LevelService {
     ) {
     }
 
+    banLevel(levelId: number) {
+        return this.httpClient.post(`levels/${levelId}/ban`, {}).toPromise();
+    }
+
     createLevel(params: CreateLevelBodyViewModel) {
         return this.httpClient.post('levels', params).toPromise();
     }

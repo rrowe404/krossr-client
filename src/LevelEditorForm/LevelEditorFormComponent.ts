@@ -49,6 +49,10 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
         this.tileFillEventService.fill.emit({ initState: false, override: TileState.empty });
     }
 
+    public confirmBan() {
+        return this.dialogService.open(ConfirmationComponent, this.getBanConfirmationOptions());
+    }
+
     public confirmClear() {
         return this.dialogService.open(ConfirmationComponent, this.getClearConfirmationOptions());
     }
@@ -57,6 +61,7 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
         return this.dialogService.open(ConfirmationComponent, this.getRemoveConfirmationOptions());
     }
 
+    public getBanConfirmationOptions = () => this.getConfirmationOptions('Ban', () => this.ban(this.level));
     public getClearConfirmationOptions = () => this.getConfirmationOptions('Clear', () => this.clearAll());
     public getRemoveConfirmationOptions = () => this.getConfirmationOptions('Remove', () => this.remove(this.level));
 
@@ -70,10 +75,15 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
         };
     }
 
+    async ban(level: ILevel) {
+        await this.levelService.banLevel(level.id);
+        this.goToList();
+    }
+
     /** Remove any Level passed in */
     async remove(level: { id?: number }) {
         await this.levelService.removeLevel(level.id);
-        this.stateService.go(LevelRoutes.list, {}, { reload: true });
+        this.goToList();
     }
 
     public async ngOnInit() {
@@ -103,6 +113,10 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
         let size = this.sizeMap[selected];
         this.level.size = size;
         this.sizeChange.emit();
+    }
+
+    private goToList() {
+        this.stateService.go(LevelRoutes.list, {}, { reload: true });
     }
 
     private setupOptions(options: LevelEditorSelectOptionsViewModel) {

@@ -7,5 +7,6 @@
         <krossr-button (click)="confirmClear()" text="Clear Tiles"></krossr-button>
         <krossr-button [disabled]="error" (click)="submit()" [text]="submitButtonText()"></krossr-button>
         <krossr-button *ngIf="level.id" (click)="confirmRemove()" text="Delete Level"></krossr-button>
+        <krossr-button *ngIf="level.id" (click)="confirmBan()" text="Ban Layout"></krossr-button>
     </div>
 </krossr-async-content>
