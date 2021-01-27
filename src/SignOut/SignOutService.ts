@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../Authentication/AuthenticationService';
+import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SignOutService {
     constructor(
-        private authenticationService: AuthenticationService,
-        private httpClient: HttpClient
+        private api: DefaultService,
+        private authenticationService: AuthenticationService
     ) {
     }
 
     async signout(): Promise<void> {
-        await this.httpClient.post('auth/signout', {}).toPromise();
+        await this.api.signOut().toPromise();
 
         this.authenticationService.signOut();
     }

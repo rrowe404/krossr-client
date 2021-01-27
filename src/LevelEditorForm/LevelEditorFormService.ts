@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { LevelEditorSelectOptionsViewModel } from '@krossr/types';
+import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LevelEditorFormService {
     constructor(
-        private httpClient: HttpClient
+        private api: DefaultService
     ) {
     }
 
     async getOptions() {
-        let response = await this.httpClient.get('levelEditor/options').toPromise() as LevelEditorSelectOptionsViewModel;
+        let response = await this.api.getLevelEditorOptions().toPromise() as LevelEditorSelectOptionsViewModel;
         return response;
     }
 }

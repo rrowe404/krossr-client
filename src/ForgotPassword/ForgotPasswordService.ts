@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ForgotPasswordBodyViewModel } from '@krossr/types';
+import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ForgotPasswordService {
-    constructor(private httpClient: HttpClient) {
+    constructor(
+        private api: DefaultService
+    ) {
     }
 
     sendForgotPasswordRequest(username: string) {
-        return this.httpClient.post('auth/forgot', { username } as ForgotPasswordBodyViewModel).toPromise();
+        return this.api.forgot({ username }).toPromise();
     }
 }
