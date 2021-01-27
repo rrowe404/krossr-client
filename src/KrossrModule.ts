@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ApiModule } from '@krossr/api';
 import { Routes } from './Routing/Routes';
 import { ShellComponent } from './Shell/ShellComponent';
 import { ResizeDirective } from './Resize/ResizeDirective';
@@ -30,6 +31,7 @@ import { LevelModule } from './Level/LevelModule';
 
 @NgModule({
     imports: [
+        ApiModule,
         BrowserAnimationsModule,
         ChangePasswordModule,
         CommonModule,
