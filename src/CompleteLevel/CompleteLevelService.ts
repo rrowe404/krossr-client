@@ -1,17 +1,16 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CompletedLevelBodyViewModel } from '@krossr/types';
+import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CompleteLevelService {
     constructor(
-        private httpClient: HttpClient
+        private api: DefaultService
     ) {
     }
 
-    completeLevel(params: CompletedLevelBodyViewModel) {
-        return this.httpClient.post(`levels/${params.levelId}/complete`, params).toPromise();
+    completeLevel(params: { levelId: number }) {
+        return this.api.completeLevel(params.levelId.toString()).toPromise();
     }
 }

@@ -4,7 +4,6 @@ import { LevelService } from './LevelService';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { RatingService } from '../Rating/RatingService';
 import { Input, Component, OnInit } from '@angular/core';
-import { LevelViewModel } from '@krossr/types';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
@@ -13,6 +12,7 @@ import { LevelComponentBase } from './LevelComponentBase';
 import { GameOverService } from '../GameOver/GameOverService';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 import { CompleteLevelService } from '../CompleteLevel/CompleteLevelService';
+import { LevelViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level',
@@ -75,7 +75,6 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
 
             if (this.Authentication && this.Authentication.user) {
                 this.completeLevelService.completeLevel({
-                    userId: this.Authentication.user.id,
                     levelId: this.level.id
                 });
             }
