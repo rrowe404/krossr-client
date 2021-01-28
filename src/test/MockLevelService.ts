@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MockLevelService extends LevelService {
     createLevel(params: CreateLevelBodyViewModel) {
-        return Promise.resolve({ id: 1 });
+        return Promise.resolve({ ...params, layout: '', size: 0 });
     }
 }

@@ -51,12 +51,12 @@ describe('LevelEditorComponent', () => {
 
     it('should update', async () => {
         let levelService: LevelService = TestBed.inject(LevelService);
-        spyOn(levelService, 'updateLevel').and.returnValue(Promise.resolve({}));
-
+        
         let stateService: StateService = TestBed.inject(StateService);
         spyOn(stateService, 'go');
-
-        let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
+        
+        let level = { id: 1, decodedLayout: [[]], name: 'trogdor', layout: '', size: 0 };
+        spyOn(levelService, 'updateLevel').and.returnValue(Promise.resolve(level));
 
         await component.updateLevel(level);
         expect(stateService.go).toHaveBeenCalled();
@@ -74,7 +74,7 @@ describe('LevelEditorComponent', () => {
     });
 
     it('should set up a level for editing correctly', async () => {
-        let level = { id: 1, name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==' };
+        let level = { id: 1, name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==', size: 25 };
         let levelService: LevelService = TestBed.inject(LevelService);
         spyOn(levelService, 'getLevel').and.returnValue(Promise.resolve(level));
 

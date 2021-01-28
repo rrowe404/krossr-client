@@ -16,7 +16,7 @@ export class ResetPasswordService {
         let response = await this.api.reset(token, passwordDetails).toPromise();
         return this.authenticationService.signIn(response);
     }
-    
+
     async validateToken(token: string) {
         let response = await this.api.validateResetToken(token).toPromise();
         return response.valid;
