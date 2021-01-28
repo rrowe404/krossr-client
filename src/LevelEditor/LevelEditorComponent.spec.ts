@@ -51,10 +51,9 @@ describe('LevelEditorComponent', () => {
 
     it('should update', async () => {
         let levelService: LevelService = TestBed.inject(LevelService);
-        
         let stateService: StateService = TestBed.inject(StateService);
         spyOn(stateService, 'go');
-        
+
         let level = { id: 1, decodedLayout: [[]], name: 'trogdor', layout: '', size: 0 };
         spyOn(levelService, 'updateLevel').and.returnValue(Promise.resolve(level));
 
