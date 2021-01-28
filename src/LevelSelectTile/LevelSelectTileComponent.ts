@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { LevelListLevelViewModel } from '@krossr/api';
-import { LevelListFilterOptions } from '@krossr/types';
+import { LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level-select-tile',

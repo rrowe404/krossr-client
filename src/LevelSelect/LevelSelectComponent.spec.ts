@@ -8,7 +8,7 @@ import { LevelSelectModule } from './LevelSelectModule';
 import { UIRouterModule } from '@uirouter/angular';
 import { LevelService } from '../Level/LevelService';
 import { APP_BASE_HREF } from '@angular/common';
-import { LevelListViewModel } from '@krossr/types';
+import { LevelListViewModel } from '@krossr/api';
 
 describe('LevelSelectComponent', () => {
     let fixture: ComponentFixture<LevelSelectComponent>;

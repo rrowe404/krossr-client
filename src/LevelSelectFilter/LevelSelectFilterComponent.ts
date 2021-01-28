@@ -3,8 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { debounce } from '../Debounce/Debounce';
 import { LevelSelectFilterService } from './LevelSelectFilterService';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
-import { LevelListFilterOptions } from '@krossr/types';
-import { LevelListFilterSelectOptionsViewModel } from '@krossr/api';
+import { LevelListFilterOptions, LevelListFilterSelectOptionsViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level-select-filter',
