@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ChangePasswordBodyViewModel } from '@krossr/types';
+import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ChangePasswordService {
-    constructor(private httpClient: HttpClient) {
+    constructor(private api: DefaultService) {
     }
 
     changePassword(currentPassword, newPassword, verifyPassword) {
-        return this.httpClient.post('users/password', {
+        return this.api.changePassword({
             currentPassword,
             newPassword,
             verifyPassword
-        } as ChangePasswordBodyViewModel).toPromise();
+        }).toPromise();
     }
 }

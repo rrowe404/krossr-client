@@ -1,22 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RatingService {
     constructor(
-        private httpClient: HttpClient
+        private api: DefaultService
     ) {
     }
 
     rate(levelId: number, rating: number) {
-        let url = `levels/${levelId}/ratings`;
-
-        let data = {
-            rating
-        };
-
-        return this.httpClient.post(url, data).toPromise();
+        return this.api.upsertRating(levelId.toString(), { rating }).toPromise();
     }
 }
