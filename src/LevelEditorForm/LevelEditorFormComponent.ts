@@ -6,7 +6,6 @@ import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelService } from '../Level/LevelService';
 import { StateService } from '@uirouter/core';
 import { LevelEditorFormService } from './LevelEditorFormService';
-import { Dictionary } from '@krossr/types';
 import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
 import { TileFillEventService } from '../Tile/TileFillEventService';
 import { TileState } from '../Tile/TileState';
@@ -35,7 +34,7 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
     public sizeFormControl: FormControl;
     public banMessageFormControl: FormControl;
 
-    public sizeMap: Dictionary<number>;
+    public sizeMap: { [key: string]: number };
 
     constructor(
         private levelService: LevelService,

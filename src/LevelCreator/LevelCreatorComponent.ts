@@ -4,7 +4,6 @@ import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
 import { StateService } from '@uirouter/core';
 import { LevelRoutes } from '../Routing/RouteNames';
-import { KrossrError } from '@krossr/types';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
@@ -14,7 +13,7 @@ import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { nowAndLater } from '../Debounce/Debounce';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
-import { CreateLevelBodyViewModel, LevelViewModel } from '@krossr/api';
+import { CreateLevelBodyViewModel, ErrorResponse, LevelViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level-creator',
@@ -92,8 +91,8 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
             let response = await this.levelService.createLevel(level) as LevelViewModel;
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
         } catch (err) {
-            let reponse = err as KrossrError;
-            nowAndLater(() => this.error = reponse.error.message, () => this.error = '');
+            let reponse = err as ErrorResponse;
+            nowAndLater(() => this.error = reponse.message, () => this.error = '');
         }
     }
 }

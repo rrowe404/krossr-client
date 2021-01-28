@@ -3,7 +3,7 @@ import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { LevelService } from '../Level/LevelService';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { LevelListViewModel, LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/types';
+import { LevelListViewModel, LevelListFilterOptions } from '@krossr/types';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 
 @Component({
