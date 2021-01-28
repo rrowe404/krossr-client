@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { UserViewModel } from '@krossr/api';
 import { AuthenticationService } from './AuthenticationService';
-import { UserViewModel } from '@krossr/types';
 
 describe('AuthenticationService', () => {
     let service: AuthenticationService;

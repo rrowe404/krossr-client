@@ -6,7 +6,7 @@ import { StateService } from '@uirouter/core';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelRoutes } from '../Routing/RouteNames';
-import { KrossrError, LevelViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
+import { KrossrError } from '@krossr/types';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
@@ -16,6 +16,7 @@ import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { nowAndLater } from '../Debounce/Debounce';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
+import { LevelViewModel, UpdateLevelBodyViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level-editor',

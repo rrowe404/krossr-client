@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LevelEditorSelectOptionsViewModel } from '@krossr/types';
-import { DefaultService } from '@krossr/api';
+import { DefaultService, LevelEditorSelectOptionsViewModel } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'

@@ -4,7 +4,7 @@ import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
 import { StateService } from '@uirouter/core';
 import { LevelRoutes } from '../Routing/RouteNames';
-import { KrossrError, LevelViewModel, CreateLevelBodyViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
+import { KrossrError } from '@krossr/types';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
@@ -14,6 +14,7 @@ import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { nowAndLater } from '../Debounce/Debounce';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
+import { CreateLevelBodyViewModel, LevelViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level-creator',

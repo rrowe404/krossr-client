@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ResetPasswordService } from './ResetPasswordService';
 import { MinPasswordLength } from '../Password/MinPasswordLength';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
-import { KrossrError } from '@krossr/types';
 
 @Component({
     selector: 'krossr-reset-password',

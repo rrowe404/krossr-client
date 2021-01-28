@@ -5,11 +5,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MockStateService } from 'src/test/MockStateService';
 import { StateService } from '@uirouter/core';
 import { LevelSelectModule } from './LevelSelectModule';
-import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { LevelListLevelViewModel, LevelListViewModel } from '@krossr/types';
 import { UIRouterModule } from '@uirouter/angular';
 import { LevelService } from '../Level/LevelService';
 import { APP_BASE_HREF } from '@angular/common';
+import { LevelListViewModel } from '@krossr/types';
 
 describe('LevelSelectComponent', () => {
     let fixture: ComponentFixture<LevelSelectComponent>;
