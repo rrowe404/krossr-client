@@ -58,7 +58,7 @@ describe('SignInComponent', () => {
 
     it('should handle an error signing in', async () => {
         let signInService: SignInService = TestBed.inject(SignInService);
-        spyOn(signInService, 'signIn').and.returnValue(Promise.reject({ error: { message: 'nope' }} ));
+        spyOn(signInService, 'signIn').and.returnValue(Promise.reject({ message: 'nope' }));
 
         await component.submit();
         expect(component.error).toBe('nope');

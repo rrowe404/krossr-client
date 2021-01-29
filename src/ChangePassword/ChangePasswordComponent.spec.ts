@@ -44,9 +44,7 @@ describe('ChangePasswordComponent', () => {
         let errorMessage = 'massive failure';
 
         spyOn(changePasswordService, 'changePassword').and.returnValue(Promise.reject({
-            error: {
-                message: errorMessage
-            }
+            message: errorMessage
         }));
 
         await component.submit();

@@ -37,9 +37,7 @@ describe('ResetPasswordComponent', () => {
         let resetPasswordService: ResetPasswordService = TestBed.inject(ResetPasswordService);
 
         spyOn(resetPasswordService, 'resetPassword').and.returnValue(Promise.reject({
-            error: {
-                message: 'Passwords do not match!'
-            }
+            message: 'Passwords do not match!'
         }));
 
         await component.submit();

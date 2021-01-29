@@ -39,9 +39,7 @@ describe('UpdateUserComponent', () => {
         let userService: UserService = TestBed.inject(UserService);
 
         spyOn(userService, 'updateUser').and.returnValue(Promise.reject({
-            error: {
-                message: 'no'
-            }
+            message: 'no'
         }));
 
         await component.submit();

@@ -64,7 +64,7 @@ describe('LevelEditorComponent', () => {
     it('should handle an update error', async () => {
         let levelService: LevelService = TestBed.inject(LevelService);
         let error = 'pitiful.';
-        spyOn(levelService, 'updateLevel').and.returnValue(Promise.reject({ error: { message: error }}));
+        spyOn(levelService, 'updateLevel').and.returnValue(Promise.reject({ message: error }));
 
         let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
 
