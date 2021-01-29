@@ -34,7 +34,7 @@ describe('LevelComponent', () => {
         levelService = TestBed.inject(LevelService);
         const testLevel = TestHelpers.getLevelViewModel();
         spyOn(levelService, 'getLevel').and.returnValue(Promise.resolve(testLevel));
-        
+
         component = fixture.componentInstance;
         component.levelId = testLevel.id;
         fixture.detectChanges();

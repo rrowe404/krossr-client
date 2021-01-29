@@ -1,4 +1,4 @@
-import { LevelViewModel } from "@krossr/api";
+import { LevelViewModel } from '@krossr/api';
 
 export class TestHelpers {
     static getLevelViewModel(): LevelViewModel {
