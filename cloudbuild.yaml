@@ -5,3 +5,4 @@ steps:
       - --destination=gcr.io/krossr/client:${TAG_NAME}
       - --cache=true
       - --build-arg=NODE_ENV=production
+timeout: 900s
