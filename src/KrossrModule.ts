@@ -71,7 +71,7 @@ import { LevelModule } from './Level/LevelModule';
         ShellComponent
     ],
     providers: [
-        { provide: BASE_PATH, useValue: 'api' }, // todo this replaces the api-interceptor when all routes are openapi
+        { provide: BASE_PATH, useValue: 'api' },
         WINDOW_PROVIDERS
     ]
 })
