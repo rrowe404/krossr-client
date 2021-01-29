@@ -32,6 +32,7 @@ describe('LevelComponent', () => {
         fixture.detectChanges();
         component = fixture.componentInstance;
         component.level = { id: 1, size: 25, layout: '', name: '' };
+        component.levelId = component.level.id;
         gameOverService = TestBed.inject(GameOverService);
     });
 

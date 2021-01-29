@@ -1,6 +1,7 @@
 import { LevelService } from './LevelService';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { BASE_PATH } from '@krossr/api';
 
 describe('LevelService', () => {
     let service: LevelService;
@@ -8,7 +9,10 @@ describe('LevelService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule]
+            imports: [HttpClientTestingModule],
+            providers: [
+                { provide: BASE_PATH, useValue: '' }
+            ]
         });
         httpTestingController = TestBed.inject(HttpTestingController);
         service = TestBed.inject(LevelService);
@@ -20,7 +24,7 @@ describe('LevelService', () => {
 
     it('should create a level', async () => {
         let promise = service.createLevel({ name: 'testname', decodedLayout: [[]] });
-        let req = httpTestingController.expectOne('levels');
+        let req = httpTestingController.expectOne('/levels');
 
         req.flush({});
 
@@ -30,7 +34,7 @@ describe('LevelService', () => {
 
     it('should update a level', async () => {
         let promise = service.updateLevel({ id: 1, name: 'testname', decodedLayout: [[]] });
-        let req = httpTestingController.expectOne('levels/1');
+        let req = httpTestingController.expectOne('/levels/1');
 
         req.flush({});
 
@@ -40,7 +44,7 @@ describe('LevelService', () => {
 
     it('should remove a level', async () => {
         let promise = service.removeLevel(1);
-        let req = httpTestingController.expectOne('levels/1');
+        let req = httpTestingController.expectOne('/levels/1');
 
         req.flush({});
 
