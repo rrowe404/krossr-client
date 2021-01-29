@@ -38,9 +38,9 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
 
     @Input() public levelId;
 
-    ngOnInit() {
-        this.findOne();
-        return super.ngOnInit();
+    async ngOnInit() {
+        await this.findOne();
+        return await super.ngOnInit();
     }
 
     async findOne() {

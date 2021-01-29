@@ -8,7 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { LevelService } from '../Level/LevelService';
-import { BASE_PATH } from '@krossr/api';
+import { BASE_PATH, UpdateLevelBodyViewModel } from '@krossr/api';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('LevelEditorComponent', () => {
     let fixture: ComponentFixture<LevelEditorComponent>;
@@ -58,8 +59,8 @@ describe('LevelEditorComponent', () => {
         let stateService: StateService = TestBed.inject(StateService);
         spyOn(stateService, 'go');
 
-        let level = { id: testLevelId, decodedLayout: [[]], name: 'trogdor', layout: '', size: 0 };
-        spyOn(levelService, 'updateLevel').and.returnValue(Promise.resolve(level));
+        let level = { ...TestHelpers.getLevelViewModel(), decodedLayout: [[]] } as UpdateLevelBodyViewModel;
+        spyOn(levelService, 'updateLevel').and.returnValue(Promise.resolve(TestHelpers.getLevelViewModel()));
 
         await component.updateLevel(level);
         expect(stateService.go).toHaveBeenCalled();
@@ -77,7 +78,7 @@ describe('LevelEditorComponent', () => {
     });
 
     it('should set up a level for editing correctly', async () => {
-        let level = { id: testLevelId, name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==', size: 25 };
+        let level = TestHelpers.getLevelViewModel();
         let levelService: LevelService = TestBed.inject(LevelService);
         spyOn(levelService, 'getLevel').and.returnValue(Promise.resolve(level));
 
