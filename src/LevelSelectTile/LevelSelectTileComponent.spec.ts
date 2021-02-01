@@ -3,12 +3,11 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MockStateService } from 'src/test/MockStateService';
 import { StateService } from '@uirouter/core';
-import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { LevelListLevelViewModel, LevelListViewModel } from '@krossr/types';
 import { UIRouterModule } from '@uirouter/angular';
 import { APP_BASE_HREF } from '@angular/common';
 import { LevelSelectTileModule } from './LevelSelectTileModule';
 import { LevelSelectTileComponent } from './LevelSelectTileComponent';
+import { LevelListLevelViewModel } from '@krossr/api';
 
 describe('LevelSelectTileComponent', () => {
     let fixture: ComponentFixture<LevelSelectTileComponent>;

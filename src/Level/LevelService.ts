@@ -1,39 +1,43 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { CreateBannedLayoutBodyViewModel, CreateLevelBodyViewModel, LevelListViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
+import { CreateBannedLayoutBodyViewModel, CreateLevelBodyViewModel, DefaultService, UpdateLevelBodyViewModel } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LevelService {
     constructor(
-        private httpClient: HttpClient
+        private api: DefaultService
     ) {
     }
 
     banLevel(levelId: number, params: CreateBannedLayoutBodyViewModel) {
-        return this.httpClient.post(`levels/${levelId}/ban`, params).toPromise();
+        return this.api.banLevel(levelId.toString(), params).toPromise();
     }
 
     createLevel(params: CreateLevelBodyViewModel) {
-        return this.httpClient.post('levels', params).toPromise();
+        return this.api.createLevel(params).toPromise();
     }
 
     getLevel(levelId: number) {
-        return this.httpClient.get(`levels/${levelId}`).toPromise();
+        return this.api.readLevel(levelId.toString()).toPromise();
     }
 
+    // TODO query type
     async getLevels(query: any) {
-        return this.httpClient.get('levels', {
-            params: new HttpParams({ fromObject: query})
-        }).toPromise() as Promise<LevelListViewModel>;
+        return this.api.paginate(
+            query.pageNum,
+            query.sizeRestriction,
+            query.searchText,
+            query.sortBy,
+            query.sortDirection
+        ).toPromise();
     }
 
     updateLevel(params: UpdateLevelBodyViewModel) {
-        return this.httpClient.put(`levels/${params.id}`, params).toPromise();
+        return this.api.updateLevel(params.id.toString(), params).toPromise();
     }
 
     removeLevel(levelId: number) {
-        return this.httpClient.delete(`levels/${levelId}`).toPromise();
+        return this.api.deleteLevel(levelId.toString()).toPromise();
     }
 }

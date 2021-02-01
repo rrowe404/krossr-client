@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ChangePasswordService } from './ChangePasswordService';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { BASE_PATH } from '@krossr/api';
 
 describe('ChangePasswordService', () => {
     let service: ChangePasswordService;
@@ -10,6 +11,9 @@ describe('ChangePasswordService', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule
+            ],
+            providers: [
+                { provide: BASE_PATH, useValue: '' }
             ]
         });
         httpTestingController = TestBed.inject(HttpTestingController);
@@ -23,7 +27,7 @@ describe('ChangePasswordService', () => {
     it('should make a request to the rating endpoint', async () => {
         let promise = service.changePassword('current', 'new', 'new');
 
-        httpTestingController.expectOne('users/password').flush({});
+        httpTestingController.expectOne('/users/password').flush({});
 
         await promise;
         expect(true).toBe(true);

@@ -7,15 +7,17 @@ import { LevelModule } from './LevelModule';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { GameOverService } from '../GameOver/GameOverService';
-import { TileEventService } from '../Tile/TileEventService';
 import { APP_BASE_HREF } from '@angular/common';
+import { LevelService } from './LevelService';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('LevelComponent', () => {
     let fixture: ComponentFixture<LevelComponent>;
     let component: LevelComponent;
     let gameOverService: GameOverService;
+    let levelService: LevelService;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -29,9 +31,13 @@ describe('LevelComponent', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(LevelComponent);
-        fixture.detectChanges();
+        levelService = TestBed.inject(LevelService);
+        const testLevel = TestHelpers.getLevelViewModel();
+        spyOn(levelService, 'getLevel').and.returnValue(Promise.resolve(testLevel));
+
         component = fixture.componentInstance;
-        component.level = { id: 1, size: 25, layout: '', name: '' };
+        component.levelId = testLevel.id;
+        fixture.detectChanges();
         gameOverService = TestBed.inject(GameOverService);
     });
 
@@ -76,9 +82,6 @@ describe('LevelComponent', () => {
 
         component.checkForWin();
 
-        // need a cycle for the event to catch
-        setTimeout(() => {
-            expect(gameOverService.openDialog).toHaveBeenCalled();
-        });
+        expect(gameOverService.openDialog).toHaveBeenCalled();
     });
 });

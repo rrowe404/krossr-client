@@ -6,13 +6,13 @@ import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelService } from '../Level/LevelService';
 import { StateService } from '@uirouter/core';
 import { LevelEditorFormService } from './LevelEditorFormService';
-import { LevelEditorSelectOptionsViewModel, Dictionary } from '@krossr/types';
 import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
 import { TileFillEventService } from '../Tile/TileFillEventService';
 import { TileState } from '../Tile/TileState';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
+import { LevelEditorSelectOptionsViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level-editor-form',
@@ -34,7 +34,7 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
     public sizeFormControl: FormControl;
     public banMessageFormControl: FormControl;
 
-    public sizeMap: Dictionary<number>;
+    public sizeMap: { [key: string]: number };
 
     constructor(
         private levelService: LevelService,

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { debounce } from '../Debounce/Debounce';
-import { LevelListFilterOptions, LevelListFilterSelectOptionsViewModel, Dictionary } from '@krossr/types';
 import { LevelSelectFilterService } from './LevelSelectFilterService';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
+import { LevelListFilterOptions, LevelListFilterSelectOptionsViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level-select-filter',
@@ -25,9 +25,9 @@ export class LevelSelectFilterComponent implements AsyncLoadedComponent, OnInit 
     ) {
     }
 
-    public sizeMap: Dictionary<number>;
-    public sortByMap: Dictionary<string>;
-    public sortDirectionMap: Dictionary<string>;
+    public sizeMap: { [key: string]: number };
+    public sortByMap: { [key: string]: string };
+    public sortDirectionMap: { [key: string]: string };
 
     private options: LevelListFilterOptions = {};
 

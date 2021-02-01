@@ -5,8 +5,8 @@ import { MockStateService } from 'src/test/MockStateService';
 import { StateService } from '@uirouter/core';
 import { LevelSelectFilterService } from './LevelSelectFilterService';
 import { MockLevelSelectFilterService } from 'src/test/MockLevelSelectFilterService';
-import { LevelListFilterOptions } from '@krossr/types';
 import { LevelSelectFilterModule } from './LevelSelectFilterModule';
+import { LevelListFilterOptions } from '@krossr/api';
 
 describe('LevelSelectFilterComponent', () => {
     let fixture: ComponentFixture<LevelSelectFilterComponent>;

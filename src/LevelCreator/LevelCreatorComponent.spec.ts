@@ -8,6 +8,7 @@ import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { LevelService } from '../Level/LevelService';
 import { MockLevelService } from 'src/test/MockLevelService';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('LevelCreatorComponent', () => {
     let fixture: ComponentFixture<LevelCreatorComponent>;
@@ -35,16 +36,16 @@ describe('LevelCreatorComponent', () => {
     });
 
     it('should use the existing level in createNewLevel && createGameArray if possible', () => {
-        component.level = { layout: '', name: 'bill murray', size: 25 };
+        component.level = TestHelpers.getLevelViewModel();
         component.createGameArray();
         expect(component.gameMatrix.length).toBe(5);
 
         component.createNewLevel();
-        expect(component.level.name).toBe('bill murray');
+        expect(component.level.name).toBe(TestHelpers.getLevelViewModel().name);
     });
 
     function setupForSubmit(theComponent: LevelCreatorComponent) {
-        theComponent.level = { layout: '', name: 'bill murray', size: 25 };
+        theComponent.level = TestHelpers.getLevelViewModel();
         let layout = [[false, true], [true, false]];
         let booleanMatrix = new BooleanMatrix(2, 2);
         booleanMatrix.initializeWith(layout);
@@ -62,7 +63,7 @@ describe('LevelCreatorComponent', () => {
         setupForSubmit(component);
 
         let levelService: LevelService = TestBed.inject(LevelService);
-        spyOn(levelService, 'createLevel').and.returnValue(Promise.reject({ error: { message: 'haw haw' }}));
+        spyOn(levelService, 'createLevel').and.returnValue(Promise.reject({ message: 'haw haw' }));
 
         await component.submitCreate();
         expect(component.error).toBeTruthy();

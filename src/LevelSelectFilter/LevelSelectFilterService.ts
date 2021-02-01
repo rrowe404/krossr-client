@@ -1,18 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LevelListFilterSelectOptionsViewModel } from '@krossr/types';
+import { DefaultService, LevelListFilterSelectOptionsViewModel } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LevelSelectFilterService {
     constructor(
-        private httpClient: HttpClient
+        private api: DefaultService
     ) {
     }
 
     async getOptions(): Promise<LevelListFilterSelectOptionsViewModel> {
-        let response = await this.httpClient.get('levels/options').toPromise() as LevelListFilterSelectOptionsViewModel;
+        let response = await this.api.getLevelListOptions().toPromise();
         return response;
     }
 }

@@ -11,6 +11,7 @@ import { LevelService } from '../Level/LevelService';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeRoutes, LevelRoutes } from '../Routing/RouteNames';
 import { LevelEditorFormModule } from './LevelEditorFormModule';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('LevelEditorFormComponent', () => {
     let fixture: ComponentFixture<LevelEditorFormComponent>;
@@ -33,11 +34,7 @@ describe('LevelEditorFormComponent', () => {
 
         fixture = TestBed.createComponent(LevelEditorFormComponent);
         component = fixture.componentInstance;
-        component.level = {
-            size: 25,
-            layout: '',
-            name: 'wat'
-        };
+        component.level = TestHelpers.getLevelViewModel();
         fixture.detectChanges();
         matDialog = TestBed.inject(MatDialog);
         spyOn(matDialog, 'open');

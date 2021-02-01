@@ -67,9 +67,7 @@ describe('ForgotPasswordComponent', () => {
         let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
 
         spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.reject({
-            error: {
-                message: 'dumb bear'
-            }
+            message: 'dumb bear'
         }));
 
         await component.submit();

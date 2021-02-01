@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@angular/core';
-import { UserViewModel } from '@krossr/types';
+import { Injectable } from '@angular/core';
+import { UserViewModel } from '@krossr/api';
 
 /**
  * This should handle all interaction with the user information available to the client

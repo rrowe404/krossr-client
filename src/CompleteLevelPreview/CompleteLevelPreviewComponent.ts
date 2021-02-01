@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LevelListLevelViewModel } from '@krossr/types';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { GameSize } from '../GameSize/GameSize';
 import { ILevel } from '../Level/Level';

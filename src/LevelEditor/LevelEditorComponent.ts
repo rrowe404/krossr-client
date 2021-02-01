@@ -6,7 +6,6 @@ import { StateService } from '@uirouter/core';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
 import { LevelRoutes } from '../Routing/RouteNames';
-import { KrossrError, LevelViewModel, UpdateLevelBodyViewModel } from '@krossr/types';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
@@ -16,6 +15,7 @@ import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { nowAndLater } from '../Debounce/Debounce';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
+import { ErrorResponse, LevelViewModel, UpdateLevelBodyViewModel } from '@krossr/api';
 
 @Component({
     selector: 'krossr-level-editor',
@@ -84,8 +84,8 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
             await this.levelService.updateLevel(level);
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
         } catch (err) {
-            let response = err as KrossrError;
-            nowAndLater(() => this.error = response.error.message, () => this.error = '');
+            let response = err as ErrorResponse;
+            nowAndLater(() => this.error = response.message, () => this.error = '');
         }
     }
 }

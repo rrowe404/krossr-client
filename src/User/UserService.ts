@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { UserViewModel } from '@krossr/types';
+import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
@@ -9,17 +8,17 @@ import { UserViewModel } from '@krossr/types';
 export class UserService {
     constructor(
         private authenticationService: AuthenticationService,
-        private httpClient: HttpClient
+        private api: DefaultService
     ) {
     }
 
     async getLoggedInUser() {
-        let response = await this.httpClient.get('users/me').toPromise() as UserViewModel;
+        let response = await this.api.me().toPromise();
         this.authenticationService.signIn(response);
     }
 
     async updateUser(email: string) {
-        let response = await this.httpClient.put('users', { email }).toPromise() as UserViewModel;
+        let response = await this.api.updateUser({ email }).toPromise();
         this.authenticationService.signIn(response);
     }
 }

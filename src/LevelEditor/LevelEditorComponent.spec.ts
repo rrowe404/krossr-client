@@ -8,11 +8,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { LevelService } from '../Level/LevelService';
+import { BASE_PATH, UpdateLevelBodyViewModel } from '@krossr/api';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('LevelEditorComponent', () => {
     let fixture: ComponentFixture<LevelEditorComponent>;
     let component: LevelEditorComponent;
     let matDialog: MatDialog;
+    let testLevelId = 1;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -21,12 +24,14 @@ describe('LevelEditorComponent', () => {
                 LevelEditorModule
             ],
             providers: [
-                { provide: StateService, useClass: MockStateService }
+                { provide: StateService, useClass: MockStateService },
+                { provide: BASE_PATH, useValue: '' }
             ]
         });
 
         fixture = TestBed.createComponent(LevelEditorComponent);
         component = fixture.componentInstance;
+        component.levelId = testLevelId;
         component.gameMatrix = new GameMatrix(new BooleanMatrix(2, 2), true);
         fixture.detectChanges();
         matDialog = TestBed.inject(MatDialog);
@@ -40,7 +45,7 @@ describe('LevelEditorComponent', () => {
     it('should confirm update', () => {
         spyOn(component, 'updateLevel');
 
-        let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
+        let level = { id: testLevelId, decodedLayout: [[]], name: 'trogdor' };
         component.confirmUpdate(level);
         let options = component.getConfirmUpdateOptions(level);
         options.data.submitAction();
@@ -51,12 +56,11 @@ describe('LevelEditorComponent', () => {
 
     it('should update', async () => {
         let levelService: LevelService = TestBed.inject(LevelService);
-        spyOn(levelService, 'updateLevel').and.returnValue(Promise.resolve({}));
-
         let stateService: StateService = TestBed.inject(StateService);
         spyOn(stateService, 'go');
 
-        let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
+        let level = { ...TestHelpers.getLevelViewModel(), decodedLayout: [[]] } as UpdateLevelBodyViewModel;
+        spyOn(levelService, 'updateLevel').and.returnValue(Promise.resolve(TestHelpers.getLevelViewModel()));
 
         await component.updateLevel(level);
         expect(stateService.go).toHaveBeenCalled();
@@ -65,16 +69,16 @@ describe('LevelEditorComponent', () => {
     it('should handle an update error', async () => {
         let levelService: LevelService = TestBed.inject(LevelService);
         let error = 'pitiful.';
-        spyOn(levelService, 'updateLevel').and.returnValue(Promise.reject({ error: { message: error }}));
+        spyOn(levelService, 'updateLevel').and.returnValue(Promise.reject({ message: error }));
 
-        let level = { id: 1, decodedLayout: [[]], name: 'trogdor' };
+        let level = { id: testLevelId, decodedLayout: [[]], name: 'trogdor' };
 
         await component.updateLevel(level);
         expect(component.error).toBe(error);
     });
 
     it('should set up a level for editing correctly', async () => {
-        let level = { id: 1, name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==' };
+        let level = TestHelpers.getLevelViewModel();
         let levelService: LevelService = TestBed.inject(LevelService);
         spyOn(levelService, 'getLevel').and.returnValue(Promise.resolve(level));
 

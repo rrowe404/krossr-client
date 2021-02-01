@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { SignOutService } from './SignOutService';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthenticationService } from '../Authentication/AuthenticationService';
+import { BASE_PATH } from '@krossr/api';
 
 describe('SignOutService', () => {
     let service: SignOutService;
@@ -9,7 +10,10 @@ describe('SignOutService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule]
+            imports: [HttpClientTestingModule],
+            providers: [
+                { provide: BASE_PATH, useValue: '' }
+            ]
         });
 
         httpTestingController = TestBed.inject(HttpTestingController);
@@ -27,7 +31,7 @@ describe('SignOutService', () => {
         let promise = service.signout();
 
         httpTestingController
-            .expectOne('auth/signout')
+            .expectOne('/auth/signout')
             .flush({});
 
         await promise;

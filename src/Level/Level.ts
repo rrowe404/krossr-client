@@ -1,4 +1,4 @@
-import { LevelViewModel } from '@krossr/types';
+import { LevelViewModel } from '@krossr/api';
 
 export interface ILevel extends LevelViewModel {
     decodedLayout?: boolean[][];

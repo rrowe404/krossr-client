@@ -2,6 +2,7 @@ import { SignInService } from './SignInService';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthenticationService } from '../Authentication/AuthenticationService';
+import { BASE_PATH } from '@krossr/api';
 
 describe('SignInService', () => {
     let service: SignInService;
@@ -11,6 +12,9 @@ describe('SignInService', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule
+            ],
+            providers: [
+                { provide: BASE_PATH, useValue: '' }
             ]
         });
 
@@ -25,7 +29,7 @@ describe('SignInService', () => {
         let promise = service.signIn('username', 'password');
 
         httpTestingController
-            .expectOne('auth/signin')
+            .expectOne('/auth/signin')
             .flush({ id: 1, username: 'Rosalyn' });
 
         await promise;

@@ -1,23 +1,22 @@
 import { AuthenticationService } from '../Authentication/AuthenticationService';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserViewModel } from '@krossr/types';
+import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SignInService {
     constructor(
-        private authenticationService: AuthenticationService,
-        private httpClient: HttpClient
+        private api: DefaultService,
+        private authenticationService: AuthenticationService
     ) {
     }
 
     async signIn(username: string, password: string): Promise<void> {
-        let response = await this.httpClient.post('auth/signin', {
+        let response = await this.api.signIn({
             username,
             password
-        }).toPromise() as UserViewModel;
+        }).toPromise();
 
         this.authenticationService.signIn(response);
     }
