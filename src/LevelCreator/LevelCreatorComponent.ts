@@ -42,9 +42,9 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
     public goalMatrix: GameMatrix;
     public error: string;
 
-    ngOnInit() {
+    async ngOnInit() {
+        await super.ngOnInit();
         this.createNewLevel();
-        return super.ngOnInit();
     }
 
     createGameArray() {

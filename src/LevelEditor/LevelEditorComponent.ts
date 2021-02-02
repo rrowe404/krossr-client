@@ -39,9 +39,9 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
 
     @Input() public levelId;
 
-    ngOnInit() {
-        this.findOne();
-        return super.ngOnInit();
+    async ngOnInit() {
+        await super.ngOnInit();
+        await this.findOne();
     }
 
     confirmUpdate(level: UpdateLevelBodyViewModel) {
@@ -60,7 +60,6 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
 
     async findOne() {
         this.level = null;
-
 
         let data = await this.levelService.getLevel(this.levelId) as LevelViewModel;
         this.level = Object.assign({}, data, { ready: false });
