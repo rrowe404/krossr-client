@@ -3,6 +3,7 @@ import { UpdateUserComponent } from './UpdateUserComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UpdateUserModule } from './UpdateUserModule';
 import { UserService } from './UserService';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('UpdateUserComponent', () => {
     let fixture: ComponentFixture<UpdateUserComponent>;
@@ -38,9 +39,7 @@ describe('UpdateUserComponent', () => {
     it('should handle error', async () => {
         let userService: UserService = TestBed.inject(UserService);
 
-        spyOn(userService, 'updateUser').and.returnValue(Promise.reject({
-            message: 'no'
-        }));
+        spyOn(userService, 'updateUser').and.rejectWith(TestHelpers.getErrorResponseObject('no'));
 
         await component.submit();
         expect(component.error).toBe('no');

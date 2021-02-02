@@ -4,6 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { SignInModule } from './SignInModule';
 import { SignInService } from './SignInService';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('SignInComponent', () => {
     let fixture: ComponentFixture<SignInComponent>;
@@ -58,7 +59,7 @@ describe('SignInComponent', () => {
 
     it('should handle an error signing in', async () => {
         let signInService: SignInService = TestBed.inject(SignInService);
-        spyOn(signInService, 'signIn').and.returnValue(Promise.reject({ message: 'nope' }));
+        spyOn(signInService, 'signIn').and.rejectWith(TestHelpers.getErrorResponseObject('nope'));
 
         await component.submit();
         expect(component.error).toBe('nope');

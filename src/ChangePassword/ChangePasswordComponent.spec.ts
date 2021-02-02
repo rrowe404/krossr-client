@@ -3,6 +3,7 @@ import { ChangePasswordComponent } from './ChangePasswordComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ChangePasswordModule } from './ChangePasswordModule';
 import { ChangePasswordService } from './ChangePasswordService';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('ChangePasswordComponent', () => {
     let fixture: ComponentFixture<ChangePasswordComponent>;
@@ -43,9 +44,7 @@ describe('ChangePasswordComponent', () => {
 
         let errorMessage = 'massive failure';
 
-        spyOn(changePasswordService, 'changePassword').and.returnValue(Promise.reject({
-            message: errorMessage
-        }));
+        spyOn(changePasswordService, 'changePassword').and.returnValue(TestHelpers.getErrorResponse(errorMessage));
 
         await component.submit();
         expect(component.error).toBe(errorMessage);

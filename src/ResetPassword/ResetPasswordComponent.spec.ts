@@ -3,6 +3,7 @@ import { ResetPasswordComponent } from './ResetPasswordComponent';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ResetPasswordModule } from './ResetPasswordModule';
 import { ResetPasswordService } from './ResetPasswordService';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('ResetPasswordComponent', () => {
     let fixture: ComponentFixture<ResetPasswordComponent>;
@@ -36,9 +37,7 @@ describe('ResetPasswordComponent', () => {
     it('should handle an error', async () => {
         let resetPasswordService: ResetPasswordService = TestBed.inject(ResetPasswordService);
 
-        spyOn(resetPasswordService, 'resetPassword').and.returnValue(Promise.reject({
-            message: 'Passwords do not match!'
-        }));
+        spyOn(resetPasswordService, 'resetPassword').and.rejectWith(TestHelpers.getErrorResponseObject('poop'));
 
         await component.submit();
         expect(component.error).toBeTruthy();

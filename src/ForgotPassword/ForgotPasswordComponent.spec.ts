@@ -4,6 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ForgotPasswordModule } from './ForgotPasswordModule';
 import { ForgotPasswordService } from './ForgotPasswordService';
+import { TestHelpers } from 'src/test/TestHelpers';
 
 describe('ForgotPasswordComponent', () => {
     let fixture: ComponentFixture<ForgotPasswordComponent>;
@@ -66,9 +67,7 @@ describe('ForgotPasswordComponent', () => {
 
         let forgotPasswordService: ForgotPasswordService = TestBed.inject(ForgotPasswordService);
 
-        spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(Promise.reject({
-            message: 'dumb bear'
-        }));
+        spyOn(forgotPasswordService, 'sendForgotPasswordRequest').and.returnValue(TestHelpers.getErrorResponse('dumb bear'));
 
         await component.submit();
         expect(component.error).toBeTruthy();

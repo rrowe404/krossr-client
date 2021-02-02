@@ -63,7 +63,7 @@ describe('LevelCreatorComponent', () => {
         setupForSubmit(component);
 
         let levelService: LevelService = TestBed.inject(LevelService);
-        spyOn(levelService, 'createLevel').and.returnValue(Promise.reject({ message: 'haw haw' }));
+        spyOn(levelService, 'createLevel').and.rejectWith(TestHelpers.getErrorResponseObject('haw haw'));
 
         await component.submitCreate();
         expect(component.error).toBeTruthy();
