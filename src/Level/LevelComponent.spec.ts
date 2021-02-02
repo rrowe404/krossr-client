@@ -37,12 +37,13 @@ describe('LevelComponent', () => {
 
         component = fixture.componentInstance;
         component.levelId = testLevel.id;
-        fixture.detectChanges();
+        await component.ngOnInit();
         gameOverService = TestBed.inject(GameOverService);
     });
 
     it('should be created', () => {
         expect(fixture).toBeTruthy();
+        expect(fixture.componentInstance.level).toBeTruthy();
     });
 
     describe('#checkForWin', () => {
