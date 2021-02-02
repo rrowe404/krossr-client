@@ -14,6 +14,7 @@ import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { nowAndLater } from '../Debounce/Debounce';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 import { CreateLevelBodyViewModel, ErrorResponse, LevelViewModel } from '@krossr/api';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'krossr-level-creator',
@@ -90,9 +91,9 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
         try {
             let response = await this.levelService.createLevel(level) as LevelViewModel;
             this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
-        } catch (err) {
-            let reponse = err as ErrorResponse;
-            nowAndLater(() => this.error = reponse.message, () => this.error = '');
+        } catch (response) {
+            let error = response.error as ErrorResponse;
+            nowAndLater(() => this.error = error.message, () => this.error = '');
         }
     }
 }

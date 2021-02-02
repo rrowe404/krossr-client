@@ -83,9 +83,9 @@ export class LevelEditorComponent extends LevelComponentBase implements OnInit {
         try {
             await this.levelService.updateLevel(level);
             this.$state.go(LevelRoutes.update, { levelId: level.id }, { reload: true });
-        } catch (err) {
-            let response = err as ErrorResponse;
-            nowAndLater(() => this.error = response.message, () => this.error = '');
+        } catch (response) {
+            let error = response.error as ErrorResponse;
+            nowAndLater(() => this.error = error.message, () => this.error = '');
         }
     }
 }
