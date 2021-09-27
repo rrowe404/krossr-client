@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiModule, BASE_PATH } from '@krossr/api';
+import { environment } from './environments/environment';
 import { Routes } from './Routing/Routes';
 import { ShellComponent } from './Shell/ShellComponent';
 import { ResizeDirective } from './Resize/ResizeDirective';
@@ -71,7 +72,7 @@ import { LevelModule } from './Level/LevelModule';
         ShellComponent
     ],
     providers: [
-        { provide: BASE_PATH, useValue: 'api' },
+        { provide: BASE_PATH, useValue: environment.apiBasePath },
         WINDOW_PROVIDERS
     ]
 })
