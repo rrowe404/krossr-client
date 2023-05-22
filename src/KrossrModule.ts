@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ApiModule, BASE_PATH } from '@krossr/api';
+import { ApiModule, Configuration, ConfigurationParameters } from '@krossr/api';
 import { environment } from './environments/environment';
 import { Routes } from './Routing/Routes';
 import { ShellComponent } from './Shell/ShellComponent';
@@ -30,9 +30,17 @@ import { WINDOW_PROVIDERS } from './Window/WindowService';
 import { KrossrDialogModule } from './KrossrDialog/KrossrDialogModule';
 import { LevelModule } from './Level/LevelModule';
 
+function apiConfigFactory(): Configuration {
+    const params: ConfigurationParameters = {
+        basePath: environment.apiBasePath
+    };
+
+    return new Configuration(params);
+}
+
 @NgModule({
     imports: [
-        ApiModule,
+        ApiModule.forRoot(apiConfigFactory),
         BrowserAnimationsModule,
         ChangePasswordModule,
         CommonModule,
@@ -72,7 +80,6 @@ import { LevelModule } from './Level/LevelModule';
         ShellComponent
     ],
     providers: [
-        { provide: BASE_PATH, useValue: environment.apiBasePath },
         WINDOW_PROVIDERS
     ]
 })
