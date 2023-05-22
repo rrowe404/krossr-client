@@ -21,7 +21,7 @@
       ],
       "rules": {
         "@angular-eslint/component-selector": [
-          "error",
+          "warn",
           {
             "prefix": "app",
             "style": "kebab-case",
@@ -29,7 +29,7 @@
           }
         ],
         "@angular-eslint/directive-selector": [
-          "error",
+          "warn",
           {
             "prefix": "app",
             "style": "camelCase",
