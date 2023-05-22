@@ -9,6 +9,7 @@ import { ResetPasswordService } from '../ResetPassword/ResetPasswordService';
 import { LevelCreatorComponent } from '../LevelCreator/LevelCreatorComponent';
 import { LevelEditorComponent } from '../LevelEditor/LevelEditorComponent';
 import { LevelSelectComponent } from '../LevelSelect/LevelSelectComponent';
+import { ResetPasswordAttemptedComponent } from 'src/ResetPasswordAttempted/ResetPasswordAttemptedComponent';
 
 export class Routes {
     static tokenValidResolve = 'tokenValid';
@@ -93,6 +94,11 @@ export class Routes {
                         }
                     }
                 ]
+            },
+            {
+                name: UserRoutes.resetAttempted,
+                url: '/password/reset/attempted',
+                component: ResetPasswordAttemptedComponent
             },
             {
                 name: HomeRoutes.notFound,

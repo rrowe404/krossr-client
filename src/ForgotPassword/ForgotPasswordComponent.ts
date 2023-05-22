@@ -6,6 +6,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ForgotPasswordService } from './ForgotPasswordService';
 import { KrossrFormDialogBase } from '../KrossrFormDialog/KrossrFormDialogBase';
 import { ForgotPasswordDialogData } from './ForgotPasswordDialogData';
+import { StateService } from '@uirouter/core';
+import { UserRoutes } from 'src/Routing/RouteNames';
 
 @Component({
     selector: 'krossr-forgot-password',
@@ -22,6 +24,7 @@ export class ForgotPasswordComponent extends KrossrFormDialogBase implements OnI
     constructor(
         @Optional() matDialogRef: MatDialogRef<ForgotPasswordComponent>,
         private forgotPasswordService: ForgotPasswordService,
+        private state: StateService,
         @Optional() @Inject(MAT_DIALOG_DATA) public data: ForgotPasswordDialogData
     ) {
         super(matDialogRef);
@@ -35,5 +38,6 @@ export class ForgotPasswordComponent extends KrossrFormDialogBase implements OnI
     trySubmit = async () => {
         await this.forgotPasswordService.sendForgotPasswordRequest(this.usernameFormControl.value);
         this.close();
+        this.state.go(UserRoutes.resetAttempted);
     }
 }

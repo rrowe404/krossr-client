@@ -11,6 +11,7 @@ export const enum LevelRoutes {
 }
 
 export const enum UserRoutes {
+    resetAttempted = 'reset-attempted',
     resetInvalid = 'reset-invalid',
     reset = 'reset'
 }

@@ -29,6 +29,7 @@ import { LoadingAnimationModule } from './LoadingAnimation/LoadingAnimationModul
 import { WINDOW_PROVIDERS } from './Window/WindowService';
 import { KrossrDialogModule } from './KrossrDialog/KrossrDialogModule';
 import { LevelModule } from './Level/LevelModule';
+import { ResetPasswordAttemptedModule } from './ResetPasswordAttempted/ResetPasswordAttemptedModule';
 
 function apiConfigFactory(): Configuration {
     const params: ConfigurationParameters = {
@@ -57,6 +58,7 @@ function apiConfigFactory(): Configuration {
         LevelSelectModule,
         KrossrDialogModule,
         ReactiveFormsModule,
+        ResetPasswordAttemptedModule,
         ResetPasswordModule,
         SignInModule,
         UIRouterModule.forRoot({ states: Routes.getNg2Routes(), config: uiRouterConfigFn }),
