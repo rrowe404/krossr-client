@@ -6,7 +6,7 @@
     "ng": "ng",
     "build": "by-node-env",
     "build:development": "ng build",
-    "build:production": "ng build --prod=true",
+    "build:production": "ng build --configuration production",
     "test": "cross-env NODE_ENV=test ng test",
     "test:development": "ng test",
     "e2e": "ng e2e",
