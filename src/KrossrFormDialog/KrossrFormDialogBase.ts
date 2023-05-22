@@ -3,7 +3,7 @@ import { Directive } from '@angular/core';
 import { KrossrFormBase } from '../KrossrForm/KrossrFormBase';
 
 @Directive()
-// tslint:disable-next-line
+// eslint-disable-next-line
 export abstract class KrossrFormDialogBase extends KrossrFormBase {
     constructor(
         protected matDialogRef: MatDialogRef<KrossrFormDialogBase>

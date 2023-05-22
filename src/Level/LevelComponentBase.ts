@@ -12,7 +12,7 @@ import { GameSize } from '../GameSize/GameSize';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 
 @Directive()
-// tslint:disable-next-line directive-class-suffix
+// eslint-disable-next-line  @angular-eslint/directive-class-suffix
 export abstract class LevelComponentBase implements AsyncLoadedComponent, OnInit, OnDestroy {
     constructor(
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,

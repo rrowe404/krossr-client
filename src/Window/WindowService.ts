@@ -1,5 +1,5 @@
 // https://brianflove.com/2018-01-11/angular-window-provider/
-// tslint:disable: ban-types
+/* eslint-disable @typescript-eslint/ban-types */
 
 import { isPlatformBrowser } from '@angular/common';
 import { ClassProvider, FactoryProvider, InjectionToken, PLATFORM_ID } from '@angular/core';
