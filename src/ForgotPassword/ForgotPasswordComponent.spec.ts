@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ForgotPasswordModule } from './ForgotPasswordModule';
 import { ForgotPasswordService } from './ForgotPasswordService';
 import { TestHelpers } from 'src/test/TestHelpers';
+import { UIRouterModule } from '@uirouter/angular';
 
 describe('ForgotPasswordComponent', () => {
     let fixture: ComponentFixture<ForgotPasswordComponent>;
@@ -25,7 +26,8 @@ describe('ForgotPasswordComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                ForgotPasswordModule
+                ForgotPasswordModule,
+                UIRouterModule.forRoot()
             ],
             providers: [
                 { provide: MatDialogRef, useValue: { close: () => {} } }
