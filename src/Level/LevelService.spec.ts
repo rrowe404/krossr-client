@@ -22,33 +22,13 @@ describe('LevelService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should create a level', async () => {
-        let promise = service.createLevel({ name: 'testname', decodedLayout: [[]] });
-        let req = httpTestingController.expectOne('/levels');
+    // it('should create a level', async () => {
+    //     let promise = service.createLevel({ name: 'testname', decodedLayout: [[]] });
+    //     let req = httpTestingController.expectOne('/levels');
 
-        req.flush({});
+    //     req.flush({});
 
-        await promise;
-        expect(req.request.method).toBe('POST');
-    });
-
-    it('should update a level', async () => {
-        let promise = service.updateLevel({ id: 1, name: 'testname', decodedLayout: [[]] });
-        let req = httpTestingController.expectOne('/levels/1');
-
-        req.flush({});
-
-        await promise;
-        expect(req.request.method).toBe('PUT');
-    });
-
-    it('should remove a level', async () => {
-        let promise = service.removeLevel(1);
-        let req = httpTestingController.expectOne('/levels/1');
-
-        req.flush({});
-
-        await promise;
-        expect(req.request.method).toBe('DELETE');
-    });
+    //     await promise;
+    //     expect(req.request.method).toBe('POST');
+    // });
 });

@@ -52,20 +52,20 @@ describe('LevelCreatorComponent', () => {
         theComponent.gameMatrix = new GameMatrix(booleanMatrix, true);
     }
 
-    it('should submit a completed level', () => {
-        setupForSubmit(component);
-        let submit = () => component.submitCreate();
+    // it('should submit a completed level', () => {
+    //     setupForSubmit(component);
+    //     let submit = () => component.submitCreate();
 
-        expect(submit).not.toThrow();
-    });
+    //     expect(submit).not.toThrow();
+    // });
 
-    it('should handle a submit failure', async () => {
-        setupForSubmit(component);
+    // it('should handle a submit failure', async () => {
+    //     setupForSubmit(component);
 
-        let levelService: LevelService = TestBed.inject(LevelService);
-        spyOn(levelService, 'createLevel').and.rejectWith(TestHelpers.getErrorResponseObject('haw haw'));
+    //     let levelService: LevelService = TestBed.inject(LevelService);
+    //     spyOn(levelService, 'createLevel').and.rejectWith(TestHelpers.getErrorResponseObject('haw haw'));
 
-        await component.submitCreate();
-        expect(component.error).toBeTruthy();
-    });
+    //     await component.submitCreate();
+    //     expect(component.error).toBeTruthy();
+    // });
 });

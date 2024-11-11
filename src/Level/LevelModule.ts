@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { LevelComponent } from './LevelComponent';
 import { NumberGridModule } from '../NumberGrid/NumberGridModule';
 import { ModeSelectorModule } from '../ModeSelector/ModeSelectorModule';
-import { StarRatingModule } from '../StarRating/StarRatingModule';
 import { LoadingAnimationModule } from '../LoadingAnimation/LoadingAnimationModule';
 import { AsyncModule } from '../Async/AsyncModule';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +20,6 @@ import { LevelEditorFormModule } from 'src/LevelEditorForm/LevelEditorFormModule
         LevelEditorFormModule,
         ModeSelectorModule,
         NumberGridModule,
-        StarRatingModule,
         KrossrDialogModule
     ],
     declarations: [

@@ -19,7 +19,6 @@ import { LevelEditorSelectOptionsViewModel } from '@krossr/api';
     templateUrl: './LevelEditorFormView.html'
 })
 export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
-    @Input() public isEdit = false;
     @Input() public level: ILevel;
     @Input() public error: string;
     @Input() public submitText: string;
@@ -51,21 +50,11 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
         this.tileFillEventService.fill.emit({ initState: false, override: TileState.empty });
     }
 
-    public confirmBan() {
-        return this.dialogService.open(ConfirmationComponent, this.getBanConfirmationOptions());
-    }
-
     public confirmClear() {
         return this.dialogService.open(ConfirmationComponent, this.getClearConfirmationOptions());
     }
 
-    public confirmRemove() {
-        return this.dialogService.open(ConfirmationComponent, this.getRemoveConfirmationOptions());
-    }
-
-    public getBanConfirmationOptions = () => this.getConfirmationOptions('Ban', () => this.ban(this.level));
     public getClearConfirmationOptions = () => this.getConfirmationOptions('Clear', () => this.clearAll());
-    public getRemoveConfirmationOptions = () => this.getConfirmationOptions('Remove', () => this.remove(this.level));
 
     public getConfirmationOptions(submitText, submitAction: () => void) {
         return {
@@ -75,17 +64,6 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
             } as ConfirmationOptions,
             disableClose: true
         };
-    }
-
-    async ban(level: ILevel) {
-        await this.levelService.banLevel(level.id, { message: this.banMessage });
-        this.goToList();
-    }
-
-    /** Remove any Level passed in */
-    async remove(level: { id?: number }) {
-        await this.levelService.removeLevel(level.id);
-        this.goToList();
     }
 
     public async ngOnInit() {
@@ -121,10 +99,6 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
 
     public updateBanMessage(message: string) {
         this.banMessage = message;
-    }
-
-    private goToList() {
-        this.stateService.go(LevelRoutes.list, {}, { reload: true });
     }
 
     private setupOptions(options: LevelEditorSelectOptionsViewModel) {

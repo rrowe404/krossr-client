@@ -3,7 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { debounce } from '../Debounce/Debounce';
 import { LevelSelectFilterService } from './LevelSelectFilterService';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
-import { LevelListFilterOptions, LevelListFilterSelectOptionsViewModel } from '@krossr/api';
+import { LevelListFilterOptions } from '@krossr/api';
+import { LevelListFilterSelectOptionsViewModel } from './LevelSelectFilterService';
 
 @Component({
     selector: 'krossr-level-select-filter',
@@ -57,8 +58,6 @@ export class LevelSelectFilterComponent implements AsyncLoadedComponent, OnInit 
 
     private setupOptions(options: LevelListFilterSelectOptionsViewModel) {
         this.sizeMap = options.sizeOptions;
-        this.sortByMap = options.sortByOptions;
-        this.sortDirectionMap = options.sortDirectionOptions;
     }
 
     public updateSize(size: string) {
@@ -69,15 +68,5 @@ export class LevelSelectFilterComponent implements AsyncLoadedComponent, OnInit 
     public updateSearchText(text: string) {
         this.options.searchText = text;
         this.debouncedChange.next();
-    }
-
-    public updateSortBy(sortBy: string) {
-        this.options.sortBy = this.sortByMap[sortBy];
-        this.onChange();
-    }
-
-    public updateSortDirection(sortDirection: string) {
-        this.options.sortDirection = this.sortDirectionMap[sortDirection];
-        this.onChange();
     }
 }

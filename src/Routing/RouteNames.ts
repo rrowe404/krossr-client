@@ -6,12 +6,5 @@ export const enum HomeRoutes {
 export const enum LevelRoutes {
     create= 'create-level',
     read = 'level',
-    list = 'levels',
-    update = 'update-level',
-}
-
-export const enum UserRoutes {
-    resetAttempted = 'reset-attempted',
-    resetInvalid = 'reset-invalid',
-    reset = 'reset'
+    list = 'levels'
 }

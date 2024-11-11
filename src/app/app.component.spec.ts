@@ -1,9 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
-import { MockUserService } from 'src/test/MockUserService';
 import { APP_BASE_HREF } from '@angular/common';
-import { UserService } from 'src/User/UserService';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,7 +13,6 @@ describe('AppComponent', () => {
         AppModule
       ],
       providers: [
-        { provide: UserService, useClass: MockUserService },
         { provide: APP_BASE_HREF, useValue: '/' }
       ]
     }).compileComponents();

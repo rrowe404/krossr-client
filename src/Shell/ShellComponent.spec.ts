@@ -4,6 +4,7 @@ import { HeaderModule } from '../Header/HeaderModule';
 import { UIRouterModule } from '@uirouter/angular';
 import { APP_BASE_HREF } from '@angular/common';
 import { ShiftService } from '../Shift/ShiftService';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('ShellComponent', () => {
     let fixture: ComponentFixture<ShellComponent>;
@@ -13,6 +14,7 @@ describe('ShellComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HeaderModule,
+                MatDialogModule,
                 UIRouterModule.forRoot()
             ],
             declarations: [

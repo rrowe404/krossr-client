@@ -5,7 +5,7 @@
             <span class="filterIcon" (click)="toggleShowFilter()">
                 <i class="fa fa-filter" [ngClass]="{'active': showFilter}"></i>
             </span>
-            <span class="createIcon" *ngIf="Authentication.user" uiSref="create-level">
+            <span class="createIcon" uiSref="create-level">
                 <i class="fa fa-plus"></i>
             </span>
         </h2>

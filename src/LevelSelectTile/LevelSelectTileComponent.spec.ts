@@ -35,29 +35,4 @@ describe('LevelSelectTileComponent', () => {
     it('should be created', () => {
         expect(fixture).toBeTruthy();
     });
-
-    it('should only allow the user that created the level to see the edit button', () => {
-        let level: LevelListLevelViewModel = {
-            completed: false,
-            editable: false,
-            avgRating: '3.5',
-            createdAt: 'nooow',
-            user: {
-                id: 2,
-                username: 'Waluigi'
-            },
-            prettySize: '5x5',
-            layout: '',
-            name: 'Waaah',
-            size: 25
-        };
-
-        component.level = level;
-
-        expect(component.canEdit()).toBeFalsy();
-
-        level.editable = true;
-
-        expect(component.canEdit()).toBeTruthy();
-    });
 });

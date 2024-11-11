@@ -48,28 +48,4 @@ describe('LevelSelectFilterComponent', () => {
         component.updateSize('5x5');
         expect(component.refilter.emit).toHaveBeenCalledWith({ sizeRestriction: '25' } as LevelListFilterOptions);
     });
-
-    it('should update sort by', () => {
-        component.sortByMap = { Date: 'date' };
-
-        spyOn(component.refilter, 'emit');
-        component.updateSortBy('Date');
-        expect(component.refilter.emit).toHaveBeenCalledWith({ sortBy: 'date' } as LevelListFilterOptions);
-    });
-
-    it('should update search text', () => {
-        spyOn(component.refilter, 'emit');
-
-        component.updateSearchText('hobbitses');
-        component.onChange();
-        expect(component.refilter.emit).toHaveBeenCalledWith({ searchText: 'hobbitses' } as LevelListFilterOptions);
-    });
-
-    it('should update sort direction', () => {
-        component.sortDirectionMap = { Descending: 'DESC' };
-
-        spyOn(component.refilter, 'emit');
-        component.updateSortDirection('Descending');
-        expect(component.refilter.emit).toHaveBeenCalledWith({ sortDirection: 'DESC' } as LevelListFilterOptions);
-    });
 });

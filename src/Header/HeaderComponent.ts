@@ -1,9 +1,5 @@
-import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { Component } from '@angular/core';
 import { HelpComponent } from '../Help/HelpComponent';
-import { EditProfileComponent } from '../EditProfile/EditProfileComponent';
-import { SignInComponent } from '../SignIn/SignInComponent';
-import { SignUpComponent } from '../SignUp/SignUpComponent';
 import { StateService } from '@uirouter/core';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
@@ -15,15 +11,10 @@ import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
 })
 export class HeaderComponent {
     constructor(
-        public Authentication: AuthenticationService,
         private dialogService: KrossrDialogService,
         private stateService: StateService
     ) {
 
-    }
-
-    openEditProfile() {
-        this.dialogService.open(EditProfileComponent);
     }
 
     openHelp() {
@@ -32,13 +23,5 @@ export class HeaderComponent {
 
     openLevelSelect() {
         this.stateService.go(LevelRoutes.list);
-    }
-
-    openSignIn() {
-        this.dialogService.open(SignInComponent);
-    }
-
-    openSignUp() {
-        this.dialogService.open(SignUpComponent);
     }
 }

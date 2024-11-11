@@ -11,6 +11,7 @@ export class CompleteLevelService {
     }
 
     completeLevel(params: { levelId: number }) {
-        return this.api.completeLevel(params.levelId.toString()).toPromise();
+        const { levelId } = params;
+        localStorage.setItem(levelId.toString(), 'true');
     }
 }

@@ -33,10 +33,10 @@ describe('LevelComponent', () => {
         fixture = TestBed.createComponent(LevelComponent);
         levelService = TestBed.inject(LevelService);
         const testLevel = TestHelpers.getLevelViewModel();
-        spyOn(levelService, 'getLevel').and.returnValue(Promise.resolve(testLevel));
+        spyOn(levelService, 'getLevel').and.returnValue(await Promise.resolve(testLevel));
 
         component = fixture.componentInstance;
-        component.levelId = testLevel.id;
+        component.levelId = testLevel.id.toString();
         await component.ngOnInit();
         gameOverService = TestBed.inject(GameOverService);
     });

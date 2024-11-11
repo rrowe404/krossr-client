@@ -1,8 +1,6 @@
-import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { LevelService } from './LevelService';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
-import { RatingService } from '../Rating/RatingService';
 import { Input, Component, OnInit } from '@angular/core';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { ResizeEventService } from '../Resize/ResizeEventService';
@@ -21,7 +19,6 @@ import { LevelViewModel } from '@krossr/api';
 })
 export class LevelComponent extends LevelComponentBase implements OnInit {
     constructor(
-        public Authentication: AuthenticationService,
         protected gameSizeService: GameSizeService,
         protected gameOverService: GameOverService,
         protected goalMatrixFactory: GoalMatrixFactory,
@@ -29,14 +26,13 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
         private levelDecoder: LevelDecoder,
         protected levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelService: LevelService,
-        private ratingService: RatingService,
         protected resizeEventService: ResizeEventService,
         protected tileSizeEventService: TileSizeEventService,
     ) {
         super(levelEditorFormClearEventService, gameSizeService, goalMatrixFactory, resizeEventService, tileSizeEventService);
     }
 
-    @Input() public levelId;
+    @Input() public levelId: string;
 
     async ngOnInit() {
         await super.ngOnInit();
@@ -72,20 +68,9 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
 
         if (win) {
             this.gameOverService.openDialog(this.level);
-
-            if (this.Authentication && this.Authentication.user) {
-                this.completeLevelService.completeLevel({
-                    levelId: this.level.id
-                });
-            }
+            this.completeLevelService.completeLevel({ levelId: this.level.id });
         }
 
         return win;
-    }
-
-    rate(rating) {
-        setTimeout(() => {
-            this.ratingService.rate(this.level.id, rating);
-        });
     }
 }

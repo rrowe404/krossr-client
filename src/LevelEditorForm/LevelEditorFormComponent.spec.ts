@@ -80,27 +80,6 @@ describe('LevelEditorFormComponent', () => {
         expect(matDialog.open).toHaveBeenCalled();
     });
 
-    it('should confirm remove', () => {
-        let confirmationOptions = component.getRemoveConfirmationOptions();
-        component.confirmRemove();
-        confirmationOptions.data.submitAction();
-        expect(matDialog.open).toHaveBeenCalled();
-    });
-
-    describe('#remove', () => {
-        it('should remove, then open LevelSelect and go to level select', async () => {
-            let levelService: LevelService = TestBed.inject(LevelService);
-            let stateService: StateService = TestBed.inject(StateService);
-
-            spyOn(levelService, 'removeLevel').and.returnValue(Promise.resolve({}));
-            spyOn(stateService, 'go');
-
-            await component.remove({ id: 1 });
-            expect(levelService.removeLevel).toHaveBeenCalled();
-            expect(stateService.go).toHaveBeenCalledWith(LevelRoutes.list, {}, { reload: true });
-        });
-    });
-
     it('should submit', () => {
         spyOn(component.submitAction, 'emit');
         component.submit();

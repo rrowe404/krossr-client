@@ -1,17 +1,27 @@
 import { Injectable } from '@angular/core';
 import { DefaultService, LevelEditorSelectOptionsViewModel } from '@krossr/api';
+import { SizeFormatter } from 'src/SizeFormatter/SizeFormatter';
+import { SizeOptions } from 'src/SizeOptions/SizeOptions';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LevelEditorFormService {
     constructor(
-        private api: DefaultService
+        private sizeFormatter: SizeFormatter
     ) {
     }
 
     async getOptions() {
-        let response = await this.api.getLevelEditorOptions().toPromise() as LevelEditorSelectOptionsViewModel;
-        return response;
+        let sizeOptions: { [key: string]: number } = {};
+
+        SizeOptions.Options.forEach(option => {
+            // sizes in sizeOptions are per-side, but the editor needs to know the total number
+            // this assumes square matrices, as most of the app does
+            let key = this.sizeFormatter.formatSize(option);
+            sizeOptions[key] = Math.pow(option, 2);
+        });
+
+        return { sizeOptions };
     }
 }

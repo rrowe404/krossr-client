@@ -11,25 +11,17 @@ import { HomeComponent } from './Home/HomeComponent';
 import { uiRouterConfigFn } from './Config/RouterConfig';
 import { UIRouterModule } from '@uirouter/angular';
 import { CommonModule } from '@angular/common';
-import { UserService } from './User/UserService';
 import { NotFoundComponent } from './NotFound/NotFoundComponent';
-import { EditProfileModule } from './EditProfile/EditProfileModule';
 import { ConfirmationModule } from './Confirmation/ConfirmationModule';
 import { GameModule } from './Game/GameModule';
-import { SignInModule } from './SignIn/SignInModule';
-import { ChangePasswordModule } from './ChangePassword/ChangePasswordModule';
-import { UpdateUserModule } from './User/UpdateUserModule';
 import { LevelSelectModule } from './LevelSelect/LevelSelectModule';
 import { HelpModule } from './Help/HelpModule';
 import { HeaderModule } from './Header/HeaderModule';
-import { ResetPasswordModule } from './ResetPassword/ResetPasswordModule';
 import { LevelCreatorModule } from './LevelCreator/LevelCreatorModule';
-import { LevelEditorModule } from './LevelEditor/LevelEditorModule';
 import { LoadingAnimationModule } from './LoadingAnimation/LoadingAnimationModule';
 import { WINDOW_PROVIDERS } from './Window/WindowService';
 import { KrossrDialogModule } from './KrossrDialog/KrossrDialogModule';
 import { LevelModule } from './Level/LevelModule';
-import { ResetPasswordAttemptedModule } from './ResetPasswordAttempted/ResetPasswordAttemptedModule';
 
 function apiConfigFactory(): Configuration {
     const params: ConfigurationParameters = {
@@ -43,26 +35,19 @@ function apiConfigFactory(): Configuration {
     imports: [
         ApiModule.forRoot(apiConfigFactory),
         BrowserAnimationsModule,
-        ChangePasswordModule,
         CommonModule,
         ConfirmationModule,
-        EditProfileModule,
         GameModule,
         HeaderModule,
         HelpModule,
         HttpClientModule,
         LoadingAnimationModule,
         LevelCreatorModule,
-        LevelEditorModule,
         LevelModule,
         LevelSelectModule,
         KrossrDialogModule,
         ReactiveFormsModule,
-        ResetPasswordAttemptedModule,
-        ResetPasswordModule,
-        SignInModule,
-        UIRouterModule.forRoot({ states: Routes.getNg2Routes(), config: uiRouterConfigFn }),
-        UpdateUserModule
+        UIRouterModule.forRoot({ states: Routes.getNg2Routes(), config: uiRouterConfigFn })
     ],
     declarations: [
         HomeComponent,
@@ -86,9 +71,4 @@ function apiConfigFactory(): Configuration {
     ]
 })
 export class KrossrModule {
-    constructor(
-        private userService: UserService
-    ) {
-        this.userService.getLoggedInUser();
-    }
 }

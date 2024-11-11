@@ -10,19 +10,7 @@
     <krossr-uncomplete-level-preview *ngIf="!level.completed"></krossr-uncomplete-level-preview>
     <krossr-complete-level-preview *ngIf="level.completed" [level]="level"></krossr-complete-level-preview>
 
-    <a>
-        <span>by </span><span class="username" (click)="setSearchText($event, level.user.username)">{{ level.user.username }}</span>
-    </a>
-
-
-
     <div class="size">
         {{ level.prettySize }}
-    </div>
-
-    <div class="averageRating">
-        Avg:
-        <span *ngIf="level.avgRating">{{ level.avgRating | number:'1.2-2' }}</span>
-        <span *ngIf="!level.avgRating">n/a</span>
     </div>
 </div>

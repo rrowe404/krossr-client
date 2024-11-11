@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import { AuthenticationService } from '../Authentication/AuthenticationService';
 import { LevelService } from '../Level/LevelService';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -13,7 +12,6 @@ import { LevelListFilterOptions, LevelListViewModel } from '@krossr/api';
 })
 export class LevelSelectComponent implements AsyncLoadedComponent, OnInit {
     constructor(
-        public Authentication: AuthenticationService,
         private levelService: LevelService
     ) {
     }
