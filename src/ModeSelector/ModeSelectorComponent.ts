@@ -1,6 +1,7 @@
 import { ShiftService } from '../Shift/ShiftService';
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { NgFor, NgClass } from '@angular/common';
+import { ModeService } from './ModeService';
 
 @Component({
     selector: 'krossr-mode-selector',
@@ -10,35 +11,48 @@ import { NgFor, NgClass } from '@angular/common';
 })
 export class ModeSelectorComponent implements DoCheck, OnInit {
     constructor(
+        private modeService: ModeService,
         private shiftService: ShiftService
     ) {
     }
 
     public modes: { [key: string]: IMode };
     public modeRepeater: string[];
+
     public selectedMode: IMode;
+    public tempMode: IMode; 
 
     ngDoCheck() {
         if (this.shiftService.shiftOn) {
-            this.selectMode(this.modes.Mark);
+            this.tempMode = this.selectedMode === this.modes.Select ? this.modes.Mark : this.modes.Select;
         } else {
-            this.selectMode(this.modes.Select);
+            this.tempMode = null;
         }
+
+        (this.tempMode ?? this.selectedMode).onSelect();
     }
 
     ngOnInit() {
         this.modes = {
             Select: {
-                onSelect: () => this.shiftService.shiftOn = false
+                onSelect: () => this.modeService.selectMode = true
             },
             Mark: {
-                onSelect: () => this.shiftService.shiftOn = true
+                onSelect: () => this.modeService.selectMode = false
             }
         };
 
         this.modeRepeater = Object.keys(this.modes);
 
         this.selectMode(this.modes.Select);
+    }
+
+    highlight(mode: string) {
+        if (this.tempMode) {
+            return this.tempMode === this.modes[mode];
+        }
+
+        return this.selectedMode === this.modes[mode];
     }
 
     selectMode(mode: IMode) {

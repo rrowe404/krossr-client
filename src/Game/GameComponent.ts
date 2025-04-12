@@ -6,12 +6,12 @@ import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { TileEventService } from '../Tile/TileEventService';
 import { Input, Component, OnInit, ElementRef, Renderer2, OnDestroy, Output, EventEmitter, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ShiftService } from '../Shift/ShiftService';
 import { TileLayout } from '../TileLayout/TileLayout';
 import { TouchService } from '../Touch/TouchService';
 import { GameSize } from '../GameSize/GameSize';
 import { NgIf, NgStyle, NgFor } from '@angular/common';
 import { TileComponent } from '../Tile/TileComponent';
+import { ModeService } from 'src/ModeSelector/ModeService';
 
 @Component({
     selector: 'krossr-game',
@@ -28,7 +28,7 @@ export class GameComponent implements OnInit, OnChanges, OnDestroy {
         private tileSizeService: TileSizeService,
         private touchService: TouchService,
         private dragBoxService: DragBoxService,
-        private shiftService: ShiftService
+        private modeService: ModeService,
     ) {
         this.$element = this.elementRef.nativeElement;
     }
@@ -107,7 +107,7 @@ export class GameComponent implements OnInit, OnChanges, OnDestroy {
      * should always run after that event.
      */
     private mouseUpEvent() {
-        let fill = this.shiftService.shiftOn ? TileState.marked : TileState.selected;
+        let fill = this.modeService.selectMode ? TileState.selected : TileState.marked;
 
         this.applyFillDragBox(fill);
         this.check.emit();

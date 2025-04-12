@@ -1,5 +1,5 @@
 Mode:
 
-<div class="mode" [ngClass]="{ 'selected': selectedMode === modes[mode] }" (click)="selectMode(modes[mode])" *ngFor="let mode of modeRepeater">
+<div class="mode" [ngClass]="{ 'selected': highlight(mode) }" (click)="selectMode(modes[mode])" *ngFor="let mode of modeRepeater">
     {{ mode }}
 </div>

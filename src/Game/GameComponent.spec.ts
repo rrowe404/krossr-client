@@ -7,6 +7,7 @@ import { DragBoxService } from '../DragBox/DragBoxService';
 import { TileState } from '../Tile/TileState';
 import { TileEventService } from '../Tile/TileEventService';
 import { ShiftService } from '../Shift/ShiftService';
+import { ModeService } from 'src/ModeSelector/ModeService';
 
 describe('GameComponent', () => {
     let fixture: ComponentFixture<GameComponent>;
@@ -62,9 +63,9 @@ describe('GameComponent', () => {
         expect(dragBoxService.fill).toHaveBeenCalledWith(TileState.selected);
     });
 
-    it('should mark tiles instead of selecting if shift is being held', () => {
-        let shiftService: ShiftService = TestBed.inject(ShiftService);
-        shiftService.shiftOn = true;
+    it('should mark tiles instead of selecting if mode is set to mark', () => {
+        let modeService: ModeService = TestBed.inject(ModeService);
+        modeService.selectMode = false;
 
         let dragBoxService: DragBoxService = TestBed.inject(DragBoxService);
         spyOn(dragBoxService, 'fill');
