@@ -31,7 +31,6 @@ install_dependencies:
   script:
     - echo $NODE_ENV
     - npm install
-    - npx ngcc
 
 build_library:
   image: registry.gitlab.com/${BASE_NAME}/images/build-image:${BUILD_IMAGE_VERSION} 

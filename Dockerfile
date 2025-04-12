@@ -8,8 +8,7 @@ RUN echo $NODE_ENV
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install && \
-    npx ngcc
+RUN npm install
 COPY . /app
 RUN echo $NODE_ENV
 RUN npm run build
