@@ -10,10 +10,6 @@ export class LevelSelectTileComponent {
     @Input() public level: LevelListLevelViewModel;
     @Output() public refilter: EventEmitter<LevelListFilterOptions> = new EventEmitter();
 
-    canEdit() {
-        return this.level.editable;
-    }
-
     filter(options: LevelListFilterOptions) {
         this.refilter.emit(options);
     }

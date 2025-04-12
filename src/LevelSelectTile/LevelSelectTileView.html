@@ -1,11 +1,7 @@
 <div class="level" *ngIf="level">
     <div class="list-group-item-heading">
         {{ level.name }}
-        <a class="editButton" uiSref="update-level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }" *ngIf="canEdit()">
-            <i class="fa fa-edit"></i>
-        </a>
     </div>
-
 
     <krossr-uncomplete-level-preview *ngIf="!level.completed"></krossr-uncomplete-level-preview>
     <krossr-complete-level-preview *ngIf="level.completed" [level]="level"></krossr-complete-level-preview>
