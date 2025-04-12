@@ -12,16 +12,10 @@ describe('ShellComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-    imports: [
-        HeaderModule,
-        MatDialogModule,
-        UIRouterModule.forRoot()
-    ],
-    declarations: [ShellComponent],
-    providers: [
-        { provide: APP_BASE_HREF, useValue: '/' }
-    ]
-}).compileComponents();
+            imports: [HeaderModule, MatDialogModule, UIRouterModule.forRoot()],
+            declarations: [ShellComponent],
+            providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+        }).compileComponents();
 
         fixture = TestBed.createComponent(ShellComponent);
         component = fixture.componentInstance;
@@ -35,7 +29,7 @@ describe('ShellComponent', () => {
         let shiftService: ShiftService = TestBed.inject(ShiftService);
 
         const event = new KeyboardEvent('keydown', {
-            shiftKey: true
+            shiftKey: true,
         });
 
         component.keydown(event);
@@ -43,7 +37,7 @@ describe('ShellComponent', () => {
         expect(shiftService.shiftOn).toBeTruthy();
 
         const event2 = new KeyboardEvent('keyup', {
-            shiftKey: false
+            shiftKey: false,
         });
 
         component.keyup(event2);
@@ -51,7 +45,7 @@ describe('ShellComponent', () => {
         expect(shiftService.shiftOn).toBeFalsy();
 
         const event3 = new KeyboardEvent('keydown', {
-            shiftKey: false
+            shiftKey: false,
         });
 
         component.keydown(event3);
@@ -59,7 +53,7 @@ describe('ShellComponent', () => {
         expect(shiftService.shiftOn).toBeFalsy();
 
         const event4 = new KeyboardEvent('keyup', {
-            shiftKey: true
+            shiftKey: true,
         });
 
         component.keyup(event4);
