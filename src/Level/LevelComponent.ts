@@ -67,7 +67,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
         let win = this.gameMatrix && this.gameMatrix.equals(this.goalMatrix);
 
         if (win) {
-            this.gameOverService.openDialog(this.level);
+            this.gameOverService.openDialog();
             this.completeLevelService.completeLevel({ levelLayout: this.level.layout });
         }
 

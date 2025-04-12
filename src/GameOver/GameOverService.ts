@@ -14,11 +14,8 @@ export class GameOverService {
     ) {
     }
 
-    openDialog(level: ILevel): void {
+    openDialog(): void {
         this.dialogService.open(GameOverComponent, {
-            data: {
-                levelId: level.id
-            },
             disableClose: true
         });
     }
