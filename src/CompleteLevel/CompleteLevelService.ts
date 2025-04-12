@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DefaultService } from '@krossr/api';
 
 @Injectable({
     providedIn: 'root'

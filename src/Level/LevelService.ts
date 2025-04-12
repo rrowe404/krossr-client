@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
     CreateLevelBodyViewModel,
-    DefaultService,
     LevelListLevelViewModel,
     LevelListViewModel,
     LevelViewModel,
@@ -106,8 +105,6 @@ const numPerPage = 10;
     providedIn: 'root',
 })
 export class LevelService {
-    constructor(private api: DefaultService) {}
-
     createLevel(params: CreateLevelBodyViewModel) {
         // todo create fully encoded viewmodel & use as url
     }

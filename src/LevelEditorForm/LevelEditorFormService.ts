@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DefaultService, LevelEditorSelectOptionsViewModel } from '@krossr/api';
 import { SizeFormatter } from 'src/SizeFormatter/SizeFormatter';
 import { SizeOptions } from 'src/SizeOptions/SizeOptions';
 

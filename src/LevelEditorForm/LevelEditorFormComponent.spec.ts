@@ -7,9 +7,7 @@ import { StateService } from '@uirouter/core';
 import { LevelEditorFormService } from './LevelEditorFormService';
 import { MockLevelEditorFormService } from 'src/test/MockLevelEditorFormService';
 import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
-import { LevelService } from '../Level/LevelService';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeRoutes, LevelRoutes } from '../Routing/RouteNames';
 import { LevelEditorFormModule } from './LevelEditorFormModule';
 import { TestHelpers } from 'src/test/TestHelpers';
 

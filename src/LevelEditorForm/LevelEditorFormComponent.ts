@@ -3,14 +3,11 @@ import { ILevel } from '../Level/Level';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ConfirmationComponent } from '../Confirmation/ConfirmationComponent';
 import { ConfirmationOptions } from '../Confirmation/ConfirmationOptions';
-import { LevelService } from '../Level/LevelService';
-import { StateService } from '@uirouter/core';
 import { LevelEditorFormService } from './LevelEditorFormService';
 import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
 import { TileFillEventService } from '../Tile/TileFillEventService';
 import { TileState } from '../Tile/TileState';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
-import { LevelRoutes } from '../Routing/RouteNames';
 import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
 import { LevelEditorSelectOptionsViewModel } from '@krossr/api';
 
@@ -36,11 +33,9 @@ export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
     public sizeMap: { [key: string]: number };
 
     constructor(
-        private levelService: LevelService,
         private levelEditorFormClearEventService: LevelEditorFormClearEventService,
         private levelEditorFormService: LevelEditorFormService,
         private dialogService: KrossrDialogService,
-        private stateService: StateService,
         private tileFillEventService: TileFillEventService,
     ) {
     }
