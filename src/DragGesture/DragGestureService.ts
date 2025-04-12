@@ -10,8 +10,7 @@ import { TileEventService } from '../Tile/TileEventService';
 export class DragGestureService {
     constructor(
         private dragBoxService: DragBoxService,
-        private tileFillEventService: TileFillEventService,
-        private tileEventService: TileEventService
+        private tileFillEventService: TileFillEventService
     ) {
     }
 
@@ -40,7 +39,6 @@ export class DragGestureService {
 
     endDrag(coordinate: Point) {
         this.dragBoxService.endCoord = coordinate;
-        this.tileEventService.tileDragEnd.emit();
     }
 
     private shrinkPendingArea(previous: Point[], current: Point[]) {

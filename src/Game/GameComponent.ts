@@ -63,6 +63,13 @@ export class GameComponent implements OnInit, OnChanges, OnDestroy {
         this.setMargin(this.tileSizeService.getTileSize());
 
         this.listeners = [
+            // If the user mouses up on the edge of the game, it should be treated as if the drag was ended with the last coordinate touched maintained
+            this.renderer.listen(this.$element, 'mouseup', () => {
+                this.tileEventService.tileDragEnd.emit();
+            }),
+            this.renderer.listen(this.$element, 'touchend', () => {
+                this.tileEventService.tileDragEnd.emit();
+            }),
             // If the user goes too far away from the game area, clear the dragbox and empty the tiles.
             this.renderer.listen(this.$element, 'mouseleave', (e) => {
                 e.preventDefault();
