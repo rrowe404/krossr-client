@@ -32,7 +32,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
         super(levelEditorFormClearEventService, gameSizeService, goalMatrixFactory, resizeEventService, tileSizeEventService);
     }
 
-    @Input() public levelId: string;
+    @Input() public levelLayout: string;
 
     async ngOnInit() {
         await super.ngOnInit();
@@ -42,7 +42,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
     async findOne() {
         this.level = null;
 
-        let data = await this.levelService.getLevel(this.levelId) as LevelViewModel;
+        let data = await this.levelService.getLevel(this.levelLayout) as LevelViewModel;
 
         this.level = Object.assign({}, data, { ready: false });
 
@@ -68,7 +68,7 @@ export class LevelComponent extends LevelComponentBase implements OnInit {
 
         if (win) {
             this.gameOverService.openDialog(this.level);
-            this.completeLevelService.completeLevel({ levelId: this.level.id });
+            this.completeLevelService.completeLevel({ levelLayout: this.level.layout });
         }
 
         return win;

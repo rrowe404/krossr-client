@@ -24,15 +24,15 @@ export class Routes {
             },
             {
                 name: LevelRoutes.read,
-                url: '/level/:levelId',
+                url: '/level/:levelLayout',
                 component: LevelComponent,
                 resolve: [
                     { provide: 'mode', useFactory() { return 'view'; } },
                     {
-                        token: 'levelId',
+                        token: 'levelLayout',
                         deps: [Transition],
                         resolveFn(trans) {
-                            return trans.params().levelId;
+                            return trans.params().levelLayout;
                         }
                     }
                 ]

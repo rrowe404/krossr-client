@@ -12,7 +12,7 @@
 
         <krossr-level-select-filter [hidden]="!showFilter" (refilter)="refilter($event)"></krossr-level-select-filter>
 
-        <a class="levelLink" *ngFor="let level of levels" uiSref="level" [uiParams]="{ levelId: level.id }" [uiOptions]="{ reload: true }">
+        <a class="levelLink" *ngFor="let level of levels" uiSref="level" [uiParams]="{ levelLayout: level.layout }" [uiOptions]="{ reload: true }">
             <krossr-level-select-tile [level]="level" (refilter)="extendFilter($event)"></krossr-level-select-tile>
         </a>
 

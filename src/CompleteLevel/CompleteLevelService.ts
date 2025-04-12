@@ -5,13 +5,8 @@ import { DefaultService } from '@krossr/api';
     providedIn: 'root'
 })
 export class CompleteLevelService {
-    constructor(
-        private api: DefaultService
-    ) {
-    }
-
-    completeLevel(params: { levelId: number }) {
-        const { levelId } = params;
-        localStorage.setItem(levelId.toString(), 'true');
+    completeLevel(params: { levelLayout: string }) {
+        const { levelLayout } = params;
+        localStorage.setItem(levelLayout, 'true');
     }
 }

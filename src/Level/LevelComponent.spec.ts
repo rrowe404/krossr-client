@@ -36,7 +36,7 @@ describe('LevelComponent', () => {
         spyOn(levelService, 'getLevel').and.returnValue(await Promise.resolve(testLevel));
 
         component = fixture.componentInstance;
-        component.levelId = testLevel.id.toString();
+        component.levelLayout = testLevel.layout;
         await component.ngOnInit();
         gameOverService = TestBed.inject(GameOverService);
     });

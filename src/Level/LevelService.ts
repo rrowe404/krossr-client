@@ -11,7 +11,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
     {
         completed: false,
         editable: false,
-        id: 3,
         layout: 'MTAwMDExMDAwMTExMTExMTAwMDExMDAwMQ==',
         name: 'Historical',
         prettySize: '5x5',
@@ -27,7 +26,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
     {
         completed: false,
         editable: false,
-        id: 4,
         layout: 'MTExMTEwMDEwMDAwMTAwMDAxMDAxMTExMQ==',
         name: 'Idyllic',
         prettySize: '5x5',
@@ -43,7 +41,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
     {
         completed: false,
         editable: false,
-        id: 5,
         layout: 'MTExMTExMDAwMTExMTExMTAxMDAxMDAxMA==',
         name: 'Romantic',
         prettySize: '5x5',
@@ -59,7 +56,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
     {
         completed: false,
         editable: false,
-        id: 6,
         layout: 'MTExMTExMDAwMDExMTExMTAwMDAxMTExMQ==',
         name: 'Erroneous',
         prettySize: '5x5',
@@ -75,7 +71,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
     {
         completed: false,
         editable: false,
-        id: 7,
         layout: 'MTExMTExMDEwMTEwMTAxMTAxMDExMDEwMQ==',
         name: 'Magnificent',
         prettySize: '5x5',
@@ -91,7 +86,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
     {
         completed: false,
         editable: false,
-        id: 8,
         layout: 'MTExMTExMDAwMTExMTExMTAwMDAxMTExMQ==',
         name: 'Exciting',
         prettySize: '5x5',
@@ -118,15 +112,18 @@ export class LevelService {
         // todo create fully encoded viewmodel & use as url
     }
 
-    getLevel(levelId: string): LevelViewModel {
-        return this.toLevelViewModel(
-            hardcodedLevels.find((x) => x.id === parseInt(levelId, 10))
-        );
+    getLevel(levelLayout: string): LevelViewModel {
+        const level = hardcodedLevels.find((x) => x.layout === levelLayout);
+
+        if (!level) {
+            debugger
+        }
+
+        return this.toLevelViewModel(level);
     }
 
     private toLevelViewModel(level: LevelListLevelViewModel): LevelViewModel {
         return {
-            id: level.id,
             layout: level.layout,
             name: level.name,
             size: level.size,
@@ -174,7 +171,7 @@ export class LevelService {
             query.searchText
         );
 
-        vm.levels.forEach(level => level.completed = localStorage.getItem(level.id.toString()) === 'true')
+        vm.levels.forEach(level => level.completed = localStorage.getItem(level.layout) === 'true')
 
         return Promise.resolve(vm);
     }
