@@ -15,6 +15,7 @@ import { nowAndLater } from '../Debounce/Debounce';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 import { CreateLevelBodyViewModel, ErrorResponse, LevelViewModel } from '@krossr/api';
 import { HttpResponse } from '@angular/common/http';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'krossr-level-creator',
@@ -42,9 +43,17 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
     public goalMatrix: GameMatrix;
     public error: string;
 
+    public formGroup: FormGroup;
+    public resultFormControl: FormControl;
+
     async ngOnInit() {
         await super.ngOnInit();
         this.createNewLevel();
+
+        this.formGroup = new FormGroup({});
+        this.resultFormControl = new FormControl();
+        this.resultFormControl.disable();
+        this.formGroup.addControl('result', this.resultFormControl);
     }
 
     createGameArray() {
@@ -91,6 +100,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
         try {
             let response = await this.levelService.createLevel(level) as LevelViewModel;
             this.result = `${window.location.protocol}//${window.location.host}/level/${response.layout}`; // todo better
+            this.resultFormControl.setValue(this.result);
         } catch (response) {
             let error = response.error as ErrorResponse;
             nowAndLater(() => this.error = error.message, () => this.error = '');

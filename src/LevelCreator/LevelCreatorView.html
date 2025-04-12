@@ -3,7 +3,7 @@
         <krossr-level-editor-form [error]="error" [level]="level" submitText="Submit" (sizeChange)="createGameArray()" (submitAction)="submitCreate()">
         </krossr-level-editor-form>
 
-        <div class="created-level-url" *ngIf="result">{{ result }}</div>
+        <krossr-input name="result" label="Result" [control]="resultFormControl" *ngIf="result"></krossr-input>
 
         <div tabindex="0">
             <div class="gameContainer-inner">
