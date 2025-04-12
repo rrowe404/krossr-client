@@ -1,7 +1,8 @@
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
-import { StateService } from '@uirouter/core';
+import { APP_BASE_HREF } from '@angular/common';
+import { StateService, UrlRouter, UrlService } from '@uirouter/core';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
@@ -34,6 +35,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
 
     public margin: string;
     public level: ILevel;
+    public result: string;
     @Input() public levelId;
 
     public gameMatrix: GameMatrix;
@@ -80,20 +82,18 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
 
     // Split out for easier testing
     async submitCreate() {
-        // todo
-
         // Create new Level object
-        // let level = {
-        //     name: this.level.name,
-        //     decodedLayout: this.gameMatrix.horizontal.getLayout(),
-        // } as CreateLevelBodyViewModel;
+        let level = {
+            name: this.level.name,
+            decodedLayout: this.gameMatrix.horizontal.getLayout(),
+        } as CreateLevelBodyViewModel;
 
-        // try {
-        //     let response = await this.levelService.createLevel(level) as LevelViewModel;
-        //     this.$state.go(LevelRoutes.update, { levelId: response.id }, { reload: true });
-        // } catch (response) {
-        //     let error = response.error as ErrorResponse;
-        //     nowAndLater(() => this.error = error.message, () => this.error = '');
-        // }
+        try {
+            let response = await this.levelService.createLevel(level) as LevelViewModel;
+            this.result = `${window.location.protocol}//${window.location.host}/level/${response.layout}`; // todo better
+        } catch (response) {
+            let error = response.error as ErrorResponse;
+            nowAndLater(() => this.error = error.message, () => this.error = '');
+        }
     }
 }

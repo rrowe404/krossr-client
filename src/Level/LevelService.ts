@@ -5,6 +5,7 @@ import {
     LevelListViewModel,
     LevelViewModel,
 } from '@krossr/api';
+import { LevelEncoder } from 'src/LevelEncoder/LevelEncoder';
 
 const hardcodedLevels: LevelListLevelViewModel[] = [
     {
@@ -105,7 +106,13 @@ const numPerPage = 10;
     providedIn: 'root',
 })
 export class LevelService {
+    constructor(private levelEncoder: LevelEncoder) {
+    }
+
     createLevel(params: CreateLevelBodyViewModel) {
+        return {
+            layout: this.levelEncoder.encodeLayout(params.decodedLayout)
+        };
         // todo create fully encoded viewmodel & use as url
     }
 
@@ -113,7 +120,11 @@ export class LevelService {
         const level = hardcodedLevels.find((x) => x.layout === levelLayout);
 
         if (!level) {
-            debugger
+            return {
+                layout: levelLayout,
+                name: 'todo',
+                size: null
+            }
         }
 
         return this.toLevelViewModel(level);
