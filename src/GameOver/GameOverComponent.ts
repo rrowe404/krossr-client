@@ -4,10 +4,14 @@ import { StateService } from '@uirouter/core';
 import { KrossrDialogBase } from '../KrossrDialog/KrossrDialogBase';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { GameOverDialogData } from './GameOverDialogData';
+import { PopupContentComponent } from '../PopupContent/PopupContentComponent';
+import { KrossrButtonComponent } from '../KrossrButton/KrossrButtonComponent';
+import { UIRouterModule } from '@uirouter/angular';
 
 @Component({
     selector: 'krossr-game-over',
-    templateUrl: './GameOverView.html'
+    templateUrl: './GameOverView.html',
+    imports: [PopupContentComponent, KrossrButtonComponent, UIRouterModule]
 })
 export class GameOverComponent extends KrossrDialogBase {
     constructor(

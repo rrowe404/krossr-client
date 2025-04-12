@@ -1,11 +1,11 @@
-import { ErrorResponse, LevelViewModel } from '@krossr/api';
+import { LevelViewModel } from "src/Level/Level";
 
 export class TestHelpers {
     static getLevelViewModel(): LevelViewModel {
-        return { id: 1, name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==', size: 25 };
+        return { name: 'trogdor', layout: 'MTAwMDExMDAwMTEwMDAxMTAwMDExMTExMQ==', size: 25 };
     }
 
-    static getErrorResponse(message: string): Promise<{ error: ErrorResponse }> {
+    static getErrorResponse(message: string): Promise<{ error: Error }> {
         return Promise.reject(this.getErrorResponseObject(message));
     }
 

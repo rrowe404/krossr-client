@@ -1,7 +1,13 @@
 import { LevelService } from './LevelService';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+    HttpTestingController,
+    provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { BASE_PATH } from '@krossr/api';
+import {
+    provideHttpClient,
+    withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('LevelService', () => {
     let service: LevelService;
@@ -9,10 +15,11 @@ describe('LevelService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
+            imports: [],
             providers: [
-                { provide: BASE_PATH, useValue: '' }
-            ]
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting(),
+            ],
         });
         httpTestingController = TestBed.inject(HttpTestingController);
         service = TestBed.inject(LevelService);

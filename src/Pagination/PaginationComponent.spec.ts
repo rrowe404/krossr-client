@@ -19,10 +19,8 @@ describe('PaginationComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                PaginationComponent
-            ]
-        }).compileComponents();
+    imports: [PaginationComponent]
+}).compileComponents();
 
         fixture = getFixture(1, 2);
         component = fixture.componentInstance;

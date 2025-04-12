@@ -4,7 +4,9 @@ import { ShiftService } from '../Shift/ShiftService';
 @Component({
     selector: 'krossr-shell',
     styleUrls: ['./ShellStyles.less'],
-    templateUrl: './ShellView.html'
+    templateUrl: './ShellView.html',
+    // eslint-disable-next-line @angular-eslint/prefer-standalone
+    standalone: false
 })
 export class ShellComponent {
     constructor(

@@ -1,11 +1,12 @@
 import { ShiftService } from '../Shift/ShiftService';
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { NgFor, NgClass } from '@angular/common';
 
 @Component({
     selector: 'krossr-mode-selector',
     styleUrls: ['./ModeSelectorStyles.less'],
-    templateUrl: './ModeSelectorView.html'
-
+    templateUrl: './ModeSelectorView.html',
+    imports: [NgFor, NgClass]
 })
 export class ModeSelectorComponent implements DoCheck, OnInit {
     constructor(

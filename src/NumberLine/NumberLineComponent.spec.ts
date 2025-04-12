@@ -1,7 +1,6 @@
 import { NumberLineComponent } from './NumberLineComponent';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
-import { NumberLineModule } from './NumberLineModule';
 
 describe('NumberLineComponent', () => {
     function getFixture(
@@ -24,11 +23,7 @@ describe('NumberLineComponent', () => {
     }
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                NumberLineModule
-            ],
-        }).compileComponents();
+        TestBed.configureTestingModule({ }).compileComponents();
 
     });
 

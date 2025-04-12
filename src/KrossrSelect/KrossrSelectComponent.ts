@@ -1,9 +1,11 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 @Component({
     selector: 'krossr-select',
-    templateUrl: './KrossrSelectView.html'
+    templateUrl: './KrossrSelectView.html',
+    imports: [ReactiveFormsModule, NgFor]
 })
 export class KrossrSelectComponent implements OnInit {
     @Input() control: FormControl;

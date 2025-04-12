@@ -3,9 +3,7 @@ import { Inject, Directive, OnInit } from '@angular/core';
 import { ResizeEventService } from './ResizeEventService';
 import { WINDOW } from '../Window/WindowService';
 
-@Directive({
-    selector: '[krossrResize]'
-})
+@Directive({ selector: '[krossrResize]' })
 export class ResizeDirective implements OnInit {
     private _window: Window;
 

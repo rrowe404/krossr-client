@@ -17,13 +17,11 @@ describe('KrossrDialogBase', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                TestDialogComponent
-            ],
-            providers: [
-                { provide: MatDialogRef, useValue: { close: () => {} }}
-            ]
-        }).compileComponents();
+    imports: [TestDialogComponent],
+    providers: [
+        { provide: MatDialogRef, useValue: { close: () => { } } }
+    ]
+}).compileComponents();
 
         fixture = TestBed.createComponent(TestDialogComponent);
         component = fixture.componentInstance;

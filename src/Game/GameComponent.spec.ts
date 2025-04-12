@@ -21,9 +21,8 @@ describe('GameComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ MatDialogModule ],
-            declarations: [ GameComponent ]
-        }).compileComponents();
+    imports: [MatDialogModule, GameComponent]
+}).compileComponents();
 
         fixture = TestBed.createComponent(GameComponent);
         component = fixture.componentInstance;

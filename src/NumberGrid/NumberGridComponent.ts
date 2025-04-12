@@ -3,11 +3,14 @@ import { TileSizeService } from '../TileSize/TileSizeService';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { NgFor, NgStyle } from '@angular/common';
+import { NumberLineComponent } from '../NumberLine/NumberLineComponent';
 
 @Component({
     selector: 'krossr-number-grid',
     styleUrls: ['./NumberGridStyles.less'],
-    templateUrl: './NumberGridView.html'
+    templateUrl: './NumberGridView.html',
+    imports: [NgFor, NumberLineComponent, NgStyle]
 })
 export class NumberGridComponent implements OnInit, OnDestroy {
     constructor(

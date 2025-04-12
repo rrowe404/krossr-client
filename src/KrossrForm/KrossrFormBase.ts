@@ -1,5 +1,4 @@
 import { FormGroup } from '@angular/forms';
-import { ErrorResponse } from '@krossr/api';
 import { nowAndLater } from '../Debounce/Debounce';
 
 export abstract class KrossrFormBase {
@@ -14,7 +13,7 @@ export abstract class KrossrFormBase {
 
     abstract trySubmit: () => Promise<any>;
     protected onSuccess: () => Promise<any> = this.defaultOnSuccess;
-    protected onError: (error: ErrorResponse) => void = this.defaultOnError;
+    protected onError: (error: Error) => void = this.defaultOnError;
 
     private defaultOnSuccess() {
         this.clearForm();
@@ -23,7 +22,7 @@ export abstract class KrossrFormBase {
         return Promise.resolve();
     }
 
-    private defaultOnError(error: ErrorResponse) {
+    private defaultOnError(error: Error) {
         this.clearForm();
         this.displayErrorMessage(error);
     }
@@ -40,8 +39,8 @@ export abstract class KrossrFormBase {
         return nowAndLater(() => this.success = this.successMessage, () => this.success = '').toPromise();
     }
 
-    public displayErrorMessage(response: ErrorResponse) {
-        nowAndLater(() => this.error = response.message, () => this.error = '');
+    public displayErrorMessage(error: Error) {
+        nowAndLater(() => this.error = error.message, () => this.error = '');
     }
 
     public async submit() {
@@ -49,7 +48,7 @@ export abstract class KrossrFormBase {
             await this.trySubmit();
             this.onSuccess();
         } catch (err) {
-            this.onError(err.error as ErrorResponse);
+            this.onError(err.error as Error);
         }
     }
 }

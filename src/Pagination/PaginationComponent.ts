@@ -1,9 +1,11 @@
 import { Input, Output, EventEmitter, Component } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'krossr-pagination',
     styleUrls: ['./PaginationStyles.less'],
-    templateUrl: './PaginationView.html'
+    templateUrl: './PaginationView.html',
+    imports: [NgClass]
 })
 export class PaginationComponent {
     @Input() public currentPage: number;

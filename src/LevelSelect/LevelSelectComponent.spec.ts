@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelSelectComponent } from './LevelSelectComponent';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MockStateService } from 'src/test/MockStateService';
 import { StateService } from '@uirouter/core';
@@ -8,7 +8,8 @@ import { LevelSelectModule } from './LevelSelectModule';
 import { UIRouterModule } from '@uirouter/angular';
 import { LevelService } from '../Level/LevelService';
 import { APP_BASE_HREF } from '@angular/common';
-import { LevelListViewModel } from '@krossr/api';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { LevelListViewModel } from 'src/Level/Level';
 
 describe('LevelSelectComponent', () => {
     let fixture: ComponentFixture<LevelSelectComponent>;
@@ -16,17 +17,16 @@ describe('LevelSelectComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                LevelSelectModule,
-                UIRouterModule.forRoot()
-            ],
-            providers: [
-                { provide: MatDialogRef, useValue: {} },
-                { provide: StateService, useValue: MockStateService },
-                { provide: APP_BASE_HREF, useValue: '/' }
-            ]
-        }).compileComponents();
+    imports: [LevelSelectModule,
+        UIRouterModule.forRoot()],
+    providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: StateService, useValue: MockStateService },
+        { provide: APP_BASE_HREF, useValue: '/' },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
         fixture = TestBed.createComponent(LevelSelectComponent);
         component = fixture.componentInstance;

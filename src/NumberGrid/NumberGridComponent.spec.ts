@@ -1,7 +1,6 @@
 import { NumberGridComponent } from './NumberGridComponent';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
-import { NumberGridModule } from './NumberGridModule';
 import { TileSizeService } from '../TileSize/TileSizeService';
 
 describe('NumberGridComponent', () => {
@@ -9,11 +8,7 @@ describe('NumberGridComponent', () => {
     let component: NumberGridComponent;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                NumberGridModule
-            ]
-        });
+        TestBed.configureTestingModule({});
 
         fixture = TestBed.createComponent(NumberGridComponent);
         component = fixture.componentInstance;

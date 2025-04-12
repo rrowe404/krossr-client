@@ -4,7 +4,7 @@ import {
     LevelListLevelViewModel,
     LevelListViewModel,
     LevelViewModel,
-} from '@krossr/api';
+} from 'src/Level/Level';
 import { LevelEncoder } from 'src/LevelEncoder/LevelEncoder';
 
 const hardcodedLevels: LevelListLevelViewModel[] = [
@@ -18,10 +18,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
         avgRating: null,
         createdAt:
             'Sat Feb 19 2022 16:30:10 GMT+0000 (Coordinated Universal Time)',
-        user: {
-            id: 1,
-            username: 'rosalyn',
-        },
     },
     {
         completed: false,
@@ -33,10 +29,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
         avgRating: null,
         createdAt:
             'Sat Feb 19 2022 16:31:02 GMT+0000 (Coordinated Universal Time)',
-        user: {
-            id: 1,
-            username: 'rosalyn',
-        },
     },
     {
         completed: false,
@@ -48,10 +40,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
         avgRating: null,
         createdAt:
             'Sat Feb 19 2022 16:31:24 GMT+0000 (Coordinated Universal Time)',
-        user: {
-            id: 1,
-            username: 'rosalyn',
-        },
     },
     {
         completed: false,
@@ -63,10 +51,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
         avgRating: null,
         createdAt:
             'Sat Feb 19 2022 16:32:10 GMT+0000 (Coordinated Universal Time)',
-        user: {
-            id: 1,
-            username: 'rosalyn',
-        },
     },
     {
         completed: false,
@@ -78,10 +62,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
         avgRating: null,
         createdAt:
             'Sat Feb 19 2022 16:32:34 GMT+0000 (Coordinated Universal Time)',
-        user: {
-            id: 1,
-            username: 'rosalyn',
-        },
     },
     {
         completed: false,
@@ -93,10 +73,6 @@ const hardcodedLevels: LevelListLevelViewModel[] = [
         avgRating: null,
         createdAt:
             'Sat Feb 19 2022 16:33:03 GMT+0000 (Coordinated Universal Time)',
-        user: {
-            id: 1,
-            username: 'rosalyn',
-        },
     },
 ];
 
@@ -106,12 +82,11 @@ const numPerPage = 10;
     providedIn: 'root',
 })
 export class LevelService {
-    constructor(private levelEncoder: LevelEncoder) {
-    }
+    constructor(private levelEncoder: LevelEncoder) {}
 
     createLevel(params: CreateLevelBodyViewModel) {
         return {
-            layout: this.levelEncoder.encodeLayout(params.decodedLayout)
+            layout: this.levelEncoder.encodeLayout(params.decodedLayout),
         };
         // todo create fully encoded viewmodel & use as url
     }
@@ -123,8 +98,8 @@ export class LevelService {
             return {
                 layout: levelLayout,
                 name: 'todo',
-                size: null
-            }
+                size: null,
+            };
         }
 
         return this.toLevelViewModel(level);
@@ -179,7 +154,11 @@ export class LevelService {
             query.searchText
         );
 
-        vm.levels.forEach(level => level.completed = localStorage.getItem(level.layout) === 'true')
+        vm.levels.forEach(
+            (level) =>
+                (level.completed =
+                    localStorage.getItem(level.layout) === 'true')
+        );
 
         return Promise.resolve(vm);
     }

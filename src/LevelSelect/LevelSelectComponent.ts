@@ -1,14 +1,20 @@
-import * as _ from 'lodash';
 import { LevelService } from '../Level/LevelService';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
-import { LevelListFilterOptions, LevelListViewModel } from '@krossr/api';
+import { AsyncContentComponent } from '../Async/AsyncContentComponent';
+import { NgIf, NgClass, NgFor } from '@angular/common';
+import { UIRouterModule } from '@uirouter/angular';
+import { LevelSelectFilterComponent } from '../LevelSelectFilter/LevelSelectFilterComponent';
+import { LevelSelectTileComponent } from '../LevelSelectTile/LevelSelectTileComponent';
+import { PaginationComponent } from '../Pagination/PaginationComponent';
+import { LevelListFilterOptions, LevelListViewModel } from 'src/Level/Level';
 
 @Component({
     selector: 'krossr-level-select',
     styleUrls: ['./LevelSelectStyles.less'],
-    templateUrl: './LevelSelectView.html'
+    templateUrl: './LevelSelectView.html',
+    imports: [AsyncContentComponent, NgIf, ReactiveFormsModule, NgClass, UIRouterModule, LevelSelectFilterComponent, NgFor, LevelSelectTileComponent, PaginationComponent]
 })
 export class LevelSelectComponent implements AsyncLoadedComponent, OnInit {
     constructor(
@@ -53,7 +59,7 @@ export class LevelSelectComponent implements AsyncLoadedComponent, OnInit {
     }
 
     extendFilter(options: LevelListFilterOptions) {
-        let filter = _.extend(this.filter, options);
+        let filter = { ...this.filter, ...options };
 
         this.refilter(filter);
     }

@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfirmationComponent } from './ConfirmationComponent';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfirmationModule } from './ConfirmationModule';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ConfirmationComponent', () => {
     let fixture: ComponentFixture<ConfirmationComponent>;
@@ -10,19 +10,17 @@ describe('ConfirmationComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                ConfirmationModule,
-                HttpClientTestingModule
-            ],
-            providers: [
-                { provide: MatDialogRef, useValue: {} },
-                {
-                    provide: MAT_DIALOG_DATA, useValue: {
-                        submitAction: () => {}
-                    }
-                }
-            ]
-        }).compileComponents();
+    providers: [
+        { provide: MatDialogRef, useValue: {} },
+        {
+            provide: MAT_DIALOG_DATA, useValue: {
+                submitAction: () => { }
+            }
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
         fixture = TestBed.createComponent(ConfirmationComponent);
         component = fixture.componentInstance;

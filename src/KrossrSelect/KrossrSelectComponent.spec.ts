@@ -1,6 +1,5 @@
 import { KrossrSelectComponent } from './KrossrSelectComponent';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { KrossrSelectModule } from './KrossrSelectModule';
 import { FormControl } from '@angular/forms';
 
 describe('KrossrSelectComponent', () => {
@@ -15,11 +14,7 @@ describe('KrossrSelectComponent', () => {
     }
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                KrossrSelectModule
-            ]
-        }).compileComponents();
+        TestBed.configureTestingModule({}).compileComponents();
 
         fixture = getFixture(instance => {
             instance.control = new FormControl('huh');

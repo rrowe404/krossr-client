@@ -12,18 +12,16 @@ describe('ShellComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HeaderModule,
-                MatDialogModule,
-                UIRouterModule.forRoot()
-            ],
-            declarations: [
-                ShellComponent
-            ],
-            providers: [
-                { provide: APP_BASE_HREF, useValue: '/' }
-            ]
-        }).compileComponents();
+    imports: [
+        HeaderModule,
+        MatDialogModule,
+        UIRouterModule.forRoot()
+    ],
+    declarations: [ShellComponent],
+    providers: [
+        { provide: APP_BASE_HREF, useValue: '/' }
+    ]
+}).compileComponents();
 
         fixture = TestBed.createComponent(ShellComponent);
         component = fixture.componentInstance;

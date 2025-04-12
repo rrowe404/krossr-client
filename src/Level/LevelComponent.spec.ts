@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelComponent } from './LevelComponent';
 import { StateService, UIRouterModule } from '@uirouter/angular';
 import { MockStateService } from 'src/test/MockStateService';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { LevelModule } from './LevelModule';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
@@ -10,6 +10,7 @@ import { GameOverService } from '../GameOver/GameOverService';
 import { APP_BASE_HREF } from '@angular/common';
 import { LevelService } from './LevelService';
 import { TestHelpers } from 'src/test/TestHelpers';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LevelComponent', () => {
     let fixture: ComponentFixture<LevelComponent>;
@@ -19,16 +20,15 @@ describe('LevelComponent', () => {
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                LevelModule,
-                UIRouterModule.forRoot()
-            ],
-            providers: [
-                { provide: StateService, useClass: MockStateService },
-                { provide: APP_BASE_HREF, useValue: '/' },
-            ]
-        }).compileComponents();
+    imports: [LevelModule,
+        UIRouterModule.forRoot()],
+    providers: [
+        { provide: StateService, useClass: MockStateService },
+        { provide: APP_BASE_HREF, useValue: '/' },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
 
         fixture = TestBed.createComponent(LevelComponent);
         levelService = TestBed.inject(LevelService);

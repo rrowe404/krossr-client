@@ -17,10 +17,8 @@ describe('LevelComponentBase', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                MockLevelComponent
-            ]
-        }).compileComponents();
+    imports: [MockLevelComponent]
+}).compileComponents();
 
         fixture = TestBed.createComponent(MockLevelComponent);
         component = fixture.componentInstance;

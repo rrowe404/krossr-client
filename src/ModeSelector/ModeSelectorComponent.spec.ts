@@ -7,10 +7,8 @@ describe('ModeSelectorComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                ModeSelectorComponent
-            ]
-        });
+    imports: [ModeSelectorComponent]
+});
 
         fixture = TestBed.createComponent(ModeSelectorComponent);
         component = fixture.componentInstance;

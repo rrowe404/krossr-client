@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DragBoxService } from '../DragBox/DragBoxService';
 import { Point } from '../Point/Point';
 import { TileFillEventService } from '../Tile/TileFillEventService';
-import * as _ from 'lodash';
 import { TileEventService } from '../Tile/TileEventService';
 
 @Injectable({
@@ -53,11 +52,7 @@ export class DragGestureService {
             let coordsToClear: Point[];
             // more speed -- only clear the values that are present in
             // oldCoords but not allPendingCoords
-            coordsToClear = previous.filter((e) => {
-                if (_.findIndex(current, e) === -1) {
-                    return true;
-                }
-            });
+            coordsToClear = previous.filter((e) => !current.includes(e));
 
             this.tileFillEventService.clearPending(coordsToClear);
         }

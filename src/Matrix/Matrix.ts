@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import { IEquatable } from '../Equatable/IEquatable';
 import { Point } from '../Point/Point';
 
@@ -29,7 +28,7 @@ export class Matrix<T> implements IEquatable<Matrix<T>> {
     }
 
     copyFrom(source: Matrix<T>) {
-        this.matrix = _.cloneDeep(source.matrix);
+        this.matrix = source.matrix.map(x => x.map(y => y));
     }
 
     /** Return a COPY of the current layout to preserve encapsulation -- you shouldn't be able to modify a matrix by normal means */

@@ -10,12 +10,18 @@ import { LevelComponentBase } from './LevelComponentBase';
 import { GameOverService } from '../GameOver/GameOverService';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
 import { CompleteLevelService } from '../CompleteLevel/CompleteLevelService';
-import { LevelViewModel } from '@krossr/api';
+import { AsyncContentComponent } from '../Async/AsyncContentComponent';
+import { NgIf, NgStyle } from '@angular/common';
+import { ModeSelectorComponent } from '../ModeSelector/ModeSelectorComponent';
+import { NumberGridComponent } from '../NumberGrid/NumberGridComponent';
+import { GameComponent } from '../Game/GameComponent';
+import { LevelViewModel } from './Level';
 
 @Component({
     selector: 'krossr-level',
     styleUrls: ['./LevelStyles.less'],
-    templateUrl: './LevelView.html'
+    templateUrl: './LevelView.html',
+    imports: [AsyncContentComponent, NgIf, ModeSelectorComponent, NumberGridComponent, NgStyle, GameComponent]
 })
 export class LevelComponent extends LevelComponentBase implements OnInit {
     constructor(

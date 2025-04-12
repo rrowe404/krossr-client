@@ -4,12 +4,7 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
-        CommonModule
-    ],
-    declarations: [
-        HeaderComponent
-    ],
-    entryComponents: [
+        CommonModule,
         HeaderComponent
     ],
     exports: [

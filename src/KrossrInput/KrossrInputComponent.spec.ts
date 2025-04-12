@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { KrossrInputComponent } from './KrossrInputComponent';
-import { KrossrInputModule } from './KrossrInputModule';
 import { FormControl } from '@angular/forms';
 
 describe('KrossrInputComponent', () => {
@@ -18,11 +17,7 @@ describe('KrossrInputComponent', () => {
     }
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                KrossrInputModule
-            ]
-        }).compileComponents();
+        TestBed.configureTestingModule({}).compileComponents();
 
         fixture = getFixture((instance) => instance.control = new FormControl());
         component = fixture.componentInstance;

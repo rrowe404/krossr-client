@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HelpComponent } from './HelpComponent';
-import { HelpModule } from './HelpModule';
 import { MatDialogRef } from '@angular/material/dialog';
 
 describe('HelpComponent', () => {
@@ -9,9 +8,6 @@ describe('HelpComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HelpModule
-            ],
             providers: [
                 { provide: MatDialogRef, useValue: { close: () => {} } }
             ]

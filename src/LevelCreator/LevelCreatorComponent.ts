@@ -1,25 +1,28 @@
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Input, Component, OnInit, OnDestroy } from '@angular/core';
-import { APP_BASE_HREF } from '@angular/common';
-import { StateService, UrlRouter, UrlService } from '@uirouter/core';
-import { LevelRoutes } from '../Routing/RouteNames';
+import { NgIf } from '@angular/common';
+import { StateService } from '@uirouter/core';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { ResizeEventService } from '../Resize/ResizeEventService';
 import { GameSizeService } from '../GameSize/GameSizeService';
-import { ILevel } from '../Level/Level';
+import { CreateLevelBodyViewModel, ILevel } from '../Level/Level';
 import { LevelEditorFormClearEventService } from '../LevelEditorForm/LevelEditorFormClearEventService';
 import { LevelService } from '../Level/LevelService';
 import { LevelComponentBase } from '../Level/LevelComponentBase';
 import { nowAndLater } from '../Debounce/Debounce';
 import { GoalMatrixFactory } from '../GoalMatrix/GoalMatrixFactory';
-import { CreateLevelBodyViewModel, ErrorResponse, LevelViewModel } from '@krossr/api';
-import { HttpResponse } from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AsyncContentComponent } from '../Async/AsyncContentComponent';
+import { LevelEditorFormComponent } from '../LevelEditorForm/LevelEditorFormComponent';
+import { KrossrInputComponent } from '../KrossrInput/KrossrInputComponent';
+import { GameComponent } from '../Game/GameComponent';
+import { LevelViewModel } from 'src/Level/Level';
 
 @Component({
     selector: 'krossr-level-creator',
-    templateUrl: './LevelCreatorView.html'
+    templateUrl: './LevelCreatorView.html',
+    imports: [AsyncContentComponent, NgIf, LevelEditorFormComponent, KrossrInputComponent, GameComponent]
 })
 export class LevelCreatorComponent extends LevelComponentBase implements OnInit, OnDestroy {
     constructor(
@@ -102,7 +105,7 @@ export class LevelCreatorComponent extends LevelComponentBase implements OnInit,
             this.result = `${window.location.protocol}//${window.location.host}/level/${response.layout}`; // todo better
             this.resultFormControl.setValue(this.result);
         } catch (response) {
-            let error = response.error as ErrorResponse;
+            let error = response.error as Error;
             nowAndLater(() => this.error = error.message, () => this.error = '');
         }
     }

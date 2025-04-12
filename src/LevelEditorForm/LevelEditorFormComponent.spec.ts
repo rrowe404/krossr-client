@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelEditorFormComponent } from './LevelEditorFormComponent';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MockStateService } from 'src/test/MockStateService';
 import { StateService } from '@uirouter/core';
@@ -8,8 +8,8 @@ import { LevelEditorFormService } from './LevelEditorFormService';
 import { MockLevelEditorFormService } from 'src/test/MockLevelEditorFormService';
 import { LevelEditorFormClearEventService } from './LevelEditorFormClearEventService';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { LevelEditorFormModule } from './LevelEditorFormModule';
 import { TestHelpers } from 'src/test/TestHelpers';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LevelEditorFormComponent', () => {
     let fixture: ComponentFixture<LevelEditorFormComponent>;
@@ -18,17 +18,16 @@ describe('LevelEditorFormComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                MatDialogModule,
-                NoopAnimationsModule,
-                HttpClientTestingModule,
-                LevelEditorFormModule
-            ],
-            providers: [
-                { provide: LevelEditorFormService, useClass: MockLevelEditorFormService },
-                { provide: StateService, useClass: MockStateService }
-            ]
-        }).compileComponents();
+    imports: [MatDialogModule,
+        NoopAnimationsModule,
+    ],
+    providers: [
+        { provide: LevelEditorFormService, useClass: MockLevelEditorFormService },
+        { provide: StateService, useClass: MockStateService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
         fixture = TestBed.createComponent(LevelEditorFormComponent);
         component = fixture.componentInstance;

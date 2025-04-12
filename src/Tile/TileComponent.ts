@@ -5,7 +5,6 @@ import { TileState } from './TileState';
 import { TouchService } from '../Touch/TouchService';
 import { TileSizeEventService } from '../TileSize/TileSizeEventService';
 import { Component, Input, OnInit, AfterViewInit, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
-import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { TileBorderService } from '../TileBorder/TileBorderService';
 import { PointService } from '../Point/PointService';
@@ -14,11 +13,13 @@ import { TileFillEvent } from './TileFillEvent';
 import { TileLayout } from '../TileLayout/TileLayout';
 import { DragGestureService } from '../DragGesture/DragGestureService';
 import { TileStateOptions } from './TileStateOptions';
+import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
     selector: 'krossr-tile',
     styleUrls: ['./TileStyles.less'],
-    templateUrl: './TileView.html'
+    templateUrl: './TileView.html',
+    imports: [NgClass, NgStyle]
 })
 export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     /* At this level, work with the horizontal version only */
@@ -102,7 +103,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
             }),
             this.tileFillEventService.fill.subscribe((event: TileFillEvent) => {
-                let hasCoord = !event.coords || _.findIndex(event.coords, this.coordinate) > -1;
+                let hasCoord = !event.coords || event.coords.some(coord => coord.x === this.coordinate.x && coord.y === this.coordinate.y);
                 let isValid = !event.validate || event.validate(this);
 
                 if (hasCoord && isValid) {
@@ -158,7 +159,7 @@ export class TileComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private processTileState(active: boolean, override?: boolean) {
-        let temp = !_.isUndefined(override) ? override : active;
+        let temp = override ?? active;
         this.empty();
         return !temp;
     }

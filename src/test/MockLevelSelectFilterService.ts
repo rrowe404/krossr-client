@@ -1,6 +1,6 @@
+import { LevelListFilterSelectOptionsViewModel } from 'src/Level/Level';
 import { LevelSelectFilterService } from '../LevelSelectFilter/LevelSelectFilterService';
 import { Injectable } from '@angular/core';
-import { LevelListFilterSelectOptionsViewModel } from '@krossr/api';
 
 @Injectable()
 export class MockLevelSelectFilterService extends LevelSelectFilterService {

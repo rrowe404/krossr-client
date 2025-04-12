@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingAnimationComponent } from '../LoadingAnimation/LoadingAnimationComponent';
 
 /**
  * Just a wrapper for the loading animation
@@ -6,7 +7,8 @@ import { Component } from '@angular/core';
  */
 @Component({
     selector: 'krossr-popup-loading-animation',
-    templateUrl: './PopupLoadingAnimationView.html'
+    templateUrl: './PopupLoadingAnimationView.html',
+    imports: [LoadingAnimationComponent]
 })
 export class PopupLoadingAnimationComponent {
 }

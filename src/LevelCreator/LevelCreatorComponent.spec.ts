@@ -3,12 +3,13 @@ import { LevelCreatorComponent } from './LevelCreatorComponent';
 import { LevelCreatorModule } from './LevelCreatorModule';
 import { StateService } from '@uirouter/core';
 import { MockStateService } from 'src/test/MockStateService';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { GameMatrix } from '../GameMatrix/GameMatrix';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { LevelService } from '../Level/LevelService';
 import { MockLevelService } from 'src/test/MockLevelService';
 import { TestHelpers } from 'src/test/TestHelpers';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LevelCreatorComponent', () => {
     let fixture: ComponentFixture<LevelCreatorComponent>;
@@ -16,15 +17,14 @@ describe('LevelCreatorComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                LevelCreatorModule
-            ],
-            providers: [
-                { provide: LevelService, useClass: MockLevelService },
-                { provide: StateService, useClass: MockStateService }
-            ]
-        });
+    imports: [LevelCreatorModule],
+    providers: [
+        { provide: LevelService, useClass: MockLevelService },
+        { provide: StateService, useClass: MockStateService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
         fixture = TestBed.createComponent(LevelCreatorComponent);
         component = fixture.componentInstance;

@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:14 as builder
+FROM node:22 as builder
 
 ARG NODE_ENV
 ARG PUPPETEER_SKIP_CHROMIUM_DOWNLOAD

@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { LevelListFilterOptions, LevelListLevelViewModel } from '@krossr/api';
+import { NgIf } from '@angular/common';
+import { UncompleteLevelPreviewComponent } from '../UncompleteLevelPreview/UncompleteLevelPreviewComponent';
+import { CompleteLevelPreviewComponent } from '../CompleteLevelPreview/CompleteLevelPreviewComponent';
+import { LevelListFilterOptions, LevelListLevelViewModel } from 'src/Level/Level';
 
 @Component({
     selector: 'krossr-level-select-tile',
     styleUrls: ['./LevelSelectTileStyles.less'],
-    templateUrl: './LevelSelectTileView.html'
+    templateUrl: './LevelSelectTileView.html',
+    imports: [NgIf, UncompleteLevelPreviewComponent, CompleteLevelPreviewComponent]
 })
 export class LevelSelectTileComponent {
     @Input() public level: LevelListLevelViewModel;

@@ -2,22 +2,16 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { UIRouterModule } from '@uirouter/angular';
 import { CompleteLevelPreviewModule } from '../CompleteLevelPreview/CompleteLevelPreviewModule';
-import { UncompleteLevelPreviewModule } from '../UncompleteLevelPreview/UncompleteLevelPreviewModule';
+
 import { LevelSelectTileComponent } from './LevelSelectTileComponent';
 
 @NgModule({
     imports: [
-        CommonModule,
-        CompleteLevelPreviewModule,
-        UncompleteLevelPreviewModule,
-        UIRouterModule.forChild()
-    ],
-    declarations: [
-        LevelSelectTileComponent
-    ],
-    entryComponents: [
-        LevelSelectTileComponent
-    ],
+    CommonModule,
+    CompleteLevelPreviewModule,
+    UIRouterModule.forChild(),
+    LevelSelectTileComponent
+],
     exports: [
         LevelSelectTileComponent
     ]

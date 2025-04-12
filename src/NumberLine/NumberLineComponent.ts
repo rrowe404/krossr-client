@@ -4,11 +4,13 @@ import { TileGroup } from '../TileGroup/TileGroup';
 import { TileSizeService } from '../TileSize/TileSizeService';
 import { Component, Input, OnInit } from '@angular/core';
 import { TileGroupEntry } from '../TileGroup/TileGroupEntry';
+import { NgFor, NgClass, NgStyle } from '@angular/common';
 
 @Component({
     selector: 'krossr-number-line',
     styleUrls: ['./NumberLineStyles.less'],
-    templateUrl: './NumberLineView.html'
+    templateUrl: './NumberLineView.html',
+    imports: [NgFor, NgClass, NgStyle]
 })
 export class NumberLineComponent implements OnInit {
 

@@ -1,14 +1,19 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounce } from '../Debounce/Debounce';
 import { LevelSelectFilterService } from './LevelSelectFilterService';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
-import { LevelListFilterOptions } from '@krossr/api';
 import { LevelListFilterSelectOptionsViewModel } from './LevelSelectFilterService';
+import { AsyncContentComponent } from '../Async/AsyncContentComponent';
+import { NgIf } from '@angular/common';
+import { KrossrSelectComponent } from '../KrossrSelect/KrossrSelectComponent';
+import { KrossrInputComponent } from '../KrossrInput/KrossrInputComponent';
+import { LevelListFilterOptions } from 'src/Level/Level';
 
 @Component({
     selector: 'krossr-level-select-filter',
-    templateUrl: './LevelSelectFilterView.html'
+    templateUrl: './LevelSelectFilterView.html',
+    imports: [AsyncContentComponent, NgIf, ReactiveFormsModule, KrossrSelectComponent, KrossrInputComponent]
 })
 export class LevelSelectFilterComponent implements AsyncLoadedComponent, OnInit {
     @Output() public refilter: EventEmitter<LevelListFilterOptions> = new EventEmitter();

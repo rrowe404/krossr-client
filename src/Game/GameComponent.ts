@@ -10,11 +10,14 @@ import { ShiftService } from '../Shift/ShiftService';
 import { TileLayout } from '../TileLayout/TileLayout';
 import { TouchService } from '../Touch/TouchService';
 import { GameSize } from '../GameSize/GameSize';
+import { NgIf, NgStyle, NgFor } from '@angular/common';
+import { TileComponent } from '../Tile/TileComponent';
 
 @Component({
     selector: 'krossr-game',
     styleUrls: ['./GameStyles.less'],
-    templateUrl: './GameView.html'
+    templateUrl: './GameView.html',
+    imports: [NgIf, NgStyle, NgFor, TileComponent]
 })
 export class GameComponent implements OnInit, OnChanges, OnDestroy {
     constructor(

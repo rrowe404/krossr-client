@@ -3,7 +3,6 @@ import { TileComponent } from './TileComponent';
 import { TileState } from './TileState';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { DragBoxService } from '../DragBox/DragBoxService';
-import { TileModule } from './TileModule';
 import { TileFillEventService } from './TileFillEventService';
 import { TouchService } from '../Touch/TouchService';
 
@@ -30,11 +29,7 @@ describe('TileComponent', () => {
     }
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                TileModule
-            ]
-        }).compileComponents();
+        TestBed.configureTestingModule({ }).compileComponents();
 
         fixture = getFixture();
         component = fixture.componentInstance;

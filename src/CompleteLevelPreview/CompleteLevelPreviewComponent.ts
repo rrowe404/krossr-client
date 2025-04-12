@@ -5,11 +5,13 @@ import { ILevel } from '../Level/Level';
 import { LevelDecoder } from '../LevelDecoder/LevelDecoder';
 import { BooleanMatrix } from '../Matrix/BooleanMatrix';
 import { TileSizeService } from '../TileSize/TileSizeService';
+import { GameComponent } from '../Game/GameComponent';
 
 @Component({
     selector: 'krossr-complete-level-preview',
     styleUrls: ['../LevelPreview/LevelPreviewStyles.less'],
-    templateUrl: 'CompleteLevelPreviewView.html'
+    templateUrl: 'CompleteLevelPreviewView.html',
+    imports: [GameComponent]
 })
 export class CompleteLevelPreviewComponent implements OnInit {
     @Input() public level: ILevel;

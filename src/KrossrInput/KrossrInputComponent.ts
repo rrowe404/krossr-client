@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'krossr-input',
-    templateUrl: './KrossrInputView.html'
+    templateUrl: './KrossrInputView.html',
+    imports: [ReactiveFormsModule, NgIf]
 })
 export class KrossrInputComponent implements OnInit {
     @Input() name: string;

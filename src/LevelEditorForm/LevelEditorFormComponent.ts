@@ -9,11 +9,17 @@ import { TileFillEventService } from '../Tile/TileFillEventService';
 import { TileState } from '../Tile/TileState';
 import { AsyncLoadedComponent } from '../Async/AsyncLoadedComponent';
 import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
-import { LevelEditorSelectOptionsViewModel } from '@krossr/api';
+import { LevelEditorSelectOptionsViewModel } from 'src/Level/Level';
+import { AsyncContentComponent } from '../Async/AsyncContentComponent';
+import { NgIf } from '@angular/common';
+import { KrossrInputComponent } from '../KrossrInput/KrossrInputComponent';
+import { KrossrSelectComponent } from '../KrossrSelect/KrossrSelectComponent';
+import { KrossrButtonComponent } from '../KrossrButton/KrossrButtonComponent';
 
 @Component({
     selector: 'krossr-level-editor-form',
-    templateUrl: './LevelEditorFormView.html'
+    templateUrl: './LevelEditorFormView.html',
+    imports: [AsyncContentComponent, NgIf, KrossrInputComponent, KrossrSelectComponent, KrossrButtonComponent]
 })
 export class LevelEditorFormComponent implements AsyncLoadedComponent, OnInit {
     @Input() public level: ILevel;

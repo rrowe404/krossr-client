@@ -4,11 +4,10 @@ import { CompleteLevelPreviewComponent } from './CompleteLevelPreviewComponent';
 
 @NgModule({
     imports: [
-        GameModule
+        GameModule,
+        CompleteLevelPreviewComponent
     ],
-    declarations: [ CompleteLevelPreviewComponent ],
-    entryComponents: [ CompleteLevelPreviewComponent ],
-    exports: [ CompleteLevelPreviewComponent ]
+    exports: [CompleteLevelPreviewComponent]
 })
 export class CompleteLevelPreviewModule {
 }

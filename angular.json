@@ -15,13 +15,16 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "optimization": false,
-            "outputPath": "dist/krossr-client",
+            "outputPath": {
+              "base": "dist/krossr-client"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -32,7 +35,8 @@
               "src/angular-material-theme.scss",
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -47,8 +51,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -67,19 +69,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "krossr-client:build"
+            "buildTarget": "krossr-client:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "krossr-client:build:production",
-              "proxyConfig": "proxy.prod.config.json"
+              "proxyConfig": "proxy.prod.config.json",
+              "buildTarget": "krossr-client:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "krossr-client:build"
+            "buildTarget": "krossr-client:build"
           }
         },
         "test": {
@@ -96,7 +98,8 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "watch": false
           }
         },
         "lint": {
@@ -106,18 +109,6 @@
               "src/**/*.ts",
               "src/**/*.html"
             ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "krossr-client:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "krossr-client:serve:production"
-            }
           }
         }
       }

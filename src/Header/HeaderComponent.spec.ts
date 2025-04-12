@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './HeaderComponent';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { HelpComponent } from '../Help/HelpComponent';
 import { HeaderModule } from './HeaderModule';
@@ -8,6 +8,7 @@ import { StateService } from '@uirouter/core';
 import { MockStateService } from 'src/test/MockStateService';
 import { LevelRoutes } from '../Routing/RouteNames';
 import { KrossrDialogService } from 'src/KrossrDialog/KrossrDialogService';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('HeaderComponent', () => {
     let fixture: ComponentFixture<HeaderComponent>;
@@ -17,15 +18,14 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                MatDialogModule,
-                HttpClientTestingModule,
-                HeaderModule
-            ],
-            providers: [
-                { provide: StateService, useClass: MockStateService }
-            ]
-        }).compileComponents();
+    imports: [MatDialogModule,
+        HeaderModule],
+    providers: [
+        { provide: StateService, useClass: MockStateService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
         fixture = TestBed.createComponent(HeaderComponent);
         component = fixture.componentInstance;

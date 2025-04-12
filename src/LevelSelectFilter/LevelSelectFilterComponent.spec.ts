@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LevelSelectFilterComponent } from './LevelSelectFilterComponent';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MockStateService } from 'src/test/MockStateService';
 import { StateService } from '@uirouter/core';
 import { LevelSelectFilterService } from './LevelSelectFilterService';
 import { MockLevelSelectFilterService } from 'src/test/MockLevelSelectFilterService';
-import { LevelSelectFilterModule } from './LevelSelectFilterModule';
-import { LevelListFilterOptions } from '@krossr/api';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { LevelListFilterOptions } from 'src/Level/Level';
 
 describe('LevelSelectFilterComponent', () => {
     let fixture: ComponentFixture<LevelSelectFilterComponent>;
@@ -14,15 +14,13 @@ describe('LevelSelectFilterComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                LevelSelectFilterModule
-            ],
-            providers: [
-                { provide: LevelSelectFilterService, useClass: MockLevelSelectFilterService },
-                { provide: StateService, useValue: MockStateService },
-            ]
-        }).compileComponents();
+    providers: [
+        { provide: LevelSelectFilterService, useClass: MockLevelSelectFilterService },
+        { provide: StateService, useValue: MockStateService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
 
         fixture = TestBed.createComponent(LevelSelectFilterComponent);
         component = fixture.componentInstance;
