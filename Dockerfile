@@ -17,7 +17,7 @@ RUN npm run build
 FROM nginx
 RUN rm -rf /usr/share/nginx/html/*
 COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/dist/krossr-client /usr/share/nginx/html
+COPY --from=builder /app/dist/krossr-client/browser /usr/share/nginx/html
 
 # Stage 3: Go
 CMD ["nginx", "-g", "daemon off;"]
