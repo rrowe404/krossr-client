@@ -9,8 +9,6 @@ stages:
 
 ### GLOBAL VARS ###
 variables:
-  BASE_NAME: krossr
-  BUILD_IMAGE_VERSION: latest
   IMAGE_NAME: gcr.io/krossr/client
   TAG_LOGIC: '(if [ "$${CI_COMMIT_BRANCH}" == "master" ]; then echo "latest"; else echo "$${CI_COMMIT_BRANCH}"; fi);'
   DOCKER_DRIVER: overlay2
@@ -22,7 +20,7 @@ cache: &global_cache
 
 ### DEPENDENCIES
 install_dependencies:
-  image: registry.gitlab.com/${BASE_NAME}/images/build-image:${BUILD_IMAGE_VERSION}
+  image: node:22.14-alpine
   stage: install_dependencies
   variables:
     NODE_ENV: "development"
@@ -33,7 +31,7 @@ install_dependencies:
     - npm install
 
 build_library:
-  image: registry.gitlab.com/${BASE_NAME}/images/build-image:${BUILD_IMAGE_VERSION} 
+  image: node:22.14-alpine
   stage: build_library
   artifacts:
     untracked: true
@@ -60,7 +58,7 @@ node lint:
   dependencies:
     - build_library
   stage: test
-  image: registry.gitlab.com/${BASE_NAME}/images/build-image:${BUILD_IMAGE_VERSION}
+  image: node:22.14-alpine
   script:
     - npm run lint
 
